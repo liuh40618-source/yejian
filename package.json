@@ -1,17 +1,11 @@
 {
-	"name": "reactive-resume",
-	"description": "Reactive Resume is a free and open-source resume builder that makes it easy to create, update, and share your resume.",
-	"version": "6.0.10",
+	"name": "yejian",
+	"description": "页见 — 面向中国招聘市场的简历工具，基于 Reactive Resume v6.0.10 二次开发。",
+	"version": "0.1.0",
 	"private": true,
 	"license": "MIT",
 	"author": {
-		"name": "Amruth Pillai",
-		"email": "amruth@rxresu.me",
-		"url": "https://amruthpillai.com"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/reactive-resume/reactive-resume.git"
+		"name": "liuh40618-source"
 	},
 	"engines": {
 		"node": "24.x"

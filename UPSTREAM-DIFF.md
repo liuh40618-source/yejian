@@ -3,6 +3,12 @@
 > 生成：2026-11-08 · 基线：用户提供的 `D:/Chrome/reactive-resume-main.zip` · 方法：MD5 逐文件比对
 > 用途：二次创新的**可追溯**证据，也是 README「改了什么 / 为什么」的素材来源。
 > 本文只陈述文件事实；回归与测试证据见 `REGRESSION-UPSTREAM-GAP.md`。
+>
+> **状态更新（2026-11-08 晚）**：P0 已执行。项目定名**页见**；本地 git 已按 §8 建立两段真实提交
+> （`deef281` 上游基线 → `4b637dc` 定制版），**无 remote、未推送**；`package.json` / `README.md` /
+> `NOTICE.md` / `SECURITY.md` 已改写，`docs/spec.json` 已重新生成。
+> 因此 §1、§6 描述的「身份文件与上游相同」和 §9 的状态表都是**执行前快照**，仅作历史证据；
+> 现状与公开前待办见 **§10**。仓库当前**私有**，等完善后再开源。
 
 ---
 
@@ -17,7 +23,7 @@
 | 解压位置   | `D:/Deepseek/.upstream-src/reactive-resume-main`（项目外部，不污染工作区）                                                                     |
 | 比对方法   | 递归遍历两棵树，排除 `node_modules` / `dist` / `build` / `.turbo` / `.next` / `.expo` / `coverage` / `.cache` / `test-results`；同名文件比 MD5 |
 | 完整清单   | `D:/Deepseek/.upstream-src/diff-report.txt`（1224 行，ADDED / REMOVED / MODIFIED 全列表）                                                      |
-| 当前工作区 | **仍无 `.git`**                                                                                                                                |
+| 当前工作区 | 建库前**无 `.git`**；现已按 §8 建立两段提交（见顶部状态更新与 §10）                                                                            |
 
 复现（Windows / Git Bash）：
 
@@ -219,3 +225,50 @@ git diff --stat HEAD~1 HEAD      # 应显示约 710 added / 223 deleted / 286 mo
 
 下一动作不是加功能，而是：§8 建基线 → 改 4 份身份文件 → 新增 `NOTICE.md` →
 把本文 §2 / §5 提炼成 README 的 "What changed / Why"。
+
+> 以上四项已于 2026-11-08 晚全部完成，见 §10。
+
+---
+
+## 10. 现状与公开前清单
+
+### 10.1 P0 已落地（2026-11-08 晚）
+
+| 项       | 结果                                                                                                                                                |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 可追溯   | 本地 git：`deef281` 上游基线 → `4b637dc` 定制版 → 第三段为项目身份层；`git diff` 真实可核对                                                         |
+| 可辨识   | 定名**页见**；`package.json` → `yejian` / `0.1.0` / 自有 author；README 重写为中文；新增 `NOTICE.md`；`SECURITY.md` 去掉上游 `5.0.x` 策略与上游邮箱 |
+| 合规     | `LICENSE` **原样保留** MIT 原文与 `Copyright (c) 2026 Amruth Pillai`；`NOTICE.md` 声明修改部分版权与来源、明确上游不背书                            |
+| 联动     | `apps/server/src/openapi/generator.ts` 去掉上游 LICENSE URL；`pnpm docs:gen` 重跑后 `docs/spec.json` 为 `页见` / `0.1.0` / MIT                      |
+| 私有保证 | `git remote -v` 为空，未推送；`.env.local`、`.workbuddy-ai/` 均未被跟踪                                                                             |
+
+MIT 是宽松许可，**不要求公开衍生作品**。当前不发布完全合规；一旦公开，只要在分发物中保留
+`LICENSE` 原文与版权声明即满足上游义务。
+
+### 10.2 公开前清单（等项目完善后逐项清掉）
+
+| #   | 项目         | 现状                                                                      | 需要的动作                                                                                                   |
+| --- | ------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| 1   | 中文字体授权 | 505 个 Noto woff2 **无 OFL 文本**                                         | 补 `NotoSansSC-OFL.txt` / `NotoSerifSC-OFL.txt`（SIL OFL 1.1 + 字体版权行），照 `ibm-plex-mono-OFL.txt` 放置 |
+| 2   | 法务页与链接 | Mobile 设置页、登录页、`store/metadata.json` 共 6 处指向 `docs.rxresu.me` | 补本地隐私政策 / 用户协议页并改链；补 ICP 备案信息                                                           |
+| 3   | CI 硬编码    | `docker-publish.yml:26` 为 `docker.io/amruthpillai/reactive-resume`       | 改成本仓库镜像或删除该 workflow；核对 `issue-maintenance.yml` 的定时任务是公共仓库下是否合适                 |
+| 4   | 上游内部痕迹 | 5 个 `.agents/docs/rx-*.md` 含作者 Linear 链接与 `/Users/amruth/...`      | 已被 `.gitignore` 忽略、**不会进仓库**；如需从工作区彻底移除再手动删                                         |
+| 5   | 品牌资源     | `apps/web/public/opengraph/banner.jpg` 仍是上游图                         | 换成页见 banner；`apps/server/src/static/{web,resume-card,resume-page}.ts` 引用该路径                        |
+| 6   | 文档站外链   | `docs/changelog/index.mdx`、`packages/resume/src/patch.ts` 注释等         | 逐项核对：纯溯源链接保留，功能性跳转改本地                                                                   |
+| 7   | 个人信息     | commit 历史含 `liuh40618@gmail.com`                                       | 决定是否换 GitHub no-reply 邮箱；如需剔除要在**公开前**重写历史                                              |
+| 8   | 署名确认     | 暂用本机 git 身份 `liuh40618-source`                                      | 若要真名 / 笔名，同步改 `package.json`、`NOTICE.md`、README 三处                                             |
+| 9   | 版本号联动   | `docs/spec.json` 由 `pnpm docs:gen` 生成                                  | 每次改 `package.json` 的 version 后重跑 `pnpm docs:gen`                                                      |
+| 10  | 回归与 CI    | 默认态全绿；DB 集成 490 条受本机单机 Postgres 限制                        | CI 上配 Linux Postgres + 一文件一库串行；修或注明 mobile 6 条 Windows `/D:/` 测试                            |
+
+另外，产品侧还有两件不阻塞发布但决定「好不好用」的事：平台表单映射目前是只读预览（无导出 / 填充），
+JD 只存在组件内存、刷新即丢。
+
+### 10.3 决定公开时
+
+```sh
+git remote add origin <your-repo-url>
+git push -u origin main
+```
+
+推送前把 §10.2 清完，并把 README 顶部的「私有」状态、`SECURITY.md` 的状态段、
+`NOTICE.md` 末尾的 "Current status" 一起改成公开口径。

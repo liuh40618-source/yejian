@@ -121,7 +121,7 @@ export async function generateOpenApiSpec({ appUrl, version }: GenerateOpenApiSp
 			version,
 			description:
 				"页见 API. Mutations do not support Idempotency-Key. Do not automatically retry POST, PUT, PATCH or DELETE requests after a timeout: first read the resource to determine whether the operation succeeded. Existing enum values and response shapes are retained for compatibility.",
-			license: { name: "MIT", url: "https://github.com/reactive-resume/reactive-resume/blob/main/LICENSE" },
+			license: { name: "MIT" },
 			contact: { name: "页见" },
 		},
 		servers: [{ url: `${appUrl}/api/openapi` }],

@@ -1,11 +1,10 @@
 {
 	"info": {
 		"title": "页见",
-		"version": "6.0.10",
+		"version": "0.1.0",
 		"description": "页见 API. Mutations do not support Idempotency-Key. Do not automatically retry POST, PUT, PATCH or DELETE requests after a timeout: first read the resource to determine whether the operation succeeded. Existing enum values and response shapes are retained for compatibility.",
 		"license": {
-			"name": "MIT",
-			"url": "https://github.com/reactive-resume/reactive-resume/blob/main/LICENSE"
+			"name": "MIT"
 		},
 		"contact": {
 			"name": "页见"
@@ -6045,6 +6044,127 @@
 												"styleRules": {
 													"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 												},
+												"chinaMarket": {
+													"type": "object",
+													"properties": {
+														"scene": {
+															"enum": [
+																"market",
+																"campus",
+																"soe"
+															],
+															"type": "string"
+														},
+														"preset": {
+															"enum": [
+																"ats",
+																"xhs",
+																"table",
+																"custom"
+															],
+															"type": "string"
+														},
+														"platform": {
+															"enum": [
+																"boss",
+																"zhilian",
+																"job51",
+																"soe"
+															],
+															"type": "string"
+														},
+														"style": {
+															"type": "object",
+															"properties": {
+																"photo": {
+																	"type": "boolean"
+																},
+																"centerName": {
+																	"type": "boolean"
+																},
+																"compactIntent": {
+																	"type": "boolean"
+																},
+																"softLabels": {
+																	"type": "boolean"
+																},
+																"registrationTable": {
+																	"type": "boolean"
+																}
+															},
+															"required": [
+																"photo",
+																"centerName",
+																"compactIntent",
+																"softLabels",
+																"registrationTable"
+															]
+														},
+														"profile": {
+															"type": "object",
+															"properties": {
+																"wechat": {
+																	"type": "string"
+																},
+																"gender": {
+																	"type": "string"
+																},
+																"political": {
+																	"type": "string"
+																},
+																"nativePlace": {
+																	"type": "string"
+																},
+																"english": {
+																	"type": "string"
+																},
+																"cadre": {
+																	"type": "string"
+																},
+																"major": {
+																	"type": "string"
+																},
+																"gpa": {
+																	"type": "string"
+																},
+																"courses": {
+																	"type": "string"
+																},
+																"intentCity": {
+																	"type": "string"
+																},
+																"intentSalary": {
+																	"type": "string"
+																},
+																"arrival": {
+																	"type": "string"
+																}
+															},
+															"required": [
+																"wechat",
+																"gender",
+																"political",
+																"nativePlace",
+																"english",
+																"cadre",
+																"major",
+																"gpa",
+																"courses",
+																"intentCity",
+																"intentSalary",
+																"arrival"
+															]
+														}
+													},
+													"required": [
+														"scene",
+														"preset",
+														"platform",
+														"style",
+														"profile"
+													],
+													"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+												},
 												"stylesheet": {
 													"type": "object",
 													"properties": {
@@ -10621,6 +10741,127 @@
 												},
 												"styleRules": {
 													"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+												},
+												"chinaMarket": {
+													"type": "object",
+													"properties": {
+														"scene": {
+															"enum": [
+																"market",
+																"campus",
+																"soe"
+															],
+															"type": "string"
+														},
+														"preset": {
+															"enum": [
+																"ats",
+																"xhs",
+																"table",
+																"custom"
+															],
+															"type": "string"
+														},
+														"platform": {
+															"enum": [
+																"boss",
+																"zhilian",
+																"job51",
+																"soe"
+															],
+															"type": "string"
+														},
+														"style": {
+															"type": "object",
+															"properties": {
+																"photo": {
+																	"type": "boolean"
+																},
+																"centerName": {
+																	"type": "boolean"
+																},
+																"compactIntent": {
+																	"type": "boolean"
+																},
+																"softLabels": {
+																	"type": "boolean"
+																},
+																"registrationTable": {
+																	"type": "boolean"
+																}
+															},
+															"required": [
+																"photo",
+																"centerName",
+																"compactIntent",
+																"softLabels",
+																"registrationTable"
+															]
+														},
+														"profile": {
+															"type": "object",
+															"properties": {
+																"wechat": {
+																	"type": "string"
+																},
+																"gender": {
+																	"type": "string"
+																},
+																"political": {
+																	"type": "string"
+																},
+																"nativePlace": {
+																	"type": "string"
+																},
+																"english": {
+																	"type": "string"
+																},
+																"cadre": {
+																	"type": "string"
+																},
+																"major": {
+																	"type": "string"
+																},
+																"gpa": {
+																	"type": "string"
+																},
+																"courses": {
+																	"type": "string"
+																},
+																"intentCity": {
+																	"type": "string"
+																},
+																"intentSalary": {
+																	"type": "string"
+																},
+																"arrival": {
+																	"type": "string"
+																}
+															},
+															"required": [
+																"wechat",
+																"gender",
+																"political",
+																"nativePlace",
+																"english",
+																"cadre",
+																"major",
+																"gpa",
+																"courses",
+																"intentCity",
+																"intentSalary",
+																"arrival"
+															]
+														}
+													},
+													"required": [
+														"scene",
+														"preset",
+														"platform",
+														"style",
+														"profile"
+													],
+													"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 												},
 												"stylesheet": {
 													"type": "object",
@@ -42379,6 +42620,127 @@
 																	"styleRules": {
 																		"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 																	},
+																	"chinaMarket": {
+																		"type": "object",
+																		"properties": {
+																			"scene": {
+																				"enum": [
+																					"market",
+																					"campus",
+																					"soe"
+																				],
+																				"type": "string"
+																			},
+																			"preset": {
+																				"enum": [
+																					"ats",
+																					"xhs",
+																					"table",
+																					"custom"
+																				],
+																				"type": "string"
+																			},
+																			"platform": {
+																				"enum": [
+																					"boss",
+																					"zhilian",
+																					"job51",
+																					"soe"
+																				],
+																				"type": "string"
+																			},
+																			"style": {
+																				"type": "object",
+																				"properties": {
+																					"photo": {
+																						"type": "boolean"
+																					},
+																					"centerName": {
+																						"type": "boolean"
+																					},
+																					"compactIntent": {
+																						"type": "boolean"
+																					},
+																					"softLabels": {
+																						"type": "boolean"
+																					},
+																					"registrationTable": {
+																						"type": "boolean"
+																					}
+																				},
+																				"required": [
+																					"photo",
+																					"centerName",
+																					"compactIntent",
+																					"softLabels",
+																					"registrationTable"
+																				]
+																			},
+																			"profile": {
+																				"type": "object",
+																				"properties": {
+																					"wechat": {
+																						"type": "string"
+																					},
+																					"gender": {
+																						"type": "string"
+																					},
+																					"political": {
+																						"type": "string"
+																					},
+																					"nativePlace": {
+																						"type": "string"
+																					},
+																					"english": {
+																						"type": "string"
+																					},
+																					"cadre": {
+																						"type": "string"
+																					},
+																					"major": {
+																						"type": "string"
+																					},
+																					"gpa": {
+																						"type": "string"
+																					},
+																					"courses": {
+																						"type": "string"
+																					},
+																					"intentCity": {
+																						"type": "string"
+																					},
+																					"intentSalary": {
+																						"type": "string"
+																					},
+																					"arrival": {
+																						"type": "string"
+																					}
+																				},
+																				"required": [
+																					"wechat",
+																					"gender",
+																					"political",
+																					"nativePlace",
+																					"english",
+																					"cadre",
+																					"major",
+																					"gpa",
+																					"courses",
+																					"intentCity",
+																					"intentSalary",
+																					"arrival"
+																				]
+																			}
+																		},
+																		"required": [
+																			"scene",
+																			"preset",
+																			"platform",
+																			"style",
+																			"profile"
+																		],
+																		"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+																	},
 																	"stylesheet": {
 																		"type": "object",
 																		"properties": {
@@ -43018,6 +43380,127 @@
 																	},
 																	"styleRules": {
 																		"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+																	},
+																	"chinaMarket": {
+																		"type": "object",
+																		"properties": {
+																			"scene": {
+																				"enum": [
+																					"market",
+																					"campus",
+																					"soe"
+																				],
+																				"type": "string"
+																			},
+																			"preset": {
+																				"enum": [
+																					"ats",
+																					"xhs",
+																					"table",
+																					"custom"
+																				],
+																				"type": "string"
+																			},
+																			"platform": {
+																				"enum": [
+																					"boss",
+																					"zhilian",
+																					"job51",
+																					"soe"
+																				],
+																				"type": "string"
+																			},
+																			"style": {
+																				"type": "object",
+																				"properties": {
+																					"photo": {
+																						"type": "boolean"
+																					},
+																					"centerName": {
+																						"type": "boolean"
+																					},
+																					"compactIntent": {
+																						"type": "boolean"
+																					},
+																					"softLabels": {
+																						"type": "boolean"
+																					},
+																					"registrationTable": {
+																						"type": "boolean"
+																					}
+																				},
+																				"required": [
+																					"photo",
+																					"centerName",
+																					"compactIntent",
+																					"softLabels",
+																					"registrationTable"
+																				]
+																			},
+																			"profile": {
+																				"type": "object",
+																				"properties": {
+																					"wechat": {
+																						"type": "string"
+																					},
+																					"gender": {
+																						"type": "string"
+																					},
+																					"political": {
+																						"type": "string"
+																					},
+																					"nativePlace": {
+																						"type": "string"
+																					},
+																					"english": {
+																						"type": "string"
+																					},
+																					"cadre": {
+																						"type": "string"
+																					},
+																					"major": {
+																						"type": "string"
+																					},
+																					"gpa": {
+																						"type": "string"
+																					},
+																					"courses": {
+																						"type": "string"
+																					},
+																					"intentCity": {
+																						"type": "string"
+																					},
+																					"intentSalary": {
+																						"type": "string"
+																					},
+																					"arrival": {
+																						"type": "string"
+																					}
+																				},
+																				"required": [
+																					"wechat",
+																					"gender",
+																					"political",
+																					"nativePlace",
+																					"english",
+																					"cadre",
+																					"major",
+																					"gpa",
+																					"courses",
+																					"intentCity",
+																					"intentSalary",
+																					"arrival"
+																				]
+																			}
+																		},
+																		"required": [
+																			"scene",
+																			"preset",
+																			"platform",
+																			"style",
+																			"profile"
+																		],
+																		"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 																	},
 																	"stylesheet": {
 																		"type": "object",
@@ -59643,6 +60126,127 @@
 																	"styleRules": {
 																		"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 																	},
+																	"chinaMarket": {
+																		"type": "object",
+																		"properties": {
+																			"scene": {
+																				"enum": [
+																					"market",
+																					"campus",
+																					"soe"
+																				],
+																				"type": "string"
+																			},
+																			"preset": {
+																				"enum": [
+																					"ats",
+																					"xhs",
+																					"table",
+																					"custom"
+																				],
+																				"type": "string"
+																			},
+																			"platform": {
+																				"enum": [
+																					"boss",
+																					"zhilian",
+																					"job51",
+																					"soe"
+																				],
+																				"type": "string"
+																			},
+																			"style": {
+																				"type": "object",
+																				"properties": {
+																					"photo": {
+																						"type": "boolean"
+																					},
+																					"centerName": {
+																						"type": "boolean"
+																					},
+																					"compactIntent": {
+																						"type": "boolean"
+																					},
+																					"softLabels": {
+																						"type": "boolean"
+																					},
+																					"registrationTable": {
+																						"type": "boolean"
+																					}
+																				},
+																				"required": [
+																					"photo",
+																					"centerName",
+																					"compactIntent",
+																					"softLabels",
+																					"registrationTable"
+																				]
+																			},
+																			"profile": {
+																				"type": "object",
+																				"properties": {
+																					"wechat": {
+																						"type": "string"
+																					},
+																					"gender": {
+																						"type": "string"
+																					},
+																					"political": {
+																						"type": "string"
+																					},
+																					"nativePlace": {
+																						"type": "string"
+																					},
+																					"english": {
+																						"type": "string"
+																					},
+																					"cadre": {
+																						"type": "string"
+																					},
+																					"major": {
+																						"type": "string"
+																					},
+																					"gpa": {
+																						"type": "string"
+																					},
+																					"courses": {
+																						"type": "string"
+																					},
+																					"intentCity": {
+																						"type": "string"
+																					},
+																					"intentSalary": {
+																						"type": "string"
+																					},
+																					"arrival": {
+																						"type": "string"
+																					}
+																				},
+																				"required": [
+																					"wechat",
+																					"gender",
+																					"political",
+																					"nativePlace",
+																					"english",
+																					"cadre",
+																					"major",
+																					"gpa",
+																					"courses",
+																					"intentCity",
+																					"intentSalary",
+																					"arrival"
+																				]
+																			}
+																		},
+																		"required": [
+																			"scene",
+																			"preset",
+																			"platform",
+																			"style",
+																			"profile"
+																		],
+																		"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+																	},
 																	"stylesheet": {
 																		"type": "object",
 																		"properties": {
@@ -60544,6 +61148,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -61333,6 +62058,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -62661,6 +63507,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -64082,6 +65049,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -64898,6 +65986,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -65706,6 +66915,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -66496,6 +67826,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -67229,6 +68680,127 @@
 																"items": {},
 																"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 															},
+															"chinaMarket": {
+																"type": "object",
+																"properties": {
+																	"scene": {
+																		"enum": [
+																			"market",
+																			"campus",
+																			"soe"
+																		],
+																		"type": "string"
+																	},
+																	"preset": {
+																		"enum": [
+																			"ats",
+																			"xhs",
+																			"table",
+																			"custom"
+																		],
+																		"type": "string"
+																	},
+																	"platform": {
+																		"enum": [
+																			"boss",
+																			"zhilian",
+																			"job51",
+																			"soe"
+																		],
+																		"type": "string"
+																	},
+																	"style": {
+																		"type": "object",
+																		"properties": {
+																			"photo": {
+																				"type": "boolean"
+																			},
+																			"centerName": {
+																				"type": "boolean"
+																			},
+																			"compactIntent": {
+																				"type": "boolean"
+																			},
+																			"softLabels": {
+																				"type": "boolean"
+																			},
+																			"registrationTable": {
+																				"type": "boolean"
+																			}
+																		},
+																		"required": [
+																			"photo",
+																			"centerName",
+																			"compactIntent",
+																			"softLabels",
+																			"registrationTable"
+																		]
+																	},
+																	"profile": {
+																		"type": "object",
+																		"properties": {
+																			"wechat": {
+																				"type": "string"
+																			},
+																			"gender": {
+																				"type": "string"
+																			},
+																			"political": {
+																				"type": "string"
+																			},
+																			"nativePlace": {
+																				"type": "string"
+																			},
+																			"english": {
+																				"type": "string"
+																			},
+																			"cadre": {
+																				"type": "string"
+																			},
+																			"major": {
+																				"type": "string"
+																			},
+																			"gpa": {
+																				"type": "string"
+																			},
+																			"courses": {
+																				"type": "string"
+																			},
+																			"intentCity": {
+																				"type": "string"
+																			},
+																			"intentSalary": {
+																				"type": "string"
+																			},
+																			"arrival": {
+																				"type": "string"
+																			}
+																		},
+																		"required": [
+																			"wechat",
+																			"gender",
+																			"political",
+																			"nativePlace",
+																			"english",
+																			"cadre",
+																			"major",
+																			"gpa",
+																			"courses",
+																			"intentCity",
+																			"intentSalary",
+																			"arrival"
+																		]
+																	}
+																},
+																"required": [
+																	"scene",
+																	"preset",
+																	"platform",
+																	"style",
+																	"profile"
+																],
+																"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+															},
 															"stylesheet": {
 																"type": "object",
 																"properties": {
@@ -67902,6 +69474,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -69039,6 +70732,127 @@
 																"styleRules": {
 																	"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 																},
+																"chinaMarket": {
+																	"type": "object",
+																	"properties": {
+																		"scene": {
+																			"enum": [
+																				"market",
+																				"campus",
+																				"soe"
+																			],
+																			"type": "string"
+																		},
+																		"preset": {
+																			"enum": [
+																				"ats",
+																				"xhs",
+																				"table",
+																				"custom"
+																			],
+																			"type": "string"
+																		},
+																		"platform": {
+																			"enum": [
+																				"boss",
+																				"zhilian",
+																				"job51",
+																				"soe"
+																			],
+																			"type": "string"
+																		},
+																		"style": {
+																			"type": "object",
+																			"properties": {
+																				"photo": {
+																					"type": "boolean"
+																				},
+																				"centerName": {
+																					"type": "boolean"
+																				},
+																				"compactIntent": {
+																					"type": "boolean"
+																				},
+																				"softLabels": {
+																					"type": "boolean"
+																				},
+																				"registrationTable": {
+																					"type": "boolean"
+																				}
+																			},
+																			"required": [
+																				"photo",
+																				"centerName",
+																				"compactIntent",
+																				"softLabels",
+																				"registrationTable"
+																			]
+																		},
+																		"profile": {
+																			"type": "object",
+																			"properties": {
+																				"wechat": {
+																					"type": "string"
+																				},
+																				"gender": {
+																					"type": "string"
+																				},
+																				"political": {
+																					"type": "string"
+																				},
+																				"nativePlace": {
+																					"type": "string"
+																				},
+																				"english": {
+																					"type": "string"
+																				},
+																				"cadre": {
+																					"type": "string"
+																				},
+																				"major": {
+																					"type": "string"
+																				},
+																				"gpa": {
+																					"type": "string"
+																				},
+																				"courses": {
+																					"type": "string"
+																				},
+																				"intentCity": {
+																					"type": "string"
+																				},
+																				"intentSalary": {
+																					"type": "string"
+																				},
+																				"arrival": {
+																					"type": "string"
+																				}
+																			},
+																			"required": [
+																				"wechat",
+																				"gender",
+																				"political",
+																				"nativePlace",
+																				"english",
+																				"cadre",
+																				"major",
+																				"gpa",
+																				"courses",
+																				"intentCity",
+																				"intentSalary",
+																				"arrival"
+																			]
+																		}
+																	},
+																	"required": [
+																		"scene",
+																		"preset",
+																		"platform",
+																		"style",
+																		"profile"
+																	],
+																	"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+																},
 																"stylesheet": {
 																	"type": "object",
 																	"properties": {
@@ -70029,6 +71843,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -76906,6 +78841,127 @@
 																"styleRules": {
 																	"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 																},
+																"chinaMarket": {
+																	"type": "object",
+																	"properties": {
+																		"scene": {
+																			"enum": [
+																				"market",
+																				"campus",
+																				"soe"
+																			],
+																			"type": "string"
+																		},
+																		"preset": {
+																			"enum": [
+																				"ats",
+																				"xhs",
+																				"table",
+																				"custom"
+																			],
+																			"type": "string"
+																		},
+																		"platform": {
+																			"enum": [
+																				"boss",
+																				"zhilian",
+																				"job51",
+																				"soe"
+																			],
+																			"type": "string"
+																		},
+																		"style": {
+																			"type": "object",
+																			"properties": {
+																				"photo": {
+																					"type": "boolean"
+																				},
+																				"centerName": {
+																					"type": "boolean"
+																				},
+																				"compactIntent": {
+																					"type": "boolean"
+																				},
+																				"softLabels": {
+																					"type": "boolean"
+																				},
+																				"registrationTable": {
+																					"type": "boolean"
+																				}
+																			},
+																			"required": [
+																				"photo",
+																				"centerName",
+																				"compactIntent",
+																				"softLabels",
+																				"registrationTable"
+																			]
+																		},
+																		"profile": {
+																			"type": "object",
+																			"properties": {
+																				"wechat": {
+																					"type": "string"
+																				},
+																				"gender": {
+																					"type": "string"
+																				},
+																				"political": {
+																					"type": "string"
+																				},
+																				"nativePlace": {
+																					"type": "string"
+																				},
+																				"english": {
+																					"type": "string"
+																				},
+																				"cadre": {
+																					"type": "string"
+																				},
+																				"major": {
+																					"type": "string"
+																				},
+																				"gpa": {
+																					"type": "string"
+																				},
+																				"courses": {
+																					"type": "string"
+																				},
+																				"intentCity": {
+																					"type": "string"
+																				},
+																				"intentSalary": {
+																					"type": "string"
+																				},
+																				"arrival": {
+																					"type": "string"
+																				}
+																			},
+																			"required": [
+																				"wechat",
+																				"gender",
+																				"political",
+																				"nativePlace",
+																				"english",
+																				"cadre",
+																				"major",
+																				"gpa",
+																				"courses",
+																				"intentCity",
+																				"intentSalary",
+																				"arrival"
+																			]
+																		}
+																	},
+																	"required": [
+																		"scene",
+																		"preset",
+																		"platform",
+																		"style",
+																		"profile"
+																	],
+																	"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+																},
 																"stylesheet": {
 																	"type": "object",
 																	"properties": {
@@ -83295,6 +85351,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -89244,6 +91421,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -93844,6 +96142,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -98758,6 +101177,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -103577,6 +106117,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -108445,6 +111106,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -113043,6 +115825,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -117645,6 +120548,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -122297,6 +125321,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -127601,6 +130746,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -132342,6 +135608,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -139787,6 +143174,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -144978,6 +148486,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -146014,6 +149643,127 @@
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+														},
 														"stylesheet": {
 															"type": "object",
 															"properties": {
@@ -146797,6 +150547,127 @@
 																"items": {},
 																"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 															},
+															"chinaMarket": {
+																"type": "object",
+																"properties": {
+																	"scene": {
+																		"enum": [
+																			"market",
+																			"campus",
+																			"soe"
+																		],
+																		"type": "string"
+																	},
+																	"preset": {
+																		"enum": [
+																			"ats",
+																			"xhs",
+																			"table",
+																			"custom"
+																		],
+																		"type": "string"
+																	},
+																	"platform": {
+																		"enum": [
+																			"boss",
+																			"zhilian",
+																			"job51",
+																			"soe"
+																		],
+																		"type": "string"
+																	},
+																	"style": {
+																		"type": "object",
+																		"properties": {
+																			"photo": {
+																				"type": "boolean"
+																			},
+																			"centerName": {
+																				"type": "boolean"
+																			},
+																			"compactIntent": {
+																				"type": "boolean"
+																			},
+																			"softLabels": {
+																				"type": "boolean"
+																			},
+																			"registrationTable": {
+																				"type": "boolean"
+																			}
+																		},
+																		"required": [
+																			"photo",
+																			"centerName",
+																			"compactIntent",
+																			"softLabels",
+																			"registrationTable"
+																		]
+																	},
+																	"profile": {
+																		"type": "object",
+																		"properties": {
+																			"wechat": {
+																				"type": "string"
+																			},
+																			"gender": {
+																				"type": "string"
+																			},
+																			"political": {
+																				"type": "string"
+																			},
+																			"nativePlace": {
+																				"type": "string"
+																			},
+																			"english": {
+																				"type": "string"
+																			},
+																			"cadre": {
+																				"type": "string"
+																			},
+																			"major": {
+																				"type": "string"
+																			},
+																			"gpa": {
+																				"type": "string"
+																			},
+																			"courses": {
+																				"type": "string"
+																			},
+																			"intentCity": {
+																				"type": "string"
+																			},
+																			"intentSalary": {
+																				"type": "string"
+																			},
+																			"arrival": {
+																				"type": "string"
+																			}
+																		},
+																		"required": [
+																			"wechat",
+																			"gender",
+																			"political",
+																			"nativePlace",
+																			"english",
+																			"cadre",
+																			"major",
+																			"gpa",
+																			"courses",
+																			"intentCity",
+																			"intentSalary",
+																			"arrival"
+																		]
+																	}
+																},
+																"required": [
+																	"scene",
+																	"preset",
+																	"platform",
+																	"style",
+																	"profile"
+																],
+																"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+															},
 															"stylesheet": {
 																"type": "object",
 																"properties": {
@@ -147470,6 +151341,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -148285,6 +152277,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -149268,6 +153381,127 @@
 														},
 														"styleRules": {
 															"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+														},
+														"chinaMarket": {
+															"type": "object",
+															"properties": {
+																"scene": {
+																	"enum": [
+																		"market",
+																		"campus",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"preset": {
+																	"enum": [
+																		"ats",
+																		"xhs",
+																		"table",
+																		"custom"
+																	],
+																	"type": "string"
+																},
+																"platform": {
+																	"enum": [
+																		"boss",
+																		"zhilian",
+																		"job51",
+																		"soe"
+																	],
+																	"type": "string"
+																},
+																"style": {
+																	"type": "object",
+																	"properties": {
+																		"photo": {
+																			"type": "boolean"
+																		},
+																		"centerName": {
+																			"type": "boolean"
+																		},
+																		"compactIntent": {
+																			"type": "boolean"
+																		},
+																		"softLabels": {
+																			"type": "boolean"
+																		},
+																		"registrationTable": {
+																			"type": "boolean"
+																		}
+																	},
+																	"required": [
+																		"photo",
+																		"centerName",
+																		"compactIntent",
+																		"softLabels",
+																		"registrationTable"
+																	]
+																},
+																"profile": {
+																	"type": "object",
+																	"properties": {
+																		"wechat": {
+																			"type": "string"
+																		},
+																		"gender": {
+																			"type": "string"
+																		},
+																		"political": {
+																			"type": "string"
+																		},
+																		"nativePlace": {
+																			"type": "string"
+																		},
+																		"english": {
+																			"type": "string"
+																		},
+																		"cadre": {
+																			"type": "string"
+																		},
+																		"major": {
+																			"type": "string"
+																		},
+																		"gpa": {
+																			"type": "string"
+																		},
+																		"courses": {
+																			"type": "string"
+																		},
+																		"intentCity": {
+																			"type": "string"
+																		},
+																		"intentSalary": {
+																			"type": "string"
+																		},
+																		"arrival": {
+																			"type": "string"
+																		}
+																	},
+																	"required": [
+																		"wechat",
+																		"gender",
+																		"political",
+																		"nativePlace",
+																		"english",
+																		"cadre",
+																		"major",
+																		"gpa",
+																		"courses",
+																		"intentCity",
+																		"intentSalary",
+																		"arrival"
+																	]
+																}
+															},
+															"required": [
+																"scene",
+																"preset",
+																"platform",
+																"style",
+																"profile"
+															],
+															"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 														},
 														"stylesheet": {
 															"type": "object",
@@ -154231,6 +158465,127 @@
 																},
 																"styleRules": {
 																	"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+																},
+																"chinaMarket": {
+																	"type": "object",
+																	"properties": {
+																		"scene": {
+																			"enum": [
+																				"market",
+																				"campus",
+																				"soe"
+																			],
+																			"type": "string"
+																		},
+																		"preset": {
+																			"enum": [
+																				"ats",
+																				"xhs",
+																				"table",
+																				"custom"
+																			],
+																			"type": "string"
+																		},
+																		"platform": {
+																			"enum": [
+																				"boss",
+																				"zhilian",
+																				"job51",
+																				"soe"
+																			],
+																			"type": "string"
+																		},
+																		"style": {
+																			"type": "object",
+																			"properties": {
+																				"photo": {
+																					"type": "boolean"
+																				},
+																				"centerName": {
+																					"type": "boolean"
+																				},
+																				"compactIntent": {
+																					"type": "boolean"
+																				},
+																				"softLabels": {
+																					"type": "boolean"
+																				},
+																				"registrationTable": {
+																					"type": "boolean"
+																				}
+																			},
+																			"required": [
+																				"photo",
+																				"centerName",
+																				"compactIntent",
+																				"softLabels",
+																				"registrationTable"
+																			]
+																		},
+																		"profile": {
+																			"type": "object",
+																			"properties": {
+																				"wechat": {
+																					"type": "string"
+																				},
+																				"gender": {
+																					"type": "string"
+																				},
+																				"political": {
+																					"type": "string"
+																				},
+																				"nativePlace": {
+																					"type": "string"
+																				},
+																				"english": {
+																					"type": "string"
+																				},
+																				"cadre": {
+																					"type": "string"
+																				},
+																				"major": {
+																					"type": "string"
+																				},
+																				"gpa": {
+																					"type": "string"
+																				},
+																				"courses": {
+																					"type": "string"
+																				},
+																				"intentCity": {
+																					"type": "string"
+																				},
+																				"intentSalary": {
+																					"type": "string"
+																				},
+																				"arrival": {
+																					"type": "string"
+																				}
+																			},
+																			"required": [
+																				"wechat",
+																				"gender",
+																				"political",
+																				"nativePlace",
+																				"english",
+																				"cadre",
+																				"major",
+																				"gpa",
+																				"courses",
+																				"intentCity",
+																				"intentSalary",
+																				"arrival"
+																			]
+																		}
+																	},
+																	"required": [
+																		"scene",
+																		"preset",
+																		"platform",
+																		"style",
+																		"profile"
+																	],
+																	"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 																},
 																"stylesheet": {
 																	"type": "object",
@@ -162790,6 +167145,127 @@
 												"styleRules": {
 													"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
 												},
+												"chinaMarket": {
+													"type": "object",
+													"properties": {
+														"scene": {
+															"enum": [
+																"market",
+																"campus",
+																"soe"
+															],
+															"type": "string"
+														},
+														"preset": {
+															"enum": [
+																"ats",
+																"xhs",
+																"table",
+																"custom"
+															],
+															"type": "string"
+														},
+														"platform": {
+															"enum": [
+																"boss",
+																"zhilian",
+																"job51",
+																"soe"
+															],
+															"type": "string"
+														},
+														"style": {
+															"type": "object",
+															"properties": {
+																"photo": {
+																	"type": "boolean"
+																},
+																"centerName": {
+																	"type": "boolean"
+																},
+																"compactIntent": {
+																	"type": "boolean"
+																},
+																"softLabels": {
+																	"type": "boolean"
+																},
+																"registrationTable": {
+																	"type": "boolean"
+																}
+															},
+															"required": [
+																"photo",
+																"centerName",
+																"compactIntent",
+																"softLabels",
+																"registrationTable"
+															]
+														},
+														"profile": {
+															"type": "object",
+															"properties": {
+																"wechat": {
+																	"type": "string"
+																},
+																"gender": {
+																	"type": "string"
+																},
+																"political": {
+																	"type": "string"
+																},
+																"nativePlace": {
+																	"type": "string"
+																},
+																"english": {
+																	"type": "string"
+																},
+																"cadre": {
+																	"type": "string"
+																},
+																"major": {
+																	"type": "string"
+																},
+																"gpa": {
+																	"type": "string"
+																},
+																"courses": {
+																	"type": "string"
+																},
+																"intentCity": {
+																	"type": "string"
+																},
+																"intentSalary": {
+																	"type": "string"
+																},
+																"arrival": {
+																	"type": "string"
+																}
+															},
+															"required": [
+																"wechat",
+																"gender",
+																"political",
+																"nativePlace",
+																"english",
+																"cadre",
+																"major",
+																"gpa",
+																"courses",
+																"intentCity",
+																"intentSalary",
+																"arrival"
+															]
+														}
+													},
+													"required": [
+														"scene",
+														"preset",
+														"platform",
+														"style",
+														"profile"
+													],
+													"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
+												},
 												"stylesheet": {
 													"type": "object",
 													"properties": {
@@ -167365,6 +171841,127 @@
 												},
 												"styleRules": {
 													"description": "Structured style rules that target semantic resume sections and slots for PDF rendering."
+												},
+												"chinaMarket": {
+													"type": "object",
+													"properties": {
+														"scene": {
+															"enum": [
+																"market",
+																"campus",
+																"soe"
+															],
+															"type": "string"
+														},
+														"preset": {
+															"enum": [
+																"ats",
+																"xhs",
+																"table",
+																"custom"
+															],
+															"type": "string"
+														},
+														"platform": {
+															"enum": [
+																"boss",
+																"zhilian",
+																"job51",
+																"soe"
+															],
+															"type": "string"
+														},
+														"style": {
+															"type": "object",
+															"properties": {
+																"photo": {
+																	"type": "boolean"
+																},
+																"centerName": {
+																	"type": "boolean"
+																},
+																"compactIntent": {
+																	"type": "boolean"
+																},
+																"softLabels": {
+																	"type": "boolean"
+																},
+																"registrationTable": {
+																	"type": "boolean"
+																}
+															},
+															"required": [
+																"photo",
+																"centerName",
+																"compactIntent",
+																"softLabels",
+																"registrationTable"
+															]
+														},
+														"profile": {
+															"type": "object",
+															"properties": {
+																"wechat": {
+																	"type": "string"
+																},
+																"gender": {
+																	"type": "string"
+																},
+																"political": {
+																	"type": "string"
+																},
+																"nativePlace": {
+																	"type": "string"
+																},
+																"english": {
+																	"type": "string"
+																},
+																"cadre": {
+																	"type": "string"
+																},
+																"major": {
+																	"type": "string"
+																},
+																"gpa": {
+																	"type": "string"
+																},
+																"courses": {
+																	"type": "string"
+																},
+																"intentCity": {
+																	"type": "string"
+																},
+																"intentSalary": {
+																	"type": "string"
+																},
+																"arrival": {
+																	"type": "string"
+																}
+															},
+															"required": [
+																"wechat",
+																"gender",
+																"political",
+																"nativePlace",
+																"english",
+																"cadre",
+																"major",
+																"gpa",
+																"courses",
+																"intentCity",
+																"intentSalary",
+																"arrival"
+															]
+														}
+													},
+													"required": [
+														"scene",
+														"preset",
+														"platform",
+														"style",
+														"profile"
+													],
+													"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed."
 												},
 												"stylesheet": {
 													"type": "object",
@@ -173226,6 +177823,147 @@
 								"description": "Structured style rules that target semantic resume sections and slots for PDF rendering.",
 								"type": "array",
 								"items": {}
+							},
+							"chinaMarket": {
+								"description": "China-market scene, visual preset, structured master fields and platform form mapping. Not printed.",
+								"type": "object",
+								"properties": {
+									"scene": {
+										"default": "market",
+										"type": "string",
+										"enum": [
+											"market",
+											"campus",
+											"soe"
+										]
+									},
+									"preset": {
+										"default": "ats",
+										"type": "string",
+										"enum": [
+											"ats",
+											"xhs",
+											"table",
+											"custom"
+										]
+									},
+									"platform": {
+										"default": "boss",
+										"type": "string",
+										"enum": [
+											"boss",
+											"zhilian",
+											"job51",
+											"soe"
+										]
+									},
+									"style": {
+										"type": "object",
+										"properties": {
+											"photo": {
+												"default": false,
+												"type": "boolean"
+											},
+											"centerName": {
+												"default": false,
+												"type": "boolean"
+											},
+											"compactIntent": {
+												"default": false,
+												"type": "boolean"
+											},
+											"softLabels": {
+												"default": false,
+												"type": "boolean"
+											},
+											"registrationTable": {
+												"default": false,
+												"type": "boolean"
+											}
+										},
+										"required": [
+											"photo",
+											"centerName",
+											"compactIntent",
+											"softLabels",
+											"registrationTable"
+										]
+									},
+									"profile": {
+										"type": "object",
+										"properties": {
+											"wechat": {
+												"default": "",
+												"type": "string"
+											},
+											"gender": {
+												"default": "",
+												"type": "string"
+											},
+											"political": {
+												"default": "",
+												"type": "string"
+											},
+											"nativePlace": {
+												"default": "",
+												"type": "string"
+											},
+											"english": {
+												"default": "",
+												"type": "string"
+											},
+											"cadre": {
+												"default": "",
+												"type": "string"
+											},
+											"major": {
+												"default": "",
+												"type": "string"
+											},
+											"gpa": {
+												"default": "",
+												"type": "string"
+											},
+											"courses": {
+												"default": "",
+												"type": "string"
+											},
+											"intentCity": {
+												"default": "",
+												"type": "string"
+											},
+											"intentSalary": {
+												"default": "",
+												"type": "string"
+											},
+											"arrival": {
+												"default": "",
+												"type": "string"
+											}
+										},
+										"required": [
+											"wechat",
+											"gender",
+											"political",
+											"nativePlace",
+											"english",
+											"cadre",
+											"major",
+											"gpa",
+											"courses",
+											"intentCity",
+											"intentSalary",
+											"arrival"
+										]
+									}
+								},
+								"required": [
+									"scene",
+									"preset",
+									"platform",
+									"style",
+									"profile"
+								]
 							},
 							"stylesheet": {
 								"type": "object",
