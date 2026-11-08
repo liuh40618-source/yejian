@@ -1,3 +1,5 @@
+import { APP_NAME_LATIN } from "@reactive-resume/utils/brand";
+
 type CalendarEvent = {
 	uid: string;
 	title: string;
@@ -37,7 +39,7 @@ export function buildIcs(event: CalendarEvent | CalendarEvent[], now = new Date(
 	const lines = [
 		"BEGIN:VCALENDAR",
 		"VERSION:2.0",
-		"PRODID:-//Reactive Resume//Applications//EN",
+		`PRODID:-//${APP_NAME_LATIN}//Applications//EN`,
 		"CALSCALE:GREGORIAN",
 		// A re-downloaded file updates the event it replaces: same UID, a higher SEQUENCE (seconds since 1970).
 		"METHOD:PUBLISH",

@@ -15,7 +15,7 @@ type ParsedPdf = { numPages: number; getPage: (pageNumber: number) => Promise<Pa
 
 const renderPdf = async (data: ResumeData): Promise<Uint8Array> => {
 	const renderer = await vi.importActual<typeof import("../../forme/testing")>("../../forme/testing");
-	const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<
+	const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
 		typeof renderer.renderToBuffer
 	>[0];
 	return new Uint8Array(await renderer.renderToBuffer(element));
@@ -49,7 +49,7 @@ const makeFixture = (items: ResumeData["sections"]["experience"]["items"]): Resu
 	const data = structuredClone(defaultResumeData);
 	data.picture.hidden = true;
 	data.basics.name = "ITEM PAGINATION HEADER";
-	data.metadata.template = "onyx";
+	data.metadata.template = "minimal-photo";
 	data.metadata.typography.body.fontFamily = "Helvetica";
 	data.metadata.typography.heading.fontFamily = "Helvetica";
 	data.metadata.layout.pages = [{ fullWidth: true, main: ["experience"], sidebar: [] }];

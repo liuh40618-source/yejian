@@ -125,7 +125,7 @@ export function ForgotPasswordPage() {
 										<Input
 											type="email"
 											autoComplete="email"
-											placeholder="john.doe@example.com"
+											placeholder="chenjianing@example.com"
 											name={field.name}
 											value={field.state.value}
 											onBlur={field.handleBlur}

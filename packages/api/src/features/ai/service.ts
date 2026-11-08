@@ -105,6 +105,7 @@ export function getModel(input: GetModelInput) {
 		.with("xai", () => createXai(settings).languageModel(model))
 		.with("groq", () => createGroq(settings).languageModel(model))
 		.with("deepseek", () => createDeepSeek(settings).languageModel(model))
+		.with("dashscope", () => createOpenAICompatible({ name: "dashscope", ...settings }).languageModel(model))
 		.with("togetherai", () => createTogetherAI(settings).languageModel(model))
 		.with("fireworks", () => createFireworks(settings).languageModel(model))
 		.with("cerebras", () => createCerebras(settings).languageModel(model))

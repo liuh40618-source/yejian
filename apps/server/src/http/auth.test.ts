@@ -168,8 +168,9 @@ describe("handleOAuth", () => {
 	});
 
 	it.each([
-		["ar-SA", "ar-SA"],
-		["xx-XX ar-SA", "ar-SA"],
+		["zh-CN", "zh-CN"],
+		["xx-XX zh-CN", "zh-CN"],
+		["de-DE", null],
 		["zu-ZA", null],
 		["<script>", null],
 	])("opens the login page in the client's ui_locales %s", async (uiLocales, expected) => {

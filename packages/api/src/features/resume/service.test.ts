@@ -228,7 +228,7 @@ describe("create", () => {
 		"rejects invalid explicit slug %s before persistence",
 		async (slug) => {
 			await expect(
-				resumeService.create({ userId: "u1", name: "Resume", slug, tags: [], locale: "en-US" }),
+				resumeService.create({ userId: "u1", name: "Resume", slug, tags: [], locale: "zu-ZA" }),
 			).rejects.toMatchObject({ code: "INVALID_SLUG", status: 400 });
 			expect(dbMock.transaction).not.toHaveBeenCalled();
 		},

@@ -280,13 +280,13 @@ function Lists() {
 			</ListGroup>
 			<Section title="Cards">
 				<Card>
-					<Text weight={600}>Product Designer at Lapras</Text>
+					<Text weight={600}>Product Designer at SeniorFormal</Text>
 					<Text variant="callout" color="ink3">
 						Edited 2 hours ago
 					</Text>
 				</Card>
 				<Card selected={selected} onPress={() => setSelected(!selected)} onLongPress={noop} accessibilityLabel="Letter">
-					<Text weight={600}>Cover letter for Lapras</Text>
+					<Text weight={600}>Cover letter for SeniorFormal</Text>
 					<Text variant="callout" color={selected ? "ink2" : "ink3"}>
 						Tap to select
 					</Text>
@@ -420,7 +420,7 @@ function Overlays({ open: initial }: OverlaysProps) {
 				onChange={setChoice}
 				options={[
 					{ value: "modern", label: "Azurill", icon: "file-text" },
-					{ value: "classic", label: "Onyx", icon: "file-text" },
+					{ value: "classic", label: "MinimalPhoto", icon: "file-text" },
 					{ value: "compact", label: "Pikachu", icon: "file-text" },
 				]}
 			/>

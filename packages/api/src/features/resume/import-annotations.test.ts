@@ -64,7 +64,7 @@ function keepShortResume(source: ResumeData) {
 async function save(data: ResumeData, template: (typeof templateSchema.options)[number]) {
 	const file = await createResumePdfFile({ data, template, filename: "annotations.pdf" });
 	create.mockClear();
-	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 	expect(create).toHaveBeenCalledTimes(1);
 	const saved = create.mock.calls[0]?.[0] as { userId: string; data: ResumeData } | undefined;
 	if (!saved) throw new Error("Import did not save a resume");
@@ -147,11 +147,11 @@ it.each(cases)(
 );
 
 it("keeps a Research interest beneath its real heading", async () => {
-	const source = ownershipSource({ template: "azurill", kind: "two-before" });
+	const source = ownershipSource({ template: "center-classic", kind: "two-before" });
 	const interest = source.sections.interests.items[0];
 	if (!interest) throw new Error("Missing source interest");
 	interest.name = "RESEARCH";
-	const data = await save(source, "azurill");
+	const data = await save(source, "center-classic");
 	expect(data.sections.interests.items[0]?.name).toBe("RESEARCH");
 });
 
@@ -454,8 +454,8 @@ it.each(isolatedLabelCases)(
 		});
 		expect(plain(data.sections.experience.items[0]?.description ?? "")).toBe(plain(experience.description));
 		expect(data.sections.education.items[0]?.school).toBe(education.school);
-		// Known smeargle limit: with body-style headings an isolated degree line takes the Education website.
-		if (!(template === "smeargle" && variant.startsWith("body typography")))
+		// Known editorial limit: with body-style headings an isolated degree line takes the Education website.
+		if (!(template === "editorial" && variant.startsWith("body typography")))
 			expect(data.sections.education.items[0]?.website).toEqual(education.website);
 		if (!short) expect(data.sections.projects.items[0]?.name).toBe(source.sections.projects.items[0]?.name);
 		if (variant.includes("skill group"))

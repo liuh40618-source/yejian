@@ -4,8 +4,6 @@ import { env } from "@reactive-resume/env/server";
 import { buildMcpServerCard } from "@reactive-resume/mcp/server-card";
 import { appVersion } from "../app-version";
 
-const DOCS_URL = "https://docs.rxresu.me";
-
 export const handleOAuthAuthorizationServer = oauthProviderAuthServerMetadata(auth);
 export const handleOpenIdConfiguration = oauthProviderOpenIdConfigMetadata(auth);
 
@@ -38,15 +36,15 @@ export function handleAgentCatalog() {
 	const baseUrl = appUrl();
 	const catalog = {
 		specVersion: "1.0",
-		host: { displayName: "Reactive Resume", documentationUrl: DOCS_URL, logoUrl: `${baseUrl}/pwa-512x512.png` },
+		host: { displayName: "页见", documentationUrl: `${baseUrl}/llms.txt`, logoUrl: `${baseUrl}/pwa-512x512.png` },
 		entries: [
 			{
 				identifier: `urn:air:${new URL(baseUrl).hostname}:mcp:reactive-resume`,
-				displayName: "Reactive Resume MCP server",
+				displayName: "页见 MCP server",
 				type: "application/mcp-server-card+json",
 				url: `${baseUrl}/.well-known/mcp/server-card.json`,
 				description:
-					"Reads and edits the user's resumes, cover letters and job applications in Reactive Resume, a free and open-source resume builder.",
+					"Reads and edits the user's resumes, cover letters and job applications in 页见, a resume builder made for the Chinese job market.",
 				tags: ["resume", "cover letter", "job applications", "careers"],
 				representativeQueries: [
 					"update my resume with my new job",
@@ -108,11 +106,11 @@ function buildIntegrations() {
 	return {
 		version: 3,
 		summary:
-			"Reactive Resume is a free and open-source resume builder. Agents can read and edit a user's resumes, cover letters and job applications through the REST API or the MCP server.",
+			"页见 is a resume builder made for the Chinese job market. Agents can read and edit a user's resumes, cover letters and job applications through the REST API or the MCP server.",
 		credentials: {
 			"api-key": {
 				type: "api_key",
-				label: "Reactive Resume API key",
+				label: "页见 API key",
 				generateUrl: `${baseUrl}/dashboard/settings/ai`,
 				setup: [
 					"Open **Settings → AI & developer**, select **New key** in the **API keys** section and name it. Under **Access**, choose **Read only** unless the tool needs to change your documents. Choose when it expires, then copy it.",
@@ -122,11 +120,11 @@ function buildIntegrations() {
 			},
 			oauth: {
 				type: "oauth2",
-				label: "Reactive Resume OAuth",
+				label: "页见 OAuth",
 				setup: [
 					`OAuth authorization-code flow with dynamic client registration (RFC 7591). Clients discover the authorization server from \`${baseUrl}/.well-known/oauth-protected-resource\` (issuer \`${authorizationServer()}\`).`,
 					`Send \`resource=${baseUrl}\` on authorization, token exchange and refresh requests (RFC 8707). Authorization without a resource is refused with invalid_target.`,
-					"The user signs in to a permanent Reactive Resume account and approves the client on the consent screen; guest accounts cannot connect apps. Send the resulting access token as `Authorization: Bearer <token>`.",
+					"The user signs in to a permanent 页见 account and approves the client on the consent screen; guest accounts cannot connect apps. Send the resulting access token as `Authorization: Bearer <token>`.",
 				].join("\n\n"),
 			},
 		},
@@ -134,8 +132,7 @@ function buildIntegrations() {
 			{
 				type: "http",
 				slug: "reactive-resume-api",
-				name: "Reactive Resume REST API",
-				docs: `${DOCS_URL}/guides/using-the-api`,
+				name: "页见 REST API",
 				basis,
 				spec: `${baseUrl}/openapi.json`,
 				url: `${baseUrl}/api/openapi`,
@@ -158,8 +155,7 @@ function buildIntegrations() {
 			{
 				type: "mcp",
 				slug: "reactive-resume-mcp",
-				name: "Reactive Resume MCP server",
-				docs: `${DOCS_URL}/guides/using-the-mcp-server`,
+				name: "页见 MCP server",
 				basis,
 				url: `${baseUrl}/mcp`,
 				transports: ["streamable-http"],
@@ -189,13 +185,11 @@ export function handleApiCatalog() {
 			{
 				anchor: `${baseUrl}/api/openapi`,
 				"service-desc": [{ href: `${baseUrl}/openapi.json`, type: "application/vnd.oai.openapi+json" }],
-				"service-doc": [{ href: `${DOCS_URL}/guides/using-the-api`, type: "text/html" }],
 				status: [{ href: `${baseUrl}/api/health`, type: "application/json" }],
 			},
 			{
 				anchor: `${baseUrl}/mcp`,
 				"service-desc": [{ href: `${baseUrl}/.well-known/mcp/server-card.json`, type: "application/json" }],
-				"service-doc": [{ href: `${DOCS_URL}/guides/using-the-mcp-server`, type: "text/html" }],
 			},
 		],
 	};

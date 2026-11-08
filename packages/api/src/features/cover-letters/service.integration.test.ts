@@ -851,10 +851,10 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 			name: "Freeform",
 			recipient: "<p>Hiring team</p>",
 			resumeId: "alice-resume",
-			template: "pikachu",
+			template: "heading-accent",
 		});
 		expect(freeform).toMatchObject({ layout: "freeform", senderLinked: true, designLinked: false });
-		expect(freeform.style.metadata.template).toBe("pikachu");
+		expect(freeform.style.metadata.template).toBe("heading-accent");
 		// Without a resume there's nothing to link to.
 		expect(await service.create({ userId: "alice", name: "Plain" })).toMatchObject({
 			senderLinked: false,
@@ -911,13 +911,13 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 		});
 		const changed = structuredClone(defaultResumeData);
 		changed.basics.name = "New sender";
-		changed.metadata.template = "gengar";
+		changed.metadata.template = "editorial";
 		changed.metadata.page.locale = "de-DE";
 		await getPool().query("UPDATE resume SET data=$1 WHERE id='alice-resume'", [changed]);
 		expect((await service.getById({ userId: "alice", id: created.id })).style).toMatchObject({
 			basics: { name: "New sender" },
 			// The resume's design arrives; the letter's own language stays its own.
-			metadata: { template: "gengar", page: { locale: "en-US" } },
+			metadata: { template: "editorial", page: { locale: "en-US" } },
 		});
 
 		const unlinked = await service.update({
@@ -932,18 +932,23 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 			style: { basics: { name: "New sender" } },
 		});
 		changed.basics.name = "Later sender";
-		changed.metadata.template = "azurill";
+		changed.metadata.template = "center-classic";
 		await getPool().query("UPDATE resume SET data=$1 WHERE id='alice-resume'", [changed]);
 		expect((await service.getById({ userId: "alice", id: created.id })).style).toMatchObject({
 			basics: { name: "New sender" },
-			metadata: { template: "azurill" },
+			metadata: { template: "center-classic" },
 		});
 
 		// Choosing a template of the letter's own ends the design link, keeping the rest of the design as it read.
-		const own = await service.update({ userId: "alice", id: created.id, expectedRevision: 2, template: "ditto" });
+		const own = await service.update({
+			userId: "alice",
+			id: created.id,
+			expectedRevision: 2,
+			template: "minimal-photo",
+		});
 		expect(own).toMatchObject({
 			designLinked: false,
-			style: { metadata: { template: "ditto", page: { locale: "en-US" } } },
+			style: { metadata: { template: "minimal-photo", page: { locale: "en-US" } } },
 		});
 		changed.metadata.page.locale = "en-US";
 		await getPool().query("UPDATE resume SET data=$1 WHERE id='alice-resume'", [changed]);
@@ -978,7 +983,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 		const created = await client.create({
 			name: "Refresh design",
 			resumeId: "alice-resume",
-			template: "pikachu",
+			template: "heading-accent",
 			content: "<p>Keep this letter</p>",
 		});
 		const letter = senderLinked
@@ -1010,7 +1015,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 		expect(refreshed).toMatchObject({
 			content: "<p>Keep this letter</p>",
 			senderLinked,
-			style: { basics, picture, metadata: { template: "pikachu", page: { marginX: 22 } } },
+			style: { basics, picture, metadata: { template: "heading-accent", page: { marginX: 22 } } },
 		});
 		expect((await client.getById({ id: letter.id })).style).toMatchObject({ basics, picture });
 		expect((await client.export({ id: letter.id })).style).toMatchObject({ basics, picture });

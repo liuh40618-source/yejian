@@ -137,7 +137,7 @@ const kanaRegex = /[぀-ゟ゠-ヿㇰ-ㇿ]/;
 // Any CJK letter (Bopomofo, Hangul or Kana too) adds the SC face, which also covers Han outside the BMP (Ext-B+).
 const hanRegex = /[\p{Script=Han}\p{Script=Hangul}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Bopomofo}]/u;
 
-// Arabic + Supplement + Extended-A + Presentation Forms-A/B (covers Persian).
+// Arabic + Supplement + Extended-A + Presentation Forms-A/B (covers CenterClassic).
 const arabicRegex = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-ﻼ]/;
 const hebrewRegex = /[֐-׿יִ-ﭏ]/;
 const thaiRegex = /[฀-๿]/;

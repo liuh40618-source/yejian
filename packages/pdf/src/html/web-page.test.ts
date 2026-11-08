@@ -43,16 +43,22 @@ describe("renderResumeWebPage", () => {
 
 	it("puts the main column before the sidebar when the page folds on a phone", async () => {
 		const data = structuredClone(sampleResumeData);
-		data.metadata.template = "gengar";
+		// A two-column template: the fold markers only appear when the page actually splits into
+		// main + sidebar regions. Single-column templates deliberately render no data-split at all.
+		data.metadata.template = "asia-standard";
 		const { html, css } = await renderResumeWebPage({ data });
 
-		expect(html).toMatch(/data-split[\s\S]*data-part="(?:header-sidebar|sidebar)"[\s\S]*data-part="main"/);
+		expect(html).toContain("data-split");
+		expect(html).toMatch(/data-part="main"/);
+		expect(html).toMatch(/data-part="(?:header-sidebar|sidebar)"/);
+		// Whichever order the template writes its columns in, the phone fold pins main first.
 		expect(css).toMatch(/@media \(max-width:640px\)\{[\s\S]*\[data-part=main\]\{order:1\}/);
+		expect(css).toMatch(/@media \(max-width:640px\)\{[\s\S]*\[data-part=sidebar\]\{order:2\}/);
 	});
 
 	it("lets a folded header shrink to the phone, so its contact line wraps instead of running off it", async () => {
 		const data = structuredClone(sampleResumeData);
-		data.metadata.template = "pikachu";
+		data.metadata.template = "minimal-photo";
 		const { css } = await renderResumeWebPage({ data });
 
 		const fold = css.slice(css.indexOf("@media (max-width:640px)"));
@@ -76,7 +82,7 @@ describe("renderResumeWebPage", () => {
 describe("right-to-left web page with Latin bullets", () => {
 	it("keeps each bullet's row mirrored while its sentence reads left to right", async () => {
 		const data = structuredClone(sampleResumeData);
-		data.metadata.template = "onyx";
+		data.metadata.template = "minimal-photo";
 		data.metadata.page.locale = "ar-SA";
 		const { html, css } = await renderResumeWebPage({ data });
 		const rules = [...css.matchAll(/\.rr \.(c\d+)\{([^}]*)\}/g)].map(([, name, body]) => ({
@@ -101,11 +107,14 @@ describe("right-to-left web page with Latin bullets", () => {
 describe("a header band in a row", () => {
 	it("keeps growing to the content edge when the page folds on a phone", async () => {
 		const data = structuredClone(sampleResumeData);
-		data.metadata.template = "pikachu";
+		// A template whose header paints its own coloured band: a plain header (minimal-photo) never
+		// emits data-fill, so it cannot exercise the "fill the folded row" rule.
+		data.metadata.template = "creative-side";
 		data.basics = { ...data.basics, name: "Sam Lee", headline: "Student", phone: "", location: "", customFields: [] };
 		const { html, css } = await renderResumeWebPage({ data });
-		// Pikachu's coloured header paints its own band, so it fills its row instead of hugging a short name.
-		expect(html).toMatch(/data-region="header" data-fill/);
+		// The header paints its own band, so it fills its row instead of hugging a short name. The fold
+		// marker rides between region and fill on the same opening tag, hence the [^>]* gap.
+		expect(html).toMatch(/data-region="header"[^>]*data-fill/);
 		expect(css).toContain(".rr [data-region][data-fill]{flex-grow:1!important}");
 	});
 });

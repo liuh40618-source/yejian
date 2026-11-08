@@ -1,4 +1,5 @@
 import type { ResumeData } from "./data";
+import { defaultChinaMarket } from "./china-market";
 
 /** The shared fields every section starts with, minus its items or content. */
 export const sectionDefaults = (icon: string) => ({
@@ -13,6 +14,13 @@ export const sectionDefaults = (icon: string) => ({
 
 const section = (icon: string) => ({ ...sectionDefaults(icon), items: [] as never[] });
 
+/**
+ * The neutral, upstream-compatible blank document. Imports (JSON Resume, LinkedIn, plain text),
+ * AI sanitising and the DB column default all start from here, and most renderer regression tests
+ * use it as a stable fixture. Keep it language- and market-neutral: the Chinese ATS-safe defaults
+ * are a *creation policy* applied by `createResumeData()`, not a property of the base document.
+ * `chinaMarket` is additive only — it prints nothing and legacy documents simply omit it.
+ */
 export const defaultResumeData: ResumeData = {
 	picture: {
 		hidden: false,
@@ -53,14 +61,13 @@ export const defaultResumeData: ResumeData = {
 	},
 	customSections: [],
 	metadata: {
-		template: "onyx",
+		template: "minimal-photo",
 		layout: {
 			sidebarWidth: 35,
 			pages: [
 				{
 					fullWidth: false,
-					// Summary leads, with Profiles beside it near the contact details, then Experience before Education.
-					main: ["summary", "profiles", "experience", "education", "projects", "volunteer", "references"],
+					main: ["profiles", "summary", "education", "experience", "projects", "volunteer", "references"],
 					sidebar: ["skills", "certifications", "awards", "languages", "interests", "publications"],
 				},
 			],
@@ -105,5 +112,6 @@ export const defaultResumeData: ResumeData = {
 		},
 		notes: "",
 		styleRules: [],
+		chinaMarket: defaultChinaMarket,
 	},
 };

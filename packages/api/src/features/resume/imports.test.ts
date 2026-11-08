@@ -49,7 +49,7 @@ it.each([
 			importResumeFile,
 			{ file: new File([bytes], name), format: "PDF" },
 			{
-				context: { locale: "en-US", reqHeaders: new Headers() },
+				context: { locale: "zu-ZA", reqHeaders: new Headers() },
 			},
 		);
 		const saved = create.mock.calls[0]?.[0] as { userId: string; data: ResumeData };
@@ -84,7 +84,7 @@ it.each([
 );
 
 it("imports JSON Resume into the authenticated account and rejects invalid files before writing", async () => {
-	const context = { locale: "en-US" as const, reqHeaders: new Headers() };
+	const context = { locale: "zu-ZA" as const, reqHeaders: new Headers() };
 	const id = await call(
 		importResumeFile,
 		{ file: new File([JSON.stringify({ basics: { name: "Ada Lovelace" } })], "resume.json"), format: "JSON_RESUME" },
@@ -143,7 +143,7 @@ it.each(templateSchema.options)(
 		}));
 		const file = await createResumePdfFile({ data: source, template, filename: `${template}.pdf` });
 		create.mockClear();
-		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 		const saved = create.mock.calls[0]?.[0] as { userId: string; data: ResumeData };
 		expect(saved.userId).toBe("owner");
 		expect(saved.data.sections.experience.items).toHaveLength(diverseRoles.length);
@@ -166,10 +166,12 @@ it.each(templateSchema.options)("imports the shipped %s PDF without losing its w
 		`${template}.pdf`,
 	);
 	create.mockClear();
-	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 	const saved = create.mock.calls[0]?.[0] as { data: ResumeData };
-	const threeRoles = ["azurill", "chikorita", "ditgar", "ditto", "gengar", "glalie", "leafish", "persian", "pikachu"];
-	expect(saved.data.sections.experience.items).toHaveLength(threeRoles.includes(template) ? 3 : 2);
+	// Every shipped preview PDF is rendered from the same sample resume, so they all import the same
+	// work history; nothing here should vary by template.
+	const expectedRoles = sampleResumeData.sections.experience.items.filter((item) => !item.hidden).length;
+	expect(saved.data.sections.experience.items).toHaveLength(expectedRoles);
 	for (const role of saved.data.sections.experience.items) {
 		expect(role.company).not.toBe("");
 		expect(role.position).not.toBe("");
@@ -265,7 +267,7 @@ it.each(flowTemplates)(
 		}
 		const file = await createResumePdfFile({ data: source, template, filename: `${kind}-${template}.pdf` });
 		create.mockClear();
-		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 		const saved = create.mock.calls[0]?.[0] as { userId: string; data: ResumeData };
 		expect(saved.userId).toBe("owner");
 		expect(saved.data.sections.experience.items).toHaveLength(1);
@@ -344,12 +346,15 @@ it.each(boundaryTemplates)(
 		}
 		const file = await createResumePdfFile({ data: source, template, filename: `${template}-${kind}.pdf` });
 		create.mockClear();
-		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 		const saved = create.mock.calls[0]?.[0] as { data: ResumeData };
 		const data = saved.data;
 		// Exact identity check targets the introduced centered-header regression. Wrapped names are a separate mapper limit.
-		if (template === "ditto" && kind !== "paragraph-small")
-			expect(data.basics).toMatchObject({ name: source.basics.name, email: source.basics.email });
+		// CenterClassic sets the name in caps, so only a case-insensitive match can survive the round trip.
+		if (template === "center-classic" && kind !== "paragraph-small") {
+			expect(data.basics.email).toBe(source.basics.email);
+			expect(data.basics.name.toUpperCase()).toBe(source.basics.name.toUpperCase());
+		}
 		expect(data.sections.experience.items).toHaveLength(source.sections.experience.items.length);
 		if (kind.startsWith("custom")) {
 			expect(data.customSections).toHaveLength(1);
@@ -374,7 +379,7 @@ it.each(["custom-only.pdf", "ditto-short.pdf", "bullet-prose-page.pdf"])(
 	async (name) => {
 		create.mockClear();
 		const file = new File([readFileSync(new URL(`./fixtures/${name}`, import.meta.url))], name);
-		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 		const saved = create.mock.calls[0]?.[0] as { data: ResumeData };
 		const data = saved.data;
 		if (name === "custom-only.pdf")
@@ -475,7 +480,7 @@ it.each(templateSchema.options.flatMap((template) => geometryCases.map((kind) =>
 		}
 		const file = await createResumePdfFile({ data: source, template, filename: `geometry-${template}-${kind}.pdf` });
 		create.mockClear();
-		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 		const saved = create.mock.calls[0]?.[0] as { data: ResumeData };
 		const data = saved.data;
 		expect(data.sections.experience.items).toHaveLength(custom ? 0 : 1);
@@ -508,7 +513,7 @@ it.each(["custom-flat.pdf", "custom-no-name.pdf", "indented-prose.pdf", "glalie-
 		await call(
 			importResumeFile,
 			{ file: new File([readFileSync(new URL(`./fixtures/${name}`, import.meta.url))], name), format: "PDF" },
-			{ context: { locale: "en-US", reqHeaders: new Headers() } },
+			{ context: { locale: "zu-ZA", reqHeaders: new Headers() } },
 		);
 		const saved = create.mock.calls[0]?.[0] as { data: ResumeData };
 		const data = saved.data;
@@ -705,7 +710,7 @@ it.each(templateSchema.options.flatMap((template) => recordCases.map((kind) => (
 		if (kind === "inline-no-place" || kind === "compact-no-place") firstRecord.location = "";
 		const file = await createResumePdfFile({ data: source, template, filename: `records-${template}-${kind}.pdf` });
 		create.mockClear();
-		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 		const saved = create.mock.calls[0]?.[0] as { userId: string; data: ResumeData };
 		expect(saved.userId).toBe("owner");
 		expect(saved.data.sections.experience.items).toHaveLength(source.sections.experience.items.length);
@@ -733,7 +738,7 @@ it("preserves external PDF word separators and adjacent split words", async () =
 		"external-word-runs.pdf",
 	);
 	create.mockClear();
-	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 	const saved = create.mock.calls[0]?.[0] as { data: ResumeData };
 	expect(saved.data.sections.experience.items).toHaveLength(1);
 	expect(saved.data.sections.experience.items[0]).toMatchObject({

@@ -87,7 +87,7 @@ describe.skipIf(!databaseUrl)("resume addresses and the primary resume", () => {
 	});
 
 	const create = (name: string, extra: { autoName?: boolean; slug?: string; userId?: string } = {}) =>
-		resumes.create({ userId: "priya", name, tags: [], locale: "en-US", ...extra });
+		resumes.create({ userId: "priya", name, tags: [], locale: "zu-ZA", ...extra });
 	const read = (id: string) => resumes.getById({ id, userId: "priya" });
 	const withHeadline = async (id: string, headline: string) => {
 		const current = await read(id);
@@ -233,7 +233,7 @@ describe.skipIf(!databaseUrl)("resume addresses and the primary resume", () => {
 			expect(await opensAt({ slug: "computer-science-student" })).toBe(moved);
 			expect(await opensAt({ slug: "computer-science-student-2" })).toBe(holder);
 			// Another account's addresses don't count.
-			await resumes.create({ userId: "other", name: "Data analyst", tags: [], locale: "en-US" });
+			await resumes.create({ userId: "other", name: "Data analyst", tags: [], locale: "zu-ZA" });
 			await expect(withHeadline(id, "Data analyst")).resolves.toMatchObject({ slug: "data-analyst" });
 		});
 
@@ -405,7 +405,7 @@ describe.skipIf(!databaseUrl)("resume addresses and the primary resume", () => {
 		});
 
 		it("doesn't count another account's primary, or touch another account's resume", async () => {
-			const theirs = await resumes.create({ userId: "other", name: "Theirs", tags: [], locale: "en-US" });
+			const theirs = await resumes.create({ userId: "other", name: "Theirs", tags: [], locale: "zu-ZA" });
 			await resumes.update({ id: theirs, userId: "other", isPublic: true });
 			const mine = await create("Mine");
 			await expect(publish(mine)).resolves.toMatchObject({ isPrimary: true });
@@ -421,7 +421,7 @@ describe.skipIf(!databaseUrl)("resume addresses and the primary resume", () => {
 			userId: "priya",
 			name: "Base (Copy)",
 			tags: [],
-			locale: "en-US",
+			locale: "zu-ZA",
 			data: structuredClone(defaultResumeData),
 		});
 		expect((await read(original)).slug).toBe("base");

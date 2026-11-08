@@ -2,6 +2,7 @@ import { describe, expect, it } from "vite-plus/test";
 import {
 	getLocaleAlternates,
 	getPreferredLocale,
+	isRTL,
 	isLocale,
 	localeSchema,
 	localizedUrl,
@@ -9,18 +10,15 @@ import {
 } from "./locale";
 
 it.each([
-	[["de-DE"], "de-DE"],
-	[["unsupported", "fr-CA", "de-DE"], "fr-FR"],
-	[["de-AT", "fr-FR"], "de-DE"],
-	[["de-de"], "de-DE"],
-	[["de"], "de-DE"],
-	[["en-GB", "en-US"], "en-GB"],
-	[["pt-PT", "pt-BR"], "pt-PT"],
-	[["zh-TW", "zh-CN"], "zh-TW"],
-	[["zu-ZA", "de-DE"], "de-DE"],
-	[["zu-ZA"], "en-US"],
-	[["unsupported"], "en-US"],
-	[[], "en-US"],
+	[["zh-CN"], "zh-CN"],
+	[["zh-Hans-CN"], "zh-CN"],
+	[["zh"], "zh-CN"],
+	[["zh-TW"], "zh-CN"],
+	[["de-DE", "zh-CN"], "zh-CN"],
+	[["zu-ZA", "zh-CN"], "zh-CN"],
+	[["zu-ZA"], "zh-CN"],
+	[["unsupported"], "zh-CN"],
+	[[], "zh-CN"],
 ])("matches ordered language preferences %j to %s", (languages, expected) => {
 	expect(getPreferredLocale(languages)).toBe(expected);
 });
@@ -29,21 +27,24 @@ it("keeps the testing catalog valid without counting it as a supported translati
 	expect(isLocale("zu-ZA")).toBe(true);
 	expect(localeSchema.options).toContain("zu-ZA");
 	expect(supportedLocales).not.toContain("zu-ZA");
-	expect(supportedLocales).toContain("de-DE");
-	expect(getLocaleAlternates("https://rxresu.me/")).toHaveLength(supportedLocales.length + 1);
+	expect(supportedLocales).toEqual(["zh-CN"]);
+	expect(getLocaleAlternates("https://example.cn/")).toHaveLength(supportedLocales.length + 1);
+	expect(isLocale("de-DE")).toBe(false);
+	expect(isRTL("zh-CN")).toBe(false);
 });
 
 describe("locale URLs", () => {
 	it("keeps the default locale on the plain address and puts others in the locale parameter", () => {
-		expect(localizedUrl("https://rxresu.me/?locale=de-DE", "en-US")).toBe("https://rxresu.me/");
-		expect(localizedUrl("https://rxresu.me/", "de-DE")).toBe("https://rxresu.me/?locale=de-DE");
+		expect(localizedUrl("https://example.cn/?locale=zh-CN", "zh-CN")).toBe("https://example.cn/");
+		expect(localizedUrl("https://example.cn/", "zu-ZA")).toBe("https://example.cn/?locale=zu-ZA");
 	});
 
 	it("lists valid hreflang alternates without the pseudo-locale", () => {
-		const alternates = getLocaleAlternates("https://rxresu.me/");
+		const alternates = getLocaleAlternates("https://example.cn/");
 
-		expect(alternates).toContainEqual({ hreflang: "x-default", href: "https://rxresu.me/" });
-		expect(alternates).toContainEqual({ hreflang: "sr", href: "https://rxresu.me/?locale=sr-SP" });
-		expect(alternates.map((alternate) => alternate.hreflang)).not.toContain("zu-ZA");
+		expect(alternates).toEqual([
+			{ hreflang: "zh-CN", href: "https://example.cn/" },
+			{ hreflang: "x-default", href: "https://example.cn/" },
+		]);
 	});
 });

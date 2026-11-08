@@ -149,7 +149,12 @@ function ResumePageCanvas() {
 						shifted && "-translate-x-[220px] rtl:translate-x-[220px]",
 						parser && "hidden",
 					)}
-					pageClassName={cn("rounded-none shadow-page", viewing && "outline-2 outline-offset-4 outline-ink")}
+					pageClassName={cn(
+						// A cut sheet: the page's own edge, and the trim box a printer would cut it to.
+						"relative rounded-none shadow-page outline-1 outline-line",
+						"before:pointer-events-none before:absolute before:-inset-2 before:border before:border-line-2 before:content-['']",
+						viewing && "outline-2 outline-offset-4 outline-ink",
+					)}
 					onRender={onRender}
 					renderPageCaption={({ pageNumber }) => (
 						<ResumePageCaption

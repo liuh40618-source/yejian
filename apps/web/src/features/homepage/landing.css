@@ -201,39 +201,20 @@
 	}
 }
 
-/* A graphite illustration that sketches in with a diagonal mask wipe as --wipe goes from 0 to 1. */
-@utility doodle {
-	position: absolute;
-	pointer-events: none;
-	user-select: none;
-	height: auto;
-	opacity: calc(0.92 * var(--doodle-fade, 1));
-	mask-image: linear-gradient(110deg, #000 40%, transparent 60%);
-	mask-size: 300% 100%;
-	mask-repeat: no-repeat;
-	mask-position: calc((1 - var(--wipe, 1)) * 100%) 0;
-	transition: mask-position 0.35s linear;
-
-	/* Watercolour keeps its colours at night, a little dimmer so it sits back from the text. */
-	.dark & {
-		opacity: calc(0.8 * var(--doodle-fade, 1));
-		filter: brightness(0.92);
-	}
-}
-
 /* One of the hero's career fragments: it drifts from (--x, --y) to (--tx, --ty) as the page assembles (--e). */
 @utility hero-fragment {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	white-space: nowrap;
-	opacity: calc(1 - clamp(0, (var(--e) - 0.7) * 3.4, 1));
+	/* The margin notes are the hero's decoration, not its entrance: once they land they stay. */
+	opacity: clamp(0, calc((var(--e) - 0.08) * 5), 1);
 	transform: translate(-50%, -50%)
 		translate(
 			calc(var(--x) * (1 - var(--e)) + var(--tx) * var(--e) + var(--mx, 0) * var(--z) * 28px),
 			calc(var(--y) * 0.78 * (1 - var(--e)) + var(--ty) * var(--e) + var(--my, 0) * var(--z) * 20px)
 		)
-		rotate(calc(var(--r) * (1 - var(--e)))) scale(calc(var(--s) + (0.3 - var(--s)) * var(--e)));
+		rotate(calc(var(--r) * (1 - var(--e)))) scale(calc(1 + (1 - var(--e)) * 0.06));
 	transition: transform 0.7s var(--ease);
 }
 
@@ -243,21 +224,6 @@
 	transform: translate(-50%, -50%) perspective(1600px) rotateX(calc((1 - var(--e2)) * 50deg))
 		rotateZ(calc((1 - var(--e2)) * -6deg)) scale(calc(0.6 + var(--e2) * 0.4));
 	transition: transform 0.5s var(--ease);
-}
-
-/* "Everything you've done," starts centred and enlarged, then slides to sit beside the page. */
-@utility hero-headline-start {
-	transform-origin: 100% 50%;
-	transform: translate(
-			calc(var(--dir) * (1 - var(--e)) * ((1 + (1 - var(--e)) * 0.45) * 50% + var(--pw) / 2 + 2.6vw)),
-			-50%
-		)
-		scale(calc(1 + (1 - var(--e)) * 0.45));
-	transition: transform 0.45s var(--ease);
-
-	[dir="rtl"] & {
-		transform-origin: 0% 50%;
-	}
 }
 
 /*
@@ -542,70 +508,28 @@
 }
 
 /*
- * The footer's desk. scroll.ts writes --dp, 0 as the desk's top enters the screen and 1 when the page ends, and the
- * drawing paints itself in from the window down, just ahead of the fold, while it rises and settles into place. It blends into the
- * page (multiply on light, lighten on dark), and its far edges fade out so the desk has no hard ends on wide screens.
+ * The footer's type case: a printer's tray of sorts, the single characters a resume is set from, filling the last
+ * band of the page. It runs off the bottom edge and fades into the paper rather than ending on a hard line, the way
+ * a real case continues past the end of the bench. scroll.ts writes --dp as the band enters, so it rises into place.
  */
-@utility footer-desk {
+@utility footer-case {
 	--dp: 1;
-	/* The edge of the paint-in, a soft wash just above the fold: the window paints first, the desk as it arrives. */
-	--wash: calc(var(--dp) * 130%);
 	position: relative;
 	width: 100%;
-	max-width: 1800px;
-	margin: clamp(8px, 2vw, 32px) auto 0;
-	aspect-ratio: 2172 / 724;
+	margin-top: clamp(28px, 5vw, 72px);
+	border-top: 1px solid var(--line);
+	/* A strip, not a block: three or four rows of sorts, the rest of the tray running off below the page. */
+	height: clamp(132px, 20vh, 216px);
+	overflow: hidden;
+	opacity: calc(0.4 + var(--dp) * 0.6);
+	translate: 0 calc((1 - var(--dp)) * 3%);
+	mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+	transition:
+		opacity 0.2s linear,
+		translate 0.2s linear;
 
-	/* Phones show the middle of the desk (window, resume and calendar) larger instead of the whole width. */
-	@media (width < 700px) {
-		aspect-ratio: 16 / 10;
-	}
-
-	/* Desktop: the desk rises into the footer's content, its top fading into the page so the two read as one. */
-	@media (width >= 1000px) {
-		margin-top: clamp(-150px, -7vw, -64px);
-	}
-}
-
-@utility footer-desk-art {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	pointer-events: none;
-	user-select: none;
-	mask-image:
-		linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent),
-		linear-gradient(to bottom, #000 calc(var(--wash) - 30%), transparent var(--wash));
-	mask-composite: intersect;
-
-	@media (width >= 1000px) {
-		mask-image:
-			linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent),
-			linear-gradient(to bottom, transparent 8%, #000 34%),
-			linear-gradient(to bottom, #000 calc(var(--wash) - 30%), transparent var(--wash));
-		mask-composite: intersect;
-	}
-	/* On the drawing itself, not the desk: a translated parent would isolate it from the page it blends into. */
-	translate: 0 calc((1 - var(--dp)) * 12%);
-	scale: calc(1.04 - var(--dp) * 0.04);
-	transform-origin: 50% 100%;
-}
-
-/* Morning light from the window, on the wall around it. Light theme only: at night the lamp lights the desk. */
-@utility footer-dawn {
-	position: absolute;
-	left: 50%;
-	top: 0;
-	width: 60%;
-	height: 90%;
-	translate: -50% calc((1 - var(--dp)) * 30%);
-	opacity: var(--dp);
-	background: radial-gradient(closest-side, oklch(0.95 0.06 120 / 0.7), transparent);
-
-	.dark & {
-		display: none;
+	@media (prefers-reduced-motion: reduce) {
+		translate: 0 0;
 	}
 }
 

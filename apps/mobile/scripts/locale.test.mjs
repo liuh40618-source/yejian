@@ -6,6 +6,7 @@ import * as localeUtils from "@reactive-resume/utils/locale";
 
 const serverRequire = createRequire(new URL("../../server/package.json", import.meta.url));
 const { transformSync } = createRequire(serverRequire.resolve("tsx"))("esbuild");
+// The interface ships in Chinese only, so a device reporting any other tag falls back to it.
 const code = transformSync(readFileSync(new URL("../src/i18n/index.ts", import.meta.url), "utf8"), {
 	loader: "ts",
 	format: "cjs",
@@ -41,33 +42,33 @@ function load(development, deviceLocales) {
 }
 
 test("production recovers saved pseudo-locale to the device language and excludes it from choices", async () => {
-	const app = load(false, [{ languageTag: "de-DE", languageCode: "de" }]);
+	const app = load(false, [{ languageTag: "zh-CN", languageCode: "zh" }]);
 	assert.equal(app.selectableLocales.includes("zu-ZA"), false);
 	assert.equal(app.getLocalePreference(), null);
 	await app.initI18n();
-	assert.equal(app.active().locale, "de-DE");
-	assert.match(app.active().messages.catalog, /de-DE\.po$/);
+	assert.equal(app.active().locale, "zh-CN");
+	assert.match(app.active().messages.catalog, /zh-CN\.po$/);
 	await app.setLocalePreference("zu-ZA");
 	assert.equal(app.storage.has("locale"), false);
-	assert.equal(app.active().locale, "de-DE");
-	await app.setLocalePreference("fr-FR");
-	assert.equal(app.getLocalePreference(), "fr-FR");
-	assert.equal(app.active().locale, "fr-FR");
+	assert.equal(app.active().locale, "zh-CN");
+	await app.setLocalePreference("zh-CN");
+	assert.equal(app.getLocalePreference(), "zh-CN");
+	assert.equal(app.active().locale, "zh-CN");
 });
 
-test("a Zulu device never gets pseudo-English automatically, including in development", () => {
+test("a device in another language falls back to Chinese rather than the pseudo-locale", () => {
 	for (const development of [false, true]) {
 		const app = load(development, [
 			{ languageTag: "zu-ZA", languageCode: "zu" },
-			{ languageTag: "fr-CA", languageCode: "fr" },
+			{ languageTag: "de-DE", languageCode: "de" },
 		]);
-		assert.equal(app.getDeviceLocale(), "fr-FR");
-		assert.equal(load(development, [{ languageTag: "zu-ZA", languageCode: "zu" }]).getDeviceLocale(), "en-US");
+		assert.equal(app.getDeviceLocale(), "zh-CN");
+		assert.equal(load(development, [{ languageTag: "zu-ZA", languageCode: "zu" }]).getDeviceLocale(), "zh-CN");
 	}
 });
 
 test("development preserves explicit pseudo-localization testing", async () => {
-	const app = load(true, [{ languageTag: "en-US", languageCode: "en" }]);
+	const app = load(true, [{ languageTag: "zh-CN", languageCode: "zh" }]);
 	assert.equal(app.selectableLocales.includes("zu-ZA"), true);
 	assert.equal(app.getLocalePreference(), "zu-ZA");
 	await app.initI18n();

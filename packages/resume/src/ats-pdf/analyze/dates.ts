@@ -7,8 +7,15 @@ import {
 } from "@reactive-resume/schema/resume/period";
 
 const MONTH_WORD = String.raw`[A-Za-z]{3,9}\.?`;
-const ENDPOINT = String.raw`(?:${MONTH_WORD}\s*'?\d{2,4}|\d{1,2}[/.\-]\d{2,4}|\d{4})`;
-const ONGOING = String.raw`(?:present|current|currently|now|ongoing|to\s?date|today)`;
+// Mainland resumes print year-first month dates ("2021.06", "2021年6月") where Western ones print
+// "Mar 2022". This alternative must come first, or the numeric forms swallow only "21.06".
+const YEAR_MONTH = String.raw`\d{4}(?:[/.\-]\d{1,2}|年\d{1,2}月?)`;
+const ENDPOINT = String.raw`(?:${YEAR_MONTH}|${MONTH_WORD}\s*'?\d{2,4}|\d{1,2}[/.\-]\d{2,4}|\d{4})`;
+const LATIN_ONGOING = String.raw`present|current|currently|now|ongoing|to\s?date|today`;
+// "至今" is by far the most common printed end of an open-ended Chinese role; the rest are the
+// same tokens `ONGOING_TOKENS_BY_LANGUAGE.zh` teaches the builder's live lint to read.
+const CJK_ONGOING = String.raw`迄今为止|迄今為止|至今为止|至今|迄今|现在|現在|在职|在職`;
+const ONGOING = String.raw`(?:${LATIN_ONGOING}|${CJK_ONGOING})`;
 const SEPARATOR = String.raw`\s*(?:[-–—~]|to|through|until)\s*`;
 
 const RANGE_PATTERN = new RegExp(

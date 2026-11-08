@@ -5,7 +5,7 @@ import { Trans } from "@lingui/react/macro";
 import { Icon } from "@reactive-resume/ui/components/icon";
 
 /*
- * The demo resume page that every scene shows: Alex Morgan's resume, in one of five looks. Everything is sized in
+ * The demo resume page that every scene shows: Chen Jianing's resume, in one of five looks. Everything is sized in
  * cqw so a page reads the same at any width. The scenes steer it through inherited CSS variables:
  *   --chk        Check's scan progress; ticks each section heading as the scan passes it.
  *   --dw         Check's date warning; flags the second job's mixed date format.
@@ -38,11 +38,11 @@ const bodyText = (family: string, size = "1.75cqw") => ({ fontFamily: family, fo
 export const sheetTemplates: SheetTemplate[] = [
 	{
 		name: msg`Classic`,
-		root: { ...bodyText(fonts.sans), "--accent-ink": "oklch(0.48 0.1 150)" } as CSSProperties,
-		header: { margin: "0 8cqw", padding: "8cqw 0 3.6cqw", borderBottom: "0.25cqw solid oklch(0.48 0.1 150)" },
+		root: { ...bodyText(fonts.sans), "--accent-ink": "oklch(0.5 0.17 27)" } as CSSProperties,
+		header: { margin: "0 8cqw", padding: "8cqw 0 3.6cqw", borderBottom: "0.25cqw solid oklch(0.5 0.17 27)" },
 		align: "flex-start",
 		title: { fontFamily: fonts.serif, fontSize: "6.6cqw", fontWeight: 500, letterSpacing: "-.015em" },
-		subtitleColor: "oklch(0.48 0.1 150)",
+		subtitleColor: "oklch(0.5 0.17 27)",
 		heading: {
 			fontFamily: fonts.sans,
 			fontSize: "1.6cqw",
@@ -96,14 +96,14 @@ export const sheetTemplates: SheetTemplate[] = [
 		side: {
 			order: 2,
 			padding: "5cqw 6cqw 6cqw 4cqw",
-			borderInlineStart: "0.15cqw solid oklch(0.9 0.006 95)",
+			borderInlineStart: "0.15cqw solid oklch(0.9 0.004 265)",
 			gridTemplateColumns: "minmax(0,1fr)",
 		},
 	},
 	{
 		name: msg`Mono`,
-		root: { ...bodyText(fonts.mono, "1.42cqw"), "--accent-ink": "oklch(0.25 0.01 95)" } as CSSProperties,
-		header: { margin: "0 8cqw", padding: "8cqw 0 4cqw", borderBottom: "0.2cqw dashed oklch(0.3 0.01 95)" },
+		root: { ...bodyText(fonts.mono, "1.42cqw"), "--accent-ink": "oklch(0.25 0.006 265)" } as CSSProperties,
+		header: { margin: "0 8cqw", padding: "8cqw 0 4cqw", borderBottom: "0.2cqw dashed oklch(0.3 0.006 265)" },
 		align: "flex-start",
 		title: {
 			fontFamily: fonts.mono,
@@ -112,7 +112,7 @@ export const sheetTemplates: SheetTemplate[] = [
 			textTransform: "uppercase",
 			letterSpacing: ".02em",
 		},
-		subtitleColor: "oklch(0.45 0.01 95)",
+		subtitleColor: "oklch(0.45 0.006 265)",
 		heading: {
 			fontFamily: fonts.mono,
 			fontSize: "1.6cqw",
@@ -126,8 +126,8 @@ export const sheetTemplates: SheetTemplate[] = [
 	},
 	{
 		name: msg`Editorial`,
-		root: { ...bodyText(fonts.serif, "1.95cqw"), "--accent-ink": "oklch(0.22 0.01 95)" } as CSSProperties,
-		header: { margin: "0 7cqw", padding: "7cqw 0 3cqw", borderBottom: "0.6cqw solid oklch(0.2 0.01 95)" },
+		root: { ...bodyText(fonts.serif, "1.95cqw"), "--accent-ink": "oklch(0.22 0.006 265)" } as CSSProperties,
+		header: { margin: "0 7cqw", padding: "7cqw 0 3cqw", borderBottom: "0.6cqw solid oklch(0.2 0.006 265)" },
 		align: "flex-start",
 		title: {
 			fontFamily: fonts.display,
@@ -137,7 +137,7 @@ export const sheetTemplates: SheetTemplate[] = [
 			textTransform: "uppercase",
 			letterSpacing: "-.02em",
 		},
-		subtitleColor: "oklch(0.48 0.1 150)",
+		subtitleColor: "oklch(0.5 0.17 27)",
 		heading: {
 			fontFamily: fonts.display,
 			fontSize: "2.4cqw",
@@ -216,16 +216,16 @@ function Heading({ template, children, tick }: HeadingProps) {
 
 type SheetProps = { template?: SheetTemplate };
 
-/** Alex Morgan's resume, as a page. Decorative: the scenes' own copy says what it shows. */
+/** Chen Jianing's resume, as a page. Decorative: the scenes' own copy says what it shows. */
 export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetProps) {
 	return (
 		<div
 			aria-hidden="true"
 			className="@container absolute inset-0 overflow-hidden rounded-sm bg-paper text-start select-none"
 		>
-			<div className="absolute inset-0 flex flex-col leading-normal text-[oklch(0.3_0.01_95)]" style={template.root}>
+			<div className="absolute inset-0 flex flex-col leading-normal text-[oklch(0.3_0.006_265)]" style={template.root}>
 				<header
-					className="flex flex-col gap-[.7cqw] text-[oklch(0.22_0.01_95)]"
+					className="flex flex-col gap-[.7cqw] text-[oklch(0.22_0.006_265)]"
 					style={{ alignItems: template.align, ...template.header }}
 				>
 					<span className="leading-none" style={template.title}>
@@ -238,9 +238,9 @@ export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetPr
 						className="flex flex-wrap gap-x-[3cqw] gap-y-[.4cqw] text-[1.6cqw] opacity-78"
 						style={{ justifyContent: template.align }}
 					>
-						<span>alex@morgan.design</span>
+						<span>chenjianing@foxmail.com</span>
 						<span>{t`Lisbon, Portugal`}</span>
-						<span>morgan.design</span>
+						<span>chenjianing.design</span>
 					</span>
 				</header>
 

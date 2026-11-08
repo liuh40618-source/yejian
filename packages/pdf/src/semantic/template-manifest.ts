@@ -2,24 +2,25 @@ import type { PrimitiveBinding, SemanticBindingRegistry } from "./binding-invent
 import type { SemanticNodeKind } from "@reactive-resume/resume/stylesheet/types";
 import type { CustomSectionType, EntryHeader } from "@reactive-resume/schema/resume/data";
 import type { Template } from "@reactive-resume/schema/templates";
-import { azurillSemanticManifest } from "../templates/azurill/semantic";
-import { bronzorSemanticManifest } from "../templates/bronzor/semantic";
-import { chikoritaSemanticManifest } from "../templates/chikorita/semantic";
-import { ditgarSemanticManifest } from "../templates/ditgar/semantic";
-import { dittoSemanticManifest } from "../templates/ditto/semantic";
-import { gengarSemanticManifest } from "../templates/gengar/semantic";
-import { glalieSemanticManifest } from "../templates/glalie/semantic";
-import { kakunaSemanticManifest } from "../templates/kakuna/semantic";
-import { laprasSemanticManifest } from "../templates/lapras/semantic";
-import { leafishSemanticManifest } from "../templates/leafish/semantic";
-import { meowthSemanticManifest } from "../templates/meowth/semantic";
-import { onyxSemanticManifest } from "../templates/onyx/semantic";
-import { persianSemanticManifest } from "../templates/persian/semantic";
-import { pikachuSemanticManifest } from "../templates/pikachu/semantic";
-import { porygonSemanticManifest } from "../templates/porygon/semantic";
-import { rhyhornSemanticManifest } from "../templates/rhyhorn/semantic";
-import { scizorSemanticManifest } from "../templates/scizor/semantic";
-import { smeargleSemanticManifest } from "../templates/smeargle/semantic";
+import { asiaStandardSemanticManifest } from "../templates/asia-standard/semantic";
+import { bilingualCnSemanticManifest } from "../templates/bilingual-cn/semantic";
+import { campusFreshSemanticManifest } from "../templates/campus-fresh/semantic";
+import { centerClassicSemanticManifest } from "../templates/center-classic/semantic";
+import { cnExecutiveSemanticManifest } from "../templates/cn-executive/semantic";
+import { compactDenseSemanticManifest } from "../templates/compact-dense/semantic";
+import { consultingCnSemanticManifest } from "../templates/consulting-cn/semantic";
+import { creativeGridSemanticManifest } from "../templates/creative-grid/semantic";
+import { creativeSideSemanticManifest } from "../templates/creative-side/semantic";
+import { editorialSemanticManifest } from "../templates/editorial/semantic";
+import { formGridSemanticManifest } from "../templates/form-grid/semantic";
+import { generalSingleSemanticManifest } from "../templates/general-single/semantic";
+import { govFormalSemanticManifest } from "../templates/gov-formal/semantic";
+import { headingAccentSemanticManifest } from "../templates/heading-accent/semantic";
+import { minimalPhotoSemanticManifest } from "../templates/minimal-photo/semantic";
+import { seniorFormalSemanticManifest } from "../templates/senior-formal/semantic";
+import { stateOwnedSemanticManifest } from "../templates/state-owned/semantic";
+import { techTimelineSemanticManifest } from "../templates/tech-timeline/semantic";
+import { whitespaceCleanSemanticManifest } from "../templates/whitespace-clean/semantic";
 import { SHARED_BINDING_REGISTRY } from "./binding-inventory";
 import { entryHeaderParts } from "./shared-parts";
 
@@ -140,24 +141,25 @@ export type TemplateSemanticManifest = {
 };
 
 const TEMPLATE_SEMANTIC_MANIFESTS = {
-	azurill: azurillSemanticManifest,
-	bronzor: bronzorSemanticManifest,
-	chikorita: chikoritaSemanticManifest,
-	ditgar: ditgarSemanticManifest,
-	ditto: dittoSemanticManifest,
-	gengar: gengarSemanticManifest,
-	glalie: glalieSemanticManifest,
-	kakuna: kakunaSemanticManifest,
-	lapras: laprasSemanticManifest,
-	leafish: leafishSemanticManifest,
-	meowth: meowthSemanticManifest,
-	onyx: onyxSemanticManifest,
-	persian: persianSemanticManifest,
-	pikachu: pikachuSemanticManifest,
-	porygon: porygonSemanticManifest,
-	rhyhorn: rhyhornSemanticManifest,
-	scizor: scizorSemanticManifest,
-	smeargle: smeargleSemanticManifest,
+	"asia-standard": asiaStandardSemanticManifest,
+	"bilingual-cn": bilingualCnSemanticManifest,
+	"campus-fresh": campusFreshSemanticManifest,
+	"center-classic": centerClassicSemanticManifest,
+	"cn-executive": cnExecutiveSemanticManifest,
+	"compact-dense": compactDenseSemanticManifest,
+	"consulting-cn": consultingCnSemanticManifest,
+	"creative-grid": creativeGridSemanticManifest,
+	"creative-side": creativeSideSemanticManifest,
+	editorial: editorialSemanticManifest,
+	"form-grid": formGridSemanticManifest,
+	"general-single": generalSingleSemanticManifest,
+	"gov-formal": govFormalSemanticManifest,
+	"heading-accent": headingAccentSemanticManifest,
+	"minimal-photo": minimalPhotoSemanticManifest,
+	"senior-formal": seniorFormalSemanticManifest,
+	"state-owned": stateOwnedSemanticManifest,
+	"tech-timeline": techTimelineSemanticManifest,
+	"whitespace-clean": whitespaceCleanSemanticManifest,
 } as const satisfies Readonly<Record<Template, TemplateSemanticManifest>>;
 
 // Every template's entries can be drawn on one line, so the parts of that header belong to all of them.

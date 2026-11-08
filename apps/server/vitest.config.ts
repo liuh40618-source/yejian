@@ -5,4 +5,6 @@ import { createVitestProjectConfig } from "../../vitest.shared.mts";
 export default createVitestProjectConfig({
 	name: "server",
 	dirname: fileURLToPath(new URL(".", import.meta.url)),
+	// resume-card and the Cloudflare entry render PDFs; reuse the test font reader.
+	fontCache: true,
 });

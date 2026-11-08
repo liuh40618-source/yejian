@@ -17,7 +17,7 @@ msgstr ""
 #. placeholder {1}: removing?.company
 #: src/features/applications/trash-screen.tsx
 msgid "“{0} · {1}” and its timeline are deleted permanently. Linked resumes and letters are kept."
-msgstr ""
+msgstr "「{0} · {1}」及其时间线将被永久删除。关联的简历和求职信会保留。"
 
 #. placeholder {0}: isolate(open.label)
 #: src/features/check/job-match.tsx
@@ -148,12 +148,12 @@ msgstr "{0, plural, other {# 个回答}}"
 #. placeholder {0}: others.length
 #: src/features/applications/stage-actions.ts
 msgid "{0, plural, one {# application closed as Accepted another offer} other {# applications closed as Accepted another offer}}"
-msgstr ""
+msgstr "{0, plural, other {# 个申请已按「接受了其他 Offer」关闭}}"
 
 #. placeholder {0}: ids.length
 #: src/features/applications/list-screen.tsx
 msgid "{0, plural, one {# application closed} other {# applications closed}}"
-msgstr ""
+msgstr "{0, plural, other {# 个申请已关闭}}"
 
 #. placeholder {0}: ids.length
 #. placeholder {1}: getLaneLabel(lane)
@@ -185,7 +185,7 @@ msgstr "{0, plural, one {#项检查未能运行。} other {#项检查未能运�
 #. placeholder {0}: item.unresolved ?? 0
 #: src/features/assistant/messages.tsx
 msgid "{0, plural, one {# citation didn't match anything the assistant could read.} other {# citations didn't match anything the assistant could read.}}"
-msgstr ""
+msgstr "{0, plural, other {有 # 处引用的内容与助手读到的内容对不上。}}"
 
 #. placeholder {0}: Number(columns)
 #: src/features/write/section-sheet.tsx
@@ -241,7 +241,7 @@ msgstr "{0, plural, other {# 个事实}}"
 #. placeholder {0}: pending.review.notImported.length
 #: src/features/documents/new-document.tsx
 msgid "{0, plural, one {# line wasn't placed in any section:} other {# lines weren't placed in any section:}}"
-msgstr ""
+msgstr "{0, plural, other {有 # 行未能归入任何小节：}}"
 
 #. placeholder {0}: filtered.length
 #: src/features/applications/list-screen.tsx
@@ -273,12 +273,12 @@ msgstr "{0, plural, one {# 建议编辑} other {# 提议的编辑}}"
 #. placeholder {0}: unavailable.length
 #: src/features/career/stories.tsx
 msgid "{0, plural, one {# proposed fact isn't available here and won't back the story.} other {# proposed facts aren't available here and won't back the story.}}"
-msgstr ""
+msgstr "{0, plural, other {有 # 条待定事实在此不可用，无法支撑这段故事。}}"
 
 #. placeholder {0}: done.length
 #: src/features/career/today.tsx
 msgid "{0, plural, one {# role updated.} other {# roles updated.}}"
-msgstr ""
+msgstr "{0, plural, other {已更新 # 个岗位。}}"
 
 #. placeholder {0}: result.skipped
 #: src/features/applications/import-sheet.tsx
@@ -319,7 +319,7 @@ msgstr "{0, plural, one {#项待检查。} other {#项待检查。}}"
 #. placeholder {2}: listFormat(names)
 #: src/features/assistant/chat-view.tsx
 msgid "{0, plural, one {Also sends {1}.} other {Also sends # files: {2}.}}"
-msgstr ""
+msgstr "{0, plural, other {还会发送 # 个文件：{2}。}}"
 
 #. placeholder {0}: step.days
 #: src/features/applications/next-step.ts
@@ -339,12 +339,12 @@ msgstr ""
 #. placeholder {0}: others.length
 #: src/features/applications/stage-actions.ts
 msgid "{0, plural, one {Close it} other {Close all #}}"
-msgstr ""
+msgstr "{0, plural, other {全部关闭（共 # 个）}}"
 
 #. placeholder {0}: others.length
 #: src/features/applications/stage-actions.ts
 msgid "{0, plural, one {Closed as Accepted offer. Close your other open application as Accepted another offer?} other {Closed as Accepted offer. Close your # other open applications as Accepted another offer?}}"
-msgstr ""
+msgstr "{0, plural, other {已按「接受 Offer」关闭。是否把其余 # 个进行中的申请按「接受了其他 Offer」一并关闭？}}"
 
 #. placeholder {0}: row.intervalDays
 #: src/features/career/today.tsx
@@ -379,7 +379,7 @@ msgstr "{0, plural, one {求职信 (#)} other {求职信 (#)}}"
 #. placeholder {0}: change.words
 #: src/features/workspace/tabs/apply.tsx
 msgid "{0, plural, one {Longer by # word} other {Longer by # words}}"
-msgstr ""
+msgstr "{0, plural, other {多了 # 个词}}"
 
 #. placeholder {0}: step.days
 #: src/features/applications/next-step.ts
@@ -389,7 +389,7 @@ msgstr "{0, plural, one {#当天没有回复} other {#天没有回复}}"
 #. placeholder {0}: step.days
 #: src/features/applications/next-step.ts
 msgid "{0, plural, one {No word since your interview # day ago} other {No word since your interview # days ago}}"
-msgstr ""
+msgstr "{0, plural, other {面试已过去 # 天仍无回音}}"
 
 #. placeholder {0}: firstSpill.lines
 #: src/preview/page.tsx
@@ -419,7 +419,7 @@ msgstr "{0, plural, one {重新显示#个已忽略的问题} other {重新显示
 #. placeholder {0}: filtered.length
 #: src/features/applications/list-screen.tsx
 msgid "{0, plural, one {Showing # application that needs a follow-up.} other {Showing # applications that need a follow-up.}}"
-msgstr ""
+msgstr "{0, plural, other {正在显示 # 个需要跟进的申请。}}"
 
 #. placeholder {0}: -minutes
 #: src/features/workspace/tabs/prepare.tsx
@@ -429,12 +429,12 @@ msgstr "{0, plural, other {# 分钟前已开始}}"
 #. placeholder {0}: evidence.length
 #: src/features/assistant/messages.tsx
 msgid "{0, plural, one {The assistant cites # source · check it says this} other {The assistant cites # sources · check they say this}}"
-msgstr ""
+msgstr "{0, plural, other {助手引用了 # 处来源 · 请核对其表述}}"
 
 #. placeholder {0}: requirements.length
 #: src/features/assistant/messages.tsx
 msgid "{0, plural, one {The assistant's reading of # posting requirement} other {The assistant's reading of # posting requirements}}"
-msgstr ""
+msgstr "{0, plural, other {助手对 # 条招聘要求的理解}}"
 
 #. placeholder {0}: fact.usedBy.savedItems
 #: src/features/career/facts.tsx
@@ -487,7 +487,7 @@ msgstr "{0}→{1}：{2}{3}"
 #. placeholder {0}: props.connection
 #: src/features/assistant/chat-view.tsx
 msgid "{0} didn't respond."
-msgstr ""
+msgstr "{0} 没有响应。"
 
 #. placeholder {0}: draft.time
 #. placeholder {1}: draft.timezone
@@ -537,13 +537,13 @@ msgstr ""
 #. placeholder {1}: all.length
 #: src/features/letters/write.tsx
 msgid "{0} of {1}"
-msgstr ""
+msgstr "{0} / {1}"
 
 #. placeholder {0}: measured(proposal.text)
 #. placeholder {1}: limit.max
 #: src/features/workspace/tabs/apply.tsx
 msgid "{0} of {1} characters"
-msgstr ""
+msgstr "{0} / {1} 字符"
 
 #. placeholder {0}: shown.length
 #. placeholder {1}: TEMPLATES.length
@@ -563,7 +563,7 @@ msgstr "{1} 份定制申请中有 {0} 份得到回复；使用其他简历发送
 #. placeholder {1}: limit.max
 #: src/features/workspace/tabs/apply.tsx
 msgid "{0} of {1} words"
-msgstr ""
+msgstr "{0} / {1} 词"
 
 #. placeholder {0}: fact.company
 #: src/features/career/facts.tsx
@@ -586,13 +586,13 @@ msgstr "已选择{0}"
 #. placeholder {1}: failed.length
 #: src/features/career/today.tsx
 msgid "{0} updated; {1} failed. Failed roles remain selected. Refresh or retry."
-msgstr ""
+msgstr "已更新 {0} 个；{1} 个失败。失败的岗位仍保持选中。请刷新或重试。"
 
 #. placeholder {0}: answer.split(/\s+/).filter(Boolean).length
 #. placeholder {1}: [...answer].length
 #: src/features/workspace/answer-library.tsx
 msgid "{0} words · {1} characters"
-msgstr ""
+msgstr "{0} 词 · {1} 字符"
 
 #. placeholder {0}: Math.min(displayedOffset + 1, displayed?.total ?? page.total)
 #. placeholder {0}: recoveryStart + 1
@@ -614,7 +614,7 @@ msgstr "{0}，第{1}个条目，共{2}个"
 #. placeholder {0}: terms.join(" · ").replace(/[\s.。]+$/u, "")
 #: src/features/workspace/tabs/messages.tsx
 msgid "{0}. Opens in Career → Offers."
-msgstr ""
+msgstr "{0}。将在「职业 → Offer」中打开。"
 
 #. placeholder {0}: Math.round(zoom * 100)
 #: src/features/letters/page.tsx
@@ -637,7 +637,7 @@ msgstr "{at}·{providerLabel}。发送此申请和您的知识库；您的提供
 
 #: src/preview/page.tsx
 msgid "{authored, plural, =1 {Couldn't fit on one page, even at 9 pt. Add a page or shorten entries.} other {Couldn't fit on # pages, even at 9 pt. Add a page or shorten entries.}}"
-msgstr ""
+msgstr "{authored, plural, other {即使缩到 9 pt 也放不进 # 页。请增加页数或精简条目。}}"
 
 #: src/preview/page.tsx
 msgid "{authored, plural, =1 {Fit to one page} other {Fit to # pages}}"
@@ -649,7 +649,7 @@ msgstr "{characters, plural, other {# 个字符}}"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "{characters} of {shownLimit} characters"
-msgstr ""
+msgstr "{characters} / {shownLimit} 字符"
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "{closed} closed"
@@ -661,7 +661,7 @@ msgstr "{company} · {tabName}"
 
 #: src/features/applications/list-screen.tsx
 msgid "{company}: a follow-up is due."
-msgstr ""
+msgstr "{company}：该跟进了。"
 
 #: src/features/documents/queries.ts
 msgid "{completed, plural, one {# document updated} other {# documents updated}}"
@@ -669,7 +669,7 @@ msgstr "{completed, plural, one {已更新#份文档} other {已更新#份文档
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "{confirmedAnswers, plural, one {# written answer} other {# written answers}}"
-msgstr ""
+msgstr "{confirmedAnswers, plural, other {# 份已写好的回答}}"
 
 #: src/features/share/custom-domain.tsx
 msgid "{cost} the first year"
@@ -677,7 +677,7 @@ msgstr "首年 {cost}"
 
 #: src/features/applications/list-screen.tsx
 msgid "{count, plural, one {# application needs a follow-up.} other {# applications need a follow-up.}}"
-msgstr ""
+msgstr "{count, plural, other {# 个申请需要跟进。}}"
 
 #: src/features/write/section-sheet.tsx
 msgid "{count, plural, one {# column} other {# columns}}"
@@ -701,19 +701,19 @@ msgstr "{days, plural, other {{company}：# 天未回复。现在发送一封简
 
 #: src/features/applications/list-screen.tsx
 msgid "{days, plural, one {{company}: no word since your interview # day ago. A short follow-up is usually fine now.} other {{company}: no word since your interview # days ago. A short follow-up is usually fine now.}}"
-msgstr ""
+msgstr "{days, plural, other {{company}：面试已过去 # 天仍无回音。现在发一条简短的跟进通常正合适。}}"
 
 #: src/features/ai/provider-model.tsx
 msgid "{defaultModel} is the fast, low-cost default for everyday work. Pick a more capable model for long drafts and interview practice."
-msgstr ""
+msgstr "{defaultModel} 是日常使用的默认模型，速度快、成本低。需要长文起草和面试练习时，可以选能力更强的模型。"
 
 #: src/features/documents/queries.ts
 msgid "{deleted, plural, one {# document deleted forever} other {# documents deleted forever}}"
-msgstr ""
+msgstr "{deleted, plural, other {# 份文档已永久删除}}"
 
 #: src/features/career/offers.tsx
 msgid "{delta} vs {version}"
-msgstr ""
+msgstr "{delta}，对比 {version}"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "{done} of {count} done"
@@ -737,7 +737,7 @@ msgstr "{entry} 没有说何时。日期将其放在您的时间轴上。"
 
 #: src/features/check/issues.ts
 msgid "{entry} has no dates and reads like a sentence cut off the entry above it, which happens when a PDF import splits a bullet. Adding dates would make it look like a separate job."
-msgstr ""
+msgstr "{entry} 没有日期，读起来像是从上一段条目里被截断的一句话，这通常是导入 PDF 时把一条要点拆开了。如果给它补上日期，反而会看起来像另一份工作。"
 
 #: src/features/check/issues.ts
 msgid "{entry} names the role but not what you did, so it adds no keywords."
@@ -753,7 +753,7 @@ msgstr "{followUps, plural, one {#次跟进} other {#次跟进}}"
 
 #: src/features/assistant/messages.tsx
 msgid "{gaps, plural, one {· # gap} other {· # gaps}}"
-msgstr ""
+msgstr "{gaps, plural, other {· # 处空缺}}"
 
 #: src/features/workspace/shell.tsx
 msgid "{hours} h"
@@ -773,7 +773,7 @@ msgstr "{issues, plural, one {检查有 # 的东西要审查。您仍然可以�
 
 #: src/features/applications/stage-actions.ts
 msgid "{kept, plural, one {# application changed in the meantime, so it keeps its newer stage} other {# applications changed in the meantime, so they keep their newer stage}}"
-msgstr ""
+msgstr "{kept, plural, other {有 # 个申请在此期间被改动，已保留其较新的阶段}}"
 
 #: src/features/applications/next-step.ts
 msgid "{kind} interview"
@@ -785,7 +785,7 @@ msgstr "{label} 连接"
 
 #: src/features/assistant/provider.tsx
 msgid "{label} is off or was removed. Choose the connection this conversation uses next."
-msgstr ""
+msgstr "{label} 已关闭或已被移除。请为本次对话另选一个连接。"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "{minutes, plural, one {# minute in total} other {# minutes in total}}"
@@ -855,11 +855,11 @@ msgstr ""
 
 #: src/features/workspace/answer-library.tsx
 msgid "{relevant, plural, one {# relevant reviewed answer} other {# relevant reviewed answers}}"
-msgstr ""
+msgstr "{relevant, plural, other {# 份相关的已审核回答}}"
 
 #: src/features/documents/queries.ts
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
-msgstr ""
+msgstr "{restored, plural, other {已恢复 # 份文档}}"
 
 #: src/features/workspace/shell.tsx
 msgid "{role} · {company}"
@@ -899,7 +899,7 @@ msgstr "{textSize} pt"
 
 #: src/features/ats-checker/checker.tsx
 msgid "{tips, plural, one {Plus # tip.} other {Plus # tips.}}"
-msgstr ""
+msgstr "{tips, plural, other {另有 # 条提示。}}"
 
 #: src/features/write/section-sheet.tsx
 msgid "{title} cleared"
@@ -919,7 +919,7 @@ msgstr "{toCheck, plural, one {#检查} other {#检查}}"
 
 #: src/features/assistant/messages.tsx
 msgid "{toConfirm, plural, one {# edit adds a new detail, so accept it on its own once you've checked it.} other {# edits add new details, so accept each on its own once you've checked it.}}"
-msgstr ""
+msgstr "{toConfirm, plural, other {有 # 处修改加入了新信息，请逐条核实后再单独接受。}}"
 
 #: src/features/applications/import-sheet.tsx
 msgid "{unmatched, plural, one {Choose where # stage goes before importing.} other {Choose where # stages go before importing.}}"
@@ -927,11 +927,11 @@ msgstr "{unmatched, plural, other {导入前，请选择这 # 个阶段的对应
 
 #: src/features/assistant/messages.tsx
 msgid "{unresolved, plural, one {# citation didn't match anything the assistant could read.} other {# citations didn't match anything the assistant could read.}}"
-msgstr ""
+msgstr "{unresolved, plural, other {有 # 处引用的内容与助手读到的内容对不上。}}"
 
 #: src/features/workspace/hooks.ts
 msgid "{who} didn't respond. Nothing was changed; try again."
-msgstr ""
+msgstr "{who} 没有响应。未做任何改动，请重试。"
 
 #: src/features/letters/write.tsx
 #: src/features/workspace/tabs/apply.tsx
@@ -940,7 +940,7 @@ msgstr "{words, plural, one {#字} other {#字}}"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "{words} of {shownLimit} words"
-msgstr ""
+msgstr "{words} / {shownLimit} 词"
 
 #. placeholder {0}: items.length - MAX_PER_DAY
 #: src/features/applications-board/calendar-screen.tsx
@@ -1003,6 +1003,10 @@ msgstr "90天"
 msgid "A backup of this letter. Imports back into Reactive Resume as a letter."
 msgstr "这封信的备份。作为信件导入回 Reactive Resume。"
 
+#: src/features/design/china-market-group.tsx
+msgid "A centred name still reads top to bottom in one column."
+msgstr "居中姓名仍按单栏自上而下阅读。"
+
 #: src/features/check/issues.ts
 msgid "A city and country let roles be matched to where you are."
 msgstr "城市和国家让角色与您所在的位置相匹配。"
@@ -1033,7 +1037,7 @@ msgstr "某个事实已更改。请检查这个故事。"
 
 #: src/features/assistant/tool-approvals.tsx
 msgid "a fact that isn't available here"
-msgstr ""
+msgstr "一条在此不可用的事实"
 
 #: src/features/assistant/tool-approvals.tsx
 msgid "A fact that isn't available here. Saving will fail."
@@ -1041,7 +1045,7 @@ msgstr ""
 
 #: src/features/assistant/messages.tsx
 msgid "A fact that's no longer in Knowledge"
-msgstr ""
+msgstr "知识库中已不存在的事实"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "A focused plan for this round"
@@ -1073,11 +1077,11 @@ msgstr "模型的意见，而不是判决。这可能是错误的。"
 
 #: src/features/career/offer-entry.tsx
 msgid "a month"
-msgstr ""
+msgstr "一个月"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "A new version of the whole letter, as edits to accept"
-msgstr ""
+msgstr "整封求职信的新版本，以可接受的修改形式呈现"
 
 #: src/features/ats-checker/messages.ts
 msgid "A numeric date reads differently in different countries."
@@ -1086,6 +1090,10 @@ msgstr "数字格式的日期在不同国家的读法不同。"
 #: src/features/ats-checker/messages.ts
 msgid "A page is rotated."
 msgstr "有一页被旋转了。"
+
+#: src/features/design/china-market-group.tsx
+msgid "A registration table merges cells and measurably lowers Chinese ATS parsing. Use it only when an online form demands an uploaded form."
+msgstr "表格式登记会合并单元格，中文 ATS 解析率明显下降。仅在网申明确要求上传登记表时使用。"
 
 #: src/features/application-detail/sheets.tsx
 msgid "A reminder to check in, shown as the next step until you do."
@@ -1113,11 +1121,11 @@ msgstr "有一个网址没有写 https://。"
 
 #: src/features/career/offer-entry.tsx
 msgid "a year"
-msgstr ""
+msgstr "一年"
 
 #: src/features/assistant/chat.ts
 msgid "A: {answer}"
-msgstr ""
+msgstr "答：{answer}"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "About 90 seconds when spoken"
@@ -1152,11 +1160,11 @@ msgstr "全部接受"
 
 #: src/features/assistant/messages.tsx
 msgid "Accept the others"
-msgstr ""
+msgstr "接受其余项"
 
 #: src/features/assistant/chat.ts
 msgid "accepted"
-msgstr ""
+msgstr "已接受"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
@@ -1184,7 +1192,7 @@ msgstr "账户"
 
 #: app/(tabs)/settings/account.tsx
 msgid "Account details"
-msgstr ""
+msgstr "账号信息"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Account emails use it too."
@@ -1237,11 +1245,11 @@ msgstr "添加一个事实"
 
 #: src/features/documents/new-document.tsx
 msgid "Add a job"
-msgstr ""
+msgstr "添加岗位"
 
 #: src/features/documents/document-sheets.tsx
 msgid "Add a job…"
-msgstr ""
+msgstr "添加岗位…"
 
 #: src/features/write/basics-screen.tsx
 msgid "Add a link"
@@ -1253,7 +1261,7 @@ msgstr "添加地点"
 
 #: src/features/career/offer-entry.tsx
 msgid "Add a newer offer"
-msgstr ""
+msgstr "添加更新的 Offer"
 
 #: src/features/application-detail/interview-sheet.tsx
 msgid "Add a person"
@@ -1338,7 +1346,7 @@ msgstr "添加申请"
 
 #: src/features/settings/application-profile.tsx
 msgid "Add authorization country"
-msgstr ""
+msgstr "添加工作授权国家"
 
 #: src/features/write/fields.ts
 msgid "Add award"
@@ -1362,7 +1370,7 @@ msgstr "添加日期"
 
 #: src/features/career/offers.tsx
 msgid "Add each offer's terms to compare it. Nothing is filled in for you."
-msgstr ""
+msgstr "为每个 Offer 补上条件才能对比。这里不会替你填写任何内容。"
 
 #: src/features/write/fields.ts
 msgid "Add education"
@@ -1383,7 +1391,7 @@ msgstr "添加经验"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Add facts"
-msgstr ""
+msgstr "添加事实"
 
 #: src/features/write/basics-screen.tsx
 msgid "Add field"
@@ -1411,7 +1419,7 @@ msgstr "添加语言"
 
 #: src/features/settings/application-profile.tsx
 msgid "Add link"
-msgstr ""
+msgstr "添加链接"
 
 #: src/features/career/offer-entry.tsx
 msgid "Add offer"
@@ -1436,11 +1444,11 @@ msgstr "添加页面"
 #. placeholder {0}: authored + 1
 #: src/preview/page.tsx
 msgid "Add page {0}"
-msgstr ""
+msgstr "新增第 {0} 页"
 
 #: src/features/workspace/preparation.tsx
 msgid "Add posting"
-msgstr ""
+msgstr "添加招聘信息"
 
 #: src/features/write/fields.ts
 msgid "Add profile"
@@ -1493,7 +1501,7 @@ msgstr "添加文字"
 
 #: src/features/applications/next-step.ts
 msgid "Add the date when you have it"
-msgstr ""
+msgstr "拿到日期后再补上"
 
 #: src/features/write/entry-fields.tsx
 msgid "Add the domain after the @, like {name}@example.com"
@@ -1507,11 +1515,11 @@ msgstr "添加域名结尾，例如 {domain}.com"
 #: src/features/applications/next-step.ts
 #: src/features/applications/stage-actions.ts
 msgid "Add the offer's terms"
-msgstr ""
+msgstr "添加 Offer 条件"
 
 #: src/features/documents/new-document.tsx
 msgid "Add them as a section called “More from your file” to sort later"
-msgstr ""
+msgstr "把它们放进名为「文件中的其他内容」的小节，稍后再整理"
 
 #: src/features/share/custom-domain.tsx
 msgid "Add these records where you manage the domain, then check. Changes can take a few hours to reach everyone."
@@ -1519,13 +1527,13 @@ msgstr "请在管理域名的地方添加这些记录，然后进行检查。更
 
 #: src/features/career/facts.tsx
 msgid "Add things you've done, with numbers when you have them, such as “Cut checkout errors by 30% in 2025”. The coach backs its answers and your stories with them."
-msgstr ""
+msgstr "把你做过的事加进来，有数字就写数字，例如「2025 年把支付错误率降低 30%」。顾问会用它们来支撑回答和你的故事。"
 
 #: src/features/assistant/messages.tsx
 msgid "Add this to my resume where it fits. Propose the edits for me to review:\n"
 "\n"
 "{text}"
-msgstr ""
+msgstr "把这段加到简历合适的位置。先给出修改建议让我审核："
 
 #: src/features/application-detail/sections.tsx
 #: src/features/workspace/tabs/debrief.tsx
@@ -1538,7 +1546,7 @@ msgstr "添加到问题"
 
 #: src/features/assistant/messages.tsx
 msgid "Add to resume"
-msgstr ""
+msgstr "加入简历"
 
 #: src/features/check/job-match.tsx
 msgid "Add to Skills"
@@ -1563,7 +1571,7 @@ msgstr "由您添加"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Added to Interview prep"
-msgstr ""
+msgstr "已加入面试准备"
 
 #: src/features/assistant/messages.tsx
 msgid "Added to Knowledge."
@@ -1580,29 +1588,25 @@ msgstr "地址"
 
 #: src/features/settings/application-profile.tsx
 msgid "Address country"
-msgstr ""
+msgstr "国家/地区"
 
 #: src/features/settings/application-profile.tsx
 msgid "Address line 1"
-msgstr ""
+msgstr "地址第一行"
 
 #: src/features/settings/application-profile.tsx
 msgid "Address line 2"
-msgstr ""
+msgstr "地址第二行"
 
 #. placeholder {0}: additionParts(proposal)?.anchor
 #: src/features/assistant/messages.tsx
 msgid "Adds after: {0}"
-msgstr ""
+msgstr "添加在「{0}」之后"
 
 #: src/features/ai/provider-editor.tsx
 #: src/features/design/advanced.tsx
 msgid "Advanced"
 msgstr "先进的"
-
-#: src/features/settings/locale-names.ts
-msgid "Afrikaans"
-msgstr "南非语"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "After the behavioral interview"
@@ -1640,7 +1644,7 @@ msgstr "人工智能与开发人员"
 
 #: src/features/workspace/preparation.tsx
 msgid "AI availability couldn't be confirmed. Prepare manually; nothing here is sent to the employer or marks the job applied."
-msgstr ""
+msgstr "无法确认 AI 是否可用。请手动准备；此处内容不会发给雇主，也不会把该岗位标记为已投递。"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "AI connection"
@@ -1648,7 +1652,7 @@ msgstr "AI 连接"
 
 #: src/features/career/role-suggestions.tsx
 msgid "AI connection receiving your context"
-msgstr ""
+msgstr "接收你上下文的 AI 连接"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "AI connections are unavailable."
@@ -1676,11 +1680,11 @@ msgstr "AI补充功能不可用。请检查页面详情或手动填写。"
 
 #: src/features/assistant/provider.tsx
 msgid "AI features use your own provider. Connecting sends a test prompt; each task asks before sharing its data."
-msgstr ""
+msgstr "AI 功能使用你自己的服务商。连接时会发送一条测试提示词；每项任务在共享数据前都会先征求你的同意。"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "AI is optional. Review target roles in Knowledge, wait for Saved, then create a new schedule. Existing schedules keep this query until you edit and save it."
-msgstr ""
+msgstr "AI 是可选的。请先在知识库中确认目标岗位，等到显示「已保存」，再新建计划。已有计划会继续使用当前查询，直到你编辑并保存。"
 
 #: src/features/ai/next-steps.tsx
 msgid "AI is ready"
@@ -1718,19 +1722,15 @@ msgstr "仅在您提出请求时，AI才会读取粘贴的文本。链接可直�
 
 #: src/features/workspace/parts.tsx
 msgid "AI settings"
-msgstr ""
+msgstr "AI 设置"
 
 #: src/features/career/role-suggestions.tsx
 msgid "AI suggestions, not verified qualifications or hiring predictions. Sources below are your statements."
-msgstr ""
+msgstr "这是 AI 的建议，不代表已核实的资历，也不是录用预测。下方来源均出自你自己的陈述。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "AI-assisted draft"
-msgstr ""
-
-#: src/features/settings/locale-names.ts
-msgid "Albanian"
-msgstr "阿尔巴尼亚语"
+msgstr "AI 辅助草稿"
 
 #: src/features/career/facts.tsx
 #: src/features/design/template-group.tsx
@@ -1749,11 +1749,11 @@ msgstr "所有申请"
 
 #: src/features/documents/library.tsx
 msgid "All documents in Trash will be deleted for good and can't be restored."
-msgstr ""
+msgstr "回收站中的所有文档将被永久删除，无法恢复。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "All employers"
-msgstr ""
+msgstr "所有雇主"
 
 #: src/features/ai/provider-model.tsx
 msgid "All models"
@@ -1781,7 +1781,7 @@ msgstr "在设备设置中允许相机访问以拍照。"
 
 #: src/features/share/feedback.tsx
 msgid "Allow comments"
-msgstr ""
+msgstr "允许评论"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Allow microphone access in device settings, or type your answer."
@@ -1811,7 +1811,7 @@ msgstr "已经涵盖："
 #. placeholder {1}: duplicate.data.company
 #: src/features/applications/add-sheet.tsx
 msgid "Already tracked: {0} at {1}. Open it or update only its posting details."
-msgstr ""
+msgstr "已在跟进：{1} 的 {0}。可以打开它，或只更新其招聘信息。"
 
 #: src/features/check/screen.tsx
 msgid "Also check the exported PDF"
@@ -1838,17 +1838,13 @@ msgstr "还显示技能、个人资料和兴趣的图标。"
 msgid "Always appears in Today. Email requires a verified address and server mail setup. No push notifications are sent."
 msgstr "始终显示在“今天”中。电子邮件需要已验证的地址及服务器邮件配置。不会发送推送通知。"
 
-#: src/features/settings/locale-names.ts
-msgid "Amharic"
-msgstr "阿姆哈拉语"
-
 #: src/features/assistant/messages.tsx
 msgid "An AI reading to help you edit, not a prediction of how an employer or screening system will respond."
-msgstr ""
+msgstr "这是帮助你修改的 AI 解读，不是对雇主或筛选系统反应的预测。"
 
 #: src/features/assistant/messages.tsx
 msgid "An edit addresses it"
-msgstr ""
+msgstr "有一处修改回应了这一点"
 
 #: src/features/ats-checker/messages.ts
 msgid "An embedded font could not be read."
@@ -1860,7 +1856,7 @@ msgstr "条目没有日期"
 
 #: src/features/career/offer-entry.tsx
 msgid "an hour"
-msgstr ""
+msgstr "一小时"
 
 #: src/draft/conflict-sheet.tsx
 msgid "An older app kept these edits. They can't safely replace “{name}”. Keep them as a separate document, or load the saved version and edit it here."
@@ -1902,11 +1898,11 @@ msgstr "用你自己的话回答"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Answer replaced"
-msgstr ""
+msgstr "回答已替换"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Answer source"
-msgstr ""
+msgstr "回答来源"
 
 #: src/features/workspace/tabs/saved.tsx
 msgid "Answers"
@@ -2002,7 +1998,7 @@ msgstr "工作申请已关闭"
 
 #: src/features/workspace/preparation.tsx
 msgid "Application closed. Current drafts remain available."
-msgstr ""
+msgstr "申请已关闭。现有草稿仍然可用。"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
@@ -2020,11 +2016,15 @@ msgstr ""
 
 #: src/features/settings/application-profile.tsx
 msgid "Application email"
-msgstr ""
+msgstr "申请邮件"
 
 #: src/features/settings/application-profile.tsx
 msgid "Application phone"
-msgstr ""
+msgstr "申请用电话"
+
+#: src/features/design/china-market-group.tsx
+msgid "Application scene"
+msgstr "投递场景"
 
 #: src/features/assistant/coach-screen.tsx
 #: src/features/assistant/sent.ts
@@ -2113,7 +2113,7 @@ msgstr "正在应用更改。关闭此面板不会取消请求。"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Approve and create packet"
-msgstr ""
+msgstr "确认并生成材料包"
 
 #. placeholder {0}: selected?.name ?? ""
 #: src/features/settings/api-keys.tsx
@@ -2123,10 +2123,6 @@ msgstr "使用“{0}”的应用将停止运行。此操作无法撤销。"
 #: app/(tabs)/settings/ai-connections.tsx
 msgid "Apps you allowed to use your account, such as AI clients. You can disconnect one anytime."
 msgstr ""
-
-#: src/features/settings/locale-names.ts
-msgid "Arabic"
-msgstr "阿拉伯语"
 
 #: src/features/applications/import-sheet.tsx
 msgid "Archived (closes it)"
@@ -2159,11 +2155,11 @@ msgstr "询问您职业生涯的下一步…"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "Ask about your search, or bring an accomplishment you want to explain better. Answers use what's switched on below, and each shows what was sent with it."
-msgstr ""
+msgstr "可以问求职相关的问题，也可以拿一件想讲得更清楚的事来聊。回答只会使用下方已开启的内容，每条回答都会显示随附发送了什么。"
 
 #: src/features/workspace/coach-sheet.tsx
 msgid "Ask anything about this job. The coach reads the posting, your notes and what you sent, and can see you're on the {tabName} tab."
-msgstr ""
+msgstr "关于这个岗位可以随便问。顾问会读招聘信息、你的笔记和已发送的内容，也能看到你当前在「{tabName}」标签页。"
 
 #: src/features/career/preferences.tsx
 msgid "Ask first"
@@ -2205,7 +2201,7 @@ msgstr "询问或描述更改..."
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Asks you to confirm the answers and documents, then records them as sent and moves it."
-msgstr ""
+msgstr "让你确认回答和文档，然后把它们记为已发送，并推进该申请。"
 
 #: src/features/write/picture-screen.tsx
 msgid "Aspect ratio"
@@ -2266,7 +2262,7 @@ msgstr "音频文件"
 #. placeholder {0}: countryName(row.countryCode, i18n.locale)
 #: src/features/settings/application-profile.tsx
 msgid "Authorized to work in {0}"
-msgstr ""
+msgstr "已获准在 {0} 工作"
 
 #: src/features/career/preferences.tsx
 msgid "Automatically"
@@ -2280,6 +2276,10 @@ msgstr "自动保存按会话分组并保留 90 天。命名版本将一直保�
 msgid "Available"
 msgstr "可注册"
 
+#: src/features/design/china-market-group.tsx
+msgid "Available from"
+msgstr "到岗时间"
+
 #: src/features/ats-checker/messages.ts
 msgid "Avoid heavy letter-spacing effects, then re-export."
 msgstr "避免使用过大的字距效果，然后重新导出。"
@@ -2291,10 +2291,6 @@ msgstr "颁奖者"
 #: src/features/write/fields.ts
 msgid "Awards"
 msgstr "奖项"
-
-#: src/features/settings/locale-names.ts
-msgid "Azerbaijani"
-msgstr "阿塞拜疆语"
 
 #: app/(auth)/server.tsx
 #: src/features/design/design-pane.tsx
@@ -2309,7 +2305,7 @@ msgstr "后退"
 #. placeholder {0}: application.company
 #: src/shell/editor-origin.ts
 msgid "Back to {0}"
-msgstr ""
+msgstr "返回 {0}"
 
 #: app/applications/[id]/_layout.tsx
 #: src/features/application-detail/detail-screen.tsx
@@ -2376,7 +2372,7 @@ msgstr "色条"
 #. placeholder {1}: periodLabel(offer.period)
 #: src/features/workspace/tabs/messages.tsx
 msgid "Base {0} {1}"
-msgstr ""
+msgstr "基本工资 {0} {1}"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
@@ -2411,7 +2407,7 @@ msgstr "恢复前"
 #. placeholder {0}: version.name
 #: src/features/history/history.tsx
 msgid "Before restoring “{0}”"
-msgstr ""
+msgstr "恢复「{0}」之前"
 
 #: src/features/application-detail/hooks.ts
 #: src/features/applications/next-step.ts
@@ -2426,13 +2422,9 @@ msgstr "行为面试"
 msgid "Below your minimum base salary."
 msgstr "低于您的最低基本工资。"
 
-#: src/features/settings/locale-names.ts
-msgid "Bengali"
-msgstr "孟加拉语"
-
 #: src/features/assistant/tool-approvals.tsx
 msgid "blank"
-msgstr ""
+msgstr "空白"
 
 #: src/features/applications-board/views.tsx
 msgid "Board"
@@ -2466,7 +2458,7 @@ msgstr "奖金"
 #. placeholder {1}: offer.variableConditions ? ` (${offer.variableConditions})` : ""
 #: src/features/workspace/tabs/messages.tsx
 msgid "Bonus {0}{1}"
-msgstr ""
+msgstr "奖金 {0}{1}"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
@@ -2513,15 +2505,11 @@ msgstr "简报自动刷新已暂停"
 
 #: src/api/ai-consent.ts
 msgid "built-in reader"
-msgstr ""
+msgstr "内置阅读器"
 
 #: src/features/ai/web-access.tsx
 msgid "Built-in reader"
 msgstr "内置阅读器"
-
-#: src/features/settings/locale-names.ts
-msgid "Bulgarian"
-msgstr "保加利亚语"
 
 #: src/features/check/writing.tsx
 msgid "bullet {n}"
@@ -2541,7 +2529,7 @@ msgstr "酒红色"
 #. placeholder {0}: formatWhen(step.respondBy, locale, timeZone, true)
 #: src/features/applications/next-step.ts
 msgid "By {0}"
-msgstr ""
+msgstr "作者 {0}"
 
 #: app/(tabs)/settings/index.tsx
 msgid "by <0>Amruth Pillai</0>"
@@ -2599,13 +2587,13 @@ msgstr "取消请求"
 msgid "Career"
 msgstr "职业"
 
-#: src/features/settings/locale-names.ts
-msgid "Catalan"
-msgstr "加泰罗尼亚语"
-
 #: src/features/applications/lane-settings.tsx
 msgid "Category"
 msgstr "类别"
+
+#: src/features/design/china-market-group.tsx
+msgid "Centred name"
+msgstr "居中姓名"
 
 #: src/features/write/fields.ts
 msgid "Certifications"
@@ -2655,7 +2643,7 @@ msgstr "更改时区"
 
 #: src/features/settings/profile.tsx
 msgid "Change username"
-msgstr ""
+msgstr "修改用户名"
 
 #: src/features/assistant/messages.tsx
 msgid "Changed the resume directly (an earlier conversation)"
@@ -2668,7 +2656,7 @@ msgstr "无法保存更改。请重试后再继续。"
 #. placeholder {0}: earlier.data.version === "verbal" ? t`Verbal offer` : t`Written offer`
 #: src/features/career/offers.tsx
 msgid "Changes since {0}"
-msgstr ""
+msgstr "自 {0} 起的变更"
 
 #: src/draft/conflict-sheet.tsx
 msgid "Changes to “{name}” were saved on another device. Your edits are still on this device. Choose which version to keep."
@@ -2676,7 +2664,7 @@ msgstr "对“{name}”的更改已保存在另一台设备上。您所做的编
 
 #: src/features/ai/provider-editor.tsx
 msgid "Changing the key, model or address pauses scheduled AI work. Re-enable each schedule to approve its destination."
-msgstr ""
+msgstr "更改密钥、模型或地址会暂停定时的 AI 任务。请逐个重新启用计划以确认其目标。"
 
 #. The resume builder mode that reviews the resume for problems. Not the Screening application stage.
 #: app/builder/[id]/_layout.tsx
@@ -2706,7 +2694,7 @@ msgstr "检查另一个文件"
 #. placeholder {0}: proposal.note
 #: src/features/workspace/tabs/apply.tsx
 msgid "Check before accepting: {0}"
-msgstr ""
+msgstr "接受前请确认：{0}"
 
 #: src/features/share/custom-domain.tsx
 msgid "Check DNS"
@@ -2718,7 +2706,7 @@ msgstr ""
 
 #: src/features/settings/application-profile.tsx
 msgid "Check email addresses, links, names, countries and salary. A salary amount needs currency and pay period."
-msgstr ""
+msgstr "请核对邮箱、链接、姓名、国家和薪资。薪资数额需要同时给出币种和计薪周期。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Check every claim, date and result against your experience."
@@ -2736,11 +2724,11 @@ msgstr "检查一下是否准确。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Check that nothing you wrote yourself is lost."
-msgstr ""
+msgstr "确认你自己写的内容没有丢失。"
 
 #: src/features/assistant/tool-approvals.tsx
 msgid "Check that these facts support what the story claims before saving."
-msgstr ""
+msgstr "保存前请确认这些事实能支撑故事中的说法。"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Check the details"
@@ -2772,7 +2760,7 @@ msgstr "检查视图"
 
 #: src/features/documents/new-document.tsx
 msgid "Check what was found"
-msgstr ""
+msgstr "查看找到的内容"
 
 #: src/features/career/preferences.tsx
 msgid "Check your preferences. Invalid changes are not saved."
@@ -2801,7 +2789,7 @@ msgstr ""
 
 #: src/features/share/web-page.tsx
 msgid "Checking which resume opens your short link…"
-msgstr ""
+msgstr "正在检查哪个简历会打开你的短链接…"
 
 #: src/features/workspace/parts.tsx
 msgid "Checking your preferences"
@@ -2815,25 +2803,25 @@ msgstr "正在检查...保存后可以使用副本。"
 msgid "Checks every bullet for action and result"
 msgstr "检查每个列表条目的操作和结果"
 
-#: src/features/settings/locale-names.ts
-msgid "Chinese (Simplified)"
-msgstr "中文（简体）"
+#: src/features/design/design-pane.tsx
+msgid "China market"
+msgstr "中国市场"
 
-#: src/features/settings/locale-names.ts
-msgid "Chinese (Traditional)"
-msgstr "中文（繁体）"
+#: src/features/design/style-groups.tsx
+msgid "Chinese ATS"
+msgstr "中文 ATS"
 
 #: src/features/workspace/preparation.tsx
 msgid "Choose a base resume"
-msgstr ""
+msgstr "选择一份基础简历"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Choose a connection"
-msgstr ""
+msgstr "选择一个连接"
 
 #: src/features/settings/application-profile.tsx
 msgid "Choose a country"
-msgstr ""
+msgstr "选择国家/地区"
 
 #: src/features/application-detail/date-field.tsx
 msgid "Choose a date"
@@ -2902,7 +2890,7 @@ msgstr "请选择一个版本以继续。返回操作不会关闭此面板。"
 
 #: src/api/ai-consent.ts
 msgid "Choose a voice model before sharing data."
-msgstr ""
+msgstr "共享数据前，请先选择一个语音模型。"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Choose a WebM, MP4, MP3, WAV or Ogg file up to 2 MB."
@@ -2915,7 +2903,7 @@ msgstr "选择申请"
 
 #: src/features/career/offer-entry.tsx
 msgid "Choose an application before saving."
-msgstr ""
+msgstr "保存前请先选择一个申请。"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Choose an audio file"
@@ -2947,7 +2935,7 @@ msgstr "关闭时选择结果"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Choose saved answers to review. Unavailable evidence or another employer's scope cannot be exported."
-msgstr ""
+msgstr "选择要审核的已保存回答。不可用的依据，或属于其他雇主的范围，无法导出。"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Choose time"
@@ -2963,7 +2951,7 @@ msgstr "为文件中的每个阶段名称选择对应阶段，或将其添加为
 
 #: src/features/assistant/provider.tsx
 msgid "Choose…"
-msgstr ""
+msgstr "请选择…"
 
 #: src/features/design/advanced.tsx
 msgid "Circle"
@@ -2971,11 +2959,15 @@ msgstr "圆形"
 
 #: src/features/assistant/messages.tsx
 msgid "Cited as already shown · check it"
-msgstr ""
+msgstr "标注为已展示过 · 请核对"
 
 #: src/features/settings/application-profile.tsx
 msgid "City"
-msgstr ""
+msgstr "城市"
+
+#: src/features/design/china-market-group.tsx
+msgid "City, salary and start date fold into the header line."
+msgstr "城市、薪资、到岗时间收进页眉一行。"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Clarify"
@@ -2998,7 +2990,7 @@ msgstr "清除"
 
 #: src/features/workspace/preparation.tsx
 msgid "Clear cover letter"
-msgstr ""
+msgstr "清除求职信"
 
 #: src/features/application-detail/date-field.tsx
 msgid "Clear date"
@@ -3014,7 +3006,7 @@ msgstr "清除过滤器"
 
 #: src/features/workspace/preparation.tsx
 msgid "Clear resume"
-msgstr ""
+msgstr "清除简历"
 
 #: src/features/write/section-sheet.tsx
 msgid "Clear section"
@@ -3064,7 +3056,7 @@ msgstr "关闭…"
 
 #: src/features/applications/prior-no-response.tsx
 msgid "closed"
-msgstr ""
+msgstr "已关闭"
 
 #: src/features/application-detail/detail-screen.tsx
 #: src/features/applications/next-step.ts
@@ -3076,7 +3068,7 @@ msgstr "关闭"
 
 #: src/features/applications/stage-actions.ts
 msgid "Closed as Accepted offer"
-msgstr ""
+msgstr "按「接受 Offer」关闭"
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "Closed: {closed}"
@@ -3126,11 +3118,11 @@ msgstr "即将到来"
 
 #: src/features/share/feedback.tsx
 msgid "Comment left"
-msgstr ""
+msgstr "已留下评论"
 
 #: src/features/share/feedback.tsx
 msgid "Comments"
-msgstr ""
+msgstr "评论"
 
 #: src/features/design/style-groups.tsx
 msgid "Compact"
@@ -3155,7 +3147,7 @@ msgstr "公司"
 
 #: src/features/career/offer-entry.tsx
 msgid "Compare"
-msgstr ""
+msgstr "对比"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Compare attempts to see what improved. Practice questions are simulated, not from {company}."
@@ -3163,7 +3155,7 @@ msgstr "比较练习记录，查看进步。练习题为模拟题，并非来自
 
 #: src/features/applications/next-step.ts
 msgid "Compare it with your other offers"
-msgstr ""
+msgstr "与其他 Offer 对比"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/workspace/shell.tsx
@@ -3189,7 +3181,7 @@ msgstr "请先填写{0}，再保存。"
 
 #: src/features/share/download.tsx
 msgid "Complete data backup. Imports back into Reactive Resume."
-msgstr ""
+msgstr "完整数据备份，可重新导入本服务。"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Complete the employer form manually in your browser using reviewed answers and approved PDFs."
@@ -3235,7 +3227,7 @@ msgstr "连接 {domain}"
 
 #: src/features/assistant/provider.tsx
 msgid "Connect a search service in Settings to research the web. The coach can still read public links you paste."
-msgstr ""
+msgstr "在设置中接入搜索服务即可联网检索。顾问仍可读取你粘贴的公开链接。"
 
 #: src/features/ai/web-access.tsx
 msgid "Connect a service"
@@ -3271,7 +3263,7 @@ msgstr "连接AI提供商以使用助手。保存和准备求职申请无需AI�
 
 #: src/features/career/role-suggestions.tsx
 msgid "Connect and test an AI provider in Settings, or keep entering roles manually."
-msgstr ""
+msgstr "在设置中接入并测试 AI 服务商，或者继续手动录入岗位。"
 
 #: src/features/assistant/provider.tsx
 msgid "Connect another…"
@@ -3288,7 +3280,7 @@ msgstr "已连接 · {milliseconds} 毫秒"
 #. placeholder {0}: i18n.date(connection.createdAt, { dateStyle: "medium" })
 #: src/features/settings/connected-apps.tsx
 msgid "Connected {0}"
-msgstr ""
+msgstr "已连接 {0}"
 
 #: app/(tabs)/settings/ai-connections.tsx
 #: app/(tabs)/settings/ai.tsx
@@ -3347,7 +3339,7 @@ msgstr "内容以网格形式排列。"
 #. placeholder {0}: document.revision
 #: src/features/workspace/application-packet.tsx
 msgid "Content revision: {0}"
-msgstr ""
+msgstr "内容版本：{0}"
 
 #: src/features/ai/report-content.tsx
 msgid "Content to report"
@@ -3422,7 +3414,7 @@ msgstr "复制"
 
 #: src/features/workspace/preparation.tsx
 msgid "Copy a base resume for this job"
-msgstr ""
+msgstr "为该岗位复制一份基础简历"
 
 #: src/features/documents/new-document.tsx
 msgid "Copy a resume for a job"
@@ -3445,7 +3437,7 @@ msgstr "已创建副本"
 #. placeholder {0}: source.application.company
 #: src/features/documents/new-document.tsx
 msgid "Copy for {0}"
-msgstr ""
+msgstr "为 {0} 复制"
 
 #: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
@@ -3455,11 +3447,11 @@ msgstr "复印一份工作..."
 #: src/features/assistant/assistant-screen.tsx
 #: src/features/assistant/messages.tsx
 msgid "Copy for this job"
-msgstr ""
+msgstr "为该岗位复制"
 
 #: src/features/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
-msgstr ""
+msgstr "已为 {company} 复制一份，本简历未改动。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Copy reply"
@@ -3475,11 +3467,15 @@ msgstr "把导出文件中的文字复制出来通读一遍；修正任何位置
 
 #: src/features/workspace/preparation.tsx
 msgid "Copy this resume for the job"
-msgstr ""
+msgstr "为该岗位复制这份简历"
 
 #: src/features/assistant/chat-view.tsx
 msgid "Copy transcript"
 msgstr "复制成绩单"
+
+#: src/features/design/china-market-group.tsx
+msgid "Core courses"
+msgstr "核心课程"
 
 #: src/features/career/facts.tsx
 msgid "Correct"
@@ -3491,11 +3487,11 @@ msgstr "修正事实"
 
 #: src/features/career/offer-entry.tsx
 msgid "Correct the highlighted fields before saving."
-msgstr ""
+msgstr "保存前请先修正标出的字段。"
 
 #: src/features/career/offer-entry.tsx
 msgid "Correct the terms yourself. No AI request is made. Leave unknown amounts blank."
-msgstr ""
+msgstr "请自行核对条件。不会发起 AI 请求。不清楚的金额留空。"
 
 #: src/features/ats-checker/messages.ts
 msgid "Correct the year, or write \"Present\" for ongoing work."
@@ -3535,7 +3531,7 @@ msgstr "无法检查您的 AI 提供商。"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Couldn't check your evidence."
-msgstr ""
+msgstr "无法检查你的依据。"
 
 #: src/features/applications/error.ts
 msgid "Couldn't complete the request. Check your connection and try again."
@@ -3548,7 +3544,7 @@ msgstr "无法完成此操作。再试一次。"
 
 #: src/features/settings/application-profile.tsx
 msgid "Couldn't complete this action. Your draft is kept. If another device changed the profile, reload the saved profile before trying again."
-msgstr ""
+msgstr "该操作未能完成。你的草稿已保留。如果求职资料在其他设备上被改动，请先重新加载已保存的求职资料再试。"
 
 #: src/features/ai/web-access.tsx
 msgid "Couldn't confirm AI connections. Try again before using the assistant."
@@ -3556,7 +3552,7 @@ msgstr "无法确认 AI 连接。使用助手之前请重试。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Couldn't confirm the application move. Reload this application before retrying."
-msgstr ""
+msgstr "无法确认申请状态变更。请先重新加载该申请再重试。"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Couldn't confirm the save. Check Applications before retrying to avoid a duplicate."
@@ -3585,7 +3581,7 @@ msgstr ""
 
 #: src/features/career/offers.tsx
 msgid "Couldn't delete that offer. Try again."
-msgstr ""
+msgstr "无法删除该 Offer，请重试。"
 
 #: src/features/assistant/threads.tsx
 msgid "Couldn't delete the conversation. Try again."
@@ -3627,7 +3623,7 @@ msgstr "无法链接申请。重试之前请检查申请。"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Couldn't link the resume. Try again."
-msgstr ""
+msgstr "无法关联简历，请重试。"
 
 #: src/features/documents/new-document.tsx
 msgid "Couldn't load AI connections. PDF text and JSON imports still work."
@@ -3700,11 +3696,11 @@ msgstr "无法加载示例文件。再试一次。"
 
 #: src/features/check/writing.tsx
 msgid "Couldn't load the saved review."
-msgstr ""
+msgstr "无法加载已保存的审核记录。"
 
 #: src/features/share/feedback.tsx
 msgid "Couldn't load this link."
-msgstr ""
+msgstr "无法加载该链接。"
 
 #: src/features/history/history.tsx
 #: src/features/letters/share.tsx
@@ -3724,7 +3720,7 @@ msgstr "无法加载版本。"
 
 #: src/features/share/feedback.tsx
 msgid "Couldn't load your feedback links."
-msgstr ""
+msgstr "无法加载你的反馈链接。"
 
 #: app/(tabs)/settings/account.tsx
 msgid "Couldn't load your profile."
@@ -3744,7 +3740,7 @@ msgstr "无法加载您的时区。"
 
 #: src/features/settings/application-profile.tsx
 msgid "Couldn't load. Try again."
-msgstr ""
+msgstr "加载失败，请重试。"
 
 #: src/features/applications/queries.ts
 msgid "Couldn't log the follow-up. Check the timeline before trying again."
@@ -3752,7 +3748,7 @@ msgstr "无法记录跟进。请先检查时间线，再重试。"
 
 #: src/features/share/feedback.tsx
 msgid "Couldn't make the link. Try again."
-msgstr ""
+msgstr "链接创建失败，请重试。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Couldn't mark it as applied. Try again."
@@ -3760,7 +3756,7 @@ msgstr "无法标记为已申请。请重试。"
 
 #: src/features/assistant/page-fit.tsx
 msgid "Couldn't measure page fit. Check the page preview before accepting."
-msgstr ""
+msgstr "无法测算页面适配情况。接受前请先查看页面预览。"
 
 #: app/(tabs)/settings/account.tsx
 #: app/(tabs)/settings/index.tsx
@@ -3781,7 +3777,7 @@ msgstr "无法打开此简历"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Couldn't prepare the packet. Reload and review again."
-msgstr ""
+msgstr "无法生成材料包。请重新加载后再审核一次。"
 
 #: src/features/document-menu/index.tsx
 msgid "Couldn't print. Try again."
@@ -3794,7 +3790,7 @@ msgstr "无法提出这些编辑：{0}"
 
 #: src/features/write/improve.tsx
 msgid "Couldn't reach Reactive Resume. Check your internet connection, then try again."
-msgstr ""
+msgstr "无法连接服务器。请检查网络后重试。"
 
 #: src/features/check/writing.tsx
 msgid "Couldn't reach your AI provider. Try again or check its key in AI settings."
@@ -3802,7 +3798,7 @@ msgstr "无法联系您的 AI 提供商。请重试或在 AI 设置中检查其�
 
 #: src/features/workspace/hooks.ts
 msgid "Couldn't read {name}'s answer. Try again, or switch the default provider in AI settings."
-msgstr ""
+msgstr "无法读取 {name} 的回答。请重试，或在 AI 设置中更换默认服务商。"
 
 #: src/features/applications/import-sheet.tsx
 msgid "Couldn't read that file. Choose a .csv file and try again."
@@ -3815,12 +3811,12 @@ msgstr "无法读取该文件。请重试。"
 
 #: src/features/workspace/hooks.ts
 msgid "Couldn't read the AI's answer. Try again, or switch the default provider in AI settings."
-msgstr ""
+msgstr "无法读取 AI 的回答。请重试，或在 AI 设置中更换默认服务商。"
 
 #. placeholder {0}: part.errorText
 #: src/features/assistant/messages.tsx
 msgid "Couldn't read the attachment: {0}"
-msgstr ""
+msgstr "无法读取附件：{0}"
 
 #: src/features/check/parser.tsx
 msgid "Couldn't read the exported PDF."
@@ -3888,7 +3884,7 @@ msgstr "无法保存该更改。再试一次。"
 
 #: src/features/assistant/chat-view.tsx
 msgid "Couldn't save that decision. Try again."
-msgstr ""
+msgstr "该决定未能保存，请重试。"
 
 #: src/features/workspace/tabs/debrief.tsx
 #: src/features/workspace/tabs/fit.tsx
@@ -3913,7 +3909,7 @@ msgstr "无法保存职位描述。请重试。"
 
 #: src/features/check/job-match.tsx
 msgid "Couldn't save the job. Try again."
-msgstr ""
+msgstr "岗位保存失败，请重试。"
 
 #: src/features/application-detail/sections.tsx
 msgid "Couldn't save the notes. Your text is still here."
@@ -3952,7 +3948,7 @@ msgstr "无法保存您的偏好设置。您的草稿还在这里。"
 
 #: src/features/assistant/messages.tsx
 msgid "Couldn't save your wording. Your text is still here; try again."
-msgstr ""
+msgstr "措辞保存失败。你的文字仍在，请重试。"
 
 #: src/features/settings/profile.tsx
 msgid "Couldn't save. Try again."
@@ -3968,7 +3964,7 @@ msgstr "无法发送报告。您的文本将被保留；再试一次。"
 
 #: src/features/assistant/messages.tsx
 msgid "Couldn't share that fact. Try again."
-msgstr ""
+msgstr "无法共享该事实，请重试。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Couldn't share the answers. Try again."
@@ -4017,7 +4013,7 @@ msgstr "无法开始对话。再试一次。"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Couldn't suggest roles. Try again or enter roles manually."
-msgstr ""
+msgstr "无法推荐岗位。请重试，或手动录入岗位。"
 
 #: src/features/assistant/provider.tsx
 msgid "Couldn't switch models. Try again."
@@ -4029,7 +4025,7 @@ msgstr "无法转写。您的录音仍在这里。"
 
 #: src/features/share/feedback.tsx
 msgid "Couldn't turn off the link. Try again."
-msgstr ""
+msgstr "无法关闭该链接，请重试。"
 
 #: src/features/assistant/messages.tsx
 msgid "Couldn't undo that. Try again."
@@ -4037,7 +4033,7 @@ msgstr "无法撤销。请重试。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Couldn't undo the update. The application is unchanged."
-msgstr ""
+msgstr "无法撤销更新。该申请没有任何变化。"
 
 #: src/features/design/design-pane.tsx
 msgid "Couldn't unlock the resume. Try again."
@@ -4049,7 +4045,7 @@ msgstr "无法解锁此简历。再试一次。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Couldn't update saved answers. Try again."
-msgstr ""
+msgstr "无法更新已保存的回答，请重试。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Couldn't update the application. Nothing was changed; try again."
@@ -4061,7 +4057,7 @@ msgstr "无法更新职位申请。再试一次。"
 
 #: src/features/share/feedback.tsx
 msgid "Couldn't update the comment. Try again."
-msgstr ""
+msgstr "评论更新失败，请重试。"
 
 #: src/features/application-detail/interview-sheet.tsx
 msgid "Couldn't update the interview. Try again."
@@ -4085,7 +4081,7 @@ msgstr "无法上传照片。"
 
 #: src/features/write/picture-screen.tsx
 msgid "Couldn't upload the photo. Choose a readable PNG, JPEG, WebP or GIF photo up to 10 MB, then try again."
-msgstr ""
+msgstr "照片上传失败。请选择可正常读取的 PNG、JPEG、WebP 或 GIF 照片，不超过 10 MB，然后重试。"
 
 #: src/features/write/picture-screen.tsx
 msgid "Couldn't upload the photo. Try again."
@@ -4109,7 +4105,7 @@ msgstr "与解析得分分开计算。覆盖率并不能预测任何事情。"
 
 #: src/features/career/search-regions-field.tsx
 msgid "Countries to search"
-msgstr ""
+msgstr "搜索地区"
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "Counts every application that reached each stage, including ones now closed."
@@ -4140,7 +4136,7 @@ msgstr "求职信 — {0}"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Cover letter (optional)"
-msgstr ""
+msgstr "求职信（可选）"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/applications/list-screen.tsx
@@ -4151,7 +4147,7 @@ msgstr "求职信文件"
 #: src/features/application-detail/sections.tsx
 #: src/features/workspace/preparation.tsx
 msgid "Cover letter options"
-msgstr ""
+msgstr "求职信选项"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
@@ -4161,6 +4157,10 @@ msgstr "提交求职信（可选）"
 #: src/features/search/search-screen.tsx
 msgid "Cover letters"
 msgstr "求职信"
+
+#: src/features/design/china-market-group.tsx
+msgid "Covered"
+msgstr "已命中"
 
 #: src/features/check/page.tsx
 msgid "Covered term: {highlightTerm}"
@@ -4180,7 +4180,7 @@ msgstr "首先创建一份简历，然后询问。"
 
 #: src/features/settings/connected-apps.tsx
 msgid "Create and change documents, applications and your profile."
-msgstr ""
+msgstr "创建和修改文档、申请以及你的求职资料。"
 
 #: src/features/documents/new-document.tsx
 msgid "Create copy"
@@ -4192,7 +4192,7 @@ msgstr "首先创建或导入简历，然后返回以复制该职位的简历。
 
 #: src/features/documents/new-document.tsx
 msgid "Create resume"
-msgstr ""
+msgstr "创建简历"
 
 #: src/features/document-menu/index.tsx
 #: src/features/history/history.tsx
@@ -4228,11 +4228,11 @@ msgstr "币种"
 
 #: src/features/workspace/preparation.tsx
 msgid "Current drafts"
-msgstr ""
+msgstr "当前草稿"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Current employer: {company}"
-msgstr ""
+msgstr "当前雇主：{company}"
 
 #: src/features/design/advanced.tsx
 #: src/features/design/style-groups.tsx
@@ -4247,7 +4247,7 @@ msgstr "自定义颜色（十六进制）"
 
 #: src/features/write/date-field.tsx
 msgid "Custom date text"
-msgstr ""
+msgstr "自定义日期文字"
 
 #: src/features/write/basics-screen.tsx
 msgid "Custom fields"
@@ -4266,10 +4266,6 @@ msgstr "自定义样式"
 msgid "Custom styles aren't applied. Fix these errors to apply them:"
 msgstr "自定义样式未应用。修复以下错误即可应用："
 
-#: src/features/settings/locale-names.ts
-msgid "Czech"
-msgstr "捷克语"
-
 #. placeholder {0}: summary.peak
 #: src/features/share/link.tsx
 msgid "Daily views over 30 days, peak {0}"
@@ -4278,10 +4274,6 @@ msgstr "30天内每日观看次数，峰值 {0}"
 #: src/features/ai/report-content.tsx
 msgid "Dangerous or illegal advice"
 msgstr "危险或非法建议"
-
-#: src/features/settings/locale-names.ts
-msgid "Danish"
-msgstr "丹麦语"
 
 #: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/preferences.tsx
@@ -4321,7 +4313,7 @@ msgstr "日期格式"
 
 #: src/features/application-detail/sections.tsx
 msgid "Dated updates. For things to remember and share with the coach, use Notes."
-msgstr ""
+msgstr "带日期的进展记录。需要记住并分享给顾问的内容，请用「笔记」。"
 
 #: src/features/ats-checker/messages.ts
 #: src/features/check/issues.ts
@@ -4362,7 +4354,7 @@ msgstr "复盘面试"
 
 #: src/features/applications/next-step.ts
 msgid "Decide on the offer"
-msgstr ""
+msgstr "决定是否接受 Offer"
 
 #: src/features/design/controls.tsx
 msgid "Decrease {label}"
@@ -4375,7 +4367,7 @@ msgstr "默认"
 
 #: src/features/ai/provider-model.tsx
 msgid "Default · fast, low cost"
-msgstr ""
+msgstr "默认 · 快、成本低"
 
 #: src/features/write/fields.ts
 msgid "Degree"
@@ -4418,7 +4410,7 @@ msgstr "删除对话"
 
 #: src/features/settings/connected-apps.tsx
 msgid "Delete documents and account data."
-msgstr ""
+msgstr "删除文档和账号数据。"
 
 #: src/features/application-detail/sections.tsx
 msgid "Delete entry"
@@ -4444,7 +4436,7 @@ msgstr "删除它。隐藏关键词会被视为故意操纵搜索结果的行为
 
 #: src/features/career/offers.tsx
 msgid "Delete offer"
-msgstr ""
+msgstr "删除 Offer"
 
 #: src/features/design/layout-screen.tsx
 msgid "Delete page"
@@ -4457,11 +4449,11 @@ msgstr "永久删除…"
 
 #: src/features/settings/application-profile.tsx
 msgid "Delete profile"
-msgstr ""
+msgstr "删除求职资料"
 
 #: src/features/settings/application-profile.tsx
 msgid "Delete profile?"
-msgstr ""
+msgstr "要删除求职资料吗？"
 
 #: src/features/ai/provider-editor.tsx
 msgid "Delete provider"
@@ -4469,7 +4461,7 @@ msgstr "删除提供商"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Delete saved answer"
-msgstr ""
+msgstr "删除已保存回答"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Delete schedule"
@@ -4503,7 +4495,7 @@ msgstr "删除此条目？"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Delete this library answer? Application drafts and submitted copies are kept."
-msgstr ""
+msgstr "要删除这条知识库回答吗？申请草稿和已提交的副本会保留。"
 
 #: src/features/ai/provider-editor.tsx
 msgid "Delete this provider?"
@@ -4521,7 +4513,7 @@ msgstr "已删除"
 #. placeholder {0}: documents.length
 #: src/features/documents/queries.ts
 msgid "Deleted {deleted} of {0} forever. Refresh to see what remains."
-msgstr ""
+msgstr "已永久删除 {0} 份中的 {deleted} 份。刷新可查看剩余内容。"
 
 #. placeholder {0}: documents.length
 #: src/features/documents/queries.ts
@@ -4534,11 +4526,15 @@ msgstr "已删除的申请"
 
 #: src/features/workspace/tabs/saved.tsx
 msgid "Deleted from Library"
-msgstr ""
+msgstr "已从知识库删除"
 
 #: src/features/write/section-sheet.tsx
 msgid "Deletes the section and its entries. You can undo."
 msgstr "删除该部分及其条目。您可以撤消。"
+
+#: src/features/design/china-market-group.tsx
+msgid "Deliberately not done"
+msgstr "刻意不做"
 
 #: src/features/design/style-groups.tsx
 msgid "Density"
@@ -4593,7 +4589,7 @@ msgstr "细节"
 
 #: src/features/settings/application-profile.tsx
 msgid "Details for your job application forms."
-msgstr ""
+msgstr "用于求职申请表单的信息。"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Didn't land"
@@ -4640,11 +4636,11 @@ msgstr ""
 
 #: src/features/settings/connected-apps.tsx
 msgid "Disconnect an application from your account."
-msgstr ""
+msgstr "从账号中断开某个应用。"
 
 #: src/features/settings/connected-apps.tsx
 msgid "Disconnected “{name}”."
-msgstr ""
+msgstr "已断开「{name}」。"
 
 #: src/features/ai/next-steps.tsx
 #: src/features/letters/write.tsx
@@ -4654,11 +4650,11 @@ msgstr "忽略"
 
 #: src/features/career/today.tsx
 msgid "Dismiss selected"
-msgstr ""
+msgstr "忽略所选"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Do not share a resume"
-msgstr ""
+msgstr "不共享简历"
 
 #: src/shell/builder-chrome.tsx
 msgid "Document menu"
@@ -4702,7 +4698,7 @@ msgstr "将文档、版本历史和上传的文件打包为一个 zip。请查�
 
 #: src/features/assistant/coach-screen.tsx
 msgid "Does this offer meet what I want?"
-msgstr ""
+msgstr "这个 Offer 符合我的期望吗？"
 
 #: src/features/share/custom-domain.tsx
 msgid "Domain connected"
@@ -4764,7 +4760,7 @@ msgstr "下载与历史记录"
 #. placeholder {0}: document.name
 #: src/features/workspace/application-packet.tsx
 msgid "Download approved PDF: {0}"
-msgstr ""
+msgstr "下载已确认的 PDF：{0}"
 
 #: src/features/letters/share.tsx
 msgid "Download both PDFs"
@@ -4772,7 +4768,7 @@ msgstr "下载两个 PDF"
 
 #: src/features/application-detail/sections.tsx
 msgid "Download current PDF"
-msgstr ""
+msgstr "下载当前 PDF"
 
 #: src/features/letters/share.tsx
 msgid "Download failed. Try again."
@@ -4797,7 +4793,7 @@ msgstr "下载 PDF 代替"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Download reviewed packet"
-msgstr ""
+msgstr "下载已审核的材料包"
 
 #: src/features/applications/import-sheet.tsx
 msgid "Download them"
@@ -4906,15 +4902,11 @@ msgstr "复制"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Duplicate check unavailable. Retry before saving; your server may need updating."
-msgstr ""
+msgstr "查重暂不可用。保存前请重试；你的服务器可能需要升级。"
 
 #: src/features/document-menu/index.tsx
 msgid "Duplicate resume"
 msgstr "复制简历"
-
-#: src/features/settings/locale-names.ts
-msgid "Dutch"
-msgstr "荷兰语"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Each answer you get feedback on is kept here, newest first."
@@ -4926,15 +4918,15 @@ msgstr "职位公告中的每项要求都会与您知识库中的事实和故事
 
 #: src/features/share/link.tsx
 msgid "Each visitor counts once an hour."
-msgstr ""
+msgstr "每位访客每小时只计一次。"
 
 #: src/features/career/today.tsx
 msgid "Earlier discovery result. Search query and posting check time unknown."
-msgstr ""
+msgstr "较早的发现结果。搜索关键词和招聘信息核查时间未知。"
 
 #: src/api/ai-consent.ts
 msgid "Earlier messages and attachments in this conversation will be sent to this destination when you send again."
-msgstr ""
+msgstr "再次发送时，本次对话中此前的消息和附件也会发送到该目标。"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "earlier messages in this chat"
@@ -4952,7 +4944,7 @@ msgstr "编辑"
 #. placeholder {0}: contact.name
 #: src/features/application-detail/sheets.tsx
 msgid "Edit {0}"
-msgstr ""
+msgstr "编辑 {0}"
 
 #. placeholder {0}: index + 1
 #. placeholder {1}: proposal.location
@@ -4962,11 +4954,11 @@ msgstr "编辑{0}：{1}"
 
 #: src/features/assistant/chat.ts
 msgid "Edit {number} · {location}: \"{before}\" → \"{after}\" ({outcome})"
-msgstr ""
+msgstr "修改 {number} · {location}：「{before}」→「{after}」（{outcome}）"
 
 #: src/features/assistant/chat.ts
 msgid "Edit {number} · {location}: added \"{after}\" ({outcome})"
-msgstr ""
+msgstr "修改 {number} · {location}：新增「{after}」（{outcome}）"
 
 #. placeholder {0}: proposal.location
 #: src/features/assistant/messages.tsx
@@ -4979,11 +4971,11 @@ msgstr ""
 
 #: src/features/workspace/preparation.tsx
 msgid "Edit cover letter"
-msgstr ""
+msgstr "编辑求职信"
 
 #: src/features/application-detail/sections.tsx
 msgid "Edit current draft"
-msgstr ""
+msgstr "编辑当前草稿"
 
 #: src/features/application-detail/sheets.tsx
 msgid "Edit date"
@@ -4996,7 +4988,7 @@ msgstr "编辑条目"
 
 #: src/features/assistant/tool-approvals.tsx
 msgid "Edit first"
-msgstr ""
+msgstr "先编辑"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
@@ -5006,7 +4998,7 @@ msgstr "编辑采访"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Edit it in Reactive Resume"
-msgstr ""
+msgstr "在本服务中编辑"
 
 #: src/features/write/basics-screen.tsx
 msgid "Edit link"
@@ -5018,15 +5010,15 @@ msgstr "编辑备注"
 
 #: src/features/career/offer-entry.tsx
 msgid "Edit offer terms"
-msgstr ""
+msgstr "编辑 Offer 条件"
 
 #: src/features/workspace/preparation.tsx
 msgid "Edit posting"
-msgstr ""
+msgstr "编辑招聘信息"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Edit profile"
-msgstr ""
+msgstr "编辑求职资料"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Edit question"
@@ -5034,11 +5026,11 @@ msgstr "编辑问题"
 
 #: src/features/workspace/preparation.tsx
 msgid "Edit resume"
-msgstr ""
+msgstr "编辑简历"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Edit saved answer"
-msgstr ""
+msgstr "编辑已保存回答"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Edit schedule"
@@ -5050,7 +5042,7 @@ msgstr "编辑 STARR 故事"
 
 #: src/features/career/offers.tsx
 msgid "Edit terms"
-msgstr ""
+msgstr "编辑条件"
 
 #: src/features/check/issues.ts
 msgid "Edit the email"
@@ -5066,7 +5058,7 @@ msgstr ""
 
 #: src/features/assistant/messages.tsx
 msgid "Edited by you"
-msgstr ""
+msgstr "由你编辑"
 
 #: src/features/history/history.tsx
 #: src/features/letters/share.tsx
@@ -5110,11 +5102,11 @@ msgstr "导出时嵌入所有字体，确保字符按你的预期显示。"
 
 #: src/features/assistant/messages.tsx
 msgid "Employer"
-msgstr ""
+msgstr "雇主"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Employer-form packet"
-msgstr ""
+msgstr "雇主表单材料包"
 
 #: src/features/documents/thumbnail.tsx
 msgid "Empty letter"
@@ -5126,19 +5118,15 @@ msgstr "清空垃圾箱"
 
 #: src/features/documents/library.tsx
 msgid "Empty Trash?"
-msgstr ""
+msgstr "要清空回收站吗？"
 
 #: src/features/write/date-field.tsx
 msgid "End"
 msgstr "结尾"
 
-#: src/features/settings/locale-names.ts
-msgid "English"
-msgstr "英语"
-
-#: src/features/settings/locale-names.ts
-msgid "English (United Kingdom)"
-msgstr "英语（英国）"
+#: src/features/design/china-market-group.tsx
+msgid "English / CET"
+msgstr "英语 / CET"
 
 #: src/features/ai/web-access.tsx
 msgid "Enhanced reading failed"
@@ -5170,7 +5158,7 @@ msgstr "输入名称，最多 64 个字符。"
 
 #: src/features/write/date-field.tsx
 msgid "Enter a readable date or clear the text to use date fields."
-msgstr ""
+msgstr "请输入可识别的日期，或清空文字以改用日期选择器。"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/preferences.tsx
@@ -5224,7 +5212,7 @@ msgstr "输入您在浏览器中打开 Reactive Resume 的地址。在您继续�
 
 #: src/features/ai/error.ts
 msgid "Enter the API base URL of your service and test again."
-msgstr ""
+msgstr "请输入你服务的 API 基础地址，然后重新测试。"
 
 #: src/features/letters/write.tsx
 msgid "Enter your details below. Choosing a resume replaces them and links its design."
@@ -5232,7 +5220,7 @@ msgstr "在下方填写你的信息。选择简历后，这些信息将被替换
 
 #: src/features/career/offers.tsx
 msgid "Entered by you"
-msgstr ""
+msgstr "由你录入"
 
 #: src/features/design/design-pane.tsx
 msgid "Entries"
@@ -5261,11 +5249,11 @@ msgstr "股权"
 #. placeholder {0}: offer.equity
 #: src/features/workspace/tabs/messages.tsx
 msgid "Equity {0}"
-msgstr ""
+msgstr "期权 {0}"
 
 #: src/features/assistant/page-fit.tsx
 msgid "Estimated overflow change: {change} lines."
-msgstr ""
+msgstr "预计溢出变化：{change} 行。"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Every 3 days"
@@ -5301,15 +5289,19 @@ msgstr "每周"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Evidence changed or was removed. Edit and review before reuse."
-msgstr ""
+msgstr "依据已变更或已被删除。再次使用前请先编辑并审核。"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Exact form URL"
-msgstr ""
+msgstr "表单原始链接"
 
 #: src/features/write/date-field.tsx
 msgid "Expected"
-msgstr ""
+msgstr "预计"
+
+#: src/features/design/china-market-group.tsx
+msgid "Expected salary"
+msgstr "期望薪资"
 
 #: src/features/career/facts.tsx
 #: src/features/write/fields.ts
@@ -5319,7 +5311,7 @@ msgstr "工作经历"
 #. placeholder {0}: date(link.expiresAt)
 #: src/features/share/feedback.tsx
 msgid "expires {0}"
-msgstr ""
+msgstr "{0} 过期"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Export a smaller PDF and check it again, or start a blank resume and fix these there."
@@ -5339,11 +5331,11 @@ msgstr "从原始文档导出，而不是扫描或截图。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Export saved answers"
-msgstr ""
+msgstr "导出已保存回答"
 
 #: src/features/settings/application-profile.tsx
 msgid "Export saved profile"
-msgstr ""
+msgstr "导出已保存的求职资料"
 
 #: src/features/ats-checker/messages.ts
 msgid "Export the resume as a text PDF rather than as an image or a scan."
@@ -5389,7 +5381,7 @@ msgstr ""
 
 #: src/features/settings/application-profile.tsx
 msgid "Family name"
-msgstr ""
+msgstr "姓"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Feedback"
@@ -5397,11 +5389,11 @@ msgstr "反馈"
 
 #: src/features/share/feedback.tsx
 msgid "Feedback link"
-msgstr ""
+msgstr "反馈链接"
 
 #: src/features/share/feedback.tsx
 msgid "Feedback links"
-msgstr ""
+msgstr "反馈链接"
 
 #. placeholder {0}: index + 1
 #: src/features/write/basics-screen.tsx
@@ -5415,7 +5407,7 @@ msgstr "字段已删除"
 #: src/features/assistant/messages.tsx
 msgctxt "A number or metric stated in a resume"
 msgid "Figure"
-msgstr ""
+msgstr "图注"
 
 #: src/features/application-detail/sections.tsx
 msgid "File attached"
@@ -5464,15 +5456,11 @@ msgstr "查找弱列表条目"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Finding roles needs a working web search service. Set it up first, or save jobs manually in Applications."
-msgstr ""
+msgstr "发现岗位需要可用的网页搜索服务。请先配置，或在「申请」中手动保存岗位。"
 
 #: src/features/workspace/parts.tsx
 msgid "Finding what works"
 msgstr "正在寻找亮点"
-
-#: src/features/settings/locale-names.ts
-msgid "Finnish"
-msgstr "芬兰语"
 
 #: src/features/career/offers.tsx
 msgid "First offer"
@@ -5500,7 +5488,7 @@ msgstr "匹配度检查、简报、练习反馈、面试复盘、申请表答案
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Fit needs evidence. Add facts to Knowledge or choose a resume to link before sending a request."
-msgstr ""
+msgstr "匹配分析需要依据。请先向知识库添加事实，或选择要关联的简历，再发起请求。"
 
 #: src/features/check/issues.ts
 msgid "Fix the date"
@@ -5601,7 +5589,7 @@ msgstr "对于 example.com 这样的根域名，请使用指向 {0} 地址的 A 
 
 #: src/features/share/feedback.tsx
 msgid "For example, Careers office"
-msgstr ""
+msgstr "例如：招聘办公室"
 
 #: src/features/history/history.tsx
 #: src/features/letters/share.tsx
@@ -5648,7 +5636,7 @@ msgstr "忘记会取消这一事实与故事和保存的项目的链接。原始
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Form answers"
-msgstr ""
+msgstr "表单回答"
 
 #: src/features/letters/rich-text-field.tsx
 #: src/features/write/rich-text-field.tsx
@@ -5664,26 +5652,22 @@ msgstr "发现于 {0}"
 #. placeholder {1}: time.when(row.discoverySource.checkedAt)
 #: src/features/career/today.tsx
 msgid "Found for “{0}”. Posting checked {1}."
-msgstr ""
+msgstr "为「{0}」找到。招聘信息核查于 {1}。"
 
 #: src/api/ai-consent.ts
 #: src/features/career/schedule-sheet.tsx
 msgid "Found posting links are read by Reactive Resume and the sites being read."
-msgstr ""
+msgstr "找到的招聘链接会由本服务及被读取的网站读取。"
 
 #: src/api/ai-consent.ts
 #: src/features/career/schedule-sheet.tsx
 msgid "Found posting links are read by Reactive Resume and, when needed, {reader} and the sites being read. The reader may charge."
-msgstr ""
+msgstr "找到的招聘链接会由本服务读取；必要时也会由 {reader} 及被读取的网站读取。阅读器可能收费。"
 
 #: src/features/design/style-groups.tsx
 #: src/features/letters/design.tsx
 msgid "Free-form"
 msgstr "自由形式"
-
-#: src/features/settings/locale-names.ts
-msgid "French"
-msgstr "法语"
 
 #: src/features/letters/write.tsx
 msgid "From"
@@ -5700,7 +5684,7 @@ msgstr "根据您的经验条目"
 #. placeholder {0}: start.note
 #: src/features/career/stories.tsx
 msgid "From your interview plan: {0}"
-msgstr ""
+msgstr "来自你的面试计划：{0}"
 
 #: src/features/career/search-regions-field.tsx
 msgid "From your timezone"
@@ -5708,7 +5692,11 @@ msgstr "根据你的时区"
 
 #: src/features/settings/api-keys.tsx
 msgid "Full access"
-msgstr ""
+msgstr "完全访问"
+
+#: src/features/design/china-market-group.tsx
+msgid "Full major name"
+msgstr "专业全称"
 
 #: src/features/letters/write.tsx
 #: src/features/write/basics-screen.tsx
@@ -5720,18 +5708,18 @@ msgstr "姓名"
 msgid "Full width"
 msgstr "全宽"
 
+#: src/features/design/china-market-group.tsx
+msgid "Gender"
+msgstr "性别"
+
 #: src/features/career/role-suggestions.tsx
 msgid "Generate role suggestions"
-msgstr ""
+msgstr "生成岗位建议"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/workspace/preparation.tsx
 msgid "Generating PDF…"
 msgstr "正在生成 PDF…"
-
-#: src/features/settings/locale-names.ts
-msgid "German"
-msgstr "德语"
 
 #. placeholder {0}: sites[provider]
 #: src/features/ai/web-access.tsx
@@ -5780,7 +5768,7 @@ msgstr "先为故事起个标题，然后填写情境、任务和行动。在有
 
 #: src/features/settings/application-profile.tsx
 msgid "Given name"
-msgstr ""
+msgstr "名"
 
 #: src/features/search/search-screen.tsx
 msgid "Go to…"
@@ -5789,6 +5777,10 @@ msgstr "前往…"
 #: src/features/share/link.tsx
 msgid "Goes live at {url} when you publish."
 msgstr ""
+
+#: src/features/design/china-market-group.tsx
+msgid "GPA / rank"
+msgstr "绩点 / 排名"
 
 #: src/features/write/fields.ts
 msgid "Grade"
@@ -5799,13 +5791,13 @@ msgstr "成绩"
 msgid "Graphite"
 msgstr "石墨"
 
-#: src/features/settings/locale-names.ts
-msgid "Greek"
-msgstr "希腊语"
-
 #: src/features/letters/write.tsx
 msgid "Greeting"
 msgstr "称呼"
+
+#: src/features/design/china-market-group.tsx
+msgid "Grey text and a thin rule only, never an icon font."
+msgstr "只用浅灰文字与细竖条，不引入图标字体。"
 
 #: src/features/documents/library.tsx
 msgid "Grid view"
@@ -5866,22 +5858,18 @@ msgstr "收听"
 msgid "heard back"
 msgstr "收到回音"
 
-#: src/features/settings/locale-names.ts
-msgid "Hebrew"
-msgstr "希伯来语"
-
 #: app/(tabs)/settings/index.tsx
 msgid "Help & docs"
 msgstr "帮助和文档"
 
 #: src/features/workspace/coach-starters.ts
 msgid "Help me prepare for a first call"
-msgstr ""
+msgstr "帮我准备第一轮电话沟通"
 
 #. placeholder {0}: starter.company
 #: src/features/assistant/coach-screen.tsx
 msgid "Help me prepare for my {0} interview."
-msgstr ""
+msgstr "帮我准备我的 {0} 面试。"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "Help me turn an accomplishment into a Situation, Task, Action, Result and Reflection story."
@@ -5889,7 +5877,7 @@ msgstr "帮我把一项成就整理成包含情境、任务、行动、结果和
 
 #: src/features/assistant/coach-screen.tsx
 msgid "Help me weigh the offer I have against what I want."
-msgstr ""
+msgstr "帮我把手上的 Offer 和我的期望做个权衡。"
 
 #. placeholder {0}: open.label
 #: src/features/check/job-match.tsx
@@ -5925,7 +5913,7 @@ msgstr "隐藏条款又回来了"
 #: src/features/assistant/messages.tsx
 msgctxt "Fold an edit card"
 msgid "Hide"
-msgstr ""
+msgstr "隐藏"
 
 #: src/features/write/outline.tsx
 msgid "Hide {title} from the page"
@@ -5939,6 +5927,10 @@ msgstr "隐藏联系方式"
 msgid "Hide details"
 msgstr "隐藏详细信息"
 
+#: src/features/design/china-market-group.tsx
+msgid "Hide fields"
+msgstr "收起字段"
+
 #: src/features/write/entry-sheet.tsx
 msgid "Hide from page"
 msgstr "从页面隐藏"
@@ -5951,6 +5943,10 @@ msgstr "隐藏密钥"
 msgid "Hide license"
 msgstr "隐藏许可证"
 
+#: src/features/design/china-market-group.tsx
+msgid "Hide mapping"
+msgstr "收起映射"
+
 #: src/features/career/today.tsx
 msgid "Hide read"
 msgstr "隐藏已读项目"
@@ -5962,10 +5958,6 @@ msgstr "隐藏照片"
 #: src/features/workspace/preparation.tsx
 msgid "Hides all steps"
 msgstr ""
-
-#: src/features/settings/locale-names.ts
-msgid "Hindi"
-msgstr "印地语"
 
 #: src/features/application-detail/sheets.tsx
 msgid "Hiring manager"
@@ -6001,7 +5993,7 @@ msgstr "水平间距"
 
 #: src/features/settings/application-profile.tsx
 msgid "Hour"
-msgstr ""
+msgstr "时"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "How did it go?"
@@ -6035,17 +6027,13 @@ msgstr "如何显示文件"
 msgid "How well do I fit this role?"
 msgstr "我有多适合这个角色？"
 
-#: src/features/settings/locale-names.ts
-msgid "Hungarian"
-msgstr "匈牙利语"
-
 #: src/features/design/advanced.tsx
 msgid "Hyphenation"
 msgstr "连字符"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "I can edit your summary, bullets and text fields, and add entries and sections. Review each set before accepting it together. Some fields still need Write. I can't translate a whole resume."
-msgstr ""
+msgstr "我可以修改你的个人简介、要点和文本字段，也能新增条目和小节。接受前请逐组审核。部分字段仍需到「编写」中修改。我无法整份翻译简历。"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "I can see this letter and the {company} posting. Suggestions come back as edits you can accept one by one."
@@ -6069,19 +6057,19 @@ msgstr ""
 
 #: src/features/write/improve.tsx
 msgid "I don't have one yet"
-msgstr ""
+msgstr "我还没有"
 
 #: src/features/workspace/answer-library.tsx
 msgid "I removed employer-specific wording and reviewed reuse across employers."
-msgstr ""
+msgstr "我已去掉针对具体雇主的表述，并确认可以跨雇主复用。"
 
 #: src/features/workspace/application-packet.tsx
 msgid "I reviewed these fields, answers, destination and document content."
-msgstr ""
+msgstr "我已审核这些字段、回答、目标以及文档内容。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "I reviewed this answer, its evidence and the application context."
-msgstr ""
+msgstr "我已审核这条回答、它的依据以及申请背景。"
 
 #: src/features/applications/stages.ts
 msgid "I withdrew"
@@ -6107,9 +6095,13 @@ msgstr "图标…"
 msgid "Icons in contact line"
 msgstr "联系线中的图标"
 
+#: src/features/design/china-market-group.tsx
+msgid "ID photo"
+msgstr "证件照"
+
 #: src/features/share/web-page.tsx
 msgid "If another resume holds Primary, turn it on for this one instead."
-msgstr ""
+msgstr "如果主简历被另一份简历占用，请改为在这份简历上开启。"
 
 #: src/features/ats-checker/messages.ts
 msgid "If it came from a scan, that is expected. Otherwise remove it; recruiters read it as keyword stuffing."
@@ -6179,7 +6171,7 @@ msgstr "导入或创建简历"
 
 #: src/features/documents/library.tsx
 msgid "Import the one you have, or start blank."
-msgstr ""
+msgstr "导入你现有的简历，或从空白开始。"
 
 #: src/features/documents/library.tsx
 msgid "Import your current resume, or start fresh with your name."
@@ -6215,15 +6207,15 @@ msgstr "改善…"
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
 msgid "In progress"
-msgstr ""
+msgstr "进行中"
 
 #: src/features/career/offers.tsx
 msgid "In the Offer stage, terms not added"
-msgstr ""
+msgstr "处于 Offer 阶段，尚未添加条件"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Include reviewed profile name, email and phone"
-msgstr ""
+msgstr "包含已审核的求职资料中的姓名、邮箱和电话"
 
 #: src/features/applications/list-screen.tsx
 msgid "Including closed"
@@ -6236,10 +6228,6 @@ msgstr "增加{label}"
 #: src/features/ats-checker/messages.ts
 msgid "Increase line spacing so two lines are not merged into one."
 msgstr "增加行距，避免两行文字被合并成一行。"
-
-#: src/features/settings/locale-names.ts
-msgid "Indonesian"
-msgstr "印尼语"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Inferred"
@@ -6257,6 +6245,10 @@ msgstr "行内"
 #: src/features/applications-board/views.tsx
 msgid "Insights"
 msgstr "洞察"
+
+#: src/features/design/china-market-group.tsx
+msgid "Intent on one line"
+msgstr "求职意向压成一行"
 
 #: src/features/write/fields.ts
 msgid "Interests"
@@ -6328,7 +6320,7 @@ msgstr "有奖金吗？取决于什么？"
 
 #: src/features/workspace/coach-starters.ts
 msgid "Is this job worth applying for?"
-msgstr ""
+msgstr "这个岗位值得投吗？"
 
 #. placeholder {0}: issue.number
 #. placeholder {1}: issues.length
@@ -6361,23 +6353,19 @@ msgstr "它有条目但未放置在页面上。"
 
 #: src/features/settings/connected-apps.tsx
 msgid "It loses access now. To use it again, connect it from the app. This cannot be undone."
-msgstr ""
+msgstr "它将立即失去访问权限。如需再次使用，需从该应用重新连接。此操作无法撤销。"
 
 #: src/features/share/feedback.tsx
 msgid "It stops opening at once. Comments already left are kept. You can make a new link anytime."
-msgstr ""
+msgstr "链接会立即失效。已有的评论会保留。你随时可以创建新链接。"
 
 #: src/features/application-detail/sections.tsx
 msgid "It's removed from the timeline and the calendar for good."
-msgstr ""
+msgstr "它将从时间线和日历中永久移除。"
 
 #: src/features/application-detail/sections.tsx
 msgid "It's removed from the timeline for good."
 msgstr "它已从时间线中永久删除。"
-
-#: src/features/settings/locale-names.ts
-msgid "Italian"
-msgstr "意大利语"
 
 #: src/features/letters/rich-text-field.tsx
 #: src/features/write/rich-text-field.tsx
@@ -6394,19 +6382,19 @@ msgstr "它自己的设计（{summary}）。"
 
 #: src/features/workspace/parts.tsx
 msgid "its requirements"
-msgstr ""
+msgstr "它的任职要求"
 
 #: src/features/ai/provider-editor.tsx
 msgid "Its saved key is deleted. Conversations using it need another provider."
 msgstr "其保存的密钥被删除。使用它的对话需要另一个提供者。"
 
-#: src/features/settings/locale-names.ts
-msgid "Japanese"
-msgstr "日语"
-
 #: app/(tabs)/settings/licences.tsx
 msgid "JavaScript"
 msgstr "JavaScript"
+
+#: src/features/design/china-market-group.tsx
+msgid "JD keyword alignment"
+msgstr "JD 关键词对齐"
 
 #: src/features/search/search-screen.tsx
 msgid "Job"
@@ -6414,6 +6402,7 @@ msgstr "工作"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/import-sheet.tsx
+#: src/features/design/china-market-group.tsx
 #: src/features/workspace/preparation.tsx
 msgid "Job description"
 msgstr "职位描述"
@@ -6426,13 +6415,17 @@ msgstr "职位匹配"
 msgid "Job match isn't part of the readability score."
 msgstr "职位匹配 不属于可读性得分的一部分。"
 
+#: src/features/design/china-market-group.tsx
+msgid "Job platform"
+msgstr "招聘平台"
+
 #: src/features/ats-checker/checker.tsx
 msgid "Job posting · optional, adds a keyword match"
 msgstr "职位发布·可选，添加关键字匹配"
 
 #: src/features/documents/new-document.tsx
 msgid "Job posting (optional)"
-msgstr ""
+msgstr "招聘信息（可选）"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Job posting link"
@@ -6452,7 +6445,7 @@ msgstr "求职流程"
 
 #: src/features/assistant/messages.tsx
 msgid "Job title"
-msgstr ""
+msgstr "职位名称"
 
 #: src/features/search/search-screen.tsx
 msgid "Jobs"
@@ -6466,10 +6459,6 @@ msgstr "加入 Discord"
 #: src/features/share/download.tsx
 msgid "JSON"
 msgstr "JSON"
-
-#: src/features/settings/locale-names.ts
-msgid "Kannada"
-msgstr "卡纳达语"
 
 #: src/features/check/screen.tsx
 msgid "Keep"
@@ -6485,7 +6474,7 @@ msgstr "在你未使用该应用时保持访问权限。"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Keep application"
-msgstr ""
+msgstr "保留申请"
 
 #: src/draft/conflict-sheet.tsx
 msgid "Keep both"
@@ -6527,7 +6516,7 @@ msgstr "保留在一页上"
 
 #: src/features/share/web-page.tsx
 msgid "Keep password"
-msgstr ""
+msgstr "保留密码"
 
 #: src/features/document-menu/index.tsx
 msgid "Keep private notes about this resume here. Nobody else can see them."
@@ -6535,7 +6524,7 @@ msgstr "在这里记录关于这份简历的私人备注。其他人看不到。
 
 #: src/features/ai/provider-editor.tsx
 msgid "Keep provider"
-msgstr ""
+msgstr "保留该服务商"
 
 #: src/features/ats-checker/messages.ts
 msgid "Keep resume content as real text rather than as pictures of text."
@@ -6564,7 +6553,7 @@ msgstr "保持团结"
 
 #: src/features/settings/profile.tsx
 msgid "Keep username"
-msgstr ""
+msgstr "保留用户名"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "Keeps the most specific parts"
@@ -6596,15 +6585,11 @@ msgstr "关键词布局"
 #. placeholder {0}: (row.keywordOverlap ?? []).join(" · ") || t`None`
 #: src/features/career/today.tsx
 msgid "Keyword overlap: {0}"
-msgstr ""
+msgstr "关键词重合：{0}"
 
 #: src/features/write/fields.ts
 msgid "Keywords"
 msgstr "关键词"
-
-#: src/features/settings/locale-names.ts
-msgid "Khmer"
-msgstr "高棉语"
 
 #: src/features/share/letter.ts
 msgid "Kind regards,"
@@ -6625,15 +6610,11 @@ msgstr "知识库无法加载。请重试，或在发送前关闭知识库。"
 
 #: src/features/workspace/parts.tsx
 msgid "Knowledge that's switched on"
-msgstr ""
+msgstr "已开启的知识库"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Knowledge:"
-msgstr ""
-
-#: src/features/settings/locale-names.ts
-msgid "Korean"
-msgstr "韩语"
+msgstr "知识库："
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/write/entry-fields.tsx
@@ -6685,7 +6666,7 @@ msgstr "最后编辑"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Last reviewed"
-msgstr ""
+msgstr "上次审核"
 
 #: src/features/career/today.tsx
 msgid "Last run failed"
@@ -6694,12 +6675,12 @@ msgstr ""
 #. placeholder {0}: time.when(row.lastSeenAt)
 #: src/features/career/today.tsx
 msgid "Last seen in search: {0}"
-msgstr ""
+msgstr "最近一次出现在搜索中：{0}"
 
 #. placeholder {0}: i18n.date(new Date(record.reviewedAt), { dateStyle: "medium", timeStyle: "short" })
 #: src/features/settings/application-profile.tsx
 msgid "Last updated: {0}"
-msgstr ""
+msgstr "最后更新：{0}"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Later"
@@ -6709,10 +6690,6 @@ msgstr "稍后"
 #: src/features/career/offers.tsx
 msgid "Latest"
 msgstr "最新"
-
-#: src/features/settings/locale-names.ts
-msgid "Latvian"
-msgstr "拉脱维亚语"
 
 #: src/features/ats-checker/messages.ts
 msgid "Lay the text out horizontally. Rotated runs are often dropped or misplaced."
@@ -6779,7 +6756,7 @@ msgstr ""
 
 #: src/features/assistant/tool-approvals.tsx
 msgid "Left blank. Add it later only if you can support it."
-msgstr ""
+msgstr "已留空。日后若有依据再补上。"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Legal"
@@ -6827,7 +6804,7 @@ msgstr "Letter"
 #: src/features/documents/document-sheets.tsx
 #: src/features/letters/write.tsx
 msgid "Letter already sent"
-msgstr ""
+msgstr "求职信已发送"
 
 #: src/features/letters/write.tsx
 msgid "Letter body"
@@ -6859,11 +6836,11 @@ msgstr "等级"
 #: src/shell/workspace-tab-label.ts
 msgctxt "Application workspace tab: earlier results kept for this job"
 msgid "Library"
-msgstr ""
+msgstr "知识库"
 
 #: src/features/workspace/tabs/saved.tsx
 msgid "Library items for {company}, newest first."
-msgstr ""
+msgstr "{company} 的知识库条目，最新的在前。"
 
 #: app/(tabs)/settings/licences.tsx
 msgid "Licenses"
@@ -6913,12 +6890,12 @@ msgstr "关联"
 #. placeholder {0}: index + 1
 #: src/features/settings/application-profile.tsx
 msgid "Link {0} label"
-msgstr ""
+msgstr "链接 {0} 的显示文字"
 
 #. placeholder {0}: index + 1
 #: src/features/settings/application-profile.tsx
 msgid "Link {0} URL"
-msgstr ""
+msgstr "链接 {0} 的地址"
 
 #: src/features/write/rich-text-field.tsx
 msgid "Link address"
@@ -6940,15 +6917,15 @@ msgstr "链接已复制"
 
 #: src/features/share/feedback.tsx
 msgid "Link expires"
-msgstr ""
+msgstr "链接有效期"
 
 #: src/features/share/feedback.tsx
 msgid "Link made"
-msgstr ""
+msgstr "链接已创建"
 
 #: src/features/check/job-match.tsx
 msgid "Link this resume"
-msgstr ""
+msgstr "关联这份简历"
 
 #: src/features/documents/document-sheets.tsx
 msgid "Link to application"
@@ -6960,7 +6937,7 @@ msgstr "职位申请链接..."
 
 #: src/features/share/feedback.tsx
 msgid "Link turned off"
-msgstr ""
+msgstr "链接已关闭"
 
 #: src/features/check/issues.ts
 msgid "Link updated"
@@ -6980,11 +6957,11 @@ msgstr "链接的申请"
 
 #: src/features/workspace/preparation.tsx
 msgid "Linked document unavailable"
-msgstr ""
+msgstr "关联的文档不可用"
 
 #: src/features/workspace/preparation.tsx
 msgid "Linked document unavailable. Choose another document or restore it from Trash."
-msgstr ""
+msgstr "关联的文档不可用。请选择其他文档，或从回收站恢复。"
 
 #: src/features/workspace/preparation.tsx
 msgid "Linked documents couldn't be loaded."
@@ -6992,7 +6969,7 @@ msgstr "无法加载关联的文档。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Linked evidence unchanged since review"
-msgstr ""
+msgstr "关联依据自审核以来未变更"
 
 #: src/features/application-detail/sections.tsx
 msgid "Linked resume"
@@ -7009,7 +6986,7 @@ msgstr "再次链接到简历"
 
 #: src/features/letters/write.tsx
 msgid "Linked. The header (name, contact details, links and photo) updates when the resume does."
-msgstr ""
+msgstr "已关联。页眉（姓名、联系方式、链接和照片）会随简历一同更新。"
 
 #: src/features/settings/application-profile.tsx
 msgid "Links"
@@ -7017,7 +6994,7 @@ msgstr "链接"
 
 #: src/features/settings/profile.tsx
 msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr ""
+msgstr "你已分享的旧链接会在 30 天后失效。请在此之前把新链接发出去。"
 
 #: src/features/applications-board/views.tsx
 msgid "List"
@@ -7030,10 +7007,6 @@ msgstr "列出你使用的工具和技术。招聘人员搜索技能的频率高
 #: src/features/documents/library.tsx
 msgid "List view"
 msgstr "列表视图"
-
-#: src/features/settings/locale-names.ts
-msgid "Lithuanian"
-msgstr "立陶宛语"
 
 #: src/features/check/score.tsx
 msgid "Live · updates as you edit"
@@ -7104,7 +7077,7 @@ msgstr "正在加载简历…"
 #: src/features/workspace/answer-library.tsx
 #: src/features/workspace/application-packet.tsx
 msgid "Loading saved answers…"
-msgstr ""
+msgstr "正在加载已保存的回答…"
 
 #: src/features/workspace/shell.tsx
 msgid "Loading saved version…"
@@ -7168,7 +7141,7 @@ msgstr "锁定的文档被跳过。首先将它们解锁。"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "Locked. I can answer questions; unlock to get edits."
-msgstr ""
+msgstr "已锁定。我可以回答问题；解锁后才能给出修改建议。"
 
 #: src/features/write/entry-screen.tsx
 #: src/features/write/outline.tsx
@@ -7177,15 +7150,15 @@ msgstr "锁定。解锁即可编辑。"
 
 #: src/features/application-detail/sections.tsx
 msgid "Log"
-msgstr ""
+msgstr "记录"
 
 #: src/features/application-detail/sections.tsx
 msgid "Log an update"
-msgstr ""
+msgstr "记录一条进展"
 
 #: src/features/application-detail/sections.tsx
 msgid "Log an update…"
-msgstr ""
+msgstr "记录一条进展…"
 
 #: src/features/documents/library.tsx
 msgid "Long press to select"
@@ -7206,7 +7179,7 @@ msgstr "看起来和页面一模一样。将其用于工作申请和电子邮件
 
 #: src/features/check/issues.ts
 msgid "Looks like part of the entry above"
-msgstr ""
+msgstr "看起来属于上一条目的内容"
 
 #: src/features/design/design-pane.tsx
 msgid "Lower the design sheet"
@@ -7219,7 +7192,7 @@ msgstr "主界面"
 
 #: src/features/check/job-match.tsx
 msgid "Make a copy for this job"
-msgstr ""
+msgstr "为该岗位复制一份"
 
 #: src/features/ai/provider-list.tsx
 msgid "Make default"
@@ -7236,7 +7209,7 @@ msgstr "让它更短"
 
 #: src/features/share/feedback.tsx
 msgid "Make link"
-msgstr ""
+msgstr "创建链接"
 
 #: src/features/share/web-page.tsx
 msgid "Make primary"
@@ -7262,14 +7235,6 @@ msgstr "把它们改得明显更大、更粗或全部大写。"
 msgid "Make this your primary resume?"
 msgstr "要将此简历设为主简历吗？"
 
-#: src/features/settings/locale-names.ts
-msgid "Malay"
-msgstr "马来语"
-
-#: src/features/settings/locale-names.ts
-msgid "Malayalam"
-msgstr "马拉雅拉姆语"
-
 #: src/features/application-detail/sections.tsx
 msgid "Manage contacts"
 msgstr "管理联系人"
@@ -7281,7 +7246,7 @@ msgstr "管理阶段"
 
 #: src/features/settings/application-profile.tsx
 msgid "Manage profile"
-msgstr ""
+msgstr "管理求职资料"
 
 #: src/features/ai/web-access.tsx
 msgid "Managed by server"
@@ -7294,7 +7259,7 @@ msgstr "由您的服务器管理"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Manual roles and preferences work without AI. Suggestions never search or schedule anything."
-msgstr ""
+msgstr "手动录入岗位和偏好无需 AI。建议功能不会去搜索，也不会创建任何计划。"
 
 #: src/features/ats-checker/messages.ts
 msgid "Many bullets start with the same phrase."
@@ -7303,10 +7268,6 @@ msgstr "很多要点都以相同的短语开头。"
 #: src/features/write/date-field.tsx
 msgid "Mar 2022"
 msgstr "2022 年 3 月"
-
-#: src/features/settings/locale-names.ts
-msgid "Marathi"
-msgstr "马拉地语"
 
 #: src/features/design/style-groups.tsx
 #: src/features/letters/design.tsx
@@ -7328,23 +7289,23 @@ msgstr "标记为已申请"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Mark as applied and move"
-msgstr ""
+msgstr "标记为已投递并推进"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Mark as applied and move it?"
-msgstr ""
+msgstr "标记为已投递并推进？"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Mark as applied and move to {stage}"
-msgstr ""
+msgstr "标记为已投递并推进到「{stage}」"
 
 #: src/features/application-detail/sheets.tsx
 msgid "Mark as closed"
-msgstr ""
+msgstr "标记为已关闭"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Mark as closed…"
-msgstr ""
+msgstr "标记为已关闭…"
 
 #: src/features/career/today.tsx
 msgid "Mark as read"
@@ -7383,6 +7344,10 @@ msgstr "匹配系统主题"
 msgid "Match the resume"
 msgstr "与简历保持一致"
 
+#: src/features/design/china-market-group.tsx
+msgid "Matched"
+msgstr "命中"
+
 #: src/features/career/offers.tsx
 msgid "Matches a preferred location."
 msgstr "匹配首选位置。"
@@ -7414,7 +7379,7 @@ msgstr "MCP服务器"
 
 #: src/features/assistant/page-fit.tsx
 msgid "Measuring page fit…"
-msgstr ""
+msgstr "正在测算页面适配…"
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "median to first reply"
@@ -7438,11 +7403,15 @@ msgstr ""
 
 #: src/features/check/issues.ts
 msgid "Merge into previous entry"
-msgstr ""
+msgstr "合并到上一条目"
+
+#: src/features/design/china-market-group.tsx
+msgid "Merged cells measurably lower Chinese ATS parsing."
+msgstr "合并单元格会明显降低中文 ATS 解析率。"
 
 #: src/features/check/issues.ts
 msgid "Merged into the entry above"
-msgstr ""
+msgstr "已合并到上一条目"
 
 #: src/features/career/facts.tsx
 msgid "Message"
@@ -7463,7 +7432,7 @@ msgstr ""
 #: src/features/assistant/coach-screen.tsx
 #: src/features/workspace/coach-sheet.tsx
 msgid "Messages from before Knowledge changed aren't sent."
-msgstr ""
+msgstr "知识库变更之前的消息不会发送。"
 
 #: src/features/career/preferences.tsx
 msgid "Minimum base salary"
@@ -7472,6 +7441,10 @@ msgstr "最低基本工资"
 #: src/features/career/offers.tsx
 msgid "Minimum salary cannot be compared in these terms."
 msgstr "最低工资不能在这些方面进行比较。"
+
+#: src/features/design/china-market-group.tsx
+msgid "Missing"
+msgstr "缺失"
 
 #: app/(tabs)/settings/index.tsx
 msgid "MIT License"
@@ -7492,7 +7465,7 @@ msgstr "型号：{label}"
 
 #: src/features/settings/application-profile.tsx
 msgid "Month"
-msgstr ""
+msgstr "月"
 
 #: src/features/write/pickers.tsx
 msgid "More"
@@ -7508,7 +7481,7 @@ msgstr "更多详情"
 
 #: src/features/documents/import-file.ts
 msgid "More from your file"
-msgstr ""
+msgstr "文件中的其他内容"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/write/entry-fields.tsx
@@ -7676,7 +7649,7 @@ msgstr "移至{0}"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Moved to {stage}"
-msgstr ""
+msgstr "已推进到「{stage}」"
 
 #: src/features/application-detail/detail-screen.tsx
 msgid "Moved to Trash"
@@ -7711,7 +7684,7 @@ msgstr "主机记录"
 
 #: src/features/documents/new-document.tsx
 msgid "Name and contact details weren't found. Add them in Basics."
-msgstr ""
+msgstr "未找到姓名和联系方式。请在「基本信息」中补充。"
 
 #. placeholder {0}: index + 1
 #: src/features/application-detail/interview-sheet.tsx
@@ -7754,6 +7727,10 @@ msgstr "狭窄的"
 msgid "Native & fonts"
 msgstr "原生组件和字体"
 
+#: src/features/design/china-market-group.tsx
+msgid "Native place"
+msgstr "籍贯"
+
 #: src/features/ai/provider-list.tsx
 #: src/features/ai/web-access.tsx
 msgid "Needs attention"
@@ -7761,21 +7738,17 @@ msgstr "需要注意"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Needs evidence or scope review"
-msgstr ""
+msgstr "需要审核依据或适用范围"
 
 #. placeholder {0}: countryName(row.countryCode, i18n.locale)
 #: src/features/settings/application-profile.tsx
 msgid "Needs sponsorship in {0}"
-msgstr ""
+msgstr "需要在 {0} 获得担保"
 
 #: src/features/applications-board/views.tsx
 #: src/features/career/today.tsx
 msgid "Needs you"
 msgstr "需要您处理"
-
-#: src/features/settings/locale-names.ts
-msgid "Nepali"
-msgstr "尼泊尔语"
 
 #: src/features/write/fields.ts
 msgid "Network"
@@ -7825,7 +7798,7 @@ msgstr "新的求职信代替"
 
 #: src/features/assistant/messages.tsx
 msgid "New detail: check it's true"
-msgstr ""
+msgstr "新增信息：请核实是否属实"
 
 #: src/features/documents/library.tsx
 #: src/features/search/search-screen.tsx
@@ -7834,7 +7807,7 @@ msgstr "新文件"
 
 #: src/features/share/feedback.tsx
 msgid "New feedback link"
-msgstr ""
+msgstr "新建反馈链接"
 
 #: app/(tabs)/settings/ai-mcp.tsx
 #: src/features/settings/api-keys.tsx
@@ -7870,7 +7843,7 @@ msgstr "新的STARR故事"
 #: src/features/applications/trash-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Next"
-msgstr ""
+msgstr "下一步"
 
 #: src/features/applications/list-screen.tsx
 msgid "Next application"
@@ -7911,7 +7884,7 @@ msgstr ""
 
 #: src/features/letters/write.tsx
 msgid "Next version"
-msgstr ""
+msgstr "下一版本"
 
 #: src/shell/workspace-chrome.tsx
 msgid "Next workspace tabs"
@@ -7919,15 +7892,15 @@ msgstr "下一个工作区选项卡"
 
 #: src/features/settings/application-profile.tsx
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: src/features/workspace/preparation.tsx
 msgid "No AI needed. Edit documents and write answers yourself; nothing here is sent to the employer or marks the job applied."
-msgstr ""
+msgstr "无需 AI。你可以自己编辑文档、撰写回答；此处内容不会发给雇主，也不会把该岗位标记为已投递。"
 
 #: src/api/ai-consent.ts
 msgid "No AI provider is used for this operation."
-msgstr ""
+msgstr "此操作不使用任何 AI 服务商。"
 
 #: src/features/ai/provider-list.tsx
 msgid "No AI provider yet"
@@ -7964,7 +7937,7 @@ msgstr "没有与搜索匹配的命令。"
 
 #: src/features/share/feedback.tsx
 msgid "No comments yet."
-msgstr ""
+msgstr "还没有评论。"
 
 #: src/features/settings/connected-apps.tsx
 msgid "No connected applications. Apps you allow appear here."
@@ -7990,11 +7963,11 @@ msgstr "未选择求职信"
 
 #: src/features/documents/library.tsx
 msgid "No cover letters yet"
-msgstr ""
+msgstr "还没有求职信"
 
 #: src/features/career/today.tsx
 msgid "No current target-role or location phrase matches."
-msgstr ""
+msgstr "没有匹配当前目标岗位或地区的短语。"
 
 #: src/features/letters/write.tsx
 msgid "No date"
@@ -8006,11 +7979,11 @@ msgstr "未找到任何日期。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "no documents"
-msgstr ""
+msgstr "无文档"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "No documents or answers are linked. This records the application as sent, and moves it. You submit on the employer's site yourself."
-msgstr ""
+msgstr "没有关联任何文档或回答。这只会把申请记为已发送并推进状态。实际投递需要你自己在雇主网站上完成。"
 
 #: src/features/assistant/threads.tsx
 msgid "no edits"
@@ -8030,7 +8003,7 @@ msgstr "未找到电子邮件地址。"
 
 #: src/features/assistant/messages.tsx
 msgid "No evidence found · left as a gap"
-msgstr ""
+msgstr "未找到依据 · 保留为空缺"
 
 #: src/features/workspace/parts.tsx
 msgid "No evidence yet"
@@ -8042,7 +8015,7 @@ msgstr "没有事实匹配"
 
 #: src/features/career/facts.tsx
 msgid "No facts yet"
-msgstr ""
+msgstr "还没有事实"
 
 #: src/features/write/pickers.tsx
 msgid "No icons match."
@@ -8050,7 +8023,7 @@ msgstr "没有图标匹配。"
 
 #: src/features/applications/next-step.ts
 msgid "No interview scheduled"
-msgstr ""
+msgstr "暂无面试安排"
 
 #: src/features/documents/new-document.tsx
 msgid "No job yet"
@@ -8083,7 +8056,7 @@ msgstr "没有位置"
 #. placeholder {0}: facts.find((fact) => fact.id === id)?.text ?? t`a fact that isn't available here`
 #: src/features/assistant/tool-approvals.tsx
 msgid "No longer backed by: {0}"
-msgstr ""
+msgstr "不再由以下内容支撑：{0}"
 
 #: src/features/ai/provider-model.tsx
 #: src/features/documents/library.tsx
@@ -8100,7 +8073,7 @@ msgstr "没有匹配的申请"
 
 #: src/features/workspace/answer-library.tsx
 msgid "No matching saved answers. Clear the search to see all answers."
-msgstr ""
+msgstr "没有匹配的已保存回答。清空搜索即可查看全部。"
 
 #: src/features/career/today.tsx
 msgid "No new roles. Discovery is paused."
@@ -8117,7 +8090,7 @@ msgstr "暂无可比较的录用通知"
 
 #: src/features/share/feedback.tsx
 msgid "No open applications."
-msgstr ""
+msgstr "没有进行中的申请。"
 
 #: src/features/check/issues.ts
 msgid "No phone number"
@@ -8145,15 +8118,15 @@ msgstr "此职位发布中没有可识别的术语。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "No recorded answers are available."
-msgstr ""
+msgstr "没有可用的已记录回答。"
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "No replies to chart yet"
-msgstr ""
+msgstr "还没有可用于统计的回复"
 
 #: src/features/applications/prior-no-response.tsx
 msgid "no reply"
-msgstr ""
+msgstr "无回复"
 
 #: src/features/applications/stages.ts
 msgid "No response"
@@ -8180,7 +8153,7 @@ msgstr "暂无简历"
 
 #: src/features/documents/new-document.tsx
 msgid "No sections were found in this file."
-msgstr ""
+msgstr "该文件中未找到任何小节。"
 
 #: src/features/ats-checker/messages.ts
 msgid "No skills section was found."
@@ -8204,11 +8177,11 @@ msgstr "暂无故事"
 
 #: src/features/career/role-suggestions.tsx
 msgid "No supported suggestions returned. Enter roles manually or choose different context."
-msgstr ""
+msgstr "没有返回可用的建议。请手动录入岗位，或换个上下文。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "No terms were extracted. Opens in Career → Offers."
-msgstr ""
+msgstr "未能提取条件。将在「职业 → Offer」中打开。"
 
 #: src/features/ats-checker/checker.tsx
 #: src/features/ats-checker/messages.ts
@@ -8254,20 +8227,16 @@ msgstr "您的AI连接均不支持语音转写。OpenAI、Google Gemini、Mistra
 
 #: src/features/workspace/preparation.tsx
 msgid "None selected"
-msgstr ""
+msgstr "未选择"
 
 #: src/features/design/style-groups.tsx
 #: src/features/letters/design.tsx
 msgid "Normal"
 msgstr "普通的"
 
-#: src/features/settings/locale-names.ts
-msgid "Norwegian"
-msgstr "挪威语"
-
 #: src/features/assistant/messages.tsx
 msgid "Not answered. The conversation went on below."
-msgstr ""
+msgstr "未作答。对话已在下方继续。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Not applied"
@@ -8279,7 +8248,7 @@ msgstr "尚未申请"
 
 #: src/features/assistant/messages.tsx
 msgid "Not assessed"
-msgstr ""
+msgstr "未评估"
 
 #: src/features/share/web-page.tsx
 msgid "Not available while the resume needs a password."
@@ -8291,7 +8260,7 @@ msgstr "尚未连接。请在管理域名的地方添加其 DNS 记录，然后�
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "Not enough applications to compare yet: this needs 3 of each."
-msgstr ""
+msgstr "可对比的申请还不够：每类至少需要 3 个。"
 
 #: src/features/career/today.tsx
 msgid "Not for me"
@@ -8315,7 +8284,7 @@ msgstr "不在您的简历中·仅在属实时添加"
 
 #: src/features/documents/new-document.tsx
 msgid "Not linked to a job"
-msgstr ""
+msgstr "未关联岗位"
 
 #: src/features/assistant/messages.tsx
 #: src/features/workspace/tabs/debrief.tsx
@@ -8324,7 +8293,7 @@ msgstr "暂不"
 
 #: src/features/share/feedback.tsx
 msgid "Not opened yet"
-msgstr ""
+msgstr "尚未打开"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/career/offers.tsx
@@ -8351,11 +8320,11 @@ msgstr "未保存 — 这个事实之前已被忘记。"
 #: src/features/settings/application-profile.tsx
 #: src/features/workspace/preparation.tsx
 msgid "Not saved yet"
-msgstr ""
+msgstr "尚未保存"
 
 #: src/features/applications/prior-no-response.tsx
 msgid "not selected"
-msgstr ""
+msgstr "未选择"
 
 #: src/features/applications/stages.ts
 msgid "Not selected"
@@ -8363,7 +8332,7 @@ msgstr "未选择"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Not stated"
-msgstr ""
+msgstr "未注明"
 
 #: src/features/check/job-match.tsx
 msgid "Not true for me, hide it"
@@ -8386,11 +8355,11 @@ msgstr "备注"
 
 #: src/features/assistant/messages.tsx
 msgid "Nothing checked backs these. Confirm each before accepting:"
-msgstr ""
+msgstr "没有任何已核实的内容支撑这些修改。接受前请逐条确认："
 
 #: src/features/assistant/messages.tsx
 msgid "Nothing cited for this edit."
-msgstr ""
+msgstr "这处修改没有引用任何来源。"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Nothing here should cost you a match."
@@ -8398,7 +8367,7 @@ msgstr "这里没有任何事情会让你输掉一场比赛。"
 
 #: src/features/workspace/tabs/saved.tsx
 msgid "Nothing in your library yet"
-msgstr ""
+msgstr "你的知识库还是空的"
 
 #: src/features/career/today.tsx
 msgid "Nothing is applied for or created until you choose."
@@ -8407,7 +8376,7 @@ msgstr "在您做出选择之前，不会申请任何职位，也不会创建任
 #: src/features/assistant/coach-screen.tsx
 #: src/features/workspace/coach-sheet.tsx
 msgid "Nothing is sent until you choose a connection for this conversation."
-msgstr ""
+msgstr "在你为本次对话选择连接之前，不会发送任何内容。"
 
 #: src/features/ats-checker/messages.ts
 msgid "Nothing marks a role as ongoing."
@@ -8419,7 +8388,7 @@ msgstr "这一天什么都没有。"
 
 #: src/features/application-detail/sections.tsx
 msgid "Nothing recorded as sent."
-msgstr ""
+msgstr "没有记录任何已发送内容。"
 
 #: src/features/applications-board/calendar-screen.tsx
 msgid "Nothing scheduled yet"
@@ -8443,7 +8412,7 @@ msgstr "没有需要修复的内容。其余页面只是没有被本报告覆盖
 
 #: src/features/document-menu/index.tsx
 msgid "Nothing to undo: it was already restored or deleted."
-msgstr ""
+msgstr "无可撤销：它已被恢复或删除。"
 
 #: src/features/career/preferences.tsx
 msgid "Notice period (weeks)"
@@ -8472,13 +8441,13 @@ msgstr "观察"
 msgid "Ochre"
 msgstr "赭色"
 
-#: src/features/settings/locale-names.ts
-msgid "Odia"
-msgstr "奥里亚语"
-
 #: src/features/ai/provider-list.tsx
 msgid "Off"
 msgstr "离开"
+
+#: src/features/design/china-market-group.tsx
+msgid "Off for market applications; only state-owned online forms ask for one."
+msgstr "市场化投递建议关闭；只有央国企网申才需要。"
 
 #: src/features/letters/write.tsx
 msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
@@ -8501,7 +8470,7 @@ msgstr "录用"
 
 #: src/features/career/offers.tsx
 msgid "Offer deleted"
-msgstr ""
+msgstr "Offer 已删除"
 
 #: src/features/career/offer-entry.tsx
 msgid "Offer saved"
@@ -8510,15 +8479,15 @@ msgstr "录用通知已保存"
 #. placeholder {0}: target.company
 #: src/features/career/offer-entry.tsx
 msgid "Offer saved. {0} moved to Offer."
-msgstr ""
+msgstr "Offer 已保存。{0} 已推进到 Offer 阶段。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Offer terms"
-msgstr ""
+msgstr "Offer 条件"
 
 #: src/features/career/offer-entry.tsx
 msgid "Offer terms updated"
-msgstr ""
+msgstr "Offer 条件已更新"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/workspace/tabs/messages.tsx
@@ -8532,7 +8501,7 @@ msgstr "录用通知"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Office days a week"
-msgstr ""
+msgstr "每周到岗天数"
 
 #: src/features/career/preferences.tsx
 msgid "Office days a week, at most"
@@ -8573,7 +8542,7 @@ msgstr "已开启。访客需要链接和密码才能查看你的网页。"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Once a round is scheduled, Interview prep builds a timed plan, your opening and the questions to ask."
-msgstr ""
+msgstr "面试轮次确定后，面试准备会生成带时间安排的计划、你的开场白以及要提问的问题。"
 
 #: src/features/applications-board/insights-screen.tsx
 msgid "Once you've sent a few applications, this shows how far they get and how quickly people reply."
@@ -8587,6 +8556,10 @@ msgstr "一栏"
 msgctxt "Entry header layout"
 msgid "One line"
 msgstr "单行"
+
+#: src/features/design/china-market-group.tsx
+msgid "One structured master, three outputs: the attachment PDF, the platform's online form and a JD keyword report. The online form is the copy a machine reads."
+msgstr "一份结构化主档，三种输出：附件 PDF、平台在线表单、JD 关键词对齐报告。在线表单是机器读取的主投递件。"
 
 #. Helper note explaining the keep-together limitation
 #: src/features/design/layout-screen.tsx
@@ -8618,7 +8591,7 @@ msgstr "只有通过测试的提供商才能开启。"
 #: src/features/applications/add-sheet.tsx
 #: src/features/workspace/tabs/messages.tsx
 msgid "Only the first {0} characters are kept."
-msgstr ""
+msgstr "仅保留前 {0} 个字符。"
 
 #. placeholder {0}: report.document.pageCount
 #: src/features/ats-checker/checker.tsx
@@ -8639,11 +8612,11 @@ msgstr "只检查了前几页。"
 
 #: src/api/ai-consent.ts
 msgid "Only the resume you selected and enabled shared Knowledge you opted into are sent through your server to this AI connection for editable target-role drafts. Application profiles, saved answers and private application facts are excluded."
-msgstr ""
+msgstr "只会把你选中的简历和已授权共享的知识库，经由你的服务器发送到这个 AI 连接，用于生成可编辑的目标岗位草稿。申请资料、已保存的回答和私密的申请信息不会发送。"
 
 #: src/api/ai-consent.ts
 msgid "Only the search query and search countries go to your server's web search service. Resumes, Knowledge, application profiles and saved answers are not sent. The search service may charge. Results wait in Today; no applications are submitted."
-msgstr ""
+msgstr "只会把搜索关键词和搜索地区发送到你服务器的网页搜索服务。简历、知识库、申请资料和已保存的回答都不会发送。搜索服务可能收费。结果会汇总到「今日」，不会自动投递任何申请。"
 
 #. placeholder {0}: getServer()
 #: src/features/ai/report-content.tsx
@@ -8652,7 +8625,7 @@ msgstr "仅将以下文本和您的原因私下发送给 {0} 的运营商进行�
 
 #: src/api/ai-consent.ts
 msgid "Only the text to read aloud is sent to this speech model."
-msgstr ""
+msgstr "只会把需要朗读的文本发送给该语音模型。"
 
 #: src/features/application-detail/interview-sheet.tsx
 msgid "Only this device schedules the notification."
@@ -8668,11 +8641,11 @@ msgstr "这些只有你能看到"
 
 #: src/features/share/feedback.tsx
 msgid "Only you see this."
-msgstr ""
+msgstr "只有你能看到。"
 
 #: src/api/ai-consent.ts
 msgid "Only your recording is sent to this transcription model. The returned transcript is saved to your account."
-msgstr ""
+msgstr "只会把你的录音发送给该转写模型。返回的文稿会保存到你的账号。"
 
 #: src/features/application-detail/hooks.ts
 #: src/features/applications/next-step.ts
@@ -8721,11 +8694,11 @@ msgstr "在“录用通知”中打开"
 
 #: src/features/assistant/messages.tsx
 msgid "Open in the resume's assistant"
-msgstr ""
+msgstr "在简历助手中打开"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Open Interview prep"
-msgstr ""
+msgstr "打开面试准备"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "Open letter"
@@ -8761,7 +8734,7 @@ msgstr "打开定时任务"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Open tracked job"
-msgstr ""
+msgstr "打开已跟进的岗位"
 
 #: src/features/share/link.tsx
 msgid "Open web page"
@@ -8773,7 +8746,7 @@ msgstr "打开工作区"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "Open Write"
-msgstr ""
+msgstr "打开「编写」"
 
 #: app/(tabs)/settings/index.tsx
 msgid "Open-source licenses"
@@ -8790,12 +8763,12 @@ msgstr "OpenDocument"
 
 #: src/features/share/feedback.tsx
 msgid "Opened"
-msgstr ""
+msgstr "已打开"
 
 #. placeholder {0}: formatTimeSince(link.lastViewedAt, i18n.locale)
 #: src/features/share/feedback.tsx
 msgid "Opened {0} ago"
-msgstr ""
+msgstr "{0}前打开过"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Opening the file"
@@ -8827,17 +8800,17 @@ msgstr "选修的"
 
 #: src/features/workspace/preparation.tsx
 msgid "Optional · none selected"
-msgstr ""
+msgstr "可选 · 未选择"
 
 #: src/features/workspace/preparation.tsx
 msgid "Optional AI help in the editors; review edits before accepting. Nothing here is sent to the employer or marks the job applied."
-msgstr ""
+msgstr "编辑器里可选的 AI 辅助；接受前请先审核修改内容。此处内容不会发给雇主，也不会把该岗位标记为已投递。"
 
 #. placeholder {0}: providers.defaultProvider.label
 #. placeholder {1}: providers.defaultProvider.provider
 #: src/features/applications/add-sheet.tsx
 msgid "Optional AI sends only this posting to {0} ({1})."
-msgstr ""
+msgstr "可选的 AI 功能只会把这条招聘信息发送给 {0}（{1}）。"
 
 #: src/features/ai/provider-editor.tsx
 msgid "Optional for local Ollama"
@@ -8865,7 +8838,7 @@ msgstr "组织"
 
 #: src/features/write/improve.tsx
 msgid "Original"
-msgstr ""
+msgstr "原文"
 
 #: src/features/write/rich-text-field.tsx
 msgid "Original table formatting is preserved. This content is read-only because it cannot be edited safely."
@@ -8902,7 +8875,7 @@ msgstr "结果"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Packet ready. Nothing submitted or marked as sent. Downloaded copies remain yours and do not refresh when source data changes."
-msgstr ""
+msgstr "材料包已生成。没有提交任何内容，也没有标记为已发送。下载的副本归你所有，源数据变化时不会自动更新。"
 
 #: app/builder/[id]/_layout.tsx
 #: app/builder/[id]/page.tsx
@@ -8957,7 +8930,7 @@ msgstr "第 {currentPage} 页（共 {0}）"
 #. placeholder {1}: fit.data.after
 #: src/features/assistant/page-fit.tsx
 msgid "Page fit: {0} → {1} printed pages."
-msgstr ""
+msgstr "页面适配：{0} → {1} 个打印页。"
 
 #: src/features/letters/design.tsx
 msgid "Page format"
@@ -8973,7 +8946,7 @@ msgstr "页面浏览量"
 
 #: src/features/design/design-pane.tsx
 msgid "Pages and sections"
-msgstr ""
+msgstr "页与小节"
 
 #: src/features/design/style-groups.tsx
 msgid "Paper"
@@ -9010,9 +8983,17 @@ msgstr "密码不匹配。"
 msgid "Past conversations"
 msgstr "过去的谈话"
 
+#: src/features/design/china-market-group.tsx
+msgid "Paste a JD and only the keywords it actually asks for count; a fixed word list never pads the denominator."
+msgstr "粘贴 JD 后只统计它真正要求的关键词，不用固定词表凑分母。"
+
+#: src/features/design/china-market-group.tsx
+msgid "Paste a job description to check the master uses the same words"
+msgstr "粘贴招聘 JD，检查主档是否用了同样的说法"
+
 #: src/features/documents/new-document.tsx
 msgid "Paste a job link or posting to track it in Applications."
-msgstr ""
+msgstr "粘贴岗位链接或招聘信息，即可在「申请」中跟进。"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Paste a job link or posting, then check the role and company. Nothing is saved until you choose Save job."
@@ -9041,7 +9022,7 @@ msgstr "粘贴邮件或消息，不含签名。"
 
 #: src/features/ai/web-access.tsx
 msgid "Paste the posting text or a public link to continue. The built-in reader remains available."
-msgstr ""
+msgstr "请粘贴招聘正文或公开链接以继续。内置阅读器仍然可用。"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Paste the posting to see which of its terms your resume already has."
@@ -9074,7 +9055,7 @@ msgstr "发薪周期"
 
 #: src/features/applications/next-step.ts
 msgid "Pay, deadline and conditions, so you can compare and decide"
-msgstr ""
+msgstr "薪资、截止时间和各项条件，便于你对比和决定"
 
 #: src/features/letters/share.tsx
 #: src/features/share/download.tsx
@@ -9101,13 +9082,17 @@ msgstr ""
 msgid "PDF styles support a subset of CSS. Rotation, dashed and dotted borders, and some layout properties are ignored."
 msgstr "PDF 样式支持 CSS 的子集。旋转、虚线和点线边框以及某些布局属性将被忽略。"
 
+#: src/features/design/china-market-group.tsx
+msgid "PDF visual preset"
+msgstr "PDF 视觉预设"
+
 #: src/features/documents/new-document.tsx
 msgid "PDF, Word, Reactive Resume, JSON Resume or LinkedIn export."
 msgstr "PDF、Word、Reactive Resume、JSON Resume 或 LinkedIn 导出。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "per hour"
-msgstr ""
+msgstr "每小时"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
@@ -9118,7 +9103,7 @@ msgstr "每小时"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "per month"
-msgstr ""
+msgstr "每月"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
@@ -9129,7 +9114,7 @@ msgstr "每月"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "per year"
-msgstr ""
+msgstr "每年"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
@@ -9141,10 +9126,6 @@ msgstr "每年"
 #: app/(tabs)/settings/account.tsx
 msgid "Permanently removes everything. Opens your browser account settings."
 msgstr "永久删除所有内容。打开您的浏览器帐户设置。"
-
-#: src/features/settings/locale-names.ts
-msgid "Persian"
-msgstr "波斯语"
 
 #: src/features/letters/write.tsx
 #: src/features/settings/application-profile.tsx
@@ -9177,11 +9158,11 @@ msgstr "页面上的照片。"
 
 #: src/features/write/picture-screen.tsx
 msgid "Photo removed"
-msgstr ""
+msgstr "照片已移除"
 
 #: src/features/career/today.tsx
 msgid "Phrase and keyword matches are text overlap, not verified salary, workplace or eligibility. AI fit has not been assessed. Track, then open Fit for an optional assessment."
-msgstr ""
+msgstr "短语和关键词匹配只是文本重合，不代表已核实的薪资、办公形式或任职资格。AI 匹配度尚未评估。可先关注该岗位，再打开「匹配」做可选评估。"
 
 #: src/features/write/date-field.tsx
 msgid "Pick {label}"
@@ -9217,7 +9198,7 @@ msgstr "带标题的纯文本。粘贴到工作申请表和注释中。"
 
 #: src/features/letters/share.tsx
 msgid "Plain text. Paste into application forms and emails."
-msgstr ""
+msgstr "纯文本。可粘贴到申请表单和邮件中。"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Plan again"
@@ -9225,7 +9206,7 @@ msgstr "重新规划"
 
 #: src/features/workspace/coach-starters.ts
 msgid "Plan my counter-offer"
-msgstr ""
+msgstr "帮我规划还价方案"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Plan my preparation"
@@ -9239,6 +9220,10 @@ msgstr "规划要问的问题"
 msgid "Planning your week"
 msgstr "正在规划您的一周"
 
+#: src/features/design/china-market-group.tsx
+msgid "Platform form mapping"
+msgstr "平台在线表单映射"
+
 #: src/features/workspace/tabs/practise.tsx
 msgid "Play recording"
 msgstr "播放录音"
@@ -9248,21 +9233,13 @@ msgstr "播放录音"
 msgid "Plum"
 msgstr "梅子紫"
 
-#: src/features/settings/locale-names.ts
-msgid "Polish"
-msgstr "波兰语"
+#: src/features/design/china-market-group.tsx
+msgid "Political status"
+msgstr "政治面貌"
 
 #: src/features/write/picture-screen.tsx
 msgid "Portrait"
 msgstr "纵向"
-
-#: src/features/settings/locale-names.ts
-msgid "Portuguese (Brazil)"
-msgstr "葡萄牙语（巴西）"
-
-#: src/features/settings/locale-names.ts
-msgid "Portuguese (Portugal)"
-msgstr "葡萄牙语（葡萄牙）"
 
 #: src/features/design/style-groups.tsx
 #: src/features/write/entry-fields.tsx
@@ -9272,7 +9249,7 @@ msgstr "职位"
 
 #: src/features/settings/application-profile.tsx
 msgid "Postal code"
-msgstr ""
+msgstr "邮政编码"
 
 #: src/features/workspace/tabs/saved.tsx
 msgid "posting"
@@ -9293,7 +9270,7 @@ msgstr "职位发布来源"
 
 #: src/features/career/today.tsx
 msgid "Postings can change or close. Publication date unknown; search coverage is incomplete."
-msgstr ""
+msgstr "招聘信息可能变更或关闭。发布日期未知；搜索覆盖并不完整。"
 
 #: src/features/workspace/tabs/practise.tsx
 #: src/features/workspace/tabs/prepare.tsx
@@ -9337,7 +9314,7 @@ msgstr "偏好"
 #. placeholder {0}: row.matches.join(" · ")
 #: src/features/career/today.tsx
 msgid "Preference phrase matches: {0}"
-msgstr ""
+msgstr "匹配的偏好短语：{0}"
 
 #: app/(tabs)/settings/index.tsx
 #: app/(tabs)/settings/preferences.tsx
@@ -9345,6 +9322,10 @@ msgstr ""
 #: src/features/search/search-screen.tsx
 msgid "Preferences"
 msgstr "偏好设置"
+
+#: src/features/design/china-market-group.tsx
+msgid "Preferred city"
+msgstr "期望城市"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Prepare a briefing"
@@ -9415,7 +9396,7 @@ msgstr "正在预览 {0} · 点击应用"
 #: src/features/applications/trash-screen.tsx
 #: src/features/documents/library.tsx
 msgid "Previous"
-msgstr ""
+msgstr "上一步"
 
 #: src/features/applications/list-screen.tsx
 msgid "Previous application"
@@ -9443,7 +9424,7 @@ msgstr ""
 
 #: src/features/letters/write.tsx
 msgid "Previous version"
-msgstr ""
+msgstr "上一版本"
 
 #: src/shell/workspace-chrome.tsx
 msgid "Previous workspace tabs"
@@ -9496,7 +9477,7 @@ msgstr "个人资料"
 
 #: src/features/settings/application-profile.tsx
 msgid "Profile deleted."
-msgstr ""
+msgstr "求职资料已删除。"
 
 #: src/features/application-detail/interview-sheet.tsx
 msgid "Profile link (optional)"
@@ -9513,11 +9494,11 @@ msgstr "个人资料照片"
 #. placeholder {0}: review.profileReviewedAt ?? ""
 #: src/features/workspace/application-packet.tsx
 msgid "Profile review: {0}"
-msgstr ""
+msgstr "求职资料审核：{0}"
 
 #: src/features/settings/application-profile.tsx
 msgid "Profile saved."
-msgstr ""
+msgstr "求职资料已保存。"
 
 #: src/features/write/fields.ts
 msgid "Profiles"
@@ -9533,7 +9514,7 @@ msgstr "项目"
 
 #: src/features/assistant/chat.ts
 msgid "proposed"
-msgstr ""
+msgstr "待定"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Proposed changes"
@@ -9552,6 +9533,10 @@ msgstr "服务提供商"
 #: src/api/ai-consent.ts
 msgid "Provider retention and use follow its privacy policy. Declining prevents this operation and leaves other app features available."
 msgstr "提供商的保留和使用遵循其隐私政策。拒绝会阻止此操作并保留其他应用程序功能可用。"
+
+#: src/features/settings/locale-names.ts
+msgid "Pseudo-locale"
+msgstr "伪语言"
 
 #: src/features/document-menu/index.tsx
 #: src/features/documents/library.tsx
@@ -9597,7 +9582,7 @@ msgstr "发布此简历后，即可通过您的短链接和自定义域名打开
 
 #: src/features/share/web-page.tsx
 msgid "Publish this resume to open it at your short link."
-msgstr ""
+msgstr "发布这份简历后，短链接才能打开它。"
 
 #: src/features/write/fields.ts
 msgid "Publisher"
@@ -9609,7 +9594,7 @@ msgstr "在第一页顶部附近放一个纯文本的电子邮件地址。大多
 
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
-msgstr ""
+msgstr "问：{question}"
 
 #: src/features/share/link.tsx
 msgid "QR code"
@@ -9619,9 +9604,13 @@ msgstr "二维码"
 msgid "QR code for {url}"
 msgstr "{url} 的二维码"
 
+#: src/features/design/china-market-group.tsx
+msgid "Quantified statements"
+msgstr "量化表述"
+
 #: src/features/workspace/answer-library.tsx
 msgid "Question"
-msgstr ""
+msgstr "问题"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Question {position} of {total}"
@@ -9645,7 +9634,7 @@ msgstr "要提的问题"
 
 #: src/features/workspace/coach-starters.ts
 msgid "Quiz me on likely questions for this round"
-msgstr ""
+msgstr "就这一轮可能问到的问题考考我"
 
 #: src/features/design/design-pane.tsx
 msgid "Raise the design sheet"
@@ -9690,11 +9679,11 @@ msgstr "阅读简报"
 
 #: src/features/career/offers.tsx
 msgid "Read from a message"
-msgstr ""
+msgstr "从消息中读取"
 
 #: src/features/career/offers.tsx
 msgid "Read from a message, edited by you"
-msgstr ""
+msgstr "从消息中读取，经你编辑"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Read it for me"
@@ -9743,7 +9732,7 @@ msgstr "已读取简历"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Read with AI"
-msgstr ""
+msgstr "用 AI 读取"
 
 #: src/features/settings/connected-apps.tsx
 msgid "Read your email address."
@@ -9755,11 +9744,11 @@ msgstr "读取你的个人资料信息。"
 
 #: src/features/settings/connected-apps.tsx
 msgid "Read your whole account, including exports and coaching conversations."
-msgstr ""
+msgstr "读取你的整个账号，包括导出内容和顾问对话。"
 
 #: src/features/settings/connected-apps.tsx
 msgid "Read, change and delete documents and applications (legacy connection)."
-msgstr ""
+msgstr "读取、修改和删除文档与申请（旧版连接）。"
 
 #: src/features/ats-checker/messages.ts
 msgid "Readability"
@@ -9877,7 +9866,7 @@ msgstr "录音时长"
 #. placeholder {0}: [ ...(confirmedAnswers ? [plural(confirmedAnswers, { one: "# written answer", other: "# written answers" })] : []), ...confirmedDocuments, ].join(", ")
 #: src/features/workspace/tabs/messages.tsx
 msgid "Records {0} as sent, and moves this application. You submit on the employer's site yourself."
-msgstr ""
+msgstr "把 {0} 记为已发送，并推进该申请。实际投递需要你自己在雇主网站上完成。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Records {records} as sent. You submit on the employer's site yourself."
@@ -9887,7 +9876,7 @@ msgstr ""
 #: src/features/career/preferences.tsx
 #: src/features/workspace/parts.tsx
 msgid "Recovered an unsaved draft. Review it before saving over the current version."
-msgstr ""
+msgstr "已恢复一份未保存的草稿。覆盖当前版本前请先审核。"
 
 #: src/features/application-detail/sheets.tsx
 msgid "Recruiter"
@@ -9916,12 +9905,12 @@ msgstr "重做"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "Redraft from the posting"
-msgstr ""
+msgstr "根据招聘信息重新起草"
 
 #. placeholder {0}: index + 1
 #: src/features/settings/application-profile.tsx
 msgid "Reference {0}"
-msgstr ""
+msgstr "证明人 {0}"
 
 #: src/features/settings/application-profile.tsx
 #: src/features/write/fields.ts
@@ -9939,7 +9928,7 @@ msgstr "反思"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing"
-msgstr ""
+msgstr "刷新简报"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Refresh the briefing 2 hours before"
@@ -9957,6 +9946,10 @@ msgstr "当天早上刷新简报"
 msgid "Register at OlaCV"
 msgstr "在 OlaCV 注册"
 
+#: src/features/design/china-market-group.tsx
+msgid "Registration table (risky)"
+msgstr "表格式登记（高风险）"
+
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Rehearse aloud"
 msgstr "大声排练"
@@ -9970,11 +9963,11 @@ msgstr "拒绝"
 
 #: src/features/assistant/messages.tsx
 msgid "Reject all"
-msgstr ""
+msgstr "全部拒绝"
 
 #: src/features/assistant/chat.ts
 msgid "rejected"
-msgstr ""
+msgstr "已拒绝"
 
 #: src/features/assistant/messages.tsx
 #: src/features/check/writing.tsx
@@ -9983,11 +9976,11 @@ msgstr "被拒绝"
 
 #: src/features/settings/application-profile.tsx
 msgid "Relationship"
-msgstr ""
+msgstr "关系"
 
 #: src/features/settings/application-profile.tsx
 msgid "Reload and discard unsaved changes"
-msgstr ""
+msgstr "重新加载并放弃未保存的修改"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Reload now"
@@ -9995,7 +9988,7 @@ msgstr "立即重新加载"
 
 #: src/features/settings/application-profile.tsx
 msgid "Relocation"
-msgstr ""
+msgstr "搬迁"
 
 #: src/features/assistant/messages.tsx
 #: src/features/workspace/tabs/debrief.tsx
@@ -10004,7 +9997,7 @@ msgstr "记住"
 
 #: src/features/assistant/messages.tsx
 msgid "Remember as a fact in Knowledge"
-msgstr ""
+msgstr "作为事实记入知识库"
 
 #: src/features/career/preferences.tsx
 msgid "Remember facts from my messages"
@@ -10058,7 +10051,7 @@ msgstr "远程"
 
 #: src/features/career/offer-entry.tsx
 msgid "Remote (0)"
-msgstr ""
+msgstr "远程（0）"
 
 #: src/features/share/custom-domain.tsx
 #: src/ui/fields.tsx
@@ -10095,7 +10088,7 @@ msgstr "移除文件"
 #. placeholder {0}: index + 1
 #: src/features/settings/application-profile.tsx
 msgid "Remove link {0}"
-msgstr ""
+msgstr "移除链接 {0}"
 
 #: src/features/share/web-page.tsx
 msgid "Remove password"
@@ -10118,7 +10111,7 @@ msgstr "移除问题"
 #. placeholder {0}: index + 1
 #: src/features/settings/application-profile.tsx
 msgid "Remove reference {0}"
-msgstr ""
+msgstr "移除证明人 {0}"
 
 #: src/features/write/entry-fields.tsx
 msgid "Remove role"
@@ -10142,16 +10135,16 @@ msgstr "删除这个文件？"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Remove unavailable fact reference"
-msgstr ""
+msgstr "移除不可用的事实引用"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Remove unavailable story reference"
-msgstr ""
+msgstr "移除不可用的故事引用"
 
 #. placeholder {0}: contact.name
 #: src/features/application-detail/sheets.tsx
 msgid "Removed {0}"
-msgstr ""
+msgstr "已移除 {0}"
 
 #: src/features/document-menu/index.tsx
 #: src/features/documents/document-sheets.tsx
@@ -10201,7 +10194,7 @@ msgstr "重新订购 {title}"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Repeats at this local time in the displayed timezone across clock changes. A skipped clock time moves forward. Missed runs combine into one search. Results and failures appear in Today; delivery depends on the server runner."
-msgstr ""
+msgstr "按显示的时区在该本地时间重复，夏令时调整也照此执行。若该时刻被跳过，则顺延。错过的运行会合并为一次搜索。结果和失败都会出现在「今日」；能否按时执行取决于服务器的定时任务。"
 
 #: src/features/write/improve.tsx
 msgid "Replace"
@@ -10221,7 +10214,7 @@ msgstr "用普通段落和列表替换表格。单元格是按存储顺序提取
 
 #: src/features/assistant/messages.tsx
 msgid "Replaced by a newer suggestion"
-msgstr ""
+msgstr "已被更新的建议取代"
 
 #: src/features/applications/lane-settings.tsx
 msgid "Replacement lane"
@@ -10233,7 +10226,7 @@ msgstr "替换申请中的“{current}”。"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Replaces target roles only after you choose Use. Wait for Saved before opening a new search schedule; existing schedules keep their saved query."
-msgstr ""
+msgstr "只有你选择「使用」后才会替换目标岗位。新建搜索计划前请等到显示「已保存」；已有计划会沿用其已保存的查询。"
 
 #: src/features/workspace/tabs/saved.tsx
 msgid "Reply"
@@ -10245,7 +10238,7 @@ msgstr "回复已复制"
 
 #: src/features/applications/next-step.ts
 msgid "Reply to the offer"
-msgstr ""
+msgstr "回复 Offer"
 
 #: src/features/ats-checker/checker.tsx
 msgid "Report"
@@ -10267,11 +10260,11 @@ msgstr "您的服务器运营商收到的报告。谢谢。"
 
 #: src/features/settings/application-profile.tsx
 msgid "Requested amount"
-msgstr ""
+msgstr "期望数额"
 
 #: src/features/settings/application-profile.tsx
 msgid "Requested salary"
-msgstr ""
+msgstr "期望薪资"
 
 #: src/features/share/web-page.tsx
 msgid "Require a password"
@@ -10302,7 +10295,7 @@ msgstr "答复截止"
 #. placeholder {0}: day(offer.respondBy ?? "")
 #: src/features/workspace/tabs/messages.tsx
 msgid "Respond by {0}"
-msgstr ""
+msgstr "请于 {0} 前回复"
 
 #: src/features/career/offer-entry.tsx
 msgid "respond by {respondBy}"
@@ -10314,7 +10307,7 @@ msgstr "回复截止日期已过。"
 
 #: src/features/assistant/messages.tsx
 msgid "Responsibility"
-msgstr ""
+msgstr "职责"
 
 #: app/(tabs)/settings/preferences.tsx
 msgid "Restart to change text direction"
@@ -10343,7 +10336,7 @@ msgstr "恢复版本"
 #: src/features/applications/trash-screen.tsx
 #: src/lib/undone.ts
 msgid "Restored"
-msgstr ""
+msgstr "已恢复"
 
 #. placeholder {0}: version.name
 #: src/features/history/history.tsx
@@ -10354,17 +10347,17 @@ msgstr "恢复“{0}”"
 #. placeholder {1}: selected.name
 #: src/features/history/history.tsx
 msgid "Restored “{0}”. Your previous state is saved as “Before restoring “{1}””."
-msgstr ""
+msgstr "已恢复「{0}」。你之前的状态已另存为「恢复「{1}」之前」。"
 
 #. placeholder {0}: done.length
 #: src/features/documents/queries.ts
 msgid "Restored {restored} of {0}."
-msgstr ""
+msgstr "已恢复 {0} 份中的 {restored} 份。"
 
 #. placeholder {0}: documents.length
 #: src/features/documents/queries.ts
 msgid "Restored {restored} of {0}. Refresh and retry any that remain in Trash."
-msgstr ""
+msgstr "已恢复 {0} 份中的 {restored} 份。请刷新，并对仍留在回收站的文档重试。"
 
 #: src/features/history/history.tsx
 #: src/features/letters/share.tsx
@@ -10373,7 +10366,7 @@ msgstr "恢复了一个版本"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Restricted to its employer or application."
-msgstr ""
+msgstr "仅限于其所属雇主或申请。"
 
 #: src/features/assistant/tool-approvals.tsx
 #: src/features/career/stories.tsx
@@ -10382,7 +10375,7 @@ msgstr "结果"
 
 #: src/features/career/today.tsx
 msgid "Results appear in Needs you. Email copies are optional and need a verified address."
-msgstr ""
+msgstr "结果会出现在「需要你处理」中。邮件副本是可选的，且需要已验证的邮箱。"
 
 #: app/_layout.tsx
 #: app/builder/[id]/_layout.tsx
@@ -10402,7 +10395,7 @@ msgstr "简历+信件"
 
 #: src/features/check/writing.tsx
 msgid "Resume changed since this review. Review these suggestions as out of date or run again."
-msgstr ""
+msgstr "简历在此次审核后已有变更。请把这些建议标为过期，或重新运行。"
 
 #: src/features/document-menu/index.tsx
 msgid "Resume details"
@@ -10420,7 +10413,7 @@ msgstr "简历文件"
 
 #: src/features/documents/new-document.tsx
 msgid "Resume for a new letter"
-msgstr ""
+msgstr "新求职信使用的简历"
 
 #. Label beside the picker for the language a resume's headings and dates print in
 #: src/features/write/resume-language.tsx
@@ -10430,7 +10423,7 @@ msgstr "简历语言"
 #: src/features/application-detail/sections.tsx
 #: src/features/workspace/preparation.tsx
 msgid "Resume options"
-msgstr ""
+msgstr "简历选项"
 
 #. placeholder {0}: pageIndex + 1
 #: src/features/check/page.tsx
@@ -10447,11 +10440,11 @@ msgstr "提交简历（可选）"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Resume to share for suggestions"
-msgstr ""
+msgstr "用于生成建议的简历"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Resume to use as evidence"
-msgstr ""
+msgstr "用作依据的简历"
 
 #: src/features/search/search-screen.tsx
 msgid "Resumes"
@@ -10519,7 +10512,7 @@ msgstr "重新加载AI连接"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Retry documents"
-msgstr ""
+msgstr "重试文档"
 
 #: src/features/documents/new-document.tsx
 msgid "Retry linking to application"
@@ -10551,7 +10544,7 @@ msgstr "重试保存"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Retry saved answers"
-msgstr ""
+msgstr "重试已保存回答"
 
 #: src/shell/builder-chrome.tsx
 msgid "Retry saving"
@@ -10563,7 +10556,7 @@ msgstr "返回到 文档 并重新打开它，或重试连接。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Reuse scope"
-msgstr ""
+msgstr "复用范围"
 
 #: src/features/assistant/page-marks.tsx
 #: src/features/career/today.tsx
@@ -10572,11 +10565,11 @@ msgstr "审查"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Review a private snapshot for one form. No AI, submission or stage change. Named document versions are saved only when you approve."
-msgstr ""
+msgstr "为单份表单审核一份私密快照。不使用 AI，不提交，也不改变阶段。只有你确认后才会保存具名的文档版本。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Review and use"
-msgstr ""
+msgstr "审核并使用"
 
 #: src/features/application-detail/sections.tsx
 msgid "Review application"
@@ -10588,11 +10581,11 @@ msgstr "查看检查结果"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Review checks"
-msgstr ""
+msgstr "审核检查"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Review checks only reflect what you checked yourself."
-msgstr ""
+msgstr "审核检查只反映你自己确认过的内容。"
 
 #: src/features/write/outline.tsx
 msgid "Review each section before using this resume."
@@ -10600,7 +10593,7 @@ msgstr "使用此简历之前请先查看每个部分。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Review for this application"
-msgstr ""
+msgstr "针对该申请审核"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Review job details"
@@ -10612,11 +10605,11 @@ msgstr "点评我的回答"
 
 #: src/features/workspace/application-packet.tsx
 msgid "Review packet"
-msgstr ""
+msgstr "审核材料包"
 
 #: src/features/workspace/preparation.tsx
 msgid "Review readiness and record your submission"
-msgstr ""
+msgstr "核对准备情况并记录你的投递"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Review required form answers and remove unsupported claims."
@@ -10624,7 +10617,7 @@ msgstr "检查必填的表单回答，删除没有依据的陈述。"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Review target roles, one per line"
-msgstr ""
+msgstr "确认目标岗位，每行一个"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Review the details before saving. The employer may have changed or closed the posting since it was read."
@@ -10636,11 +10629,11 @@ msgstr "在各自的编辑器中检查所选的简历和求职信。"
 
 #: src/features/workspace/preparation.tsx
 msgid "Review with assistant"
-msgstr ""
+msgstr "用助手审核"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Review wording, employer context and every claim. Saving does not confirm Knowledge facts or send data to AI."
-msgstr ""
+msgstr "请审核措辞、雇主背景以及每一处陈述。保存不会确认知识库中的事实，也不会向 AI 发送数据。"
 
 #: src/features/ai/next-steps.tsx
 #: src/features/check/writing.tsx
@@ -10650,11 +10643,11 @@ msgstr "评论写作"
 #. placeholder {0}: reviewedAt.toLocaleString()
 #: src/features/check/writing.tsx
 msgid "Reviewed {0}"
-msgstr ""
+msgstr "审核于 {0}"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Reviewed answer saved"
-msgstr ""
+msgstr "已审核的回答已保存"
 
 #: src/features/settings/api-keys.tsx
 msgid "Revoke"
@@ -10711,10 +10704,6 @@ msgstr "角色、公司或地点"
 msgid "Roles"
 msgstr "职位"
 
-#: src/features/settings/locale-names.ts
-msgid "Romanian"
-msgstr "罗马尼亚语"
-
 #: src/features/design/style-groups.tsx
 msgid "Roomy"
 msgstr "宽敞"
@@ -10754,10 +10743,6 @@ msgstr ""
 msgid "Runs at {0}."
 msgstr "将于{0}运行。"
 
-#: src/features/settings/locale-names.ts
-msgid "Russian"
-msgstr "俄语"
-
 #: src/features/design/style-groups.tsx
 #: src/features/letters/design-presets.ts
 msgid "Rust"
@@ -10771,11 +10756,11 @@ msgstr "薪资"
 
 #: src/features/career/today.tsx
 msgid "Salary not detected"
-msgstr ""
+msgstr "未识别到薪资"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Same length"
-msgstr ""
+msgstr "长度相同"
 
 #: src/features/documents/new-document.tsx
 msgid "Sample resume"
@@ -10803,7 +10788,7 @@ msgstr "保存工作"
 
 #: src/features/documents/new-document.tsx
 msgid "Save a job instead"
-msgstr ""
+msgstr "改为保存岗位"
 
 #: src/features/ats-checker/messages.ts
 msgid "Save an unprotected copy, with no password and no permissions restrictions."
@@ -10811,7 +10796,7 @@ msgstr "保存一份不受保护的副本，不设密码，也不设权限限制
 
 #: src/features/check/job-match.tsx
 msgid "Save and link this resume"
-msgstr ""
+msgstr "保存并关联这份简历"
 
 #: src/features/ai/provider-editor.tsx
 msgid "Save and test"
@@ -10823,7 +10808,7 @@ msgstr "再保存一份录用通知以进行比较"
 
 #: src/features/check/job-match.tsx
 msgid "Save as a job…"
-msgstr ""
+msgstr "保存为岗位…"
 
 #: src/features/application-detail/sheets.tsx
 msgid "Save changes"
@@ -10847,7 +10832,7 @@ msgstr "先保存，然后测试搜索和阅读。没有测试自动运行。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Save for other applications"
-msgstr ""
+msgstr "保存以便用于其他申请"
 
 #: src/features/application-detail/interview-sheet.tsx
 msgid "Save interview"
@@ -10865,7 +10850,7 @@ msgstr ""
 
 #: src/features/check/job-match.tsx
 msgid "Save job and make a copy"
-msgstr ""
+msgstr "保存岗位并复制一份"
 
 #: src/features/applications/lane-settings.tsx
 msgid "Save lane"
@@ -10873,7 +10858,7 @@ msgstr "保存阶段"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Save message without AI"
-msgstr ""
+msgstr "不使用 AI 保存消息"
 
 #: src/features/career/offer-entry.tsx
 msgid "Save offer"
@@ -10885,11 +10870,11 @@ msgstr "保存或共享文件"
 
 #: src/features/workspace/preparation.tsx
 msgid "Save posting"
-msgstr ""
+msgstr "保存招聘信息"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Save reviewed answer"
-msgstr ""
+msgstr "保存已审核回答"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Save schedule"
@@ -10914,7 +10899,7 @@ msgstr "保存文件时确保每一页都是正向的。"
 
 #: src/features/workspace/preparation.tsx
 msgid "Save the job posting"
-msgstr ""
+msgstr "保存招聘信息"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Save these offer terms to compare"
@@ -10930,7 +10915,7 @@ msgstr "保存到知识库"
 
 #: src/features/assistant/messages.tsx
 msgid "Save wording"
-msgstr ""
+msgstr "保存措辞"
 
 #: src/draft/conflict-sheet.tsx
 msgid "Save your version over theirs."
@@ -10964,7 +10949,7 @@ msgstr ""
 
 #: src/features/write/date-field.tsx
 msgid "Saved as written. Automated date checks and sorting are unavailable for this text."
-msgstr ""
+msgstr "已按你写的原文保存。这段文字无法自动校验日期和排序。"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Saved description"
@@ -10972,15 +10957,15 @@ msgstr "已保存的描述"
 
 #: src/features/assistant/messages.tsx
 msgid "Saved from your message as you wrote it. Nothing is sent to the AI."
-msgstr ""
+msgstr "已按你写的原文从消息中保存。不会向 AI 发送任何内容。"
 
 #: src/features/settings/application-profile.tsx
 msgid "Saved profile reloaded. Unsaved changes discarded."
-msgstr ""
+msgstr "已重新加载保存的求职资料，未保存的修改已丢弃。"
 
 #: src/features/documents/new-document.tsx
 msgid "Saved to Applications as a saved job, then linked to the copy. No AI request is made."
-msgstr ""
+msgstr "已作为已保存岗位存入「申请」，并关联到该副本。不会发起 AI 请求。"
 
 #: src/features/career/today.tsx
 msgid "Saved to Applications with the posting"
@@ -10996,7 +10981,7 @@ msgstr "已保存到知识库，仅用于此申请。"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Saved to Library · Practice"
-msgstr ""
+msgstr "已保存到知识库 · 练习"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Saving the job. Wait for confirmation before making another change."
@@ -11012,7 +10997,7 @@ msgstr "正在保存…"
 
 #: src/features/career/today.tsx
 msgid "Say what you're looking for, add facts about your work, then ask the coach. New roles, reminders and finished briefings appear here."
-msgstr ""
+msgstr "说说你在找什么，补充关于你工作的事实，然后向顾问提问。新岗位、提醒和已完成的简报都会出现在这里。"
 
 #: src/features/application-detail/interview-sheet.tsx
 #: src/features/application-detail/sections.tsx
@@ -11030,7 +11015,7 @@ msgstr "安排面试"
 
 #: src/features/applications/stage-actions.ts
 msgid "Schedule it"
-msgstr ""
+msgstr "安排时间"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Scheduled work is not available on this server. Ask your server administrator to configure it."
@@ -11127,7 +11112,7 @@ msgstr "搜索或运行..."
 
 #: src/features/workspace/answer-library.tsx
 msgid "Search saved answers"
-msgstr ""
+msgstr "搜索已保存的回答"
 
 #: src/features/assistant/coach-screen.tsx
 #: src/features/workspace/coach-sheet.tsx
@@ -11165,7 +11150,7 @@ msgstr "网上搜了一下"
 
 #: src/features/assistant/messages.tsx
 msgid "Searched your Knowledge"
-msgstr ""
+msgstr "已检索你的知识库"
 
 #: src/features/assistant/messages.tsx
 msgid "Searching the web…"
@@ -11173,7 +11158,7 @@ msgstr "正在网上搜索..."
 
 #: src/features/assistant/messages.tsx
 msgid "Searching your Knowledge…"
-msgstr ""
+msgstr "正在检索你的知识库…"
 
 #: src/features/career/offers.tsx
 msgid "Second offer"
@@ -11212,7 +11197,7 @@ msgstr "全选"
 
 #: src/features/career/today.tsx
 msgid "Select all roles"
-msgstr ""
+msgstr "全选岗位"
 
 #. placeholder {0}: index + 1
 #: src/preview/page.tsx
@@ -11226,7 +11211,7 @@ msgstr "选择条目 {0}"
 
 #: src/features/documents/library.tsx
 msgid "Select this page"
-msgstr ""
+msgstr "选择此页"
 
 #: src/preview/page.tsx
 msgid "Selected entry"
@@ -11234,7 +11219,7 @@ msgstr "所选条目"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Selected resume:"
-msgstr ""
+msgstr "已选简历："
 
 #: src/features/design/advanced.tsx
 msgid "Semantic CSS stylesheet"
@@ -11247,7 +11232,7 @@ msgstr "发送"
 
 #: src/features/share/feedback.tsx
 msgid "Send a coach or friend a private link to this version. They can comment, but can't change it or see anything else."
-msgstr ""
+msgstr "把这个版本的私密链接发给顾问或朋友。他们可以评论，但不能修改，也看不到其他内容。"
 
 #: src/features/ai/report-content.tsx
 msgid "Send report"
@@ -11276,7 +11261,7 @@ msgstr ""
 
 #: src/features/career/role-suggestions.tsx
 msgid "Sends only your selected resume and up to 20 active shared facts to this connection. No application profile, saved answers or private application facts. Your provider may charge."
-msgstr ""
+msgstr "只会把你选中的简历和最多 20 条已开启的共享事实发送到该连接。不会发送申请资料、已保存的回答或私密的申请信息。服务商可能收费。"
 
 #. placeholder {0}: application.company
 #. placeholder {1}: ai.defaultProvider.label
@@ -11288,7 +11273,7 @@ msgstr ""
 #. placeholder {0}: providers.defaultProvider.label
 #: src/features/applications/add-sheet.tsx
 msgid "Sends the posting text to {0} to read it."
-msgstr ""
+msgstr "会把招聘正文发送给 {0} 以进行读取。"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Sends this application and enabled Knowledge to this connection. Your provider may charge. Scheduled work never switches to another connection automatically."
@@ -11311,7 +11296,7 @@ msgstr ""
 #. placeholder {1}: ai.defaultProvider.model
 #: src/features/write/improve.tsx
 msgid "Sends this line, surrounding field text and your instructions to {0} · {1}."
-msgstr ""
+msgstr "会将这一行、所在字段的上下文文字以及你的要求发送给 {0} · {1}。"
 
 #: src/features/documents/new-document.tsx
 msgid "Sends this PDF to your configured AI provider instead of reading its text layer."
@@ -11319,7 +11304,7 @@ msgstr "将此 PDF 发送到您配置的 AI 提供商，而不是读取其文本
 
 #: src/features/workspace/coach-sheet.tsx
 msgid "Sends your message and this application (posting, notes, documents, your form answers, the saved offer and recent messages) to {label}."
-msgstr ""
+msgstr "会将你的消息和该申请（招聘信息、笔记、文档、你的表单回答、已保存的 Offer 以及近期消息）发送给 {label}。"
 
 #: src/features/workspace/coach-sheet.tsx
 msgid "Sends your message, earlier messages and this application (posting, notes, documents, your form answers, the saved offer and recent messages) to {label}."
@@ -11354,10 +11339,6 @@ msgstr "发送至{0}"
 #: src/features/assistant/messages.tsx
 msgid "Sent: {0}"
 msgstr ""
-
-#: src/features/settings/locale-names.ts
-msgid "Serbian"
-msgstr "塞尔维亚语"
 
 #: app/(auth)/sign-in.tsx
 #: src/api/ai-consent.ts
@@ -11401,7 +11382,7 @@ msgstr "设置职位发现"
 
 #: src/features/ai/web-access.tsx
 msgid "Set up web access"
-msgstr ""
+msgstr "配置网页访问"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Set up web search"
@@ -11409,7 +11390,7 @@ msgstr "设置网络搜索"
 
 #: src/api/ai-consent.ts
 msgid "Set up web search in Settings before enabling discovery. AI is not required."
-msgstr ""
+msgstr "启用发现功能前，请先在设置中配置网页搜索。无需 AI。"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Set up web search in Settings to find roles."
@@ -11417,16 +11398,16 @@ msgstr "在设置中配置网页搜索以查找职位。"
 
 #: src/features/career/today.tsx
 msgid "Set your preferences"
-msgstr ""
+msgstr "设置你的偏好"
 
 #: src/features/design/style-groups.tsx
 #: src/features/write/resume-language.tsx
 msgid "Sets section titles, date words and text direction. Your content isn't translated."
-msgstr ""
+msgstr "用于设置小节标题、日期用词和文字方向。你的正文内容不会被翻译。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Sets the application's follow-up date, in case you haven't heard back by then."
-msgstr ""
+msgstr "设置该申请的跟进日期，以备届时仍未收到回音。"
 
 #: app/(tabs)/_layout.tsx
 #: app/(tabs)/settings/index.tsx
@@ -11459,7 +11440,7 @@ msgstr "分享"
 
 #: src/features/share/feedback.tsx
 msgid "Share application progress (optional)"
-msgstr ""
+msgstr "共享申请进展（可选）"
 
 #: src/features/application-detail/sheets.tsx
 msgid "Share calendar event (.ics)"
@@ -11472,7 +11453,7 @@ msgstr "与{0}共享数据？"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Share enabled shared Knowledge"
-msgstr ""
+msgstr "共享已开启的共享知识库"
 
 #: src/features/share/link.tsx
 msgid "Share image"
@@ -11532,7 +11513,7 @@ msgstr "简短而礼貌，适合招聘人员"
 
 #: src/features/share/web-page.tsx
 msgid "Short link"
-msgstr ""
+msgstr "短链接"
 
 #: src/features/share/web-page.tsx
 msgid "Short link and domain"
@@ -11557,11 +11538,17 @@ msgstr "展示"
 #: src/features/assistant/messages.tsx
 msgctxt "Open a folded edit card"
 msgid "Show"
-msgstr ""
+msgstr "显示"
 
 #: src/features/share/web-page.tsx
 msgid "Show “Made with Reactive Resume”"
 msgstr "显示“使用 Reactive Resume 制作”"
+
+#. placeholder {0}: mapped.autoCount
+#. placeholder {1}: mapped.manualCount
+#: src/features/design/china-market-group.tsx
+msgid "Show {0} mapped / {1} to fill in"
+msgstr "查看 {0} 项自动映射 / {1} 项需手填"
 
 #. placeholder {0}: Math.min(remaining, COLUMN_PAGE_SIZE)
 #: src/features/applications-board/board-screen.tsx
@@ -11572,6 +11559,10 @@ msgstr "再显示 {0} 个"
 msgid "Show {title} on the page"
 msgstr "页面显示{title}"
 
+#: src/features/design/china-market-group.tsx
+msgid "Show 12 fields"
+msgstr "展开 12 个字段"
+
 #: src/features/applications/list-screen.tsx
 #: src/features/search/search-screen.tsx
 msgid "Show all"
@@ -11580,7 +11571,7 @@ msgstr "显示全部"
 #. placeholder {0}: formatCharacters(text.length)
 #: src/features/assistant/messages.tsx
 msgid "Show all ({0} characters)"
-msgstr ""
+msgstr "显示全部（{0} 字符）"
 
 #: src/features/search/search-screen.tsx
 msgid "Show all letters"
@@ -11608,7 +11599,7 @@ msgstr "显示 DNS 记录"
 
 #: src/features/assistant/messages.tsx
 msgid "Show edit {number}"
-msgstr ""
+msgstr "查看第 {number} 处修改"
 
 #: src/features/write/section-sheet.tsx
 msgid "Show heading"
@@ -11632,7 +11623,7 @@ msgstr "显示密钥"
 
 #: src/features/assistant/messages.tsx
 msgid "Show less"
-msgstr ""
+msgstr "收起"
 
 #: src/features/write/entry-fields.tsx
 msgid "Show link in title"
@@ -11810,11 +11801,11 @@ msgstr "已注销，但无法删除该设备上的某些数据。"
 
 #: src/features/share/link.tsx
 msgid "since last counted view"
-msgstr ""
+msgstr "自上次计数访问以来"
 
 #: src/features/applications/next-step.ts
 msgid "Since today"
-msgstr ""
+msgstr "自今天起"
 
 #: src/shell/shortcut-help.tsx
 msgid "Single-character shortcuts"
@@ -11854,14 +11845,6 @@ msgstr "跳过"
 msgid "Skipped"
 msgstr "已跳过"
 
-#: src/features/settings/locale-names.ts
-msgid "Slovak"
-msgstr "斯洛伐克语"
-
-#: src/features/settings/locale-names.ts
-msgid "Slovenian"
-msgstr "斯洛文尼亚语"
-
 #: src/features/document-menu/index.tsx
 msgid "Slug"
 msgstr "URL标识"
@@ -11873,6 +11856,10 @@ msgstr "数字虽小，但值得注意。"
 #: src/features/letters/design.tsx
 msgid "Smaller text"
 msgstr "缩小文字"
+
+#: src/features/design/china-market-group.tsx
+msgid "Soft text labels"
+msgstr "浅色纯文本标签"
 
 #: src/features/check/issues.ts
 msgid "Some application systems ask for one before you can apply."
@@ -11965,28 +11952,24 @@ msgstr "GitHub 上的源代码"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Source employer"
-msgstr ""
+msgstr "来源雇主"
 
 #. placeholder {0}: new URL(row.url).hostname
 #: src/features/career/today.tsx
 msgid "Source: {0}"
-msgstr ""
+msgstr "来源：{0}"
 
 #. placeholder {0}: answer.source
 #. placeholder {1}: answer.scope
 #. placeholder {2}: answer.revision
 #: src/features/workspace/application-packet.tsx
 msgid "Source: {0} · scope: {1} · revision {2}"
-msgstr ""
+msgstr "来源：{0} · 范围：{1} · 版本 {2}"
 
 #: src/features/assistant/chat-view.tsx
 #: src/features/assistant/messages.tsx
 msgid "Sources"
 msgstr "来源"
-
-#: src/features/settings/locale-names.ts
-msgid "Spanish"
-msgstr "西班牙语"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Speak"
@@ -12057,7 +12040,7 @@ msgstr "阶段保持为“{stage}”"
 
 #: src/features/workspace/shell.tsx
 msgid "Stage, details and timeline"
-msgstr ""
+msgstr "阶段、详情与时间线"
 
 #: src/features/applications/import-sheet.tsx
 msgid "Stages"
@@ -12107,15 +12090,15 @@ msgstr "简历开头单独用一行写上你的姓名。"
 
 #: src/features/letters/write.tsx
 msgid "Start typing, or connect an AI provider to draft from the {company} posting and your resume."
-msgstr ""
+msgstr "直接输入，或接入 AI 服务商，根据 {company} 的招聘信息和你的简历起草。"
 
 #: src/features/letters/write.tsx
 msgid "Start typing, or connect an AI provider to draft from the {company} posting."
-msgstr ""
+msgstr "直接输入，或接入 AI 服务商，根据 {company} 的招聘信息起草。"
 
 #: src/features/letters/write.tsx
 msgid "Start typing, or connect an AI provider to draft from your resume."
-msgstr ""
+msgstr "直接输入，或接入 AI 服务商，根据你的简历起草。"
 
 #: src/features/letters/write.tsx
 msgid "Start typing, or draft from what we know: the {company} posting and your resume."
@@ -12143,12 +12126,12 @@ msgstr "从您的名字开始。从那里开始构建。"
 
 #: src/features/career/offers.tsx
 msgid "Starts"
-msgstr ""
+msgstr "开始时间"
 
 #. placeholder {0}: formatDateOnly(offer.startDate ?? "", i18n.locale)
 #: src/features/workspace/tabs/messages.tsx
 msgid "Starts {0}"
-msgstr ""
+msgstr "{0} 开始"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Starts now"
@@ -12156,7 +12139,7 @@ msgstr "现在开始"
 
 #: src/features/settings/application-profile.tsx
 msgid "State or region"
-msgstr ""
+msgstr "省/自治区"
 
 #: app/letter/[id]/_layout.tsx
 msgid "Stay"
@@ -12170,11 +12153,11 @@ msgstr "留在文档"
 #. placeholder {1}: STEPS.length
 #: src/features/workspace/preparation.tsx
 msgid "Step {0} of {1}"
-msgstr ""
+msgstr "第 {0} 步，共 {1} 步"
 
 #: src/features/workspace/parts.tsx
 msgid "Still working"
-msgstr ""
+msgstr "仍在处理"
 
 #: src/features/assistant/chat-view.tsx
 #: src/features/letters/write.tsx
@@ -12200,15 +12183,15 @@ msgstr "说完后请停止。在此之前不会发送任何内容。"
 
 #: src/features/assistant/chat-view.tsx
 msgid "Stopped before answering."
-msgstr ""
+msgstr "在作答前已停止。"
 
 #: src/features/assistant/chat-view.tsx
 msgid "Stopped before the answer finished."
-msgstr ""
+msgstr "回答未写完就停止了。"
 
 #: src/features/letters/write.tsx
 msgid "Stopped before the end. Accept it and finish it yourself, or reject it."
-msgstr ""
+msgstr "未写完就停止了。可以接受后自行补完，或拒绝。"
 
 #: src/features/assistant/chat-view.tsx
 msgid "Stopped. No edits were proposed."
@@ -12239,13 +12222,21 @@ msgstr "删除线"
 msgid "Stronger verb"
 msgstr "更强的动词"
 
+#: src/features/design/china-market-group.tsx
+msgid "Structured master (form fields)"
+msgstr "结构化主档（网申字段）"
+
+#: src/features/design/china-market-group.tsx
+msgid "Student cadre"
+msgstr "学生干部"
+
 #: src/features/application-detail/sections.tsx
 msgid "Submission recorded {date}. The sent versions never change; current drafts stay editable. This record does not confirm employer receipt."
-msgstr ""
+msgstr "投递记录于 {date}。已发送的版本不会再变；当前草稿仍可编辑。此记录不代表雇主已收到。"
 
 #: src/features/workspace/preparation.tsx
 msgid "Submission recorded. Current drafts are separate from what you sent."
-msgstr ""
+msgstr "投递已记录。当前草稿与你已发送的内容是分开的。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Submit through the employer's application page yourself."
@@ -12275,7 +12266,11 @@ msgstr "90 天成功标准 · 下一步"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Suggest target roles (optional AI)"
-msgstr ""
+msgstr "推荐目标岗位（可选 AI）"
+
+#: src/features/design/china-market-group.tsx
+msgid "Suggested file name"
+msgstr "建议文件名"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Suggested reply · edit before sending"
@@ -12301,7 +12296,7 @@ msgstr "有证据"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Supporting Knowledge facts and stories"
-msgstr ""
+msgstr "支撑用的知识库事实与故事"
 
 #: src/features/career/offers.tsx
 msgid "Swap"
@@ -12318,10 +12313,6 @@ msgstr "交换行：职位在前"
 #: src/features/ats-checker/messages.ts
 msgid "Swap the start and end dates."
 msgstr "交换开始日期和结束日期。”"
-
-#: src/features/settings/locale-names.ts
-msgid "Swedish"
-msgstr "瑞典语"
 
 #: src/features/assistant/chat-view.tsx
 msgid "Switch model"
@@ -12381,7 +12372,7 @@ msgstr "标签能为软件提供明确的阅读顺序。如果你的工具支持
 #. placeholder {0}: previous.data.tags.join(" · ") || t`none`
 #: src/features/assistant/tool-approvals.tsx
 msgid "Tags were: {0}"
-msgstr ""
+msgstr "原标签为：{0}"
 
 #: src/features/applications/list-screen.tsx
 #: src/features/document-menu/index.tsx
@@ -12393,11 +12384,11 @@ msgstr "标签..."
 #. placeholder {0}: choice.company
 #: src/features/check/job-match.tsx
 msgid "Tailor a copy for {0} so this resume stays as it is for other jobs, or link this resume itself."
-msgstr ""
+msgstr "为 {0} 单独改写一份副本，让这份简历保持原样用于其他岗位；或者直接关联这份简历。"
 
 #: src/features/workspace/preparation.tsx
 msgid "Tailor and review your resume"
-msgstr ""
+msgstr "针对性改写并审核你的简历"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Tailor resume for this job"
@@ -12405,7 +12396,7 @@ msgstr "针对这份工作调整简历"
 
 #: src/features/workspace/preparation.tsx
 msgid "Tailor the resume"
-msgstr ""
+msgstr "针对性改写简历"
 
 #: src/features/assistant/assistant-screen.tsx
 msgid "Tailor to the {company} posting"
@@ -12418,10 +12409,6 @@ msgstr "改编简历与基础简历"
 #: src/features/settings/profile.tsx
 msgid "Take photo"
 msgstr "拍照"
-
-#: src/features/settings/locale-names.ts
-msgid "Tamil"
-msgstr "泰米尔语"
 
 #: src/features/career/preferences.tsx
 msgid "Target roles"
@@ -12461,10 +12448,6 @@ msgstr "请讲讲一项让您自豪的工作。您在其中承担了什么角色
 #: src/features/workspace/tabs/practise.tsx
 msgid "Tell me about a time you disagreed with a colleague. How did you resolve it?"
 msgstr "请讲讲您与同事意见不合的一次经历。您是如何解决的？"
-
-#: src/features/settings/locale-names.ts
-msgid "Telugu"
-msgstr "泰卢固语"
 
 #: src/features/design/design-pane.tsx
 #: src/features/document-menu/index.tsx
@@ -12515,7 +12498,7 @@ msgstr "测试…"
 
 #: src/features/documents/new-document.tsx
 msgid "text"
-msgstr ""
+msgstr "文本"
 
 #: src/features/applications/add-sheet.tsx
 #: src/features/write/fields.ts
@@ -12559,10 +12542,6 @@ msgstr "靠近边缘的文本可以被剪掉。至少使用 {minimum} pt。"
 msgid "Text under {minimum} pt can be misread when a system re-renders it."
 msgstr "当系统重新渲染时，{minimum} pt 下的文本可能会被误读。"
 
-#: src/features/settings/locale-names.ts
-msgid "Thai"
-msgstr "泰语"
-
 #: src/features/ats-checker/check.ts
 msgid "That file couldn't be read as a PDF."
 msgstr "该文件无法读取为 PDF。"
@@ -12597,7 +12576,7 @@ msgstr "地址只能包含拉丁字母 a–z和数字，并用单个短划线分
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "The answer changed since, so it wasn't restored."
-msgstr ""
+msgstr "回答此后有变更，因此未恢复。"
 
 #: src/features/application-detail/sections.tsx
 msgid "The application keeps its other details."
@@ -12633,7 +12612,7 @@ msgstr "检查是机械的。这会询问语言模型读者对您的列表条目
 
 #: src/features/assistant/provider.tsx
 msgid "The coach asks before remembering facts you state."
-msgstr ""
+msgstr "顾问在记住你陈述的事实前会先征求同意。"
 
 #: src/features/career/preferences.tsx
 msgid "The coach doesn't remember anything from your messages."
@@ -12641,7 +12620,7 @@ msgstr "教练不会从您的消息中记住任何内容。"
 
 #: src/features/assistant/provider.tsx
 msgid "The coach doesn't remember anything you write."
-msgstr ""
+msgstr "顾问不会记住你写的任何内容。"
 
 #: src/features/workspace/coach-sheet.tsx
 msgid "The coach isn't set up on this server. Whoever runs it needs to set ENCRYPTION_SECRET."
@@ -12657,7 +12636,7 @@ msgstr "教练会在聊天中逐条提出事实。在您同意之前不会保存
 
 #: src/features/assistant/provider.tsx
 msgid "The coach remembers facts you state, and tells you."
-msgstr ""
+msgstr "顾问会记住你陈述的事实，并告知你。"
 
 #: src/features/career/preferences.tsx
 msgid "The coach saves facts you state, and tells you. You can undo."
@@ -12669,19 +12648,19 @@ msgstr "无法加载或保存连接。再试一次。"
 
 #: src/features/ai/error.ts
 msgid "The connection test failed. Check the key, model and address, then try again."
-msgstr ""
+msgstr "连接测试失败。请检查密钥、模型和地址后重试。"
 
 #: src/features/ai/provider-editor.tsx
 msgid "The connection works. Turn on Use this provider to use it."
-msgstr ""
+msgstr "连接正常。开启「使用此服务商」即可启用。"
 
 #: src/features/check/job-match.tsx
 msgid "The copy gets the job's posting and keeps this resume as it is for other jobs."
-msgstr ""
+msgstr "副本会带上该岗位的招聘信息，这份简历则保持原样用于其他岗位。"
 
 #: src/features/workspace/parts.tsx
 msgid "the cover letter for this job"
-msgstr ""
+msgstr "该岗位的求职信"
 
 #: src/features/history/history.tsx
 #: src/features/letters/share.tsx
@@ -12702,11 +12681,11 @@ msgstr "雇主可能已在此后修改了招聘信息。"
 
 #: src/features/workspace/parts.tsx
 msgid "the employer's message"
-msgstr ""
+msgstr "雇主的消息"
 
 #: src/features/write/date-field.tsx
 msgid "The end date is before the start date. Check both dates."
-msgstr ""
+msgstr "结束日期早于开始日期，请检查这两个日期。"
 
 #: src/features/application-detail/sheets.tsx
 msgid "The follow-up is saved. To get a reminder, allow notifications in your device settings."
@@ -12718,7 +12697,7 @@ msgstr "问候语跟在名字之后。"
 
 #: src/features/workspace/parts.tsx
 msgid "the interview details"
-msgstr ""
+msgstr "面试详情"
 
 #: src/features/application-detail/interview-sheet.tsx
 msgid "The interview is saved. To get a reminder, allow notifications in your device settings."
@@ -12730,11 +12709,11 @@ msgstr "密钥在服务器上加密并且不会再次显示。保存测试连接
 
 #: src/features/ai/error.ts
 msgid "The key was rejected. Check the key and test again."
-msgstr ""
+msgstr "密钥被拒绝。请检查密钥后重新测试。"
 
 #: src/features/workspace/parts.tsx
 msgid "the last messages"
-msgstr ""
+msgstr "最近的消息"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "The lead time has passed. Saving runs the briefing now."
@@ -12762,15 +12741,15 @@ msgstr "自您提出要求以来，线路发生了变化，因此没有被替换
 
 #: src/features/share/feedback.tsx
 msgid "The link opens the resume as it is now. Later edits aren't shared, so every comment is about this version."
-msgstr ""
+msgstr "链接打开的是简历当前的样子。之后的修改不会同步，所以所有评论都针对这个版本。"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "the linked cover letter"
-msgstr ""
+msgstr "关联的求职信"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "the linked resume"
-msgstr ""
+msgstr "关联的简历"
 
 #: src/features/workspace/tabs/saved.tsx
 msgid "the message"
@@ -12778,7 +12757,7 @@ msgstr "该消息"
 
 #: src/features/ai/error.ts
 msgid "The model wasn't available or couldn't complete the test. Check its name or try another model."
-msgstr ""
+msgstr "该模型不可用或无法完成测试。请检查模型名称，或换一个模型。"
 
 #: src/features/ats-checker/messages.ts
 msgid "The order the text is stored in disagrees badly with the order it reads in."
@@ -12803,27 +12782,27 @@ msgstr "招聘信息页面"
 
 #: src/api/ai-consent.ts
 msgid "The posting text or retrieved page. Links also go to the reader and the site being read."
-msgstr ""
+msgstr "招聘原文或抓取到的页面。若使用链接，也会发送给阅读器和被读取的网站。"
 
 #: src/features/check/job-match.tsx
 msgid "The posting:"
-msgstr ""
+msgstr "招聘信息："
 
 #: src/features/ai/error.ts
 msgid "The provider limited this request. Wait and try again; check your account quota."
-msgstr ""
+msgstr "服务商限制了本次请求。请稍后再试，并检查账号额度。"
 
 #: src/features/ai/error.ts
 msgid "The provider reported a server error. Try again later."
-msgstr ""
+msgstr "服务商报告了服务器错误。请稍后再试。"
 
 #: src/features/workspace/parts.tsx
 msgid "the question and what you said"
-msgstr ""
+msgstr "问题以及你的回答"
 
 #: src/features/workspace/parts.tsx
 msgid "the question and your answer"
-msgstr ""
+msgstr "问题与你的回答"
 
 #: src/features/application-detail/sheets.tsx
 msgid "The reason is kept for Insights. Linked documents aren't touched."
@@ -12843,11 +12822,11 @@ msgstr "简历原样"
 
 #: src/features/workspace/parts.tsx
 msgid "the resume for this job"
-msgstr ""
+msgstr "该岗位的简历"
 
 #: src/features/share/feedback.tsx
 msgid "The reviewer sees each one's stage and dates. Notes, contacts and pay stay private."
-msgstr ""
+msgstr "查看者能看到每一项的阶段和日期。备注、联系方式和薪资不会公开。"
 
 #: src/features/ats-checker/messages.ts
 msgid "The same line repeats on every page."
@@ -12863,7 +12842,7 @@ msgstr "保存的密钥不会发送到新的基本 URL。再次输入密钥。"
 
 #: src/features/workspace/parts.tsx
 msgid "the saved offer"
-msgstr ""
+msgstr "已保存的 Offer"
 
 #: src/features/check/screen.tsx
 msgid "The score counts how reliably software reads your resume. It doesn't predict whether you'll be shortlisted."
@@ -12875,7 +12854,7 @@ msgstr "分数反映了提取文本的可靠性，而不是您的机会。"
 
 #: src/features/documents/library.tsx
 msgid "The selected documents will be deleted for good and can't be restored."
-msgstr ""
+msgstr "选中的文档将被永久删除，无法恢复。"
 
 #: src/features/documents/import-file.ts
 msgid "The server returned an invalid import result. Refresh Documents before retrying."
@@ -12888,7 +12867,7 @@ msgstr "无法加载服务器版本。您的文本将被保留；再试一次。
 
 #: src/features/ai/error.ts
 msgid "The service couldn't be reached. Check the address and connection, then try again."
-msgstr ""
+msgstr "无法连接该服务。请检查地址和网络后重试。"
 
 #: src/features/applications/error.ts
 msgid "The service couldn't be reached. Try again or fill the details manually."
@@ -12949,11 +12928,11 @@ msgstr "没有个人简介段落。"
 
 #: src/features/ats-checker/checker.tsx
 msgid "There's no text here to bring into the editor"
-msgstr ""
+msgstr "这里没有可导入编辑器的文字"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "These are saved draft answers."
-msgstr ""
+msgstr "这些是已保存的草稿回答。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "These are the answers saved when you applied."
@@ -12961,11 +12940,15 @@ msgstr "这些是您申请时保存的回答。"
 
 #: src/features/assistant/messages.tsx
 msgid "These edits are from before the assistant recorded which job posting they use, so they can't be applied. Ask again on the resume you want to change."
-msgstr ""
+msgstr "这些修改产生于助手记录所用招聘信息之前，因此无法应用。请在你要修改的那份简历上重新发起。"
 
 #: src/features/assistant/messages.tsx
 msgid "These edits use a job posting, so they go to a copy of this resume made for that job. Copy it for the job and ask again there; this resume stays unchanged."
-msgstr ""
+msgstr "这些修改使用了招聘信息，因此会应用到为该岗位复制的版本。请先为岗位复制一份，再在那里重新发起；这份简历保持不变。"
+
+#: src/features/design/china-market-group.tsx
+msgid "These fields only reach platform forms and the state-owned header. They never become a first-class PDF column."
+msgstr "这些字段只进入平台表单与央国企场景的页眉，不会成为通用的 PDF 一等栏目。"
 
 #: app/(tabs)/settings/account.tsx
 msgid "These open your server's account settings in a browser tab inside the app. You may need to sign in there."
@@ -12989,7 +12972,7 @@ msgstr "此账户的数据过多，无法打包为一个压缩包。 单独导�
 
 #: src/features/workspace/answer-library.tsx
 msgid "This application"
-msgstr ""
+msgstr "该申请"
 
 #: src/features/application-detail/detail-screen.tsx
 #: src/features/workspace/shell.tsx
@@ -13003,7 +12986,7 @@ msgstr "此申请尚无招聘信息。请在申请中添加。"
 #: src/features/applications/error.ts
 #: src/features/documents/queries.ts
 msgid "This application keeps the documents you submitted. Choose an application without a submitted letter, or duplicate the letter for another job."
-msgstr ""
+msgstr "该申请已保留你提交的文档。请选择一份未提交求职信的申请，或为该岗位复制一份求职信。"
 
 #: src/features/applications/error.ts
 msgid "This changed elsewhere. Reload and try again."
@@ -13019,7 +13002,7 @@ msgstr "此连接由您的服务器管理。"
 
 #: src/features/application-detail/sheets.tsx
 msgid "This contact changed somewhere else. Cancel and edit it again."
-msgstr ""
+msgstr "该联系人在别处被改动。请取消后重新编辑。"
 
 #: src/features/assistant/assistant-screen.tsx
 #: src/features/assistant/chat-view.tsx
@@ -13028,7 +13011,7 @@ msgstr "该对话无法打开。"
 
 #: src/features/assistant/provider.tsx
 msgid "This conversation's connection is off or was removed. Choose the one it uses next."
-msgstr ""
+msgstr "本次对话的连接已关闭或已被移除。请另选一个。"
 
 #: src/features/documents/import-file.ts
 msgid "This cover letter file isn't valid."
@@ -13036,7 +13019,7 @@ msgstr "此求职信文件无效。"
 
 #: src/features/write/date-field.tsx
 msgid "This date hasn't been saved. Use a month and year, like Mar 2022, or just a year. The resume keeps the last valid date. Turn on Custom date text to save other wording."
-msgstr ""
+msgstr "该日期未保存。请用「年-月」格式，例如 2022 年 3 月，或只写年份。简历会保留上一个有效日期。如需保存其他写法，请开启「自定义日期文字」。"
 
 #: src/features/application-detail/sheets.tsx
 #: src/features/applications/add-sheet.tsx
@@ -13062,7 +13045,7 @@ msgstr "该文档不再可用。刷新并重试。"
 
 #: src/features/workspace/answer-library.tsx
 msgid "This employer"
-msgstr ""
+msgstr "该雇主"
 
 #: src/api/ai-consent.ts
 msgid "This enables recurring processing while the schedule is on, using your server's selected providers. Turn the schedule off to stop future runs."
@@ -13132,6 +13115,10 @@ msgstr "该文件使用了 Type 3 字体，这种字体携带的是图形而非�
 msgid "This file's size couldn't be read. Choose another PDF."
 msgstr "无法读取该文件的大小。选择另一个PDF。"
 
+#: src/features/design/china-market-group.tsx
+msgid "This is a custom combination: once a switch changes, no preset claims to be active."
+msgstr "当前是自定义组合：改动任一开关后，预设不再宣称生效。"
+
 #: src/features/ats-checker/messages.ts
 msgid "This is a PDF Portfolio: the visible page is only a cover."
 msgstr "这是一个 PDF Portfolio（PDF 作品集包）：可见的页面只是封面。"
@@ -13171,7 +13158,7 @@ msgstr "此求职信已锁定。请在“文档”中解锁后再编辑。"
 
 #: src/features/documents/document-sheets.tsx
 msgid "This letter is recorded as sent. Its application link stays with that submission."
-msgstr ""
+msgstr "该求职信已记为已发送。它与申请的关联会保留在当次投递中。"
 
 #: src/features/letters/write.tsx
 msgid "This letter keeps its recipient as written."
@@ -13219,23 +13206,23 @@ msgstr "此 PDF 受密码保护。请保存一份不受保护的副本后重试�
 
 #: src/features/workspace/parts.tsx
 msgid "this posting"
-msgstr ""
+msgstr "该招聘信息"
 
 #: src/features/assistant/messages.tsx
 msgid "This question couldn't be asked. Send a new message to continue."
-msgstr ""
+msgstr "这个问题未能发出。请发送一条新消息以继续。"
 
 #: src/features/assistant/messages.tsx
 msgid "This question didn't finish."
-msgstr ""
+msgstr "这个问题没有完成。"
 
 #: src/features/settings/application-profile.tsx
 msgid "This removes the saved profile and its references. Career preferences, documents and submitted answers stay unchanged. This cannot be undone."
-msgstr ""
+msgstr "这会删除已保存的求职资料及其证明人。职业偏好、文档和已提交的回答不受影响。此操作无法撤销。"
 
 #: src/features/assistant/messages.tsx
 msgid "This reply used Knowledge that has since changed, so it's hidden."
-msgstr ""
+msgstr "该回复使用了此后已变更的知识库内容，因此已隐藏。"
 
 #: src/draft/conflict-sheet.tsx
 msgid "This resume changed elsewhere"
@@ -13264,7 +13251,7 @@ msgstr "此保存的描述被剪裁或不完整。准备文件之前先进行审
 
 #: src/features/workspace/shell.tsx
 msgid "This saved version belongs to a different tab. Open it from Library."
-msgstr ""
+msgstr "该已保存版本属于另一个标签页。请从知识库中打开。"
 
 #: src/features/workspace/shell.tsx
 msgid "This saved version couldn't be loaded."
@@ -13280,7 +13267,7 @@ msgstr "此页面已停止运行"
 
 #: src/api/ai-consent.ts
 msgid "This server cannot confirm reading without AI. Save the posting manually or update the server."
-msgstr ""
+msgstr "该服务器在没有 AI 的情况下无法确认读取结果。请手动保存招聘信息，或升级服务器。"
 
 #: src/features/settings/export.tsx
 msgid "This server exports file references only. Update it to include uploaded files."
@@ -13393,7 +13380,7 @@ msgstr "到"
 #. A letter's recipient under its name in the library
 #: src/features/documents/library.tsx
 msgid "To {recipient}"
-msgstr ""
+msgstr "致 {recipient}"
 
 #: src/features/write/outline.tsx
 msgid "To check"
@@ -13425,7 +13412,7 @@ msgstr "明天"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Too close to the interview to schedule a refresh."
-msgstr ""
+msgstr "距离面试太近，无法安排刷新。"
 
 #: src/features/design/style-groups.tsx
 msgid "Too light for headings on white. It may be hard to read and print faintly."
@@ -13450,7 +13437,7 @@ msgstr "在“申请”中追踪"
 
 #: src/features/career/today.tsx
 msgid "Track selected"
-msgstr ""
+msgstr "关注所选"
 
 #: src/features/applications-board/board-screen.tsx
 #: src/features/applications/list-screen.tsx
@@ -13497,7 +13484,7 @@ msgstr "垃圾箱已空"
 
 #: src/features/documents/queries.ts
 msgid "Trash was already empty"
-msgstr ""
+msgstr "回收站本来就是空的"
 
 #: src/features/workspace/parts.tsx
 msgid "Trimming words"
@@ -13544,7 +13531,7 @@ msgstr "请重试，或重新启动应用。"
 
 #: src/features/write/improve.tsx
 msgid "Try another"
-msgstr ""
+msgstr "换一个试试"
 
 #: src/features/documents/library.tsx
 msgid "Try another search or clear your filters."
@@ -13552,7 +13539,7 @@ msgstr "尝试其他搜索或清除过滤器。"
 
 #: src/features/career/facts.tsx
 msgid "Try another word or type."
-msgstr ""
+msgstr "换个词或换个类型试试。"
 
 #: src/features/applications-board/board-screen.tsx
 #: src/features/applications-board/calendar-screen.tsx
@@ -13573,13 +13560,9 @@ msgstr "试试这个开场白"
 msgid "Try with a sample resume"
 msgstr "尝试使用简历样本"
 
-#: src/features/settings/locale-names.ts
-msgid "Turkish"
-msgstr "土耳其语"
-
 #: src/features/share/feedback.tsx
 msgid "Turn off"
-msgstr ""
+msgstr "关闭"
 
 #: src/features/ats-checker/messages.ts
 msgid "Turn off discretionary ligatures when exporting."
@@ -13587,19 +13570,19 @@ msgstr "导出时关闭可选连字（discretionary ligatures）。"
 
 #: src/features/share/feedback.tsx
 msgid "Turn off link…"
-msgstr ""
+msgstr "关闭链接…"
 
 #: src/features/share/feedback.tsx
 msgid "Turn off this link?"
-msgstr ""
+msgstr "要关闭这个链接吗？"
 
 #: src/features/share/web-page.tsx
 msgid "Turn this on to open this resume at your short link and custom domain."
-msgstr ""
+msgstr "开启后即可通过短链接和自定义域名打开这份简历。"
 
 #: src/features/share/web-page.tsx
 msgid "Turn this on to open this resume at your short link."
-msgstr ""
+msgstr "开启后即可通过短链接打开这份简历。"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
@@ -13643,10 +13626,6 @@ msgstr "文字"
 msgid "Typography"
 msgstr "排版"
 
-#: src/features/settings/locale-names.ts
-msgid "Ukrainian"
-msgstr "乌克兰语"
-
 #: app/(tabs)/settings/preferences.tsx
 msgid "Unavailable"
 msgstr "不可用"
@@ -13686,7 +13665,7 @@ msgstr "撤销"
 #: src/features/assistant/messages.tsx
 msgctxt "Reconsider a rejected edit"
 msgid "Undo"
-msgstr ""
+msgstr "撤销"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/settings/application-profile.tsx
@@ -13727,7 +13706,7 @@ msgstr "在此设备上未同步"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Until then, Interview prep has your plan, your opening and the questions to ask."
-msgstr ""
+msgstr "在那之前，面试准备里已经有你的计划、开场白和要提的问题。"
 
 #: src/features/write/entry-screen.tsx
 #: src/features/write/outline.tsx
@@ -13757,28 +13736,28 @@ msgstr "最多 25 MB · 在服务器上检查但不存储"
 
 #: src/features/settings/application-profile.tsx
 msgid "Update"
-msgstr ""
+msgstr "更新"
 
 #. placeholder {0}: previous.data.title
 #: src/features/assistant/tool-approvals.tsx
 msgid "Update “{0}” in Knowledge?"
-msgstr ""
+msgstr "要更新知识库中的「{0}」吗？"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Update posting details"
-msgstr ""
+msgstr "更新招聘信息"
 
 #: src/features/assistant/tool-approvals.tsx
 msgid "Update story"
-msgstr ""
+msgstr "更新故事"
 
 #: src/api/ai-consent.ts
 msgid "Update this server before approving an AI destination."
-msgstr ""
+msgstr "请先升级服务器，再批准 AI 目标。"
 
 #: src/features/assistant/tool-approvals.tsx
 msgid "Update this story in Knowledge?"
-msgstr ""
+msgstr "要更新知识库中的这段故事吗？"
 
 #: src/features/applications/queries.ts
 msgid "Update your server before moving applications to a custom lane."
@@ -13825,7 +13804,7 @@ msgstr "URL"
 #. placeholder {0}: fallback.label
 #: src/features/assistant/provider.tsx
 msgid "Use {0}"
-msgstr ""
+msgstr "使用 {0}"
 
 #: src/features/check/issues.ts
 msgid "Use {minimum}"
@@ -13861,7 +13840,7 @@ msgstr "使用较深的色调"
 
 #: src/features/design/style-groups.tsx
 msgid "Use a hex color such as #2F5A8A."
-msgstr ""
+msgstr "请使用十六进制颜色值，例如 #2F5A8A。"
 
 #: src/features/design/advanced.tsx
 msgid "Use a hex value like #3E6B4F or rgba(62, 107, 79, 1)."
@@ -13877,7 +13856,7 @@ msgstr "使用可识别的格式，例如“2020 年 1 月 - 2022 年 3 月”�
 
 #: src/features/workspace/answer-library.tsx
 msgid "Use a saved answer"
-msgstr ""
+msgstr "使用已保存的回答"
 
 #: src/features/ats-checker/messages.ts
 msgid "Use a single column for anything that has to be read in sequence."
@@ -13893,7 +13872,7 @@ msgstr "使用 AI 进行 PDF 导入"
 
 #: src/features/application-detail/sections.tsx
 msgid "Use an existing letter"
-msgstr ""
+msgstr "使用已有求职信"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Use an http or https job posting link before saving."
@@ -13954,11 +13933,11 @@ msgstr "使用职位发布链接；保存前查看"
 
 #: src/features/workspace/answer-library.tsx
 msgid "Use reviewed answer"
-msgstr ""
+msgstr "使用已审核回答"
 
 #: src/features/career/role-suggestions.tsx
 msgid "Use reviewed roles in preferences"
-msgstr ""
+msgstr "在偏好中使用已审核的岗位"
 
 #: src/features/applications/import-sheet.tsx
 msgid "Use sample"
@@ -13968,7 +13947,7 @@ msgstr "使用示例"
 #: src/features/application-detail/sections.tsx
 #: src/features/career/preferences.tsx
 msgid "Use saved version"
-msgstr ""
+msgstr "使用已保存版本"
 
 #: src/features/workspace/parts.tsx
 msgid "Use server version"
@@ -14019,7 +13998,7 @@ msgstr "使用该提供商"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Use this resume as evidence"
-msgstr ""
+msgstr "用这份简历作为依据"
 
 #: src/features/application-detail/date-field.tsx
 msgid "Use this time"
@@ -14027,7 +14006,7 @@ msgstr "利用这个时间"
 
 #: src/api/ai-consent.ts
 msgid "Use web access?"
-msgstr ""
+msgstr "使用网页访问？"
 
 #: src/features/applications/add-sheet.tsx
 msgid "Use your browser’s Share action to send one posting URL or selected text to Reactive Resume. Receiving shares requires the latest store build; URL and paste import remain available."
@@ -14081,11 +14060,7 @@ msgstr "使用简历的模板和设计，适配任何屏幕。可在“设计”
 #. placeholder {0}: proposal.factIds .map((id) => facts?.find((fact) => fact.id === id)?.text) .filter((value): value is string => !!value) .map(shortLabel) .join(" · ")
 #: src/features/workspace/tabs/apply.tsx
 msgid "Uses: {0}"
-msgstr ""
-
-#: src/features/settings/locale-names.ts
-msgid "Uzbek"
-msgstr "乌兹别克语"
+msgstr "使用：{0}"
 
 #: src/features/share/custom-domain.tsx
 msgid "Value"
@@ -14132,7 +14107,7 @@ msgstr "版本已发送 {date} · 检查 {0}"
 #. placeholder {0}: document.versionId
 #: src/features/workspace/application-packet.tsx
 msgid "Version: {0}"
-msgstr ""
+msgstr "版本：{0}"
 
 #: src/features/design/advanced.tsx
 msgid "Vertical margin"
@@ -14154,10 +14129,6 @@ msgstr "以这么多页数来说，能提取出的文字非常少。"
 msgid "Video link, office address, or phone number"
 msgstr "视频链接、办公地址或电话号码"
 
-#: src/features/settings/locale-names.ts
-msgid "Vietnamese"
-msgstr "越南语"
-
 #: src/features/applications-board/calendar-screen.tsx
 msgid "View application"
 msgstr "查看职位申请"
@@ -14168,7 +14139,7 @@ msgstr "查看职位发布"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "View recorded answers"
-msgstr ""
+msgstr "查看已记录的回答"
 
 #: src/features/application-detail/sections.tsx
 msgid "View saved work"
@@ -14218,7 +14189,7 @@ msgstr "请等待账户时区加载完成；如果加载失败，请重试，或
 
 #: src/features/applications/next-step.ts
 msgid "Waiting for interview feedback"
-msgstr ""
+msgstr "等待面试反馈"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Waiting for you"
@@ -14230,12 +14201,12 @@ msgstr "等待回音"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "was {was}"
-msgstr ""
+msgstr "原为 {was}"
 
 #. placeholder {0}: part.was.trim() || t`blank`
 #: src/features/assistant/tool-approvals.tsx
 msgid "Was: {0}"
-msgstr ""
+msgstr "原为：{0}"
 
 #: app/(tabs)/settings/ai-web-access.tsx
 #: app/(tabs)/settings/ai.tsx
@@ -14257,11 +14228,11 @@ msgstr "网络调研"
 
 #: src/features/assistant/provider.tsx
 msgid "Web research · Retry"
-msgstr ""
+msgstr "联网检索 · 重试"
 
 #: src/features/assistant/provider.tsx
 msgid "Web research · Set up"
-msgstr ""
+msgstr "联网检索 · 去配置"
 
 #: src/features/assistant/messages.tsx
 msgid "Web search didn't finish."
@@ -14280,6 +14251,10 @@ msgstr "网络搜索寻找这些国家的工作机会。最多选择三个国家
 #: src/features/write/basics-screen.tsx
 msgid "Website"
 msgstr "网站"
+
+#: src/features/design/china-market-group.tsx
+msgid "WeChat ID"
+msgstr "微信号"
 
 #: src/features/workspace/parts.tsx
 msgid "Weighing each requirement"
@@ -14301,11 +14276,11 @@ msgstr "人看到的内容"
 
 #: src/features/workspace/coach-starters.ts
 msgid "What can I learn from this application?"
-msgstr ""
+msgstr "从这个申请里我能学到什么？"
 
 #: src/features/write/improve.tsx
 msgid "What changed because of this? A number, a time saved, who used it."
-msgstr ""
+msgstr "这件事带来了什么改变？可以是数字、节省的时间，或者谁用上了它。"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "What did they ask?"
@@ -14341,7 +14316,7 @@ msgstr "它要求什么"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "What kinds of roles fit what I've done so far?"
-msgstr ""
+msgstr "以我目前的经历，适合什么样的岗位？"
 
 #: src/features/career/preferences.tsx
 msgid "What matters to you"
@@ -14353,23 +14328,23 @@ msgstr "应该改变什么？"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "What should I ask before deciding on this offer?"
-msgstr ""
+msgstr "决定这个 Offer 之前，我该问些什么？"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "What should I ask before deciding?"
-msgstr ""
+msgstr "决定之前我该问些什么？"
 
 #: src/features/workspace/coach-starters.ts
 msgid "What should I ask them?"
-msgstr ""
+msgstr "我该问他们什么？"
 
 #: src/features/workspace/coach-starters.ts
 msgid "What should I check before accepting?"
-msgstr ""
+msgstr "接受之前我该核实什么？"
 
 #: src/features/workspace/coach-starters.ts
 msgid "What should my resume lead with for this job?"
-msgstr ""
+msgstr "针对这个岗位，简历开头该突出什么？"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "What should run"
@@ -14389,7 +14364,7 @@ msgstr "该怎么办"
 
 #: src/features/assistant/messages.tsx
 msgid "What was sent"
-msgstr ""
+msgstr "发送了什么"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "What works"
@@ -14409,11 +14384,11 @@ msgstr "您在寻找什么"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "What's missing from these offers that I should get in writing?"
-msgstr ""
+msgstr "这些 Offer 里缺了什么，需要让他们书面写明？"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "What's missing from this offer that I should get in writing?"
-msgstr ""
+msgstr "这个 Offer 里缺了什么，需要让他们书面写明？"
 
 #: src/features/check/writing.tsx
 msgid "What's working"
@@ -14425,11 +14400,11 @@ msgstr "您什么时候需要做出决定？"
 
 #: src/features/workspace/coach-starters.ts
 msgid "When should I follow up, and what should I say?"
-msgstr ""
+msgstr "什么时候跟进，该怎么说？"
 
 #: src/features/career/offers.tsx
 msgid "When would you start?"
-msgstr ""
+msgstr "你什么时候能到岗？"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "When you tap send, {list} go to your {connection}."
@@ -14459,7 +14434,7 @@ msgstr "你的申请去向"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "Which offer fits my requirements better?"
-msgstr ""
+msgstr "哪个 Offer 更符合我的要求？"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "Which opportunities best match my priorities?"
@@ -14467,7 +14442,7 @@ msgstr "哪些机会最符合我的优先事项？"
 
 #: src/features/share/feedback.tsx
 msgid "Who is it for?"
-msgstr ""
+msgstr "这是给谁看的？"
 
 #: src/features/application-detail/interview-sheet.tsx
 msgid "Who you'll meet"
@@ -14488,11 +14463,11 @@ msgstr "宽度"
 
 #: src/features/settings/application-profile.tsx
 msgid "Willing to relocate"
-msgstr ""
+msgstr "愿意搬迁"
 
 #: src/features/assistant/provider.tsx
 msgid "With Knowledge off, nothing you write is remembered."
-msgstr ""
+msgstr "关闭知识库后，你写的内容不会被记住。"
 
 #: src/features/career/offers.tsx
 msgid "Within your office-day limit."
@@ -14500,7 +14475,7 @@ msgstr "在每周到岗天数上限内。"
 
 #: src/features/career/stories.tsx
 msgid "Without a fact, the coach and practice can't use this story."
-msgstr ""
+msgstr "没有关联事实，顾问和练习都无法使用这段故事。"
 
 #: src/features/letters/write.tsx
 msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
@@ -14521,7 +14496,7 @@ msgstr "文字提取出来后，单词会连在一起。"
 
 #: src/features/settings/application-profile.tsx
 msgid "Work authorization and sponsorship"
-msgstr ""
+msgstr "工作授权与担保"
 
 #: src/features/ai/web-access.tsx
 msgid "Working…"
@@ -14529,7 +14504,7 @@ msgstr "正在处理…"
 
 #: src/features/career/today.tsx
 msgid "Workplace arrangement unknown"
-msgstr ""
+msgstr "办公形式未知"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Works without AI or new research"
@@ -14555,7 +14530,7 @@ msgstr "把你当前这份工作的结束日期写成“现在”。"
 
 #: src/features/workspace/preparation.tsx
 msgid "Write a cover letter if required"
-msgstr ""
+msgstr "如需要，撰写一封求职信"
 
 #: src/features/application-detail/sections.tsx
 #: src/features/workspace/preparation.tsx
@@ -14564,15 +14539,15 @@ msgstr "写信"
 
 #: src/features/documents/document-sheets.tsx
 msgid "Write a letter…"
-msgstr ""
+msgstr "写一封求职信…"
 
 #: src/features/workspace/tabs/messages.tsx
 msgid "Write a new reply in {languageName}"
-msgstr ""
+msgstr "用{languageName}重新写一条回复"
 
 #: src/features/workspace/preparation.tsx
 msgid "Write and review form answers"
-msgstr ""
+msgstr "撰写并审核表单回答"
 
 #: src/features/workspace/tabs/prepare.tsx
 msgid "Write down what they asked while it's fresh. The coach compares your answers with your stories."
@@ -14604,7 +14579,7 @@ msgstr "分五部分写一个关于你做过的事情的故事。在有依据支
 
 #: src/features/documents/library.tsx
 msgid "Write one for a job, or start from your latest resume."
-msgstr ""
+msgstr "为某个岗位写一封，或基于你最新的简历开始。"
 
 #: src/features/ats-checker/messages.ts
 msgid "Write the full address so it is recognized as a link."
@@ -14613,7 +14588,7 @@ msgstr "写出完整地址，使其能被识别为链接。"
 #. placeholder {0}: day(upcoming.at)
 #: src/features/workspace/tabs/debrief.tsx
 msgid "Write this after your interview on {0}"
-msgstr ""
+msgstr "{0} 面试结束后再写这一条"
 
 #: src/features/workspace/tabs/fit.tsx
 msgid "Write what you did."
@@ -14625,7 +14600,7 @@ msgstr "写下您的回答，或根据知识库起草一份。"
 
 #: src/features/letters/design.tsx
 msgid "Writes the greeting, sign-off and date, and the language a new draft uses. Your own words stay as you wrote them."
-msgstr ""
+msgstr "用于生成称呼、结尾和日期，以及新草稿使用的语言。你自己写的文字会保持原样。"
 
 #: src/features/ats-checker/messages.ts
 #: src/features/check/issues.ts
@@ -14639,7 +14614,7 @@ msgstr "写作帮助、定制建议和助手。未单独选择提供商的地方
 
 #: src/features/workspace/answer-library.tsx
 msgid "Written manually"
-msgstr ""
+msgstr "手动撰写"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
@@ -14649,11 +14624,11 @@ msgstr "书面录用"
 
 #: src/features/settings/application-profile.tsx
 msgid "Year"
-msgstr ""
+msgstr "年"
 
 #: src/features/settings/application-profile.tsx
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: src/features/assistant/chat-view.tsx
 msgid "You"
@@ -14661,7 +14636,7 @@ msgstr "你"
 
 #: src/features/applications/prior-no-response.tsx
 msgid "you accepted an offer"
-msgstr ""
+msgstr "你接受了 Offer"
 
 #: src/features/share/link.tsx
 msgid "You already use this for “{takenBy}”."
@@ -14706,7 +14681,7 @@ msgstr "由您用自己的邮箱发送。"
 
 #: src/features/applications/prior-no-response.tsx
 msgid "you took another offer"
-msgstr ""
+msgstr "你接受了其他 Offer"
 
 #: src/features/settings/sign-out.tsx
 msgid "You will be signed out of {server}. Any edits not yet synced from this device will be lost."
@@ -14714,7 +14689,7 @@ msgstr "您将退出 {server}。任何尚未从该设备同步的编辑都将丢
 
 #: src/features/applications/prior-no-response.tsx
 msgid "you withdrew"
-msgstr ""
+msgstr "你撤回了申请"
 
 #: src/features/ai/web-access.tsx
 msgid "You'll need to enter the key again to reconnect. The built-in reader remains active."
@@ -14769,7 +14744,7 @@ msgstr "已全部看完"
 #: src/features/design/draft.ts
 #: src/features/write/hooks.ts
 msgid "You've made changes since. Use Undo to step back through them."
-msgstr ""
+msgstr "此后你又有修改。可用「撤销」逐步回退。"
 
 #: src/features/workspace/hooks.ts
 msgid "Your AI connection"
@@ -14789,11 +14764,11 @@ msgstr "您的答案·{mode}"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Your answer changed while the draft was written. Draft again to use it."
-msgstr ""
+msgstr "起草期间你的回答有变更。请重新起草后再使用。"
 
 #: src/features/workspace/tabs/apply.tsx
 msgid "Your answer changed while this was drafted. Draft again to review the newer version."
-msgstr ""
+msgstr "起草期间你的回答有变更。请重新起草以审核较新的版本。"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Your attempts"
@@ -14817,7 +14792,7 @@ msgstr "你的联系方式不在第一页。"
 
 #: src/features/workspace/parts.tsx
 msgid "your contacts"
-msgstr ""
+msgstr "你的联系人"
 
 #: app/(tabs)/settings/account.tsx
 msgid "Your data"
@@ -14842,7 +14817,7 @@ msgstr "你的域名将不再打开你的主要简历。你可以稍后重新连
 #: src/features/assistant/coach-screen.tsx
 #: src/features/workspace/coach-sheet.tsx
 msgid "Your edited story is saved to Knowledge."
-msgstr ""
+msgstr "你编辑后的故事已保存到知识库。"
 
 #: src/features/ats-checker/messages.ts
 msgid "Your email address is broken across pieces of text."
@@ -14850,7 +14825,7 @@ msgstr "你的电子邮件地址被拆分到了不同的文字片段中。"
 
 #: src/features/share/web-page.tsx
 msgid "Your email, phone, location and extra header fields, and references' phone numbers, are left out of the web page, its PDF and search results. Your website stays."
-msgstr ""
+msgstr "你的邮箱、电话、所在城市和其他页眉字段，以及证明人的电话，都不会出现在网页、其 PDF 和搜索结果中。你的个人网站会保留。"
 
 #: src/features/career/knowledge.tsx
 msgid "Your facts, stories and preferences. Editing Knowledge sends nothing to an AI connection."
@@ -14862,7 +14837,7 @@ msgstr "您的重点"
 
 #: src/features/workspace/parts.tsx
 msgid "your form answers"
-msgstr ""
+msgstr "你的表单回答"
 
 #: src/features/ats-checker/messages.ts
 msgid "Your headings look the same as your body text."
@@ -14870,7 +14845,7 @@ msgstr "你的标题看起来和正文一模一样。"
 
 #: src/features/career/today.tsx
 msgid "Your job search starts here"
-msgstr ""
+msgstr "你的求职从这里开始"
 
 #: src/features/workspace/tabs/debrief.tsx
 msgid "your Knowledge"
@@ -14894,7 +14869,7 @@ msgstr "您的消息"
 
 #: src/features/assistant/chat-view.tsx
 msgid "Your message is kept."
-msgstr ""
+msgstr "你的消息已保留。"
 
 #: src/features/write/outline.tsx
 msgid "Your name"
@@ -14945,7 +14920,7 @@ msgstr "您的公开链接以 {server}/ 开头"
 
 #: src/features/settings/profile.tsx
 msgid "Your public links will change"
-msgstr ""
+msgstr "你的公开链接将会变更"
 
 #: src/features/workspace/tabs/practise.tsx
 msgid "Your recording goes to {transcriberName} after you stop, to be transcribed. Your provider may charge. The server keeps transcripts, never recordings."
@@ -15011,7 +14986,7 @@ msgstr "您的短链接和自定义域名会打开此简历。"
 #. placeholder {0}: otherPrimary.name
 #: src/features/share/web-page.tsx
 msgid "Your short link and custom domain point to “{0}”, which isn't published."
-msgstr ""
+msgstr "你的短链接和自定义域名指向「{0}」，但该简历尚未发布。"
 
 #: src/features/share/web-page.tsx
 msgid "Your short link and custom domain say this resume isn't shared until you publish it again."
@@ -15020,20 +14995,20 @@ msgstr "在您重新发布之前，您的短链接和自定义域名会显示此
 #. placeholder {0}: otherPrimary.name
 #: src/features/share/web-page.tsx
 msgid "Your short link opens “{0}”."
-msgstr ""
+msgstr "你的短链接会打开「{0}」。"
 
 #: src/features/share/web-page.tsx
 msgid "Your short link opens this resume."
-msgstr ""
+msgstr "你的短链接会打开这份简历。"
 
 #. placeholder {0}: otherPrimary.name
 #: src/features/share/web-page.tsx
 msgid "Your short link points to “{0}”, which isn't published."
-msgstr ""
+msgstr "你的短链接指向「{0}」，但该简历尚未发布。"
 
 #: src/features/share/web-page.tsx
 msgid "Your short link says this resume isn't shared until you publish it again."
-msgstr ""
+msgstr "你的短链接显示这份简历在你重新发布之前不会共享。"
 
 #: src/features/assistant/coach-screen.tsx
 msgid "your stories"
@@ -15061,11 +15036,11 @@ msgstr "在打开网络搜索设置之前，您未保存的职位详细信息将
 
 #: src/api/ai-consent.ts
 msgid "Your web settings changed. Nothing was sent; try again."
-msgstr ""
+msgstr "网页设置已变更，未发送任何内容；请重试。"
 
 #: src/features/assistant/messages.tsx
 msgid "Your wording"
-msgstr ""
+msgstr "你的措辞"
 
 #: src/features/letters/page.tsx
 #: src/preview/page.tsx
@@ -15078,5 +15053,5 @@ msgid "Zoom out"
 msgstr "缩小"
 
 #: src/features/settings/locale-names.ts
-msgid "Zulu"
-msgstr "祖鲁语"
+msgid "简体中文"
+msgstr "简体中文"

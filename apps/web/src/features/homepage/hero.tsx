@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import { t } from "@lingui/core/macro";
-import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useRouteContext } from "@tanstack/react-router";
@@ -10,19 +9,9 @@ import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
 import { prefersReducedMotion, SCENE } from "./scroll";
 import { Sheet } from "./sheet";
-import { CtaLink, Doodle } from "./ui";
+import { CtaLink } from "./ui";
 import { authClient } from "@/libs/auth/client";
 import { sessionQueryKey } from "@/libs/root-context";
-
-const fragmentKind = {
-	display: "font-anybody leading-none",
-	serif: "font-display leading-none",
-	mono: "font-martian text-[12px] leading-none",
-	pill: "rounded-sm px-3.5 py-[9px] font-semibold font-ui text-[15px] leading-none",
-};
-
-// The field is dimmed to 78%, so the light pills take a deeper green to keep their text at 4.5:1.
-const pillAccent = "bg-accent-soft text-[oklch(0.36_0.1_150)] dark:text-accent-text";
 
 /** The four lines of the headline; the footer repeats them. Lines 2 and 4 are highlighted. */
 export const getHeadline = () =>
@@ -49,111 +38,53 @@ export const getHeadline = () =>
 	] as const;
 
 /**
- * The eighteen career fragments that converge into the page. Each starts at (x, y), drifts to (tx, ty) and scales
- * down as it lands; z is its depth, for the mouse parallax.
+ * The seven lines a resume is made of, set in the outer margin the way a proof sheet carries its notes. They land
+ * from the right as the page composes, and stay: this margin is the hero's only decoration.
  */
-const getFragments = () => [
-	{
-		text: t`Lead Product Designer`,
-		at: ["-30vw", "-28vh", "-6vw", "-14vh", "-4deg", 1, 0.9],
-		className: cn(fragmentKind.display, "text-[2.3vw] text-ink-2"),
-	},
-	{
-		text: t`Design systems`,
-		at: ["-39vw", "4vh", "-4vw", "2vh", "-8deg", 1.1, 1.2],
-		className: cn(fragmentKind.pill, pillAccent),
-	},
-	{
-		text: t`Lisbon`,
-		at: ["41vw", "20vh", "6vw", "10vh", "-3deg", 1, 0.5],
-		className: cn(fragmentKind.serif, "text-[2.8vw] text-ink-3"),
-	},
-	{
-		text: t`+13 pts activation`,
-		at: ["-17vw", "33vh", "-2vw", "12vh", "4deg", 1, 1],
-		className: cn(fragmentKind.display, "text-[2.8vw] font-light text-accent-text font-stretch-[92%]"),
-	},
-	{
-		text: t`Figma`,
-		at: ["21vw", "37vh", "4vw", "14vh", "10deg", 1.1, 1.3],
-		className: cn(fragmentKind.pill, "bg-raised text-ink shadow-e2"),
-	},
-	{
-		text: t`WCAG 2.1 AA`,
-		at: ["-44vw", "-12vh", "-7vw", "-4vh", "0deg", 1, 0.3],
-		className: cn(fragmentKind.mono, "text-ink-3"),
-	},
-	{
-		text: t`BA, Communication Design`,
-		at: ["10vw", "-40vh", "1vw", "-11vh", "-2deg", 1, 0.6],
-		className: cn(fragmentKind.serif, "text-[1.5vw] text-ink-2"),
-	},
-	{
-		text: t`University of Porto`,
-		at: ["-9vw", "-43vh", "-3vw", "-16vh", "2deg", 1, 0.35],
-		className: cn(fragmentKind.mono, "text-ink-3"),
-	},
-	{
-		text: t`Parcel & Co.`,
-		at: ["39vw", "3vh", "5vw", "1vh", "-6deg", 1, 0.8],
-		className: cn(fragmentKind.display, "text-[1.9vw] text-ink-2 font-stretch-[108%]"),
-	},
-	{
-		text: t`Shipped checkout for iOS`,
-		at: ["-27vw", "23vh", "-5vw", "8vh", "3deg", 1, 0.7],
-		className: cn(fragmentKind.serif, "text-[1.7vw] text-ink-2 italic"),
-	},
-	{
-		text: t`Prototyping`,
-		at: ["6vw", "42vh", "0vw", "16vh", "-5deg", 1.1, 1.1],
-		className: cn(fragmentKind.pill, pillAccent),
-	},
-	{
-		text: "alex@morgan.design",
-		at: ["25vw", "29vh", "4vw", "9vh", "2deg", 1, 0.4],
-		className: cn(fragmentKind.mono, "text-ink-3"),
-	},
-	{
-		text: t`Barista, 2012`,
-		at: ["-44vw", "38vh", "-6vw", "15vh", "-7deg", 1, 0.8],
-		className: cn(fragmentKind.serif, "text-[2.2vw] text-ink-3 italic"),
-	},
-	{
-		text: t`40% faster reviews`,
-		at: ["44vw", "38vh", "6vw", "13vh", "-4deg", 1, 1],
-		className: cn(fragmentKind.display, "text-[2.4vw] font-light text-ink-2 font-stretch-[94%]"),
-	},
-	{
-		text: t`Promoted to lead, 2021`,
-		at: ["-38vw", "-38vh", "-5vw", "-13vh", "4deg", 1, 0.5],
-		className: cn(fragmentKind.serif, "text-[1.7vw] text-ink-2"),
-	},
-	{
-		text: t`Spanish, B2`,
-		at: ["-26vw", "43vh", "-3vw", "16vh", "0deg", 1, 0.3],
-		className: cn(fragmentKind.mono, "text-ink-3"),
-	},
-	{
-		text: t`Six product teams`,
-		at: ["30vw", "45vh", "5vw", "17vh", "-2deg", 1, 0.6],
-		className: cn(fragmentKind.display, "text-[1.5vw] text-ink-3 font-stretch-[110%]"),
-	},
-	{
-		text: t`Accessibility`,
-		at: ["-13vw", "-33vh", "-2vw", "-10vh", "7deg", 1.1, 1.2],
-		className: cn(fragmentKind.pill, pillAccent),
-	},
+const getMarginNotes = () => [
+	{ text: t`Design systems`, y: -20, z: 0.3 },
+	{ text: t`Shipped checkout for iOS`, y: -13.2, z: 0.5 },
+	{ text: t`+13 pts activation`, y: -6.6, z: 0.4 },
+	{ text: t`WCAG 2.1 AA`, y: 0, z: 0.6 },
+	{ text: t`Six product teams`, y: 6.6, z: 0.35 },
+	{ text: t`40% faster reviews`, y: 13.2, z: 0.5 },
+	{ text: t`Promoted to lead, 2021`, y: 19.8, z: 0.45 },
 ];
 
+type Glyph = { ch: string; accent: boolean };
+
+/** Splits the headline into the characters a composing stick would hold, keeping the space as a blank. */
+const toGlyphs = (parts: readonly (readonly [string, boolean])[]): Glyph[] =>
+	parts.flatMap(([text, accent]) => [...text].map((ch) => ({ ch, accent })));
+
+/** One line of the headline, set into 字格: a cell per character, the rules standing in for the type body. */
+function TypeCase({ glyphs }: { glyphs: Glyph[] }) {
+	return (
+		<span className="flex border-e border-line">
+			{glyphs.map(({ ch, accent }, i) => (
+				<span
+					// The headline is a fixed string, so position is a stable identity here.
+					key={`${i}-${ch}`}
+					className={cn(
+						"flex h-(--cell) w-(--cell) items-center justify-center border-s border-b border-line [font-size:calc(var(--cell)*.84)] leading-none",
+						accent && "text-accent-text",
+					)}
+				>
+					{ch === " " ? null : ch}
+				</span>
+			))}
+		</span>
+	);
+}
+
 /**
- * 00 Hero, "Everything you've done, on one page." Career fragments float in, converge and become a page; the
- * headline splits to either side of it. The paragraph and CTA paint first, with no dependency on the scroll engine.
+ * 00 Hero, "Everything you've done, on one page." A specimen sheet: the headline set into 字格, the page laid on the
+ * grid, and the resume's own lines noted in the margin. Nothing floats, nothing is drawn by hand.
  */
 export function Hero() {
-	const { i18n } = useLingui();
 	const ref = useRef<HTMLElement>(null);
 
-	// The pencil guides draw in once, shortly after load.
+	// The rules draw in once, shortly after load; the page settles and the margin notes land on the same beat.
 	useEffect(() => {
 		const section = ref.current;
 		if (!section) return;
@@ -163,109 +94,139 @@ export function Hero() {
 	}, []);
 
 	const headline = getHeadline();
+	const line1 = toGlyphs([
+		[headline[0], false],
+		[" ", false],
+		[headline[1], true],
+	]);
+	const line2 = toGlyphs([
+		[headline[2], false],
+		[" ", false],
+		[headline[3], false],
+	]);
 
 	return (
-		<section
-			ref={ref}
-			id="top"
-			data-scene={SCENE.hero}
-			data-pin
-			aria-labelledby="hero-title"
-			className="relative h-[170vh] min-[900px]:h-[220vh]"
-		>
+		<section ref={ref} id="top" data-scene={SCENE.hero} aria-labelledby="hero-title" className="relative h-svh">
 			{/* --pt is the page's centre. Below 900px it sits under the stacked headline (128px + three 10vw lines). */}
-			<div className="min-[900px]:short:[--pw:min(24vw,40vh)] sticky top-0 h-svh overflow-clip [--e2:clamp(0,(var(--p)-.16)/.6,1)] [--e:clamp(0,(var(--p)-.03)/.5,1)] [--pt:calc(144px+30vw+var(--pw)*.647)] [--pw:min(46vw,30vh)] motion-reduce:[--ld:1] min-[900px]:[--pt:50%] min-[900px]:[--pw:min(24vw,46vh)]">
-				<svg aria-hidden="true" width="0" height="0" className="absolute">
-					<filter id="landing-pencil" x="-5%" y="-5%" width="110%" height="110%">
-						<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves={2} seed={4} />
-						<feDisplacementMap in="SourceGraphic" scale={3.5} />
-					</filter>
-				</svg>
+			<div className="min-[900px]:short:[--pw:min(24vw,36vh)] relative h-svh overflow-clip [--cell:clamp(40px,5.9vw,72px)] [--e2:var(--ld,0)] [--e:var(--ld,0)] [--pt:calc(132px+26vw+var(--pw)*.647)] [--pw:min(58vw,32vh)] motion-reduce:[--ld:1] min-[900px]:[--pt:60%] min-[900px]:[--pw:min(26vw,38vh)]">
+				{/* The grid the sheet is laid on: the type area's two margin rules, the sheet's own edges, and the trim
+				    marks a print sheet is cut down to. 1px, exact — these lines carry the page's whole structure. */}
+				<div aria-hidden="true" className="pointer-events-none absolute inset-0 text-line-2">
+					<span className="absolute inset-y-0 left-(--gutter) w-px [transform:scaleY(var(--ld,0))] bg-current opacity-45 [transition:transform_1.4s_var(--ease)]" />
+					<span className="absolute inset-y-0 right-(--gutter) w-px [transform:scaleY(var(--ld,0))] bg-current opacity-45 [transition:transform_1.4s_var(--ease)]" />
 
-				{/* Construction guides, drawn in pencil around where the page will land. */}
-				<div
-					aria-hidden="true"
-					className="text-graphite pointer-events-none absolute inset-0 min-[900px]:[filter:url(#landing-pencil)]"
-				>
 					<span className="absolute top-[7vh] bottom-[7vh] left-[calc(50%-var(--pw)/2)] w-px [transform:scaleY(var(--ld,0))] bg-current [transition:transform_1.6s_var(--ease)_.2s]" />
 					<span className="absolute top-[7vh] bottom-[7vh] left-[calc(50%+var(--pw)/2)] w-px [transform:scaleY(var(--ld,0))] bg-current [transition:transform_1.6s_var(--ease)_.35s]" />
 					<span className="absolute inset-x-[3vw] top-[calc(var(--pt)-var(--pw)*.647)] h-px [transform:scaleX(var(--ld,0))] bg-current [transition:transform_1.8s_var(--ease)_.5s]" />
 					<span className="absolute inset-x-[3vw] top-[calc(var(--pt)+var(--pw)*.647)] h-px [transform:scaleX(var(--ld,0))] bg-current [transition:transform_1.8s_var(--ease)_.65s]" />
-					<span className="absolute top-(--pt) left-1/2 aspect-square w-[calc(var(--pw)*2.1)] [transform:translate(-50%,-50%)_scale(calc(.9+var(--ld,0)*.1))] rounded-full border border-current opacity-[calc(var(--ld,0)*.7)] [transition:opacity_2.4s_ease_1s,transform_2.4s_var(--ease)_1s]" />
-				</div>
 
-				{/* Outside the filtered layer: a filter makes the browser count this label as a screen-sized paint. */}
-				<span
-					aria-hidden="true"
-					className="font-martian text-graphite pointer-events-none absolute top-[calc(var(--pt)-var(--pw)*.647-20px)] left-[calc(50%+var(--pw)/2+10px)] text-[10.5px] leading-none tracking-[.06em] opacity-[var(--ld,0)] transition-opacity delay-[1.4s] duration-1000"
-				>
-					{i18n.number(612)} × {i18n.number(792)}
-				</span>
+					{/* The sheet's baseline grid: every 24px, faint enough to read as texture and not as content. */}
+					<div
+						className="absolute left-[calc(50%-var(--pw)/2)] h-[calc(var(--pw)*1.294)] w-(--pw) [background-image:repeating-linear-gradient(to_bottom,currentColor_0_1px,transparent_1px_24px)] opacity-[calc(var(--ld,0)*.3)] [transition:opacity_1.6s_ease_.9s]"
+						style={{ top: "calc(var(--pt) - var(--pw) * .647)" }}
+					/>
 
-				<Doodle
-					name="pencil"
-					eager
-					wipe="var(--ld, 0)"
-					sizes="12vw"
-					// Physical, like the floating words (left: 50% plus an offset): mirrored, it would land on a word in RTL.
-					className="top-[max(15vh,110px)] left-[74vw] w-[12vw] [transform:translate(calc(var(--mx,0)*-22px),calc(var(--my,0)*-14px))_rotate(calc(-22deg+var(--mx,0)*3deg))_translateY(calc(var(--p)*-20px))] [transition:mask-position_1.8s_var(--ease)_.9s,transform_.9s_var(--ease)]"
-				/>
-				<Doodle
-					name="paperclip"
-					eager
-					wipe="var(--ld, 0)"
-					sizes="(min-width: 900px) 6vw, 1px"
-					className="top-[61%] left-[4vw] w-[6vw] [transform:translate(calc(var(--mx,0)*22px),calc(var(--my,0)*16px))_rotate(calc(16deg+var(--mx,0)*-4deg))_translateY(calc(var(--p)*-30px))] [transition:mask-position_1.4s_var(--ease)_1.3s,transform_1.1s_var(--ease)] max-[900px]:hidden"
-				/>
-
-				<div
-					aria-hidden="true"
-					className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0,transparent_120px,#000_200px,#000_calc(100%-250px),transparent_calc(100%-170px))] opacity-78 max-[900px]:[mask-image:linear-gradient(to_bottom,transparent_0,transparent_260px,#000_330px,#000_calc(100%-250px),transparent_calc(100%-170px))]"
-				>
-					{getFragments().map(({ text, at: [x, y, tx, ty, r, s, z], className }) => (
-						<span
-							key={text}
-							// Each word sets its own direction, so "Parcel & Co." keeps its full stop at the end in Arabic.
-							dir="auto"
-							className={cn("hero-fragment", className)}
-							style={{ "--x": x, "--y": y, "--tx": tx, "--ty": ty, "--r": r, "--s": s, "--z": z } as CSSProperties}
-						>
-							{text}
+					{/* Trim marks: four corners, two rules each, the way a print sheet is cut down to size. */}
+					{(
+						[
+							[
+								"top-[calc(var(--pt)-var(--pw)*.647)]",
+								"left-[calc(50%-var(--pw)/2)]",
+								"translate-x-[-12px]",
+								"translate-y-[-12px]",
+							],
+							[
+								"top-[calc(var(--pt)-var(--pw)*.647)]",
+								"left-[calc(50%+var(--pw)/2)]",
+								"translate-x-[4px]",
+								"translate-y-[-12px]",
+							],
+							[
+								"top-[calc(var(--pt)+var(--pw)*.647)]",
+								"left-[calc(50%-var(--pw)/2)]",
+								"translate-x-[-12px]",
+								"translate-y-[4px]",
+							],
+							[
+								"top-[calc(var(--pt)+var(--pw)*.647)]",
+								"left-[calc(50%+var(--pw)/2)]",
+								"translate-x-[4px]",
+								"translate-y-[4px]",
+							],
+						] as const
+					).map(([top, left, tx, ty]) => (
+						<span key={`${top}-${left}`} className={cn("absolute size-2", top, left, tx, ty)}>
+							<span className="absolute inset-x-0 top-0 h-px bg-current" />
+							<span className="absolute inset-y-0 left-0 w-px bg-current" />
 						</span>
 					))}
 				</div>
 
-				<div className="hero-page absolute top-(--pt) left-1/2 aspect-[612/792] w-(--pw) rounded-sm shadow-paper">
+				{/* Outside the guide layer: a filter would make the browser count this label as a screen-sized paint. */}
+				<span
+					aria-hidden="true"
+					className="font-martian pointer-events-none absolute top-[calc(var(--pt)+var(--pw)*.647+14px)] left-[calc(50%-var(--pw)/2)] hidden text-[10.5px] leading-none tracking-[.06em] whitespace-nowrap text-ink-3 opacity-[var(--ld,0)] transition-opacity delay-[1.4s] duration-1000 min-[900px]:block"
+				>
+					A4 · 210 × 297 mm
+				</span>
+
+				{/* 竖排: the promise set the way Chinese was set before Latin punctuation arrived — upright, top to
+				    bottom, in the margin where a book's running text would run. */}
+				<span className="absolute top-[calc(64px+4vh+var(--cell)*2+48px)] left-[calc(var(--gutter)+17px)] hidden font-display text-[14px] leading-none tracking-[.34em] text-ink-3 opacity-[var(--ld,0)] transition-opacity delay-[1.6s] duration-1000 [writing-mode:vertical-rl] min-[900px]:block">
+					{t`Everything you've done, set on one page.`}
+				</span>
+
+				{/* The margin: the resume's own lines, set right against the outer rule like a proof sheet's notes. */}
+				<div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden min-[900px]:block">
+					{getMarginNotes().map(({ text, y, z }) => (
+						<span
+							key={text}
+							dir="auto"
+							className="hero-fragment flex w-[18vw] items-center justify-end gap-2.5 border-b border-line pb-[9px] text-end"
+							style={
+								{
+									"--x": "44vw",
+									"--y": `${y * 1.05}vh`,
+									"--tx": "38vw",
+									"--ty": `${y}vh`,
+									"--r": "0deg",
+									"--z": z,
+								} as CSSProperties
+							}
+						>
+							<span className="size-[3px] flex-none bg-accent" />
+							<span className="font-display text-[15px] leading-none whitespace-nowrap text-ink-2">{text}</span>
+						</span>
+					))}
+				</div>
+
+				<div className="hero-page absolute top-(--pt) left-1/2 aspect-[612/792] w-(--pw) rounded-sm border border-line shadow-paper">
 					<Sheet />
 				</div>
 
-				<h1
-					id="hero-title"
-					className="absolute inset-x-(--gutter) top-32 font-display text-[8vw] leading-[1.05] font-light text-ink min-[900px]:sr-only"
-				>
-					{headline[0]} <br className="min-[900px]:hidden" />
-					<em className="text-accent-text">{headline[1]}</em> <br className="min-[900px]:hidden" />
-					{headline[2]} <em className="text-accent-text">{headline[3]}</em>
-				</h1>
-
-				{/* The headline, drawn as two halves either side of the page (below 900px, stacked above it). Both halves share one
-				    size; a translation too long for its side wraps instead of running off screen. */}
-				<div
-					aria-hidden="true"
-					className="hero-headline-start absolute end-[calc(50%+var(--pw)/2+2.6vw)] top-1/2 hidden max-w-[calc(50vw-var(--pw)/2-2.6vw-var(--gutter))] text-end text-[3.4vw] leading-none text-balance text-ink min-[900px]:block"
-				>
-					<span className="font-anybody block font-light tracking-[-.025em] [font-stretch:calc(112%-var(--e)*12%)]">
-						{headline[0]}
+				<h1 id="hero-title" className="absolute inset-x-(--gutter) top-[calc(64px+4vh)] z-2">
+					{/* The page reads as one sentence; the 字格 below is its setting, not a second copy. */}
+					<span className="sr-only">
+						{headline[0]} {headline[1]} {headline[2]} {headline[3]}
 					</span>
-					<span className="block font-display tracking-[-.02em] text-accent-text italic">{headline[1]}</span>
-				</div>
-				<div
-					aria-hidden="true"
-					className="absolute start-[calc(50%+var(--pw)/2+2.6vw)] top-1/2 hidden max-w-[calc(50vw-var(--pw)/2-2.6vw-var(--gutter))] [transform:translate(calc(var(--dir)*(1-var(--e))*6vw),-50%)] text-[3.4vw] leading-none text-balance opacity-[clamp(0,(var(--e)-.5)*3,1)] [transition:transform_.45s_var(--ease)] min-[900px]:block"
-				>
-					<span className="font-anybody block tracking-[-.025em] text-ink">{headline[2]}</span>
-					<span className="block font-display tracking-[-.02em] text-accent-text italic">{headline[3]}</span>
-				</div>
+
+					{/* Below 900px there is no room for eleven cells: the headline falls back to two set lines. Balanced,
+					    because Chinese has no hyphen to rescue a line and "具。" stranded on its own reads as a mistake. */}
+					<span
+						aria-hidden="true"
+						className="block font-display text-[clamp(28px,8.1vw,52px)] leading-[1.16] font-light tracking-[-.01em] text-balance text-ink min-[900px]:hidden"
+					>
+						{headline[0]} <em className="text-accent-text not-italic">{headline[1]}</em>
+						<br />
+						{headline[2]} {headline[3]}
+					</span>
+
+					{/* 字格: one cell per character, the rules standing in for the type body. */}
+					<span aria-hidden="true" className="hidden w-fit font-display font-light text-ink min-[900px]:block">
+						<TypeCase glyphs={line1} />
+						<TypeCase glyphs={line2} />
+					</span>
+				</h1>
 
 				<div className="absolute inset-x-(--gutter) bottom-[clamp(20px,4vh,40px)] z-2 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
 					<p className="max-w-full font-display text-base leading-[1.45] text-pretty text-ink-2 min-[900px]:max-w-[min(25em,calc(50vw-var(--pw)/2-5vw))] min-[900px]:text-[clamp(17px,1.3vw,20px)]">

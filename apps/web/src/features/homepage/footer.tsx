@@ -1,16 +1,14 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { t } from "@lingui/core/macro";
-import { Trans } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@reactive-resume/utils/style";
 import { getHeadline } from "./hero";
 import { SCENE } from "./scroll";
-import { LanguageDoorway } from "./sections";
 import { labelClass } from "./ui";
-import { useTheme } from "@/features/theme/provider";
 
-const githubUrl = "https://github.com/reactive-resume/reactive-resume";
-const licenseUrl = `${githubUrl}/blob/main/LICENSE`;
+// Every link here resolves inside this app: the marketing page's own scenes, or a real route. Upstream points this
+// footer at GitHub, Discord, Reddit, Crowdin and its docs site; none of those are reachable or relevant to a reader
+// here, and they send the fork's traffic back to the project it was forked from.
 // On touch, each link is a 44px row; the column gap closes so the columns don't grow.
 const linkClass =
 	"text-ink transition-colors hover:text-accent-text pointer-coarse:inline-flex pointer-coarse:min-h-11 pointer-coarse:items-center";
@@ -25,42 +23,29 @@ const getColumns = (): { id: string; title: string; links: FooterLink[] }[] => [
 		title: t`Product`,
 		links: [
 			{ label: t`Templates`, to: "/resume-templates" },
-			{ label: t`Features`, href: "#write" },
 			{ label: t`ATS checker`, to: "/ats-checker" },
 			{ label: t`Get started`, to: "/auth/register" },
 			{ label: t`Sign in`, to: "/auth/login" },
 		],
 	},
 	{
-		id: "resources",
-		title: t`Resources`,
+		id: "story",
+		title: t`How it works`,
 		links: [
-			{ label: t`About`, href: "https://docs.rxresu.me/getting-started" },
-			{ label: t`Documentation`, href: "https://docs.rxresu.me" },
-			{ label: t`Changelog`, href: "https://docs.rxresu.me/changelog" },
-			{ label: t`Source code`, href: githubUrl },
-			{ label: t`Self-hosting`, href: "https://docs.rxresu.me/self-hosting/docker" },
+			{ label: t`Write`, href: "#write" },
+			{ label: t`Design`, href: "#design" },
+			{ label: t`Check`, href: "#check" },
+			{ label: t`Tailor`, href: "#tailor" },
+			{ label: t`Share`, href: "#share" },
 		],
 	},
 	{
-		id: "community",
-		title: t`Community`,
+		id: "search",
+		title: t`Job search`,
 		links: [
-			{ label: t`Join Discord`, href: "https://discord.gg/jSVSJyWd2k" },
-			{ label: t`Subreddit`, href: "https://reddit.com/r/reactiveresume" },
-			{ label: t`Translations`, href: "https://crowdin.com/project/reactive-resume" },
-			{ label: t`Contact`, href: "mailto:amruth@rxresu.me" },
-			{ label: "LinkedIn", href: "https://www.linkedin.com/company/reactive-resume" },
-			{ label: "Amruth Pillai · X", href: "https://x.com/KingOKings" },
-			{ label: t`Report a bug`, href: `${githubUrl}/issues` },
-		],
-	},
-	{
-		id: "legal",
-		title: t`Legal`,
-		links: [
-			{ label: t`Privacy policy`, href: "https://docs.rxresu.me/legal/privacy-policy" },
-			{ label: t`MIT License`, href: licenseUrl },
+			{ label: t`Prepare`, href: "#prepare" },
+			{ label: t`Remember`, href: "#remember" },
+			{ label: t`Questions`, href: "#faq" },
 		],
 	},
 ];
@@ -81,9 +66,9 @@ function FooterLinkItem({ link }: { link: FooterLink }): ReactNode {
 }
 
 /**
- * 13 Footer: the promise once more, the links, then the desk the story was written at. Its objects lead back into
- * the page (the resume to Write, the glasses to Check, the letters to Share, the calendar to Prepare, the window to
- * Remember), and its lamp switches the theme.
+ * 13 Footer: the promise once more, the links, then the type case the page was set from. Upstream ended on a
+ * watercolour desk whose objects each led back into the story and whose lamp switched the theme; the same seven
+ * scenes are named in the columns above, so the case below is free to be what it looks like — the raw material.
  */
 export function LandingFooter() {
 	const headline = getHeadline();
@@ -95,7 +80,7 @@ export function LandingFooter() {
 					<img
 						loading="lazy"
 						src="/logo/light.svg"
-						alt="Reactive Resume"
+						alt="页见"
 						width={140}
 						height={140}
 						className="-ms-[18px] -mt-[22px] -mb-[22px] size-[140px] dark:hidden"
@@ -103,7 +88,7 @@ export function LandingFooter() {
 					<img
 						loading="lazy"
 						src="/logo/dark.svg"
-						alt="Reactive Resume"
+						alt="页见"
 						width={140}
 						height={140}
 						className="-ms-[18px] -mt-[22px] -mb-[22px] hidden size-[140px] dark:block"
@@ -141,122 +126,56 @@ export function LandingFooter() {
 
 			<div className="relative z-1 mx-auto mt-16 flex max-w-[1440px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-(--gutter) font-ui text-[13px] leading-normal text-ink-3">
 				{/* Narrow enough to wrap into two balanced lines in any language, without splitting the translation. */}
-				<p className="max-w-[20ch] text-balance">{t`By the community, for the community.`}</p>
+				<p className="max-w-[24ch] text-balance">{t`The resume is yours, not the platform's.`}</p>
 				<p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-					<LanguageDoorway className={cn("gap-1.5", linkClass)} />
-					<span>
-						<Trans>
-							Licensed under{" "}
-							<a
-								href={licenseUrl}
-								className="text-accent-text underline underline-offset-[3px] transition-colors hover:text-accent-hover"
-							>
-								MIT
-							</a>
-						</Trans>
-					</span>
+					<span>{t`Built on the MIT-licensed Reactive Resume`}</span>
 					<span className="font-mono text-xs">v{__APP_VERSION__}</span>
 				</p>
 			</div>
 
-			<FooterDesk />
+			<TypeCase />
 		</footer>
 	);
 }
 
-type DeskSpot = {
-	/** Its box over the drawing, in percent of the drawing's width and height: left, top, width, height. */
-	box: [number, number, number, number];
-	number: string;
-	label: string;
-	href: string;
-};
-
-const getDeskSpots = (): DeskSpot[] => [
-	{ box: [38.2, 71, 18.8, 24], number: "01", label: t`Write`, href: "#write" },
-	{ box: [77.6, 72, 10.2, 12], number: "03", label: t`Check`, href: "#check" },
-	{ box: [1.2, 60, 18.4, 26], number: "05", label: t`Share`, href: "#share" },
-	{ box: [19.8, 56, 9.4, 26], number: "06", label: t`Prepare`, href: "#prepare" },
-	{ box: [30.3, 15, 36.9, 53], number: "07", label: t`Remember`, href: "#remember" },
-];
-
-const spotStyle = ([left, top, width, height]: DeskSpot["box"]): CSSProperties => ({
-	left: `${left}%`,
-	top: `${top}%`,
-	width: `${width}%`,
-	height: `${height}%`,
-});
-
-const spotClass = "group/spot absolute rounded-lg outline-none max-[700px]:hidden";
-const spotWashClass =
-	"absolute inset-0 rounded-lg outline-[1.5px] outline-transparent transition-[background-color,outline-color] duration-standard outline-solid group-hover/spot:bg-[oklch(0.5_0.1_150/0.08)] group-hover/spot:outline-accent group-focus-visible/spot:bg-[oklch(0.5_0.1_150/0.08)] group-focus-visible/spot:outline-accent";
-const spotLabelClass =
-	"pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-sm bg-ink px-2 py-1 font-ui text-xs font-medium whitespace-nowrap text-bg opacity-0 shadow-e2 transition-[opacity,translate] duration-standard ease-enter group-hover/spot:translate-y-0 group-hover/spot:opacity-100 group-focus-visible/spot:translate-y-0 group-focus-visible/spot:opacity-100";
-
-// Phones crop the 3:1 drawing to a 16:10 box (object-fit: cover), so it renders at 1.875× the viewport width there.
-const deskSizes = "(max-width: 699px) 188vw, (min-width: 1800px) 1800px, 100vw";
-
-/**
- * The desk at the end of the page: a resume, letters, a calendar, glasses and a lamp in front of an open window. Day
- * in the light theme, night in the dark one. Each drawing is blended into the page (white vanishes into the light
- * page, black into the dark one), so the desk seems to stand on the footer itself.
+/*
+ * The last band of the page: a printer's type case, the single characters a resume is set from, held in a tray of
+ * sorts. It replaces the Tuscan desk upstream drew here — a watercolour window, wax-sealed letters and a brass lamp,
+ * which read as somebody else's office and fought the grid the rest of the page is built on.
+ *
+ * The seven scene names are buried in the case in accent ink: 撰 写 设 计 检 查 定 制 分 享 准 备 记 住. Nothing points
+ * at them; they are there for whoever looks, which is the whole idea of a case of loose type.
  */
-function FooterDesk() {
-	const { resolvedTheme, toggleTheme } = useTheme();
-	const lampLabel = resolvedTheme === "dark" ? t`Switch to light mode` : t`Switch to dark mode`;
+const sorts =
+	"简历投递面试复盘定制排版机筛一页纸岗位作品集薪资入职背调内推秋招春招试用期离职空窗职级汇报学历经历项目技能证书语言评价意向到岗姓名电话邮箱城市撰写设计检查分享准备记住求职自荐信推荐理由";
 
+const sceneChars = new Set("撰写设计检查定制分享准备记住");
+
+/** Enough cells to run past the fold at any width; the tray clips whatever falls below it. */
+const cellCount = 168;
+
+function TypeCase() {
 	return (
-		<div className="footer-desk">
-			<div aria-hidden="true" className="footer-dawn" />
-			<img
-				src="/illustrations/footer-desk-light.webp"
-				srcSet="/illustrations/footer-desk-light-1600.webp 1600w, /illustrations/footer-desk-light-2400.webp 2400w, /illustrations/footer-desk-light.webp 3200w"
-				sizes={deskSizes}
-				alt=""
-				width={2172}
-				height={724}
-				loading="lazy"
-				decoding="async"
-				draggable={false}
-				className="footer-desk-art mix-blend-multiply dark:hidden"
-			/>
-			<img
-				src="/illustrations/footer-desk-dark.webp"
-				srcSet="/illustrations/footer-desk-dark-1600.webp 1600w, /illustrations/footer-desk-dark-2400.webp 2400w, /illustrations/footer-desk-dark.webp 3200w"
-				sizes={deskSizes}
-				alt=""
-				width={2172}
-				height={724}
-				loading="lazy"
-				decoding="async"
-				draggable={false}
-				className="footer-desk-art hidden mix-blend-lighten dark:block"
-			/>
-
-			{getDeskSpots().map((spot) => (
-				<a key={spot.href} href={spot.href} className={spotClass} style={spotStyle(spot.box)}>
-					<span aria-hidden="true" className={spotWashClass} />
-					<span className={spotLabelClass}>
-						<span aria-hidden="true" className="font-mono text-[10px] opacity-60">
-							{spot.number}
+		<div className="footer-case" aria-hidden="true">
+			<div className="grid grid-cols-[repeat(auto-fill,minmax(clamp(28px,2.3vw,44px),1fr))]">
+				{Array.from({ length: cellCount }, (_, index) => {
+					// A case always has gaps: every eleventh slot is a sort already set.
+					const empty = index % 11 === 3;
+					const character = sorts[index % sorts.length] ?? "";
+					return (
+						<span
+							key={index}
+							className={cn(
+								"grid aspect-square place-items-center border-e border-b border-line font-display text-[clamp(12px,1.15vw,19px)] leading-none select-none",
+								empty && "bg-sunken",
+								!empty && (sceneChars.has(character) ? "text-accent-text" : "text-ink-3"),
+							)}
+						>
+							{empty ? null : character}
 						</span>
-						{spot.label}
-					</span>
-				</a>
-			))}
-
-			<button
-				type="button"
-				onClick={() => toggleTheme()}
-				aria-label={lampLabel}
-				className={spotClass}
-				style={spotStyle([88, 30, 10, 51])}
-			>
-				<span aria-hidden="true" className={spotWashClass} />
-				<span aria-hidden="true" className={spotLabelClass}>
-					{lampLabel}
-				</span>
-			</button>
+					);
+				})}
+			</div>
 		</div>
 	);
 }

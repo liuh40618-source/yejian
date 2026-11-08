@@ -197,11 +197,131 @@ const ALIASES: Readonly<Record<string, string>> = {
 	shell: "bash",
 };
 
+/**
+ * Chinese surface form -> the English canonical the rest of this file already uses.
+ *
+ * A mainland posting names the same skill as its resume almost as often in Chinese ("前端" /
+ * "Web 前端", "数据分析师" / "数据分析", "算法" / "机器学习"). Left alone, those two spellings never meet,
+ * and the coverage report tells a candidate to add a skill they already put down. Every target here
+ * is a canonical already produced by `ALIASES`, so a Chinese match resolves to the same surface set
+ * as its English spelling does.
+ */
+const CHINESE_ALIASES: Readonly<Record<string, string>> = {
+	// Roles and disciplines
+	前端: "frontend",
+	web前端: "frontend",
+	前端开发: "frontend",
+	前端工程师: "frontend",
+	后端: "backend",
+	服务端: "backend",
+	后端开发: "backend",
+	全栈: "full-stack",
+	全栈开发: "full-stack",
+	算法工程师: "machine-learning",
+	机器学习: "machine-learning",
+	深度学习: "deep-learning",
+	人工智能: "artificial-intelligence",
+	大模型: "large-language-model",
+	大语言模型: "large-language-model",
+	数据分析: "data-analysis",
+	数据分析师: "data-analysis",
+	数据挖掘: "data-mining",
+	数据仓库: "data-warehouse",
+	数据可视化: "data-visualization",
+	产品经理: "product-management",
+	产品设计: "product-design",
+	交互设计: "interaction-design",
+	视觉设计: "visual-design",
+	用户研究: "user-research",
+	项目管理: "project-management",
+	敏捷开发: "agile",
+	软件测试: "testing",
+	自动化测试: "test-automation",
+	运维: "devops",
+	持续集成: "ci",
+	持续集成与持续交付: "ci/cd",
+	微服务: "microservices",
+	分布式系统: "distributed-systems",
+	高并发: "high-concurrency",
+	性能优化: "performance-optimization",
+	架构设计: "architecture",
+	技术架构: "architecture",
+	数据库设计: "database-design",
+	信息安全: "security",
+	网络安全: "network-security",
+	渗透测试: "penetration-testing",
+	运营: "operations",
+	市场营销: "marketing",
+	增长: "growth",
+	销售: "sales",
+	人力资源: "human-resources",
+	招聘: "recruiting",
+	财务: "finance",
+	会计: "accounting",
+	法务: "legal",
+	供应链: "supply-chain",
+	物流: "logistics",
+	客户服务: "customer-service",
+	客户成功: "customer-success",
+	ToB: "b2b",
+	ToC: "b2c",
+
+	// Languages and frameworks
+	javascript: "javascript",
+	js: "javascript",
+	typescript: "typescript",
+	ts: "typescript",
+	java开发: "java",
+	python开发: "python",
+	go语言: "go",
+	golang: "go",
+	c语言: "c",
+	"c++语言": "cpp",
+	"c#语言": "csharp",
+	网页: "html",
+	样式表: "css",
+	弹性布局: "css",
+	前端框架: "react",
+	响应式布局: "responsive-design",
+	小程序: "mini-program",
+	微信小程序: "mini-program",
+	小程序开发: "mini-program",
+
+	// Data and infrastructure
+	关系型数据库: "sql",
+	结构化查询语言: "sql",
+	缓存: "redis",
+	消息队列: "message-queue",
+	云原生: "cloud-native",
+	容器化: "docker",
+	容器: "docker",
+	容器编排: "kubernetes",
+	k8s: "kubernetes",
+	对象存储: "object-storage",
+	大数据: "big-data",
+	流式计算: "stream-processing",
+	实时计算: "stream-processing",
+	离线计算: "batch-processing",
+
+	// AI
+	机器学习框架: "machine-learning",
+	自然语言处理: "nlp",
+	计算机视觉: "computer-vision",
+	语音识别: "speech-recognition",
+	推荐系统: "recommender-system",
+	搜索: "search",
+	知识图谱: "knowledge-graph",
+	检索增强生成: "rag",
+	提示词工程: "prompt-engineering",
+	向量数据库: "vector-database",
+	智能体: "ai-agent",
+};
+
 /** Canonical form -> every surface form that maps onto it, so a resume matching any of them counts. */
 const SURFACES_BY_CANONICAL = (() => {
 	const map = new Map<string, Set<string>>();
 
-	for (const [surface, canonical] of Object.entries(ALIASES)) {
+	for (const [surface, canonical] of [...Object.entries(ALIASES), ...Object.entries(CHINESE_ALIASES)]) {
 		const surfaces = map.get(canonical) ?? new Set<string>([canonical]);
 		surfaces.add(surface);
 		map.set(canonical, surfaces);
@@ -216,11 +336,12 @@ const SURFACES_BY_CANONICAL = (() => {
  */
 export const SKILL_SURFACE_FORMS: ReadonlySet<string> = new Set([
 	...Object.keys(ALIASES),
+	...Object.keys(CHINESE_ALIASES),
 	...SURFACES_BY_CANONICAL.keys(),
 ]);
 
 export function canonicalize(term: string): string {
-	return ALIASES[term] ?? term;
+	return ALIASES[term] ?? CHINESE_ALIASES[term] ?? term;
 }
 
 /** Every spelling that should count as a match for `term`, including `term` itself. */

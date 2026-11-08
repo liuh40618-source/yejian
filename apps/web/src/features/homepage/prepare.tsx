@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { cn } from "@reactive-resume/utils/style";
 import { goToScene, INTERVIEW_AT, SCENE, useLanding } from "./scroll";
-import { Doodle, labelClass, SceneCaption, Stamp, TypedText } from "./ui";
+import { labelClass, SceneCaption, Stamp, TypedText } from "./ui";
 
 /** Prepare's steps, as `prepareStep` counts them. */
 const STEP = { messages: 0, fit: 1, plan: 2, practise: 3, interview: 4, debrief: 5 } as const;
@@ -134,7 +134,10 @@ function ClockReadout({ step }: { step: number }) {
 	return (
 		<p className={cn(labelClass, "text-ink-2 tabular-nums")}>
 			<span className="text-accent-text">
-				{i18n.date(interviewDay(clock), { weekday: "short", hour: "numeric", minute: "2-digit" })}
+				{/* Weekday and time as two parts: zh-CN writes "周四 18:15" with a space, and one formatter run
+				    would glue them into "周四18:15". */}
+				{i18n.date(interviewDay(clock), { weekday: "short" })}{" "}
+				{i18n.date(interviewDay(clock), { hour: "numeric", minute: "2-digit" })}
 			</span>{" "}
 			· {status}
 		</p>
@@ -563,7 +566,7 @@ export function Prepare() {
 			aria-labelledby="prepare-title"
 			className="relative h-[310vh] min-[900px]:h-[330vh]"
 		>
-			<div className="sticky top-0 h-svh overflow-clip [--db1:clamp(0,(var(--p)-.88)*30,1)] [--db2:clamp(0,(var(--p)-.9)*30,1)] [--db3:clamp(0,(var(--p)-.93)*30,1)] [--db4:clamp(0,(var(--p)-.96)*30,1)] [--e1:clamp(0,(var(--p)-.19)*30,1)] [--e2:clamp(0,(var(--p)-.36)*30,1)] [--e3:clamp(0,(var(--p)-.53)*30,1)] [--e4:clamp(0,(var(--p)-.84)*30,1)] [--fb:clamp(0,(var(--p)-.655)*30,1)] [--in:clamp(0,var(--p)/.06,1)] [--k1:clamp(0,(var(--p)-.4)*40,1)] [--k2:clamp(0,(var(--p)-.43)*40,1)] [--k3:clamp(0,(var(--p)-.46)*40,1)] [--k4:clamp(0,(var(--p)-.49)*40,1)] [--mc:clamp(0,(var(--p)-.13)*30,1)] [--mr:clamp(0,(var(--p)-.085)*25,1)] [--nw:calc(clamp(0,(var(--p)-.69)*20,1)*(1-clamp(0,(var(--p)-.83)*20,1)))] [--pl:clamp(0,var(--p)/.1,1)] [--s1:clamp(0,(var(--p)-.215)*40,1)] [--s2:clamp(0,(var(--p)-.24)*40,1)] [--s3:clamp(0,(var(--p)-.265)*40,1)] [--s4:clamp(0,(var(--p)-.29)*40,1)] [--s5:clamp(0,(var(--p)-.315)*40,1)] [--ty:clamp(0,(var(--p)-.56)/.08,1)]">
+			<div className="sticky top-0 h-svh overflow-clip [--db1:clamp(0,(var(--p)-.845)*40,1)] [--db2:clamp(0,(var(--p)-.855)*40,1)] [--db3:clamp(0,(var(--p)-.865)*40,1)] [--db4:clamp(0,(var(--p)-.875)*40,1)] [--e1:clamp(0,(var(--p)-.19)*30,1)] [--e2:clamp(0,(var(--p)-.36)*30,1)] [--e3:clamp(0,(var(--p)-.53)*30,1)] [--e4:clamp(0,(var(--p)-.84)*30,1)] [--fb:clamp(0,(var(--p)-.655)*30,1)] [--in:clamp(0,var(--p)/.06,1)] [--k1:clamp(0,(var(--p)-.4)*40,1)] [--k2:clamp(0,(var(--p)-.43)*40,1)] [--k3:clamp(0,(var(--p)-.46)*40,1)] [--k4:clamp(0,(var(--p)-.49)*40,1)] [--mc:clamp(0,(var(--p)-.13)*30,1)] [--mr:clamp(0,(var(--p)-.085)*25,1)] [--nw:calc(clamp(0,(var(--p)-.69)*20,1)*(1-clamp(0,(var(--p)-.83)*20,1)))] [--pl:clamp(0,var(--p)/.1,1)] [--s1:clamp(0,(var(--p)-.215)*40,1)] [--s2:clamp(0,(var(--p)-.24)*40,1)] [--s3:clamp(0,(var(--p)-.265)*40,1)] [--s4:clamp(0,(var(--p)-.29)*40,1)] [--s5:clamp(0,(var(--p)-.315)*40,1)] [--ty:clamp(0,(var(--p)-.56)/.08,1)]">
 				{/* The day's light through the window: high and cool in the morning, long and warm by late afternoon, gone at dusk. */}
 				<div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden dark:hidden">
 					<div className="absolute inset-0 opacity-[calc(1-clamp(0,(var(--p)-.8)/.14,1))] [background:radial-gradient(55%_60%_at_calc(84%-var(--p)*34%)_calc(8%+var(--p)*46%),color-mix(in_oklch,oklch(0.96_0.025_235/.7),oklch(0.92_0.1_68/.75)_calc(clamp(0,(var(--p)-.2)/.5,1)*100%)),transparent_70%)]" />
@@ -573,10 +576,10 @@ export function Prepare() {
 
 				<h2
 					id="prepare-title"
-					className="font-anybody absolute start-(--gutter) top-[10vh] text-[16vw] leading-[.9] font-light tracking-[-.03em] whitespace-nowrap text-ink min-[900px]:top-[11vh] min-[900px]:text-[clamp(72px,9vw,160px)]"
+					className="font-anybody absolute start-(--gutter) top-[10vh] text-[16vw] leading-[.9] font-light tracking-[.01em] whitespace-nowrap text-ink min-[900px]:top-[11vh] min-[900px]:text-[clamp(72px,9vw,160px)]"
 				>
 					{prepare}
-					<span className="text-accent">.</span>
+					<span className="text-accent">。</span>
 				</h2>
 
 				{/* Below 900px the clock sits small beside the headline; above, it fills the column under it with its marks. */}
@@ -669,8 +672,8 @@ export function Prepare() {
 						</div>
 						{/* The folder's label: the same Fieldnote role Tailor applied to, its stage moving on when the change is applied. */}
 						<span className="me-[.6em] mb-[.45em] hidden shrink-0 -rotate-1 items-center gap-[.5em] rounded-sm bg-paper py-[.3em] ps-[.35em] pe-[.7em] text-[.8em] font-medium text-[oklch(0.3_0.01_95)] shadow-e1 @min-[640px]:flex">
-							<span className="font-anybody grid size-[1.6em] place-items-center rounded-sm bg-[oklch(0.22_0.01_95)] text-[1.05em] leading-none text-white">
-								F
+							<span className="grid size-[1.6em] place-items-center rounded-sm bg-[oklch(0.22_0.01_95)] font-display text-[1em] leading-none text-white">
+								青
 							</span>
 							{t`Fieldnote`}
 							<span className="grid">
@@ -706,12 +709,6 @@ export function Prepare() {
 				</div>
 
 				{/* The paper plane from Share, coming back with the reply and landing on the Messages tab. */}
-				<Doodle
-					name="plane"
-					wipe="1"
-					sizes="9vw"
-					className="end-[21vw] top-[6vh] z-4 w-[9vw] [transform:translate(calc(var(--dir)*(1-var(--pl))*30vw),calc((1-var(--pl))*-30vh))_scaleX(calc(var(--dir)*-1))_rotate(calc(-18deg+var(--pl)*14deg))] opacity-[calc(.8*(1-clamp(0,(var(--p)-.12)*12,1)))]! [transition:transform_.4s_var(--ease)] max-[900px]:hidden"
-				/>
 
 				{/* The interview: the folder is put away first (it fades in the first half), then the line sits on the empty desk
 				    beside the clock (the second half), so no frame shows both. */}

@@ -1,67 +1,12 @@
 import z from "zod";
 
-// ponytail: z.enum([...]) over 56 z.literal calls; same parse behavior, same inferred union type
-export const localeSchema = z.enum([
-	"af-ZA",
-	"am-ET",
-	"ar-SA",
-	"az-AZ",
-	"bg-BG",
-	"bn-BD",
-	"ca-ES",
-	"cs-CZ",
-	"da-DK",
-	"de-DE",
-	"el-GR",
-	"en-US",
-	"en-GB",
-	"es-ES",
-	"fa-IR",
-	"fi-FI",
-	"fr-FR",
-	"he-IL",
-	"hi-IN",
-	"hu-HU",
-	"id-ID",
-	"it-IT",
-	"ja-JP",
-	"km-KH",
-	"kn-IN",
-	"ko-KR",
-	"lt-LT",
-	"lv-LV",
-	"ml-IN",
-	"mr-IN",
-	"ms-MY",
-	"ne-NP",
-	"nl-NL",
-	"no-NO",
-	"or-IN",
-	"pl-PL",
-	"pt-BR",
-	"pt-PT",
-	"ro-RO",
-	"ru-RU",
-	"sk-SK",
-	"sl-SI",
-	"sq-AL",
-	"sr-SP",
-	"sv-SE",
-	"ta-IN",
-	"te-IN",
-	"th-TH",
-	"tr-TR",
-	"uk-UA",
-	"uz-UZ",
-	"vi-VN",
-	"zh-CN",
-	"zh-TW",
-	"zu-ZA",
-]);
+// Trimmed to the one market this build ships for. The upstream project carries 55 catalogs; keeping only the
+// interface language and the Lingui pseudo-locale removes the maintenance load of the rest.
+export const localeSchema = z.enum(["zh-CN", "zu-ZA"]);
 
 export type Locale = z.infer<typeof localeSchema>;
 
-export const defaultLocale: Locale = "en-US";
+export const defaultLocale: Locale = "zh-CN";
 
 export function isLocale(value: unknown): value is Locale {
 	return localeSchema.safeParse(value).success;
@@ -96,8 +41,11 @@ export function getPreferredLocale(languages: readonly string[]): Locale {
 	return defaultLocale;
 }
 
-/** A locale as a BCP 47 language tag for hreflang and `inLanguage`: "sr-SP" isn't a valid region, so it's "sr". */
-export const languageTag = (locale: Locale) => (locale === "sr-SP" ? "sr" : locale);
+/**
+ * A locale as a BCP 47 language tag for hreflang and `inLanguage`. Every locale this build ships is already a valid
+ * tag; the seam stays so a future one whose region is not (upstream's `sr-SP` was not) has somewhere to be corrected.
+ */
+export const languageTag = (locale: Locale) => locale;
 
 /** hreflang alternates for a page: every real locale plus x-default. */
 export function getLocaleAlternates(pageUrl: string) {
@@ -153,7 +101,15 @@ export function isCjkScript(script: Script): boolean {
 // The script a locale primarily uses, used to order the fallback stack so the
 // dominant language renders with its native font. Persian (fa-IR) uses the
 // Arabic script; Marathi and Nepali use Devanagari, like Hindi.
-export function getLocaleScript(locale?: Locale): Script | null {
+//
+// The UI ships only zh-CN, but this function is deliberately NOT typed to `Locale`:
+// a resume is user-authored content and can be written in any language regardless
+// of the interface language. Narrowing it to the shipped catalogs made PDF font
+// fallback silently drop every non-Latin script. Keep the full mapping so a
+// Chinese-language account exporting an Arabic/Hebrew/Indic resume still gets
+// the right Noto face. The renderer's content-detected scripts are a second,
+// independent path and cover mixed-script text.
+export function getLocaleScript(locale?: string): Script | null {
 	switch (locale) {
 		case "ko-KR":
 			return "hangul";
@@ -195,11 +151,13 @@ export function getLocaleScript(locale?: Locale): Script | null {
 	}
 }
 
+// No shipped locale is right-to-left any more, but user-authored resume content can still be: the PDF renderer keeps
+// reading it from the content itself, so the check stays.
 const RTL_LANGUAGES = new Set([
 	"ar", // Arabic
 	"ckb", // Kurdish (Sorani)
 	"dv", // Dhivehi
-	"fa", // Persian
+	"fa", // CenterClassic
 	"he", // Hebrew
 	"ps", // Pashto
 	"sd", // Sindhi

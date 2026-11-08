@@ -191,7 +191,7 @@ it.skipIf(!databaseUrl)(
 				});
 				await truncate(join(settings.LOCAL_STORAGE_PATH, large), accountBackupLimits.fileBytes + 1);
 				const context = {
-					locale: "en-US" as const,
+					locale: "zu-ZA" as const,
 					reqHeaders: new Headers({ "x-account-id": ownerId }),
 					authentication: { method: "session" as const, user: owner, permissions: ["read"] as const },
 				};

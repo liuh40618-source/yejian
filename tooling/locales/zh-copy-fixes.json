@@ -1,0 +1,8 @@
+{
+	"Can I host it myself?": "可以自己部署吗？",
+	"Built on the MIT-licensed Reactive Resume": "基于 MIT 协议开源的 Reactive Resume 项目构建",
+	"Will my resume get past applicant tracking systems?": "我的简历能通过机器筛选吗？",
+	"Every template exports a text-based PDF with the words in reading order, which is what applicant tracking systems (ATS) need to parse a resume. To test any PDF, including one made elsewhere, the free ATS checker shows the text software extracts and what to fix.": "每个模板导出的都是文字版 PDF，文字按阅读顺序排列——这正是简历筛选系统（ATS）解析简历所需要的。想测试任何一份 PDF（包括别处做的），免费的 ATS 检测会显示软件提取到的文字，以及该改哪里。",
+	"Upload a PDF and see the text an applicant tracking system extracts: what's missing, what's out of order, and how to fix it. Free, no account needed.": "上传 PDF，查看简历筛选系统提取到的文字：缺了什么、顺序乱在哪、该怎么改。免费，无需账户。",
+	"Applicant tracking systems turn your PDF into plain text before anyone reads it. The checker does the same, with the PDF.js library in your browser, then scores how much of your resume survives: 0 to 100, from how reliably the text comes out, not from your chances of getting the job.": "简历筛选系统会在任何人读到之前，先把你的 PDF 转成纯文本。检测器做的是同一件事，用的是浏览器里的 PDF.js 库；它按文字能否可靠地提取出来给 0 到 100 的存活分，而不是按你拿到工作的概率。"
+}

@@ -1,18 +1,10 @@
 import { count } from "drizzle-orm";
-import z from "zod";
 import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
 
 const CACHE_DURATION_MS = 6 * 60 * 60 * 1000; // 6 hours
-const GITHUB_API_URL = "https://api.github.com/repos/reactive-resume/reactive-resume";
-const GITHUB_REQUEST_TIMEOUT_MS = 5_000;
-const GITHUB_REQUEST_MAX_ATTEMPTS = 2;
-
-const LAST_KNOWN = {
-	users: 1_213_116,
-	resumes: 1_651_895,
-	stars: 42_315,
-} as const;
+// No invented fallbacks: if the database cannot be read the homepage shows no totals rather than someone else's.
+const LAST_KNOWN = { users: 0, resumes: 0 } as const;
 
 // ponytail: file-based disk cache replaced with module-level memo; LAST_KNOWN fallbacks cover restarts
 const memCache = new Map<string, { value: number; cachedAt: number }>();
@@ -49,26 +41,6 @@ const getCountFromDatabase = async (table: typeof schema.user | typeof schema.re
 	return result?.count ?? null;
 };
 
-const fetchGitHubStars = async (): Promise<number | null> => {
-	for (let attempt = 0; attempt < GITHUB_REQUEST_MAX_ATTEMPTS; attempt++) {
-		try {
-			const response = await fetch(GITHUB_API_URL, {
-				signal: AbortSignal.timeout(GITHUB_REQUEST_TIMEOUT_MS),
-				headers: {
-					Accept: "application/vnd.github+json",
-				},
-			});
-			if (!response.ok) continue;
-
-			const data = z.object({ stargazers_count: z.number().int().nonnegative() }).safeParse(await response.json());
-			if (data.success) return data.data.stargazers_count;
-		} catch {
-			// Try again, then fall back to the last known count.
-		}
-	}
-	return null;
-};
-
 export const statisticsService = {
 	getTotals: async () => {
 		const [users, resumes] = await Promise.all([
@@ -88,5 +60,4 @@ export const statisticsService = {
 					: null,
 		};
 	},
-	getStarCount: () => getCachedCount("stars", LAST_KNOWN.stars, fetchGitHubStars),
 };

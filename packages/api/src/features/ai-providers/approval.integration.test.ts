@@ -262,7 +262,8 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 			requests.length = 0;
 		});
 		const context = (destination?: string) => ({
-			locale: "en-US" as const,
+			// The China-market build ships zh-CN only; en-US is no longer a valid ORPC context locale.
+			locale: "zh-CN" as const,
 			reqHeaders: new Headers(destination ? { "x-ai-destination": destination } : {}),
 			authentication: {
 				user: {

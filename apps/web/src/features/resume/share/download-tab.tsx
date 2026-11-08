@@ -169,8 +169,8 @@ type DownloadActionsProps = {
 };
 
 /**
- * The failure alert (with PDF as the fallback) and the 44px button that shows its progress. After a download, a
- * one-line thank-you asks for a donation: the moment someone has what they came for is the one time it's fair to ask.
+ * The failure alert (with PDF as the fallback) and the 44px button that shows its progress. After a download, one
+ * line points at the job tracker: the file is in hand, and logging the application is the next real step.
  */
 export function DownloadActions({ state, label, onDownload, onDownloadPdf }: DownloadActionsProps) {
 	return (
@@ -218,17 +218,9 @@ export function DownloadActions({ state, label, onDownload, onDownloadPdf }: Dow
 
 			{state === "done" && (
 				<p className={cn(ENTER_CLASS, "flex items-start gap-2 text-[13px] leading-[19px] text-ink-2")}>
-					<Icon name="hand-heart" size={18} className="shrink-0 text-ink-3" />
+					<Icon name="check-circle" size={18} className="shrink-0 text-ink-3" />
 					<span>
-						<Trans>Good luck out there. Reactive Resume stays free because people chip in.</Trans>{" "}
-						<a
-							href="https://opencollective.com/reactive-resume/donate"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="font-medium text-accent-text underline underline-offset-2 hover:text-accent-hover"
-						>
-							<Trans>Donate</Trans>
-						</a>
+						<Trans>Downloaded. Log the application so the follow-up reminder writes itself.</Trans>
 					</span>
 				</p>
 			)}
@@ -344,22 +336,6 @@ export function DownloadTab({ onReview }: DownloadTabProps) {
 				onDownload={() => void download(format)}
 				onDownloadPdf={format === "pdf" ? undefined : () => void download("pdf")}
 			/>
-			{state === "done" && (
-				<div className="grid gap-1.5 rounded-lg border border-line p-3 text-[13px] leading-[19px]">
-					<a
-						href="https://discord.gg/9kAqrGcwn5"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="flex items-center gap-2 font-medium text-accent-text underline underline-offset-2 hover:text-accent-hover"
-					>
-						<Icon name="chat-text" size={18} />
-						<Trans>Get resume feedback on Discord</Trans>
-					</a>
-					<p className="text-ink-2">
-						<Trans>Ask the community. Remove personal details before posting.</Trans>
-					</p>
-				</div>
-			)}
 		</div>
 	);
 }

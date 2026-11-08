@@ -8,7 +8,7 @@ import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/comp
 import { cn } from "@reactive-resume/utils/style";
 import { goToScene, SCENE, useLanding } from "./scroll";
 import { Sheet, sheetTemplates } from "./sheet";
-import { Doodle, SceneCaption } from "./ui";
+import { SceneCaption } from "./ui";
 import { templates } from "@/dialogs/resume/template/data";
 
 /** Where each template tab scrolls the scene to: just past its wipe. */
@@ -71,40 +71,35 @@ export function Design() {
 			className="relative h-[320vh] min-[900px]:h-[360vh]"
 		>
 			<div className="sticky top-0 h-svh overflow-clip [--dpt:52%] [--pw:min(66vw,42vh)] [--w1:clamp(0,(var(--p)-.1)/.1,1)] [--w2:clamp(0,(var(--p)-.26)/.1,1)] [--w3:clamp(0,(var(--p)-.42)/.1,1)] [--w4:clamp(0,(var(--p)-.58)/.1,1)] [--z:clamp(0,(var(--p)-.76)/.16,1)] min-[900px]:[--dpt:57%] min-[900px]:[--pw:min(24vw,44vh)]">
-				<Doodle
-					name="curve"
-					wipe="clamp(0, (var(--p) - .03) / .2, 1)"
-					sizes="16vw"
-					className="start-[79vw] top-[62vh] w-[16vw] translate-y-[calc(var(--p)*-50px)] rotate-[8deg] [--doodle-fade:calc(1-var(--z))] max-[900px]:hidden"
-				/>
-
 				<div
 					aria-hidden="true"
 					className="absolute inset-x-0 top-[12vh] h-[1.05em] [transform:translateY(calc(var(--z)*-10vh))] text-[15vw] font-normal text-ink opacity-[calc(1-var(--z))] will-change-[transform,opacity] min-[900px]:top-[10vh] min-[900px]:text-[clamp(80px,10vw,180px)]"
 				>
-					<span className="absolute inset-0 text-center font-display leading-none tracking-[-.03em] opacity-[calc(1-clamp(0,(var(--w1)-.35)*3.4,1))]">
+					{/* The same two characters set five ways; the accent mark is the ideographic full stop, so it reads as
+					    Chinese punctuation rather than a Latin period hung off the end. */}
+					<span className="absolute inset-0 text-center font-display leading-none tracking-[.01em] opacity-[calc(1-clamp(0,(var(--w1)-.35)*3.4,1))]">
 						{design}
-						<span className="text-accent">.</span>
+						<span className="text-accent">。</span>
 					</span>
 					<span
 						aria-hidden="true"
-						data-text={`${design}.`}
-						className="absolute inset-0 text-center font-ui text-[.9em] leading-[1.1] font-medium tracking-[-.04em] text-[oklch(0.5_0.11_250)] opacity-[calc(clamp(0,(var(--w1)-.35)*3.4,1)*(1-clamp(0,(var(--w2)-.35)*3.4,1)))] before:content-[attr(data-text)] dark:text-[oklch(0.74_0.11_250)]"
+						data-text={`${design}。`}
+						className="absolute inset-0 text-center font-ui text-[.9em] leading-[1.1] font-medium tracking-[.02em] text-[oklch(0.5_0.11_250)] opacity-[calc(clamp(0,(var(--w1)-.35)*3.4,1)*(1-clamp(0,(var(--w2)-.35)*3.4,1)))] before:content-[attr(data-text)] dark:text-[oklch(0.74_0.11_250)]"
 					/>
 					<span
 						aria-hidden="true"
-						data-text={`${design}.`}
-						className="absolute inset-0 text-center font-display leading-none tracking-[-.03em] text-[oklch(0.56_0.13_40)] italic opacity-[calc(clamp(0,(var(--w2)-.35)*3.4,1)*(1-clamp(0,(var(--w3)-.35)*3.4,1)))] before:content-[attr(data-text)] dark:text-[oklch(0.74_0.12_40)]"
+						data-text={`${design}。`}
+						className="absolute inset-0 text-center font-display leading-none tracking-[.01em] text-[oklch(0.56_0.13_40)] italic opacity-[calc(clamp(0,(var(--w2)-.35)*3.4,1)*(1-clamp(0,(var(--w3)-.35)*3.4,1)))] before:content-[attr(data-text)] dark:text-[oklch(0.74_0.12_40)]"
 					/>
 					<span
 						aria-hidden="true"
 						data-text={`${design}_`}
-						className="font-martian absolute inset-0 text-center text-[.66em] leading-[1.5] font-light tracking-[-.02em] uppercase opacity-[calc(clamp(0,(var(--w3)-.35)*3.4,1)*(1-clamp(0,(var(--w4)-.35)*3.4,1)))] before:content-[attr(data-text)]"
+						className="font-martian absolute inset-0 text-center text-[.66em] leading-[1.5] font-light tracking-[.02em] opacity-[calc(clamp(0,(var(--w3)-.35)*3.4,1)*(1-clamp(0,(var(--w4)-.35)*3.4,1)))] before:content-[attr(data-text)]"
 					/>
 					<span
 						aria-hidden="true"
-						data-text={`${design}.`}
-						className="font-anybody absolute inset-0 text-center leading-none font-light tracking-[-.03em] uppercase font-stretch-[90%] opacity-[clamp(0,(var(--w4)-.35)*3.4,1)] before:content-[attr(data-text)]"
+						data-text={`${design}。`}
+						className="font-anybody absolute inset-0 text-center leading-none font-light tracking-[.01em] opacity-[clamp(0,(var(--w4)-.35)*3.4,1)] before:content-[attr(data-text)]"
 					/>
 				</div>
 

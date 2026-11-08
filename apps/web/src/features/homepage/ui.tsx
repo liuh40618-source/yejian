@@ -38,72 +38,24 @@ type SceneCaptionProps = {
 	className?: string;
 };
 
-/** A pinned scene's caption: "01 / Write" over a sentence or two in the display family. */
+/**
+ * A pinned scene's caption: the scene number and name as a running head over a hairline, then the sentence in the
+ * display family. The rule above it is the same one the hero's grid is drawn with, so every scene reads as a page of
+ * the same book.
+ */
 export function SceneCaption({ number, title, children, action, className }: SceneCaptionProps) {
 	return (
-		<div className={cn("flex flex-col gap-3", className)}>
-			<span className={cn(labelClass, "text-accent-text")}>
-				{number} / {title}
+		<div className={cn("flex flex-col gap-2.5", className)}>
+			<span className="flex items-center gap-2.5 border-t border-line-2 pt-2.5 font-mono text-[11px] tracking-[.14em] text-ink-3">
+				<span className="text-accent-text">{number}</span>
+				<span aria-hidden="true" className="h-px w-5 bg-line-2" />
+				<span>{title}</span>
 			</span>
-			<p className="font-display text-base leading-[1.45] text-pretty text-ink min-[900px]:text-[clamp(17px,1.35vw,20px)]">
+			<p className="font-display text-base leading-[1.55] text-pretty text-ink min-[900px]:text-[clamp(17px,1.35vw,20px)]">
 				{children}
 			</p>
 			{action}
 		</div>
-	);
-}
-
-const doodleSizes = {
-	curve: [800, 634],
-	eraser: [800, 665],
-	globe: [575, 800],
-	jar: [601, 800],
-	magnifier: [800, 800],
-	note: [800, 746],
-	paperclip: [800, 717],
-	pencil: [755, 800],
-	plane: [800, 754],
-	scissors: [800, 791],
-} as const;
-
-type DoodleProps = {
-	name: keyof typeof doodleSizes;
-	/** Mask wipe progress, usually derived from the section's --p. */
-	wipe: string;
-	className?: string;
-	style?: CSSProperties;
-	eager?: boolean;
-	/** The width it's drawn at, for picking a file (`img` sizes). Below 900px most doodles hide; a hidden eager one says 1px. */
-	sizes?: string;
-};
-
-/** A watercolour doodle. Decorative, so it's hidden from assistive tech and never takes the pointer. */
-export function Doodle({
-	name,
-	wipe,
-	className,
-	style,
-	eager = false,
-	sizes = "(min-width: 900px) 10vw, 30vw",
-}: DoodleProps) {
-	const [width, height] = doodleSizes[name];
-	return (
-		<img
-			src={`/doodles/${name}.webp`}
-			srcSet={`/doodles/${name}-tiny.webp ${Math.round(width / 4)}w, /doodles/${name}-small.webp ${Math.round(width / 2)}w, /doodles/${name}.webp ${width}w`}
-			sizes={sizes}
-			alt=""
-			aria-hidden="true"
-			width={width}
-			height={height}
-			loading={eager ? "eager" : "lazy"}
-			// Eager doodles sit on the first screen; the pencil is the largest paint on desktop.
-			fetchPriority={eager ? "high" : "auto"}
-			decoding="async"
-			draggable={false}
-			className={cn("doodle", className)}
-			style={{ "--wipe": wipe, ...style } as CSSProperties}
-		/>
 	);
 }
 

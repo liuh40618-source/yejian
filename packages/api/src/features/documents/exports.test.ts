@@ -17,9 +17,17 @@ vi.mock("@reactive-resume/db/client", () => ({
 	db: { select: () => ({ from: () => ({ where: () => ({ limit: async () => [{ id: "owner", banned: false }] }) }) }) },
 }));
 const { documentExports } = await import("./exports");
-const context = { locale: "en-US" as const, reqHeaders: new Headers() };
-beforeEach(() => {
+const context = { locale: "zu-ZA" as const, reqHeaders: new Headers() };
+
+/** State the language premise explicitly: these fixtures assert English filenames and dates. */
+const englishResume = () => {
 	const data = structuredClone(defaultResumeData);
+	data.metadata.page.locale = "en-US";
+	return data;
+};
+
+beforeEach(() => {
+	const data = englishResume();
 	data.basics.name = "Ada Lovelace";
 	data.summary.content = "<p>Builds analytical engines.</p>";
 	getResume.mockResolvedValue({ id: "resume-1", name: "Ada", data });
@@ -41,7 +49,7 @@ it("exports saved data as round-trippable JSON, readable Markdown and a Word doc
 });
 
 it("keeps editor list markers in the Word export used by API and native clients", async () => {
-	const data = structuredClone(defaultResumeData);
+	const data = englishResume();
 	data.basics.name = "Ada Lovelace";
 	data.summary.content = "<p>Plain paragraph</p><ul><li><p>Editor bullet</p></li><li>Plain bullet</li></ul>";
 	getResume.mockResolvedValue({ id: "resume-1", name: "Ada", data });
@@ -77,7 +85,7 @@ it("exports an editable OpenDocument Text file", async () => {
 });
 
 function letterFixture(senderLinked = false) {
-	const data = structuredClone(defaultResumeData);
+	const data = englishResume();
 	Object.assign(data.basics, {
 		name: "Ada Lovelace",
 		headline: "Analytical Engineer",
@@ -120,7 +128,7 @@ it.each(["docx", "odt"] as const)(
 	async (format) => {
 		// getById returns resolved style for linked senders and stored style for copied senders.
 		for (const senderLinked of [true, false]) {
-			for (const template of ["onyx", "chikorita", "gengar"] as const) {
+			for (const template of ["minimal-photo", "center-classic", "editorial"] as const) {
 				const letter = letterFixture(senderLinked);
 				letter.style.metadata.template = template;
 				getLetter.mockResolvedValue(letter);
@@ -146,6 +154,24 @@ it.each(["docx", "odt"] as const)(
 		expect(getLetter).toHaveBeenCalledWith({ id: "letter-1", userId: "owner" });
 	},
 );
+
+it("uses the Chinese filename suffix under a zh-CN locale", async () => {
+	const data = structuredClone(defaultResumeData);
+	data.basics.name = "Ada Lovelace";
+	data.metadata.page.locale = "zh-CN";
+	getResume.mockResolvedValue({ id: "resume-1", name: "Ada", data });
+	const json = await call(documentExports.resume, { id: "resume-1", format: "json" }, { context });
+	expect(decodeURIComponent(json.headers["content-disposition"])).toContain("Ada-Lovelace-简历.json");
+});
+
+it("formats the letter date in Chinese under the shipped zh-CN default", async () => {
+	const letter = letterFixture();
+	letter.style.metadata.page.locale = "zh-CN";
+	getLetter.mockResolvedValue(letter);
+	const response = await call(documentExports.letter, { id: letter.id, format: "docx" }, { context });
+	const text = await documentText(response.body, "docx");
+	expect(text).toContain("2026年10月29日");
+});
 
 it.each(["docx", "odt"] as const)("keeps absent sender fields absent in standalone %s", async (format) => {
 	const letter = letterFixture();

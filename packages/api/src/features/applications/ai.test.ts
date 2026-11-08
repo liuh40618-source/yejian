@@ -105,7 +105,7 @@ describe("posting import", () => {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		},
-		locale: "en-US" as const,
+		locale: "zu-ZA" as const,
 		reqHeaders: new Headers(),
 	};
 	beforeEach(() => {
@@ -285,7 +285,7 @@ describe("posting search", () => {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 		},
-		locale: "en-US" as const,
+		locale: "zu-ZA" as const,
 		reqHeaders: new Headers(),
 	};
 	const serverEnv = env as { WEB_SEARCH_SEARXNG_URL?: string };
@@ -301,7 +301,7 @@ describe("posting search", () => {
 		await expect(call(aiRouter.searchPostings, { query: "designer" }, { context })).resolves.toEqual(found);
 		expect(searchJobPostings).toHaveBeenCalledWith(
 			"designer",
-			expect.objectContaining({ connection: null, userId: "u1", regions: ["AU"], locale: "en-US" }),
+			expect.objectContaining({ connection: null, userId: "u1", regions: ["AU"], locale: "zu-ZA" }),
 		);
 	});
 

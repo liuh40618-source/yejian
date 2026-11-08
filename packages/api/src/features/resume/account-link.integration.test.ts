@@ -87,7 +87,7 @@ describe.skipIf(!databaseUrl)("moving a guest's work into an existing account", 
 			);
 	});
 
-	const create = (userId: string, name: string) => resumes.create({ userId, name, tags: [], locale: "en-US" });
+	const create = (userId: string, name: string) => resumes.create({ userId, name, tags: [], locale: "zu-ZA" });
 	const read = (id: string, userId = "priya") => resumes.getById({ id, userId });
 	const ownership = async (id: string) => {
 		const [row] = await db()

@@ -1,0 +1,1884 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>页见 · 中国市场简历样板（结构化主档 → 多场景输出）</title>
+		<style>
+			:root {
+				--bg: #0e1014;
+				--panel: #171a21;
+				--panel-2: #1d212a;
+				--line: #2b313d;
+				--text: #e7e9ee;
+				--muted: #98a2b3;
+				--accent: #d9543f;
+				--accent-weak: rgba(217, 84, 63, 0.14);
+				--ok: #4fae7a;
+				--warn: #d7a449;
+			}
+			* {
+				box-sizing: border-box;
+			}
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: var(--bg);
+				color: var(--text);
+				font-family: "Inter", "Noto Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+				font-size: 14px;
+				line-height: 1.6;
+			}
+			button {
+				font: inherit;
+				cursor: pointer;
+			}
+
+			header {
+				position: sticky;
+				top: 0;
+				z-index: 10;
+				padding: 18px 26px 14px;
+				background: rgba(14, 16, 20, 0.96);
+				border-bottom: 1px solid var(--line);
+				backdrop-filter: blur(8px);
+			}
+			.head-row {
+				display: flex;
+				align-items: baseline;
+				gap: 16px;
+				flex-wrap: wrap;
+			}
+			h1 {
+				margin: 0;
+				font-size: 18px;
+				font-weight: 650;
+				letter-spacing: 0.2px;
+			}
+			.sub {
+				color: var(--muted);
+				font-size: 12.5px;
+			}
+			.tabs {
+				display: flex;
+				gap: 8px;
+				margin-top: 14px;
+				flex-wrap: wrap;
+				align-items: center;
+			}
+			.tab {
+				padding: 7px 15px;
+				border-radius: 7px;
+				border: 1px solid var(--line);
+				background: var(--panel);
+				color: var(--muted);
+				font-size: 13px;
+				transition: all 0.15s ease;
+			}
+			.tab:hover {
+				color: var(--text);
+				border-color: #465065;
+			}
+			.tab.active {
+				background: var(--accent-weak);
+				border-color: var(--accent);
+				color: #ffb7a8;
+				font-weight: 600;
+			}
+			.print-btn {
+				margin-left: auto;
+				padding: 7px 15px;
+				border-radius: 7px;
+				border: 1px solid var(--line);
+				background: transparent;
+				color: var(--muted);
+				font-size: 13px;
+			}
+			.print-btn:hover {
+				color: var(--text);
+				border-color: #465065;
+			}
+
+			main {
+				display: grid;
+				grid-template-columns: 372px minmax(0, 1fr);
+				gap: 24px;
+				padding: 24px 26px 40px;
+				align-items: start;
+			}
+			@media (max-width: 1080px) {
+				main {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.panel {
+				border: 1px solid var(--line);
+				border-radius: 10px;
+				background: var(--panel);
+				overflow: hidden;
+			}
+			.panel + .panel {
+				margin-top: 16px;
+			}
+			.panel-head {
+				padding: 12px 16px;
+				border-bottom: 1px solid var(--line);
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				font-size: 13px;
+				font-weight: 650;
+			}
+			.panel-head small {
+				color: var(--muted);
+				font-weight: 400;
+				font-size: 11.5px;
+			}
+			.panel-body {
+				padding: 14px 16px;
+			}
+
+			.field-group {
+				margin-bottom: 15px;
+			}
+			.field-group:last-child {
+				margin-bottom: 0;
+			}
+			.fg-title {
+				font-size: 11px;
+				letter-spacing: 0.08em;
+				color: var(--muted);
+				text-transform: uppercase;
+				margin-bottom: 6px;
+				display: flex;
+				align-items: center;
+				gap: 7px;
+			}
+			.fg-title::before {
+				content: "";
+				width: 3px;
+				height: 11px;
+				background: var(--accent);
+				border-radius: 2px;
+			}
+			.kv {
+				display: grid;
+				grid-template-columns: 76px 1fr;
+				gap: 4px 10px;
+				font-size: 12.5px;
+			}
+			.kv dt {
+				color: var(--muted);
+			}
+			.kv dd {
+				margin: 0;
+				color: var(--text);
+			}
+			.scene-only {
+				display: inline-block;
+				margin-left: 6px;
+				padding: 0 6px;
+				border-radius: 4px;
+				background: var(--accent-weak);
+				color: #ffb7a8;
+				font-size: 10.5px;
+				vertical-align: 1px;
+			}
+
+			.note {
+				font-size: 12px;
+				color: var(--muted);
+			}
+			.note strong {
+				color: var(--text);
+				font-weight: 600;
+			}
+			.excluded {
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+				font-size: 12px;
+			}
+			.excluded div {
+				display: flex;
+				gap: 8px;
+				align-items: baseline;
+			}
+			.excluded span:first-child {
+				color: var(--warn);
+				flex: 0 0 auto;
+			}
+			.excluded span:last-child {
+				color: var(--muted);
+			}
+
+			.jd-box {
+				width: 100%;
+				min-height: 74px;
+				resize: vertical;
+				padding: 9px 10px;
+				background: var(--panel-2);
+				border: 1px solid var(--line);
+				border-radius: 7px;
+				color: var(--text);
+				font-size: 12px;
+				line-height: 1.55;
+				font-family: inherit;
+			}
+			.jd-box:focus {
+				outline: none;
+				border-color: var(--accent);
+			}
+			.kw-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 6px;
+				margin-top: 10px;
+			}
+			.kw {
+				padding: 3px 9px;
+				border-radius: 20px;
+				font-size: 11.5px;
+				border: 1px solid var(--line);
+			}
+			.kw.hit {
+				color: #a8e2bf;
+				border-color: rgba(79, 174, 122, 0.45);
+				background: rgba(79, 174, 122, 0.1);
+			}
+			.kw.miss {
+				color: #f0c98a;
+				border-color: rgba(215, 164, 73, 0.5);
+				background: rgba(215, 164, 73, 0.1);
+			}
+			.kw small {
+				font-size: 10px;
+				opacity: 0.6;
+			}
+			.jd-summary {
+				margin-top: 9px;
+				font-size: 11.5px;
+				color: var(--muted);
+			}
+
+			.diff {
+				display: flex;
+				flex-direction: column;
+				gap: 9px;
+				font-size: 12px;
+			}
+			.diff-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 10px;
+			}
+			.diff-row div {
+				padding: 7px 9px;
+				border-radius: 6px;
+				background: var(--panel-2);
+				border: 1px solid var(--line);
+			}
+			.diff-row .old {
+				color: #c99a95;
+			}
+			.diff-row .new {
+				color: #a8d8bd;
+			}
+			.diff-row b {
+				display: block;
+				font-size: 10.5px;
+				letter-spacing: 0.05em;
+				margin-bottom: 3px;
+				opacity: 0.7;
+				font-weight: 600;
+			}
+
+			.stage {
+				min-width: 0;
+			}
+			.stage-bar {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				flex-wrap: wrap;
+				margin-bottom: 12px;
+				font-size: 12px;
+				color: var(--muted);
+			}
+			.stage-bar .dot {
+				width: 7px;
+				height: 7px;
+				border-radius: 50%;
+				background: var(--ok);
+				flex: 0 0 auto;
+			}
+			.stage-bar #sceneDesc {
+				flex: 1 1 420px;
+				min-width: 0;
+			}
+			.stage-bar #atsNote {
+				flex-basis: 100%;
+				margin-left: 19px;
+			}
+
+			/* ---- output switch ---- */
+			.out-tabs {
+				display: flex;
+				gap: 6px;
+				margin-bottom: 14px;
+				flex-wrap: wrap;
+				align-items: center;
+			}
+			.out-tab {
+				padding: 6px 13px;
+				border-radius: 7px;
+				border: 1px solid var(--line);
+				background: transparent;
+				color: var(--muted);
+				font-size: 12.5px;
+			}
+			.out-tab:hover {
+				color: var(--text);
+			}
+			.out-tab.active {
+				background: var(--panel-2);
+				border-color: #5b667d;
+				color: var(--text);
+				font-weight: 600;
+			}
+			.out-hint {
+				margin-left: auto;
+				font-size: 11.5px;
+				color: var(--muted);
+			}
+			.view {
+				display: none;
+			}
+			.view.on {
+				display: block;
+			}
+
+			/* ---- visual style switch ---- */
+			.style-bar {
+				border: 1px solid var(--line);
+				border-radius: 9px;
+				background: var(--panel);
+				padding: 11px 13px;
+				margin-bottom: 12px;
+			}
+			.style-row {
+				display: flex;
+				gap: 8px;
+				flex-wrap: wrap;
+				align-items: center;
+			}
+			.style-row + .style-row {
+				margin-top: 9px;
+				padding-top: 9px;
+				border-top: 1px solid var(--line);
+			}
+			.style-label {
+				font-size: 11px;
+				color: var(--muted);
+				letter-spacing: 0.05em;
+				flex: 0 0 62px;
+			}
+			.style-tab {
+				padding: 5px 11px;
+				border-radius: 6px;
+				border: 1px solid var(--line);
+				background: transparent;
+				color: var(--muted);
+				font-size: 12px;
+			}
+			.style-tab:hover {
+				color: var(--text);
+			}
+			.style-tab.active {
+				background: var(--accent-weak);
+				border-color: var(--accent);
+				color: #ffb7a8;
+				font-weight: 600;
+			}
+			.style-tab.risk.active {
+				background: rgba(215, 164, 73, 0.14);
+				border-color: var(--warn);
+				color: #f0c98a;
+			}
+			.opt {
+				display: inline-flex;
+				align-items: center;
+				gap: 5px;
+				font-size: 12px;
+				color: var(--muted);
+				cursor: pointer;
+			}
+			.opt input {
+				accent-color: var(--accent);
+				width: 13px;
+				height: 13px;
+			}
+			.opt:hover {
+				color: var(--text);
+			}
+			.custom-chip {
+				font-size: 11px;
+				color: var(--warn);
+				margin-left: 4px;
+			}
+			.style-note {
+				margin-top: 9px;
+				font-size: 11.5px;
+				color: var(--muted);
+				line-height: 1.55;
+			}
+			.style-note strong {
+				color: var(--text);
+			}
+			.style-note.risk {
+				color: #f0c98a;
+				background: rgba(215, 164, 73, 0.1);
+				border-left: 3px solid var(--warn);
+				padding: 8px 10px;
+				border-radius: 0 5px 5px 0;
+			}
+
+			/* ---- platform form mapping ---- */
+			.sheet {
+				background: #fff;
+				color: #141414;
+				border-radius: 8px;
+				padding: 20px 22px 22px;
+				box-shadow: 0 18px 46px rgba(0, 0, 0, 0.35);
+			}
+			.sheet h3 {
+				margin: 0 0 3px;
+				font-size: 16px;
+			}
+			.sheet .lead {
+				color: #666;
+				font-size: 12px;
+				margin: 0 0 16px;
+			}
+			.plat-tabs {
+				display: flex;
+				gap: 6px;
+				flex-wrap: wrap;
+				margin-bottom: 14px;
+			}
+			.plat-tab {
+				padding: 5px 11px;
+				border-radius: 6px;
+				border: 1px solid #d5d9e0;
+				background: #f6f7f9;
+				color: #444;
+				font-size: 12px;
+			}
+			.plat-tab.active {
+				background: #141414;
+				color: #fff;
+				border-color: #141414;
+			}
+			.map-table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 12px;
+			}
+			.map-table th {
+				text-align: left;
+				font-size: 10.5px;
+				letter-spacing: 0.05em;
+				color: #777;
+				font-weight: 600;
+				padding: 7px 8px;
+				border-bottom: 1px solid #d5d9e0;
+			}
+			.map-table td {
+				padding: 7px 8px;
+				border-bottom: 1px solid #eceef2;
+				vertical-align: top;
+			}
+			.map-table td:first-child {
+				width: 25%;
+				color: #555;
+			}
+			.map-table td:nth-child(2) {
+				width: 28%;
+				color: #111;
+				font-weight: 600;
+			}
+			.map-table td:nth-child(3) {
+				width: 47%;
+			}
+			.tag {
+				display: inline-block;
+				padding: 1px 7px;
+				border-radius: 4px;
+				font-size: 10.5px;
+				font-weight: 600;
+				white-space: nowrap;
+			}
+			.tag.auto {
+				background: #e6f4ec;
+				color: #1f7a4c;
+			}
+			.tag.manual {
+				background: #fdf0d9;
+				color: #96610f;
+			}
+			.tag.na {
+				background: #eef0f3;
+				color: #888;
+			}
+			.map-val {
+				color: #333;
+				margin-left: 7px;
+			}
+			.cover {
+				margin-top: 16px;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				font-size: 12px;
+				color: #444;
+			}
+			.cover-bar {
+				flex: 1;
+				height: 8px;
+				border-radius: 5px;
+				background: #e9ebef;
+				overflow: hidden;
+			}
+			.cover-bar i {
+				display: block;
+				height: 100%;
+				background: #2f9e68;
+			}
+			.map-note {
+				margin-top: 14px;
+				padding: 10px 12px;
+				border-radius: 6px;
+				background: #f6f7f9;
+				font-size: 11.5px;
+				color: #555;
+			}
+
+			/* ---- JD report ---- */
+			.report {
+				background: #fff;
+				color: #141414;
+				border-radius: 8px;
+				padding: 22px 24px 26px;
+				box-shadow: 0 18px 46px rgba(0, 0, 0, 0.35);
+			}
+			.report h3 {
+				margin: 0 0 4px;
+				font-size: 16px;
+			}
+			.report .lead {
+				color: #666;
+				font-size: 12px;
+				margin: 0;
+			}
+			.r-grid {
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
+				gap: 12px;
+				margin: 16px 0 20px;
+			}
+			.r-card {
+				border: 1px solid #e3e6eb;
+				border-radius: 7px;
+				padding: 12px 14px;
+			}
+			.r-card b {
+				display: block;
+				font-size: 22px;
+				line-height: 1.2;
+			}
+			.r-card span {
+				font-size: 11px;
+				color: #777;
+			}
+			.r-sec {
+				margin-bottom: 18px;
+			}
+			.r-sec h4 {
+				margin: 0 0 8px;
+				font-size: 12.5px;
+				padding-bottom: 5px;
+				border-bottom: 1px solid #e3e6eb;
+			}
+			.r-line {
+				font-size: 12px;
+				color: #444;
+				margin-bottom: 6px;
+			}
+			.r-line code {
+				background: #f3f5f8;
+				border: 1px solid #e3e6eb;
+				border-radius: 4px;
+				padding: 1px 6px;
+				font-size: 11px;
+			}
+			.rewrite {
+				background: #f6f9f7;
+				border-left: 3px solid #2f9e68;
+				padding: 9px 12px;
+				font-size: 12px;
+				color: #2c4a3a;
+				border-radius: 0 5px 5px 0;
+				margin-bottom: 7px;
+			}
+			.warnbox {
+				background: #fdf7ec;
+				border-left: 3px solid #d7a449;
+				padding: 9px 12px;
+				font-size: 11.5px;
+				color: #6b5326;
+				border-radius: 0 5px 5px 0;
+			}
+			.stage-bar code {
+				background: var(--panel-2);
+				border: 1px solid var(--line);
+				border-radius: 5px;
+				padding: 3px 8px;
+				color: var(--text);
+				font-size: 11.5px;
+			}
+
+			/* ---- A4 paper ---- */
+			.paper-shadow {
+				padding: 0 0 26px;
+				overflow-x: auto;
+			}
+			.paper {
+				width: 210mm;
+				min-height: 297mm;
+				margin: 0 auto;
+				background: #fff;
+				color: #141414;
+				padding: 15mm 17mm 14mm;
+				box-shadow: 0 18px 46px rgba(0, 0, 0, 0.45);
+				font-family: "Songti SC", "SimSun", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+				font-size: 10.2pt;
+				line-height: 1.55;
+			}
+			.paper * {
+				box-sizing: border-box;
+			}
+			.p-head {
+				display: flex;
+				align-items: flex-start;
+				gap: 14px;
+			}
+			.p-ident {
+				flex: 1;
+				min-width: 0;
+			}
+			.p-name {
+				font-size: 22pt;
+				font-weight: 700;
+				letter-spacing: 3px;
+				line-height: 1.2;
+				margin: 0 0 4px;
+			}
+			.p-headline {
+				font-size: 10.5pt;
+				color: #444;
+				margin: 0 0 7px;
+			}
+			.p-contact {
+				font-size: 9.4pt;
+				color: #333;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2px 14px;
+			}
+			.p-contact span {
+				white-space: nowrap;
+			}
+			.p-photo {
+				width: 25mm;
+				height: 34mm;
+				flex: 0 0 auto;
+				border: 1px solid #bbb;
+				background: #f2f2f2;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: #999;
+				font-size: 8pt;
+				letter-spacing: 1px;
+			}
+			.p-rule {
+				border: 0;
+				border-top: 2px solid #141414;
+				margin: 9px 0 12px;
+			}
+			.p-rule.double {
+				border-top: 3px double #141414;
+			}
+			.p-sec {
+				margin-bottom: 11px;
+				break-inside: avoid;
+			}
+			.p-sec-title {
+				font-size: 11pt;
+				font-weight: 700;
+				letter-spacing: 1px;
+				border-bottom: 1px solid #999;
+				padding-bottom: 2px;
+				margin-bottom: 6px;
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+			}
+			.p-sec-title em {
+				font-style: normal;
+				font-size: 8.5pt;
+				font-weight: 400;
+				color: #777;
+				letter-spacing: 0;
+			}
+			.p-row {
+				display: flex;
+				justify-content: space-between;
+				gap: 10px;
+				margin-bottom: 2px;
+			}
+			.p-row .l {
+				font-weight: 700;
+			}
+			.p-row .r {
+				color: #444;
+				font-size: 9.2pt;
+				white-space: nowrap;
+			}
+			.p-sub {
+				color: #555;
+				font-size: 9.2pt;
+				margin-bottom: 3px;
+			}
+			.p-list {
+				margin: 3px 0 0;
+				padding-left: 15px;
+			}
+			.p-list li {
+				margin-bottom: 2px;
+			}
+			.p-list li::marker {
+				color: #666;
+			}
+			.p-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 1px 20px;
+			}
+			.p-grid div {
+				break-inside: avoid;
+			}
+			.p-intent {
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 1px 16px;
+				font-size: 9.8pt;
+			}
+			.p-intent span {
+				color: #555;
+			}
+			.p-foot {
+				margin-top: 12px;
+				padding-top: 6px;
+				border-top: 1px solid #ddd;
+				font-size: 8pt;
+				color: #999;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.paper.soe {
+				font-family: "SimSun", "Songti SC", serif;
+				font-size: 10pt;
+			}
+			.paper.soe .p-name {
+				letter-spacing: 5px;
+			}
+			.paper.campus {
+				font-size: 10pt;
+			}
+
+			/* ---- 视觉开关：姓名居中 + 粗横线 ---- */
+			.paper.center .p-head {
+				position: relative;
+				flex-direction: column;
+				align-items: center;
+				text-align: center;
+				gap: 6px;
+			}
+			.paper.center .p-ident {
+				flex: 0 0 auto;
+			}
+			.paper.center .p-name {
+				letter-spacing: 7px;
+				margin-bottom: 2px;
+			}
+			.paper.center .p-contact {
+				justify-content: center;
+				gap: 2px 16px;
+			}
+			.paper.center .p-photo {
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+			.paper.center .p-rule {
+				border-top-width: 3px;
+				margin-top: 11px;
+			}
+			/* 居中 + 照片：左右各留 25mm 占位，姓名仍居中，照片回到文档流，不压联系方式与意向行 */
+			.paper.center.has-photo .p-head {
+				flex-direction: row;
+				align-items: flex-start;
+				justify-content: space-between;
+			}
+			.paper.center.has-photo .p-head::before {
+				content: "";
+				flex: 0 0 25mm;
+				width: 25mm;
+			}
+			.paper.center.has-photo .p-ident {
+				flex: 1;
+			}
+			.paper.center.has-photo .p-photo {
+				position: static;
+			}
+
+			/* ---- 视觉开关：求职意向压成页眉一行 ---- */
+			.p-intent-line {
+				font-size: 9.4pt;
+				color: #333;
+				text-align: center;
+				border-bottom: 1px solid #d8d8d8;
+				padding-bottom: 6px;
+				margin-bottom: 10px;
+			}
+			.p-intent-line span {
+				color: #666;
+			}
+			.p-intent-line i {
+				font-style: normal;
+				color: #bbb;
+				margin: 0 8px;
+			}
+
+			/* ---- 视觉开关：轻装饰（纯文本样式，无图标字体 / 无分栏） ---- */
+			.paper.decor:not(.table) .p-sec-title {
+				border-bottom: 0;
+				border-left: 3px solid #9aa1ad;
+				background: #f2f3f5;
+				padding: 3px 8px;
+				border-radius: 0 4px 4px 0;
+				letter-spacing: 0.5px;
+			}
+			.paper.decor:not(.table) .p-sec-title em {
+				color: #8a8a8a;
+			}
+			.paper.decor:not(.table) .p-intent > div {
+				background: #f7f8fa;
+				border-radius: 3px;
+				padding: 1px 7px;
+			}
+			.paper.decor:not(.table) .p-rule {
+				border-top-color: #3a3f48;
+			}
+
+			/* ---- 对照预设：表格式登记（ATS 高风险） ---- */
+			.paper.table {
+				font-size: 9.6pt;
+			}
+			.paper.table .p-sec {
+				margin-bottom: 8px;
+			}
+			.paper.table .p-list li {
+				margin-bottom: 1px;
+			}
+			.paper.table .p-sec-title {
+				background: #3b3f47;
+				color: #fff;
+				border: 0;
+				padding: 3px 9px;
+				font-size: 10.5pt;
+				letter-spacing: 1px;
+				border-radius: 2px;
+				margin-bottom: 7px;
+			}
+			.paper.table .p-sec-title em {
+				color: #d6d9de;
+			}
+			.paper.table.center .p-reg-title {
+				text-align: center;
+				letter-spacing: 6px;
+			}
+			.p-reg-title {
+				font-size: 16pt;
+				font-weight: 700;
+				text-align: center;
+				letter-spacing: 4px;
+				margin: 0 0 8px;
+			}
+			.p-reg-table {
+				width: 100%;
+				border-collapse: collapse;
+				font-size: 9pt;
+				margin-bottom: 11px;
+			}
+			.p-reg-table th,
+			.p-reg-table td {
+				border: 1px solid #8f949c;
+				padding: 4px 6px;
+				text-align: left;
+				height: 25px;
+				word-break: break-all;
+			}
+			.p-reg-table th {
+				background: #eceef1;
+				color: #333;
+				font-weight: 700;
+				white-space: nowrap;
+			}
+			.p-reg-table td.ph {
+				width: 26mm;
+				text-align: center;
+				color: #999;
+				font-size: 8pt;
+				background: #f2f2f2;
+				line-height: 1.4;
+			}
+
+			footer {
+				padding: 0 26px 32px;
+				color: var(--muted);
+				font-size: 11.5px;
+			}
+			footer code {
+				color: var(--text);
+			}
+
+			@media print {
+				@page {
+					size: A4;
+					margin: 0;
+				}
+				body {
+					background: #fff;
+				}
+				header,
+				aside,
+				.stage-bar,
+				footer,
+				.print-btn,
+				.out-tabs,
+				.style-bar {
+					display: none !important;
+				}
+				.view:not(#pdfView) {
+					display: none !important;
+				}
+				#pdfView {
+					display: block !important;
+				}
+				main {
+					display: block;
+					padding: 0;
+				}
+				.stage,
+				.paper-shadow {
+					overflow: visible;
+					padding: 0;
+				}
+				.paper {
+					box-shadow: none;
+					margin: 0;
+					width: 210mm;
+					min-height: 297mm;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="head-row">
+				<h1>页见 · 中国市场简历样板</h1>
+				<span class="sub">结构化主档 → 多场景输出 · 视觉风格可切换 · 独立原型，未改动仓库业务代码</span>
+			</div>
+			<div class="tabs">
+				<button class="tab active" data-scene="market">社招 / 市场化</button>
+				<button class="tab" data-scene="campus">校招 / 应届</button>
+				<button class="tab" data-scene="soe">央国企网申</button>
+				<button class="print-btn" id="print">打印 / 存为 PDF</button>
+			</div>
+		</header>
+
+		<main>
+			<aside>
+				<div class="panel">
+					<div class="panel-head">结构化主档 <small>一份数据，多处复用</small></div>
+					<div class="panel-body" id="master"></div>
+				</div>
+
+				<div class="panel">
+					<div class="panel-head">JD 关键词对齐 <small>真实岗位描述</small></div>
+					<div class="panel-body">
+						<textarea class="jd-box" id="jd">
+高级产品设计师：负责 B 端产品线设计，主导设计系统搭建，具备用户研究、A/B 测试、数据分析能力；有团队管理经验，熟练使用 Figma，本科及以上学历，有跨部门协作与可用性测试经验者优先。</textarea>
+						<div class="kw-list" id="kw"></div>
+						<div class="jd-summary" id="jdSummary"></div>
+					</div>
+				</div>
+
+				<div class="panel">
+					<div class="panel-head">刻意不做 <small>纠正常见误解</small></div>
+					<div class="panel-body excluded">
+						<div>
+							<span>✕</span
+							><span><strong>自我评价</strong>：前程无忧 HR 调研明确表示很少看、假大空。改成量化成果。</span>
+						</div>
+						<div>
+							<span>✕</span><span><strong>证明人 / 兴趣爱好 / 志愿服务</strong>：欧美简历章节，中文场景权重极低。</span>
+						</div>
+						<div>
+							<span>✕</span
+							><span
+								><strong>全局加政治面貌 / 民族 / 婚姻</strong>：仅央国企网申场景，且填平台表单，不进通用 PDF。</span
+							>
+						</div>
+						<div>
+							<span>✕</span
+							><span
+								><strong>把表格式登记表当默认</strong>：复杂表格、分栏会降低中文 ATS
+								解析率。仅保留为带风险标注的对照预设。</span
+							>
+						</div>
+						<div>
+							<span>✕</span><span><strong>LinkedIn / +1 电话</strong>：领英职场 2023-08-09 已停服。</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel">
+					<div class="panel-head">与当前版本对照 <small>左：现在 / 右：本样板</small></div>
+					<div class="panel-body diff" id="diff"></div>
+				</div>
+			</aside>
+
+			<section class="stage">
+				<div class="out-tabs">
+					<button class="out-tab active" data-out="pdf">附件 PDF</button>
+					<button class="out-tab" data-out="form">平台在线表单映射</button>
+					<button class="out-tab" data-out="report">JD 对齐报告</button>
+					<span class="out-hint">场景 × 输出 · 同一份主档，独立重排</span>
+				</div>
+
+				<div class="view on" id="pdfView">
+					<div class="style-bar">
+						<div class="style-row">
+							<span class="style-label">风格预设</span>
+							<button class="style-tab active" data-preset="ats">ATS 极简单栏</button>
+							<button class="style-tab" data-preset="xhs">小红书轻装饰</button>
+							<button class="style-tab risk" data-preset="table">表格式登记 · 风险对照</button>
+							<span class="custom-chip" id="customChip" hidden>自定义组合</span>
+						</div>
+						<div class="style-row">
+							<span class="style-label">逐项开关</span>
+							<label class="opt"><input type="checkbox" data-opt="photo" />照片</label>
+							<label class="opt"><input type="checkbox" data-opt="center" />姓名居中 + 粗横线</label>
+							<label class="opt"><input type="checkbox" data-opt="intentCompact" />意向压成页眉一行</label>
+							<label class="opt"><input type="checkbox" data-opt="decor" />浅灰标签 / 细左竖条</label>
+						</div>
+						<div class="style-note" id="styleNote"></div>
+					</div>
+
+					<div class="stage-bar">
+						<span class="dot"></span>
+						<span id="sceneDesc"></span>
+						<code id="filename"></code>
+						<span id="atsNote"></span>
+					</div>
+					<div class="paper-shadow">
+						<article class="paper" id="paper"></article>
+					</div>
+				</div>
+
+				<div class="view" id="formView">
+					<div class="sheet">
+						<h3>招聘平台在线简历 · 字段映射</h3>
+						<p class="lead">
+							平台预设字段由算法抓取、HR 初筛必看。主档一次录入，下列字段自动填充；只有标「需补」的才要手动填。
+						</p>
+						<div class="plat-tabs" id="platTabs"></div>
+						<table class="map-table">
+							<thead>
+								<tr>
+									<th>主档字段</th>
+									<th>平台表单字段</th>
+									<th>填充状态</th>
+								</tr>
+							</thead>
+							<tbody id="mapBody"></tbody>
+						</table>
+						<div class="cover">
+							<span>自动填充率</span>
+							<div class="cover-bar"><i id="coverBar"></i></div>
+							<strong id="coverText"></strong>
+						</div>
+						<div class="map-note" id="mapNote"></div>
+					</div>
+				</div>
+
+				<div class="view" id="reportView">
+					<div class="report" id="report"></div>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			本样板展示的是<strong>产品形态</strong>，不只是换一套中文文案：左侧结构化主档是唯一数据源；右侧三个输出（附件 PDF
+			/ 平台在线表单映射 / JD 对齐报告）按场景独立重排，共用同一份数据。 视觉风格栏只影响附件 PDF
+			的外观、不改主档数据：默认是 ATS
+			极简单栏，「小红书轻装饰」保留单栏纯文本，「表格式登记」仅作带风险标注的对照预设，不作常规投递件。
+			打印时无论停在哪个输出都只输出 A4 简历；纸张 A4、无页眉页脚，文件名按 <code id="footFilename"></code> 规范命名。
+		</footer>
+
+		<script>
+			const P = {
+				name: "陈嘉宁",
+				headline: "高级产品设计师 · B 端产品与设计系统",
+				phone: "138 0012 3456",
+				wechat: "chenjianing_ux",
+				email: "chenjianing@foxmail.com",
+				city: "上海",
+				political: "中共党员",
+				gender: "女",
+				nativePlace: "江苏 · 南京",
+				intent: [
+					["期望岗位", "高级产品设计师"],
+					["期望城市", "上海"],
+					["期望薪资", "25–30K / 月"],
+					["到岗时间", "一个月内"],
+				],
+				education: {
+					school: "同济大学",
+					major: "设计创意学院 · 工业设计（本科）",
+					period: "2013.09 – 2017.06",
+					gpa: "GPA 3.7 / 4.0（专业前 10%）",
+					courses: "用户研究、交互设计、设计统计学、服务设计",
+					cet: "CET-6 · 580 分",
+					note: "专业名称与学信网登记一致",
+				},
+				work: [
+					{
+						org: "云图科技 · 上海",
+						role: "产品设计负责人",
+						period: "2021.06 – 至今",
+						bullets: [
+							"搭建被 6 个产品团队共用的设计系统，组件复用率 32% → 78%，UI 评审耗时缩短 40%",
+							"主导新用户引导改版（12 场用户研究、3 轮 A/B 测试），激活率 31% → 44%",
+							"带 4 人设计小组交付 3 条 B 端产品线，需求按期交付率 96%",
+						],
+					},
+					{
+						org: "拾贝网络 · 杭州",
+						role: "产品设计师",
+						period: "2017.06 – 2021.05",
+						bullets: [
+							"负责商家后台重构，任务平均完成时长下降 26%，客服相关工单减少 18%",
+							"输出 WCAG 2.1 AA 无障碍规范并覆盖 Web 与移动端",
+						],
+					},
+				],
+				projects: [
+					{
+						name: "云图设计系统 2.0",
+						role: "项目负责人",
+						period: "2022.03 – 2022.12",
+						desc: "统一 6 条产品线视觉语言，沉淀 148 个组件与 22 条设计规范，设计走查耗时 -40%。",
+					},
+					{
+						name: "新用户引导实验",
+						role: "主导",
+						period: "2023.04 – 2023.09",
+						desc: "分 3 组 A/B 验证引导路径，激活率 +13pp，方案沿用至今。",
+					},
+				],
+				internship: [
+					{
+						org: "青禾科技 · 上海",
+						role: "产品设计实习生",
+						period: "2016.07 – 2016.12",
+						desc: "参与 C 端产品改版，完成 8 场用户访谈与 2 版原型，方案被采纳上线。",
+					},
+				],
+				skills: [
+					"设计工具：Figma / Sketch / Axure / Adobe CC",
+					"用户研究：深度访谈、可用性测试、问卷与行为数据分析（SQL、GrowingIO）",
+					"语言与证书：CET-6 580、PMP 项目管理专业人士（2022）",
+				],
+				awards: [
+					"2021 年晋升产品设计负责人（云图科技）",
+					"2023 年公司年度创新奖 · 设计系统 2.0",
+					"2016 年校优秀学生干部、校学生会宣传部部长（2015–2016）",
+				],
+				cadre: "校学生会宣传部部长（2015–2016）· 院辩论队队长",
+			};
+
+			const SCENES = {
+				market: {
+					label: "社招 / 市场化",
+					desc: "互联网与市场化的默认场景：量化成果优先，一页 A4，单栏，无照片。",
+					filename: "陈嘉宁-高级产品设计师-9年.pdf",
+					ats: "单栏 · 宋体 · 左对齐 · 纯白底，解析友好",
+					sections: ["intent", "work", "projects", "education", "skills"],
+					photo: false,
+					rule: "",
+					klass: "",
+				},
+				campus: {
+					label: "校招 / 应届",
+					desc: "校招场景：教育背景、绩点、核心课程、实习与荣誉前置；工作经历后置。",
+					filename: "陈嘉宁-同济大学-工业设计-产品设计师.pdf",
+					ats: "突出 GPA / CET-6 / 实习关键词，匹配校招机筛",
+					sections: ["intent", "education", "internship", "projects", "skills", "awards"],
+					photo: false,
+					rule: "",
+					klass: "campus",
+				},
+				soe: {
+					label: "央国企网申",
+					desc: "央国企 / 事业单位场景：证件照、政治面貌、学生干部、CET、专业全称与学信网一致。",
+					filename: "陈嘉宁-产品设计岗-党员-同济大学.pdf",
+					ats: "字段用于网申表单映射；附件仍保持单栏便于解析",
+					sections: ["intent", "education", "cadre", "internship", "skills", "awards"],
+					photo: true,
+					rule: "double",
+					klass: "soe",
+				},
+			};
+
+			// 视觉风格预设。预设只是「一次性写入开关」，开关本身才是唯一状态源。
+			const PRESETS = {
+				ats: {
+					label: "ATS 极简单栏",
+					desc: "默认且推荐的投递件：单栏、宋体、左对齐、纯白底，无表格、无图标字体。中文 ATS 解析率最高；照片按场景给默认值（央国企网申才有）。",
+				},
+				xhs: {
+					label: "小红书轻装饰",
+					desc: "只吸收能保留的部分：居中姓名 + 粗横线、求职意向压成页眉一行、浅灰纯文本标签与细左竖条。仍是单栏纯文本，不引入分栏、进度条、图标字体；照片与居中姓名属视觉偏好，市场化投递建议关掉。",
+				},
+				table: {
+					label: "表格式登记 · 风险对照",
+					desc: "表格式登记表含合并单元格、深色标题块与证件照框，中文 ATS 解析率显著下降；仅用于网申系统明确要求「上传登记表」的场景，不作常规投递件。本预设仍不写自我评价。",
+				},
+			};
+
+			function presetOptions(key, scene) {
+				const s = SCENES[scene];
+				if (key === "xhs")
+					return { photo: true, center: true, intentCompact: true, decor: true, table: false, rule: "" };
+				if (key === "table")
+					return { photo: true, center: true, intentCompact: false, decor: false, table: true, rule: "" };
+				return { photo: s.photo, center: false, intentCompact: false, decor: false, table: false, rule: s.rule };
+			}
+
+			const DIFF = [
+				["样例人物", "David Kowalski · Seattle, WA", "陈嘉宁 · 上海"],
+				["联系方式", "+1 (555) · LinkedIn · itch.io", "手机号 · 微信 · 邮箱 · 现居城市"],
+				["教育字段", "University of Washington · 3.6 GPA", "同济大学 · GPA 3.7 · CET-6 · 核心课程"],
+				[
+					"默认章节",
+					"summary → profiles → experience → … → references",
+					"求职意向 → 经历 → 项目 → 教育 → 证书（按场景重排）",
+				],
+				["文档语言", "en-US · IBM Plex Serif · short 日期", "zh-CN · 宋体 · 2021.06 中文日期"],
+				["导出命名", "David-Kowalski-简历.pdf", "姓名-应聘岗位-工作年限.pdf"],
+				["ATS 检查", "识别中文简历文本", "按 JD 对齐关键词 + 量化成果提示"],
+			];
+
+			const KEYWORDS = [
+				"设计系统",
+				"用户研究",
+				"A/B 测试",
+				"数据分析",
+				"团队管理",
+				"Figma",
+				"B 端",
+				"本科",
+				"跨部门协作",
+				"可用性测试",
+			];
+
+			// 平台在线简历字段映射：[主档字段, 平台表单字段, 状态, 值或说明]
+			// auto = 主档直接填；manual = 平台必填但主档缺/需人工判断；na = 平台不收或刻意不填。
+			const A = "auto",
+				M = "manual",
+				N = "na";
+			const PLATFORMS = {
+				boss: {
+					label: "BOSS直聘",
+					note: "市场化平台字段最轻，重「期望职位 + 经历量化 + 技能标签」。微信不进表单（用内置沟通），出生年月也不采集 —— 主档比 PDF 更全，但也不该把央国企那套字段塞进来。",
+					rows: [
+						["姓名", "姓名", A, P.name],
+						["手机", "手机号码", A, P.phone],
+						["邮箱", "邮箱", A, P.email],
+						["微信", "—", N, "平台不收，改用内置沟通"],
+						["现居城市", "现居城市", A, P.city],
+						["期望岗位", "期望职位", A, "高级产品设计师"],
+						["期望城市", "期望工作地", A, "上海"],
+						["期望薪资", "期望薪资", A, "25–30K / 月"],
+						["到岗时间", "当前状态 / 到岗", A, "一个月内"],
+						["教育背景", "最高学历 · 院校 · 专业", A, "本科 · 同济大学 · 工业设计"],
+						["工作经历", "工作经历（含工作内容）", A, "2 段，成果已量化"],
+						["项目经历", "项目经验", A, "2 个"],
+						["技能证书", "技能标签", A, "Figma / 用户研究 / 数据分析 / PMP"],
+						["工作年限", "工作年限", A, "9 年（由经历起止推导）"],
+						["出生年月", "年龄", M, "主档不采集年龄，按平台要求手填"],
+						["个人优势", "个人优势（300 字内）", M, "按 JD 改写，不写「自我评价」空话"],
+					],
+				},
+				zhilian: {
+					label: "智联招聘",
+					note: "老牌平台字段最全，仍保留民族 / 婚姻 / 户籍 / 自我评价。主档里存了性别、籍贯、政治面貌（PDF 默认不显示），这里可以直接填 —— 这正是「一份主档多处复用」的价值。",
+					rows: [
+						["姓名", "姓名", A, P.name],
+						["性别", "性别", A, P.gender],
+						["籍贯", "户籍所在地", A, P.nativePlace],
+						["政治面貌", "政治面貌", A, P.political],
+						["手机 / 邮箱", "联系电话 · 电子邮箱", A, P.phone + " · " + P.email],
+						["现居城市", "现居住地", A, P.city],
+						["教育背景", "最高学历 · 毕业院校 · 专业", A, "本科 · 同济大学 · 工业设计"],
+						["英语", "语言能力 / 外语等级", A, "CET-6 · 580 分"],
+						["求职意向", "求职意向（职位·地点·薪资·到岗）", A, "高级产品设计师 · 上海 · 25–30K · 一个月内"],
+						["工作经历", "工作经历", A, "2 段，倒序 + 量化成果"],
+						["项目经历", "项目经验", A, "2 个"],
+						["技能证书", "专业技能 · 证书", A, "Figma / SQL / PMP(2022)"],
+						["荣誉", "在校/在职奖励", A, "3 项"],
+						["民族", "民族", M, "主档刻意不采集，网申时才需要"],
+						["婚姻状况", "婚姻状况", M, "主档刻意不采集，平台仍要求"],
+						["自我评价", "自我评价", M, "HR 初筛权重低；若必填，贴 3 条量化成果"],
+					],
+				},
+				job51: {
+					label: "前程无忧",
+					note: "字段与智联接近，多「到岗时间 / 期望薪资 / 兴趣爱好」。兴趣爱好属欧美简历遗留，主档不收，也不建议为了填满表单硬凑。",
+					rows: [
+						["姓名", "姓名", A, P.name],
+						["手机 / 邮箱", "联系电话 · 电子邮箱", A, P.phone + " · " + P.email],
+						["现居城市", "现居住地", A, P.city],
+						["求职意向", "期望职位 · 工作地点", A, "高级产品设计师 · 上海"],
+						["期望薪资", "期望月薪", A, "25–30K / 月"],
+						["到岗时间", "到岗时间", A, "一个月内"],
+						["教育背景", "学历 · 学校 · 专业 · 时间", A, "本科 · 同济大学 · 工业设计 · 2013–2017"],
+						["英语", "外语水平", A, "CET-6 · 580 分"],
+						["工作经历", "工作经验", A, "2 段，倒序 + 量化成果"],
+						["项目经历", "项目经验", A, "2 个"],
+						["技能证书", "专业技能 · 职业证书", A, "Figma / SQL / PMP"],
+						["性别", "性别", A, P.gender],
+						["出生日期", "出生日期", M, "主档不采集，手填"],
+						["兴趣爱好", "兴趣爱好", N, "主档不收，且 HR 初筛权重极低"],
+					],
+				},
+				soe: {
+					label: "央国企网申",
+					note: "网申系统最严：专业全称必须与学信网登记一字不差，否则机筛直接拦截；党员身份、学生干部、CET 分数是显式筛选项。附件 PDF 只是上传件之一，字段才决定过不过机筛。",
+					rows: [
+						["姓名", "姓名", A, P.name],
+						["性别", "性别", A, P.gender],
+						["籍贯", "籍贯 / 生源地", A, P.nativePlace],
+						["政治面貌", "政治面貌", A, P.political],
+						["手机 / 邮箱", "联系电话 · 电子邮箱", A, P.phone + " · " + P.email],
+						["教育背景", "毕业院校", A, "同济大学"],
+						["专业全称", "所学专业（须与学信网一致）", A, "设计创意学院 · 工业设计（本科）"],
+						["成绩", "GPA / 专业排名", A, "GPA 3.7 / 4.0（专业前 10%）"],
+						["英语", "CET 等级及分数", A, "CET-6 · 580 分"],
+						["核心课程", "主修课程", A, "用户研究、交互设计、设计统计学、服务设计"],
+						["学生干部", "学生工作 / 社会职务", A, P.cadre],
+						["实习经历", "实习实践经历", A, "1 段（青禾科技）"],
+						["荣誉", "奖惩情况", A, "3 项"],
+						["附件简历", "上传附件", A, "陈嘉宁-产品设计岗-党员-同济大学.pdf"],
+						["民族", "民族", M, "网申必填，主档不采集"],
+						["出生年月", "出生年月", M, "网申必填，主档不采集"],
+						["身份证号", "证件类型 / 证件号码", M, "敏感字段，不进主档，现场手填"],
+						["学位", "学历学位", M, "主档只有学历，需补「学士」"],
+						["家庭主要成员", "家庭主要成员", M, "部分单位要求，按系统提示手填"],
+					],
+				},
+			};
+
+			const REWRITE = {
+				设计系统: "搭建被 6 个产品团队共用的设计系统，组件复用率 32% → 78%，UI 评审耗时缩短 40%。",
+				用户研究: "主导 12 场用户研究与深访，输出结论驱动新用户引导改版，激活率 31% → 44%。",
+				"A/B 测试": "分 3 组 A/B 验证引导路径，激活率 +13pp，方案沿用至今。",
+				数据分析: "基于 SQL 与 GrowingIO 行为数据定位漏斗流失点，重构后任务完成时长下降 26%。",
+				团队管理: "带 4 人设计小组交付 3 条 B 端产品线，需求按期交付率 96%。",
+				Figma: "以 Figma 建立组件库与规范，沉淀 148 个组件、22 条设计规范。",
+				"B 端": "负责 3 条 B 端产品线的商家后台与权限体系设计，覆盖 6 个产品团队。",
+				本科: "同济大学 工业设计 本科（2013.09 – 2017.06），GPA 3.7 / 4.0。",
+				跨部门协作: "与产品、研发、客服 3 个部门协作推进重构，客服相关工单减少 18%。",
+				可用性测试: "组织可用性测试并输出 WCAG 2.1 AA 无障碍规范，覆盖 Web 与移动端。",
+			};
+
+			const $ = (s) => document.querySelector(s);
+			const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+			function contactHtml(scene) {
+				const items = [
+					["手机", P.phone],
+					["微信", P.wechat],
+					["邮箱", P.email],
+					["现居", P.city],
+				];
+				if (scene === "soe") items.push(["政治面貌", P.political], ["性别", P.gender], ["籍贯", P.nativePlace]);
+				return `<div class="p-contact">${items.map(([k, v]) => `<span>${esc(k)}：${esc(v)}</span>`).join("")}</div>`;
+			}
+
+			// 表格式登记预设：合并单元格 + 深色标题块，刻意做成「一眼看出 ATS 风险」的对照件。
+			function regTableHtml() {
+				const photoCell = `<td class="ph" rowspan="4">${styleOpts.photo ? "证件照<br>正装 · 白底" : "不附照片"}</td>`;
+				const rows = [
+					`<tr><th>姓名</th><td>${esc(P.name)}</td><th>性别</th><td>${esc(P.gender)}</td><th>籍贯</th><td>${esc(P.nativePlace)}</td>${photoCell}</tr>`,
+					`<tr><th>政治面貌</th><td>${esc(P.political)}</td><th>手机</th><td>${esc(P.phone)}</td><th>微信</th><td>${esc(P.wechat)}</td></tr>`,
+					`<tr><th>邮箱</th><td colspan="3">${esc(P.email)}</td><th>现居</th><td>${esc(P.city)}</td></tr>`,
+					`<tr><th>求职意向</th><td colspan="5">${esc(P.intent.map(([, v]) => v).join(" · "))}</td></tr>`,
+				];
+				return `<div class="p-reg-title">个人简历登记表</div><table class="p-reg-table">${rows.join("")}</table>`;
+			}
+
+			function sectionIntent() {
+				return `<section class="p-sec">
+    <div class="p-sec-title">求职意向</div>
+    <div class="p-intent">${P.intent.map(([k, v]) => `<div><span>${esc(k)}：</span>${esc(v)}</div>`).join("")}</div>
+  </section>`;
+			}
+
+			function sectionWork() {
+				return `<section class="p-sec">
+    <div class="p-sec-title">工作经历 <em>按倒序 · 成果量化</em></div>
+    ${P.work
+			.map(
+				(w) => `<div style="margin-bottom:7px">
+      <div class="p-row"><span class="l">${esc(w.org)} · ${esc(w.role)}</span><span class="r">${esc(w.period)}</span></div>
+      <ul class="p-list">${w.bullets.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>
+    </div>`,
+			)
+			.join("")}
+  </section>`;
+			}
+
+			function sectionProjects() {
+				return `<section class="p-sec">
+    <div class="p-sec-title">项目经历</div>
+    ${P.projects
+			.map(
+				(p) => `<div style="margin-bottom:5px">
+      <div class="p-row"><span class="l">${esc(p.name)} · ${esc(p.role)}</span><span class="r">${esc(p.period)}</span></div>
+      <div class="p-sub">${esc(p.desc)}</div>
+    </div>`,
+			)
+			.join("")}
+  </section>`;
+			}
+
+			function sectionEducation(scene) {
+				const e = P.education;
+				const extra =
+					scene === "campus" || scene === "soe"
+						? `<div class="p-sub">${esc(e.gpa)} · ${esc(e.cet)}　|　核心课程：${esc(e.courses)}</div>`
+						: `<div class="p-sub">${esc(e.gpa)} · ${esc(e.cet)}</div>`;
+				return `<section class="p-sec">
+    <div class="p-sec-title">教育背景 <em>${scene === "soe" ? "专业名称与学信网一致" : ""}</em></div>
+    <div class="p-row"><span class="l">${esc(e.school)} · ${esc(e.major)}</span><span class="r">${esc(e.period)}</span></div>
+    ${extra}
+  </section>`;
+			}
+
+			function sectionInternship() {
+				return `<section class="p-sec">
+    <div class="p-sec-title">实习经历</div>
+    ${P.internship
+			.map(
+				(i) => `<div>
+      <div class="p-row"><span class="l">${esc(i.org)} · ${esc(i.role)}</span><span class="r">${esc(i.period)}</span></div>
+      <div class="p-sub">${esc(i.desc)}</div>
+    </div>`,
+			)
+			.join("")}
+  </section>`;
+			}
+
+			function sectionSkills() {
+				return `<section class="p-sec">
+    <div class="p-sec-title">技能与证书</div>
+    ${P.skills.map((s) => `<div class="p-sub" style="margin-bottom:1px">· ${esc(s)}</div>`).join("")}
+  </section>`;
+			}
+
+			function sectionAwards() {
+				return `<section class="p-sec">
+    <div class="p-sec-title">荣誉与奖励</div>
+    ${P.awards.map((a) => `<div class="p-sub" style="margin-bottom:1px">· ${esc(a)}</div>`).join("")}
+  </section>`;
+			}
+
+			function sectionCadre() {
+				return `<section class="p-sec">
+    <div class="p-sec-title">学生工作与政治面貌 <em>网申必填字段</em></div>
+    <div class="p-sub">${esc(P.cadre)}　|　${esc(P.political)}</div>
+  </section>`;
+			}
+
+			const SECTION_FN = {
+				intent: sectionIntent,
+				work: sectionWork,
+				projects: sectionProjects,
+				education: sectionEducation,
+				internship: sectionInternship,
+				skills: sectionSkills,
+				awards: sectionAwards,
+				cadre: sectionCadre,
+			};
+
+			function renderMaster(scene) {
+				const soe = scene === "soe";
+				const groups = [
+					[
+						"个人信息",
+						[
+							["姓名", P.name],
+							["手机", P.phone],
+							["微信", P.wechat],
+							["邮箱", P.email],
+							["现居", P.city],
+							...(soe
+								? [
+										["政治面貌", P.political + '<span class="scene-only">仅网申</span>'],
+										["性别 / 籍贯", P.gender + " / " + P.nativePlace + '<span class="scene-only">仅网申</span>'],
+									]
+								: []),
+						],
+					],
+					["求职意向", P.intent],
+					[
+						"教育背景",
+						[
+							["学校", P.education.school],
+							["专业", P.education.major],
+							["学历 / 时间", "本科 / " + P.education.period],
+							["成绩", P.education.gpa],
+							["英语", P.education.cet],
+						],
+					],
+					[
+						"经历与项目",
+						[
+							["工作经历", P.work.length + " 段"],
+							["项目经历", P.projects.length + " 个"],
+							["实习经历", P.internship.length + " 段"],
+						],
+					],
+					[
+						"技能与荣誉",
+						[
+							["技能证书", P.skills.length + " 组"],
+							["荣誉", P.awards.length + " 项"],
+						],
+					],
+				];
+				$("#master").innerHTML =
+					groups
+						.map(
+							([title, rows]) => `
+    <div class="field-group">
+      <div class="fg-title">${esc(title)}</div>
+      <dl class="kv">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join("")}</dl>
+    </div>`,
+						)
+						.join("") +
+					`<div class="note" style="margin-top:12px;padding-top:10px;border-top:1px solid var(--line)">
+      主档字段可映射到 <strong>BOSS直聘 / 智联 / 前程无忧 / 央国企网申</strong> 的在线表单；右侧 PDF 只是输出之一。</div>`;
+			}
+
+			function renderPaper(scene) {
+				const cfg = SCENES[scene];
+				const o = styleOpts;
+				const paper = $("#paper");
+				paper.className = [
+					"paper",
+					cfg.klass,
+					o.center ? "center" : "",
+					o.decor ? "decor" : "",
+					o.table ? "table" : "",
+					o.intentCompact ? "compact" : "",
+					o.photo ? "has-photo" : "",
+				]
+					.filter(Boolean)
+					.join(" ");
+
+				const head = o.table
+					? regTableHtml()
+					: `
+    <div class="p-head">
+      <div class="p-ident">
+        <h2 class="p-name">${esc(P.name)}</h2>
+        <p class="p-headline">${esc(P.headline)}</p>
+        ${contactHtml(scene)}
+      </div>
+      ${o.photo ? '<div class="p-photo">证件照<br>正装 · 白底</div>' : ""}
+    </div>
+    <hr class="p-rule ${o.rule}" />`;
+
+				const intentLine =
+					o.intentCompact && !o.table
+						? `<div class="p-intent-line">${P.intent.map(([k, v]) => `<span>${esc(k)}：</span>${esc(v)}`).join("<i>·</i>")}</div>`
+						: "";
+
+				// 意向压成页眉一行 / 表格式登记表已含意向行时，不再重复输出「求职意向」章节。
+				const skipIntent = o.intentCompact || o.table;
+				const sections = skipIntent ? cfg.sections.filter((s) => s !== "intent") : cfg.sections;
+
+				paper.innerHTML =
+					head +
+					intentLine +
+					sections.map((s) => SECTION_FN[s](scene)).join("") +
+					`<div class="p-foot"><span>页见 · 中文简历</span><span>${esc(cfg.label)} · A4 · 第 1 页 / 共 1 页</span></div>`;
+
+				$("#sceneDesc").textContent = cfg.desc;
+				$("#filename").textContent = cfg.filename;
+				$("#footFilename").textContent = cfg.filename.split("-").slice(0, 1).join("") + "-应聘岗位-工作年限.pdf";
+				const bits = [
+					o.table ? "表格式（ATS 高风险）" : "单栏",
+					o.center ? "姓名居中 + 粗横线" : "左对齐",
+					o.photo ? "含证件照" : "无照片",
+					o.intentCompact && !o.table ? "意向压成页眉一行" : "",
+					o.decor && !o.table ? "浅灰纯文本标签" : "",
+				].filter(Boolean);
+				// 静态的 cfg.ats 只在默认 ATS 预设下成立；一旦切风格，「左对齐 / 解析友好」就不能再照抄。
+				const baseline = currentPreset === "ats" ? cfg.ats + " ｜ " : "";
+				const risk = o.table ? " ｜ ⚠ 高风险对照，勿作投递件" : "";
+				$("#atsNote").textContent = baseline + "当前风格：" + bits.join(" · ") + risk;
+			}
+
+			let currentScene = "market";
+			let currentOutput = "pdf";
+			let currentPlatform = "boss";
+			let currentPreset = "ats";
+			let styleOpts = presetOptions("ats", "market");
+
+			function renderStyleBar() {
+				document
+					.querySelectorAll(".style-tab")
+					.forEach((b) => b.classList.toggle("active", b.dataset.preset === currentPreset));
+				$("#customChip").hidden = currentPreset !== "custom";
+				document.querySelectorAll(".opt input").forEach((i) => {
+					i.checked = !!styleOpts[i.dataset.opt];
+				});
+				const note = $("#styleNote");
+				const risky = styleOpts.table;
+				note.className = "style-note" + (risky ? " risk" : "");
+				note.innerHTML = risky
+					? `<strong>⚠ 高风险对照：</strong>${esc(PRESETS.table.desc)}`
+					: `<strong>${esc(PRESETS[currentPreset]?.label || "自定义组合")}：</strong>${esc(PRESETS[currentPreset]?.desc || "逐项开关已覆盖预设；打印前确认仍是单栏、无图标字体、无合并单元格。")}`;
+			}
+
+			function analyze() {
+				const jd = $("#jd").value;
+				const resumeText = $("#paper").innerText;
+				// 分母只算 JD 真正要求的关键词；简历里出现但 JD 没要求的词不计入命中。
+				const required = KEYWORDS.filter((k) => jd.includes(k));
+				return {
+					jd,
+					resumeText,
+					required,
+					hits: required.filter((k) => resumeText.includes(k)),
+					misses: required.filter((k) => !resumeText.includes(k)),
+					notRequired: KEYWORDS.filter((k) => !jd.includes(k)),
+				};
+			}
+
+			function renderJd() {
+				const { required, hits, misses, notRequired } = analyze();
+				$("#kw").innerHTML =
+					hits.map((k) => `<span class="kw hit">✓ ${esc(k)}</span>`).join("") +
+					misses.map((k) => `<span class="kw miss">! ${esc(k)} 未出现在简历</span>`).join("") +
+					notRequired.map((k) => `<span class="kw">${esc(k)} <small>非本 JD 要求</small></span>`).join("");
+				$("#jdSummary").innerHTML = required.length
+					? `JD 关键词命中 <strong style="color:var(--ok)">${hits.length}/${required.length}</strong>；` +
+						(misses.length
+							? `建议补写：<strong style="color:var(--warn)">${esc(misses.join("、"))}</strong>。`
+							: "无缺失关键词。") +
+						` 中文 ATS 按关键词一致性与量化成果打分，同义词（如「网络推广」代「SEO优化」）会被误判。`
+					: `当前 JD 未检测到预设关键词。可粘贴完整岗位描述，或调整词表。`;
+			}
+
+			function renderForm() {
+				const p = PLATFORMS[currentPlatform];
+				$("#platTabs").innerHTML = Object.entries(PLATFORMS)
+					.map(
+						([k, v]) =>
+							`<button class="plat-tab${k === currentPlatform ? " active" : ""}" data-plat="${k}">${esc(v.label)}</button>`,
+					)
+					.join("");
+				const TAG = { auto: "自动填充", manual: "需补", na: "不填" };
+				$("#mapBody").innerHTML = p.rows
+					.map(
+						([master, field, status, val]) => `
+    <tr>
+      <td>${esc(master)}</td>
+      <td>${esc(field)}</td>
+      <td><span class="tag ${status}">${TAG[status]}</span><span class="map-val">${esc(val)}</span></td>
+    </tr>`,
+					)
+					.join("");
+				const auto = p.rows.filter((r) => r[2] === "auto").length;
+				const manual = p.rows.filter((r) => r[2] === "manual").length;
+				const rate = Math.round((auto / (auto + manual)) * 100);
+				$("#coverBar").style.width = rate + "%";
+				$("#coverText").textContent = `${auto}/${auto + manual}（${rate}%）`;
+				$("#mapNote").innerHTML = `<strong>${esc(p.label)}：</strong>${esc(p.note)}`;
+			}
+
+			function renderReport() {
+				const { required, hits, misses, resumeText } = analyze();
+				const rate = required.length ? Math.round((hits.length / required.length) * 100) : 0;
+				const quantified = (resumeText.match(/\d+(?:\.\d+)?\s*(?:%|pp|个|人|条|场|轮|倍|K|年|月|分)/g) || []).length;
+				const sceneNote = {
+					market: "社招场景：机筛先看量化成果与 JD 关键词一致性；工作经历必须倒序。",
+					campus: "校招场景：额外核对 GPA / CET-6 / 实习关键词是否出现在简历正文，缺少会直接掉分。",
+					soe: "央国企网申：关键词之外还要核对专业全称与学信网登记，一字之差被系统拦截。",
+				};
+				$("#report").innerHTML = `
+    <h3>JD 关键词对齐报告</h3>
+    <p class="lead">按当前「${esc(SCENES[currentScene].label)}」输出实时计算 · 中文 ATS 按关键词一致性与量化成果打分</p>
+    <div class="r-grid">
+      <div class="r-card"><b style="color:${rate >= 80 ? "#1f7a4c" : "#b06a12"}">${rate}%</b><span>关键词命中率（${hits.length}/${required.length}）</span></div>
+      <div class="r-card"><b>${misses.length}</b><span>缺失关键词</span></div>
+      <div class="r-card"><b>${quantified}</b><span>数字 / 百分比表述数</span></div>
+    </div>
+    <div class="r-sec">
+      <h4>命中 / 缺失</h4>
+      <div class="r-line">${hits.map((k) => `<code style="color:#1f7a4c">✓ ${esc(k)}</code>`).join(" ") || "<code>无</code>"}</div>
+      <div class="r-line">${misses.map((k) => `<code style="color:#96610f">! ${esc(k)}</code>`).join(" ") || "<code>无缺失</code>"}</div>
+    </div>
+    <div class="r-sec">
+      <h4>建议改写（可直接粘贴，按 ${esc(SCENES[currentScene].label)} 场景选用）</h4>
+      ${
+				required.length === 0
+					? `<div class="rewrite">JD 未检测到预设关键词，暂无改写建议。粘贴完整岗位描述后再生成。</div>`
+					: misses.length
+						? misses
+								.map(
+									(k) =>
+										`<div class="rewrite"><strong>${esc(k)}</strong>：${esc(REWRITE[k] || "按 JD 用词补写一条量化成果。")}</div>`,
+								)
+								.join("")
+						: `<div class="rewrite">当前 JD 要求的关键词已全部覆盖。继续核对日期格式与文件名规范。</div>`
+			}
+      ${required.length === 0 ? `<div class="warnbox">JD 未检测到预设关键词，报告无可比基线，命中率不可解读。粘贴完整岗位描述或扩充词表。</div>` : ""}
+    </div>
+    <div class="r-sec">
+      <h4>解析风险</h4>
+      <div class="warnbox">
+        同义词会被中文 ATS 误判：用「网络推广」代「SEO优化」、用「用户调研」代「用户研究」都会掉分，请照抄 JD 原词。
+        复杂表格 / 分栏 / 图标字体也会降低解析率 —— 默认输出为单栏宋体左对齐；若切到「表格式登记」对照预设，解析风险按该预设计。
+      </div>
+      ${styleOpts.table ? `<div class="warnbox" style="margin-top:7px">当前 PDF 已切到「表格式登记」对照预设，含合并单元格与深色标题块，解析风险显著升高；正式投递请切回「ATS 极简单栏」。</div>` : ""}
+    </div>
+    <div class="r-sec">
+      <h4>场景提示</h4>
+      <div class="r-line">${esc(sceneNote[currentScene])}</div>
+    </div>`;
+			}
+
+			function renderDiff() {
+				$("#diff").innerHTML = DIFF.map(
+					([k, oldV, newV]) => `
+    <div class="diff-row"><div class="old"><b>${esc(k)} · 当前</b>${esc(oldV)}</div>
+    <div class="new"><b>${esc(k)} · 样板</b>${esc(newV)}</div></div>`,
+				).join("");
+			}
+
+			function setOutput(out) {
+				currentOutput = out;
+				document.querySelectorAll(".out-tab").forEach((b) => b.classList.toggle("active", b.dataset.out === out));
+				document.querySelectorAll(".view").forEach((v) => v.classList.toggle("on", v.id === out + "View"));
+				if (out === "form") renderForm();
+				if (out === "report") renderReport();
+			}
+
+			function setPlatform(key) {
+				currentPlatform = key;
+				renderForm();
+			}
+
+			function refreshPaper() {
+				renderPaper(currentScene);
+				renderJd();
+				renderStyleBar();
+				if (currentOutput === "report") renderReport();
+			}
+
+			function setPreset(key) {
+				currentPreset = key;
+				styleOpts = presetOptions(key, currentScene);
+				refreshPaper();
+			}
+
+			function setOpt(key, value) {
+				styleOpts[key] = value;
+				currentPreset = "custom";
+				refreshPaper();
+			}
+
+			function render(scene) {
+				currentScene = scene;
+				document.querySelectorAll(".tab").forEach((b) => b.classList.toggle("active", b.dataset.scene === scene));
+				// 预设随场景重算（ATS 预设的照片默认值跟场景走）；自定义组合保留用户改过的开关。
+				if (currentPreset !== "custom") styleOpts = presetOptions(currentPreset, scene);
+				renderMaster(scene);
+				renderPaper(scene);
+				renderJd();
+				renderStyleBar();
+				// 场景决定默认目标平台；用户仍可在表单视图里手动切平台。
+				currentPlatform = scene === "soe" ? "soe" : "boss";
+				if (currentOutput === "form") renderForm();
+				if (currentOutput === "report") renderReport();
+			}
+
+			document.querySelectorAll(".tab").forEach((b) => b.addEventListener("click", () => render(b.dataset.scene)));
+			document.querySelectorAll(".out-tab").forEach((b) => b.addEventListener("click", () => setOutput(b.dataset.out)));
+			document
+				.querySelectorAll(".style-tab")
+				.forEach((b) => b.addEventListener("click", () => setPreset(b.dataset.preset)));
+			document
+				.querySelectorAll(".opt input")
+				.forEach((i) => i.addEventListener("change", () => setOpt(i.dataset.opt, i.checked)));
+			$("#platTabs").addEventListener("click", (e) => {
+				const b = e.target.closest(".plat-tab");
+				if (b) setPlatform(b.dataset.plat);
+			});
+			$("#jd").addEventListener("input", () => {
+				renderJd();
+				if (currentOutput === "report") renderReport();
+			});
+			$("#print").addEventListener("click", () => {
+				setOutput("pdf");
+				window.print();
+			});
+			renderDiff();
+			render("market");
+		</script>
+	</body>
+</html>

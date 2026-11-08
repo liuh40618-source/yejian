@@ -2,6 +2,7 @@ import type { PdfFontRequest } from "./use-register-fonts";
 import type { ResumeData, Typography } from "@reactive-resume/schema/resume/data";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vite-plus/test";
 import { getWebFontSource } from "@reactive-resume/fonts";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
@@ -34,10 +35,13 @@ const withRegistry = () => {
 };
 
 describe("resolvePdfFonts", () => {
+	// Only zh-CN and the Lingui pseudo-locale zu-ZA ship. A Latin reading order uses zu-ZA below:
+	// getLocaleScript() returns null for it, so no Simplified-Chinese safety net joins the fallback
+	// stack. zh-CN would add Noto Serif SC and change what these assertions are about.
 	it("retains the hyphenation preference when adding fallback font stacks", () => {
 		const { registerFonts } = withRegistry();
 		const configured = { ...typography, hyphenation: true };
-		expect(registerFonts(configured, "de-DE", new Set(["emoji"])).hyphenation).toBe(true);
+		expect(registerFonts(configured, "zu-ZA", new Set(["emoji"])).hyphenation).toBe(true);
 		expect(registerFonts(configured, "zh-CN").hyphenation).toBe(true);
 	});
 
@@ -99,7 +103,7 @@ describe("resolvePdfFonts", () => {
 			heading: { ...typography.heading, fontFamily: "Open Sans", fontWeights: ["400", "600"] },
 		} satisfies Typography;
 
-		registerFonts(openSansTypography, "en-US");
+		registerFonts(openSansTypography, "zh-CN");
 
 		expect(registered).toContainEqual(expect.objectContaining({ family: "Open Sans", weight: 700, italic: false }));
 		expect(registered).toContainEqual(expect.objectContaining({ family: "Open Sans", weight: 700, italic: true }));
@@ -109,7 +113,7 @@ describe("resolvePdfFonts", () => {
 		const emojiSource = getWebFontSource("Noto Emoji", "400", false);
 		const { registered, registerFonts } = withRegistry();
 
-		const pdfTypography = registerFonts(typography, "en-US", new Set(["emoji"]));
+		const pdfTypography = registerFonts(typography, "zu-ZA", new Set(["emoji"]));
 
 		expect(pdfTypography.body.fontFamily).toEqual(["IBM Plex Serif", "Noto Emoji", "Noto Serif"]);
 		expect(registered).toContainEqual(
@@ -126,7 +130,7 @@ describe("resolvePdfFonts", () => {
 
 	it("registers the Noto Sans Symbols fallback for arrows without downloading Symbols 2", () => {
 		const { registered, registerFonts } = withRegistry();
-		const pdfTypography = registerFonts(typography, "en-US", new Set(["arrows"]));
+		const pdfTypography = registerFonts(typography, "zu-ZA", new Set(["arrows"]));
 		expect(pdfTypography.body.fontFamily).toEqual(["IBM Plex Serif", "Noto Sans Symbols", "Noto Serif"]);
 		expect(registered).toContainEqual({
 			family: "Noto Sans Symbols",
@@ -141,7 +145,7 @@ describe("resolvePdfFonts", () => {
 		const symbolsSource = getWebFontSource("Noto Sans Symbols 2", "400", false);
 		const { registered, registerFonts } = withRegistry();
 
-		const pdfTypography = registerFonts(typography, "en-US", new Set(["symbols"]));
+		const pdfTypography = registerFonts(typography, "zu-ZA", new Set(["symbols"]));
 
 		expect(pdfTypography.body.fontFamily).toEqual(["IBM Plex Serif", "Noto Sans Symbols 2", "Noto Serif"]);
 		expect(registered).toContainEqual(
@@ -172,7 +176,7 @@ describe("resolvePdfFonts", () => {
 	it("registers a punctuation fallback for Latin locale and Latin content (#3190)", () => {
 		const { registered, registerFonts } = withRegistry();
 
-		const pdfTypography = registerFonts(typography, "en-US");
+		const pdfTypography = registerFonts(typography, "zu-ZA");
 
 		expect(pdfTypography.body.fontFamily).toEqual(["IBM Plex Serif", "Noto Serif"]);
 		expect(pdfTypography.heading.fontFamily).toEqual(["IBM Plex Serif", "Noto Serif"]);
@@ -188,7 +192,7 @@ describe("resolvePdfFonts", () => {
 			heading: { ...typography.heading, fontFamily: "Lato", fontWeights: ["600"] },
 		} satisfies Typography;
 
-		const pdfTypography = registerFonts(migratedTypography, "en-US");
+		const pdfTypography = registerFonts(migratedTypography, "zh-CN");
 
 		expect(pdfTypography.body.fontWeights).toEqual(["400"]);
 		expect(pdfTypography.heading.fontWeights).toEqual(["400", "700"]);
@@ -297,12 +301,13 @@ describe("italic faces", () => {
 		["a stylesheet", withSummary("<p>Plain</p>", "summary { font-style: italic; }"), true],
 	])("are registered only when the resume uses italics: %s", (_, data, italic) => {
 		expect(resumeUsesItalic(data)).toBe(italic);
-		const fonts = resolvePdfFonts(typography, "en-US", undefined, resumeUsesItalic(data)).fonts;
+		const fonts = resolvePdfFonts(typography, "zh-CN", undefined, resumeUsesItalic(data)).fonts;
 		expect(fonts.some((font) => font.italic)).toBe(italic);
 	});
 
 	it("are never asked for by a template's own styles", () => {
-		const templates = new URL("../templates", import.meta.url).pathname;
+		// `URL.pathname` keeps the leading slash before a Windows drive letter, which joins into "D:\D:\...".
+		const templates = fileURLToPath(new URL("../templates", import.meta.url));
 		const sources = readdirSync(templates, { recursive: true, encoding: "utf8" }).filter(
 			(file) => /\.tsx?$/.test(file) && !/\.test\./.test(file),
 		);

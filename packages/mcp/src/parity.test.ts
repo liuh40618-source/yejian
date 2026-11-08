@@ -49,7 +49,7 @@ beforeEach(async () => {
 			permissions: ["read", "write", "delete"],
 		} satisfies RequestAuthentication,
 		resHeaders: new Headers(),
-		locale: "en-US" as const,
+		locale: "zh-CN" as const,
 		trustedClient: "127.0.0.1",
 	};
 	registerTools(server, calls as unknown as RouterClient<typeof MCP_ROUTER>, new Headers(), context.authentication);
@@ -268,7 +268,7 @@ it("exposes explicit discovery context consent and blocks delegated read-only AI
 		recipientVersion: "a".repeat(64),
 		resumeId: null,
 		includeKnowledge: true,
-		locale: "en-US",
+		locale: "zh-CN",
 	};
 	const { recipientVersion: _version, ...missingVersion } = input;
 	for (const args of [missingVersion, { ...input, recipientVersion: "invalid" }])
@@ -294,7 +294,7 @@ it("exposes explicit discovery context consent and blocks delegated read-only AI
 			permissions: ["read"],
 		},
 		resHeaders: new Headers(),
-		locale: "en-US",
+		locale: "zh-CN",
 		trustedClient: "127.0.0.1",
 	});
 	const [a, b] = InMemoryTransport.createLinkedPair();

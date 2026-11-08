@@ -39,6 +39,7 @@ import {
 } from "@reactive-resume/email/templates/auth";
 import { sendEmail } from "@reactive-resume/email/transport";
 import { env } from "@reactive-resume/env/server";
+import { APP_NAME } from "@reactive-resume/utils/brand";
 import { defaultLocale, isLocale, localeSchema } from "@reactive-resume/utils/locale";
 import { rateLimitConfig } from "@reactive-resume/utils/rate-limit";
 import { generateId, toUsername } from "@reactive-resume/utils/string";
@@ -80,7 +81,12 @@ function requestLocale(headers: Headers | undefined) {
  */
 function accountEmailLocale(user: User, request: Request | undefined) {
 	const saved = (user as User & { locale?: unknown }).locale;
-	return isLocale(saved) ? saved : (requestLocale(request?.headers) ?? defaultLocale);
+	// Accounts created before this build shipped a Chinese-only interface still carry tags like
+	// en-US / de-DE. Those are not valid UI `Locale` values, but authEmailMessages accepts any
+	// BCP-47 tag and falls back to English string by string. Keep the stored tag instead of
+	// narrowing it away, otherwise upgraded accounts would silently start receiving Chinese.
+	if (typeof saved === "string" && saved) return saved;
+	return requestLocale(request?.headers) ?? defaultLocale;
 }
 const isRateLimitEnabled = process.env.NODE_ENV === "production" && !env.FLAG_DISABLE_API_RATE_LIMIT;
 
@@ -679,7 +685,7 @@ const getAuthConfig = () => {
 	}
 
 	return betterAuth({
-		appName: "Reactive Resume",
+		appName: APP_NAME,
 		baseURL: authBaseUrl,
 		secret: env.AUTH_SECRET,
 
@@ -1090,7 +1096,7 @@ const getAuthConfig = () => {
 			passkey(),
 			genericOAuth({ config: authConfigs }),
 			twoFactor({
-				issuer: "Reactive Resume",
+				issuer: APP_NAME,
 				// Capitals without look-alike characters; the sign-in form also tries what's typed in capitals.
 				backupCodeOptions: { customBackupCodesGenerate: () => generateBackupCodes() },
 			}),

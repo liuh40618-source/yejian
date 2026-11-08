@@ -69,7 +69,7 @@ it.each(templateSchema.options)(
 		];
 		const file = await createResumePdfFile({ data: source, template, filename: `education-${template}.pdf` });
 		create.mockClear();
-		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+		await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 		const saved = create.mock.calls[0]?.[0] as { data: ResumeData };
 		const items = saved.data.sections.education.items;
 		expect(items.map((item) => item.school)).toEqual(["University of California, Berkeley", "Imperial College London"]);

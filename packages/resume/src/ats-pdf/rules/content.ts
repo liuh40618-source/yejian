@@ -17,9 +17,14 @@ function bulletBodies(context: PdfCheckContext): string[] {
 		.filter(Boolean);
 }
 
+/**
+ * Guard for the rules that read bullet phrasing. Returns a skip when the document's language has
+ * no phrasing rule to apply, so a Chinese resume is judged by the Chinese thresholds instead of
+ * being silently exempt from the whole category.
+ */
 function guardBullets(context: PdfCheckContext) {
 	if (hasNoText(context)) return skip("no-text");
-	if (!context.semantics.quality.isEnglish) return skip("not-english");
+	if (!context.semantics.quality.isEnglish && !context.semantics.quality.isChinese) return skip("not-english");
 	if (context.semantics.bulletLineCount < THRESHOLDS.content.minBulletsForContentAdvice) {
 		return skip("insufficient-data");
 	}
@@ -55,7 +60,7 @@ export const contentChecks: readonly PdfCheck[] = [
 
 	check("FIRST_PERSON_PRONOUNS", (context) => {
 		if (hasNoText(context)) return skip("no-text");
-		if (!context.semantics.quality.isEnglish) return skip("not-english");
+		if (!context.semantics.quality.isEnglish && !context.semantics.quality.isChinese) return skip("not-english");
 
 		return failIf(
 			context.semantics.firstPersonCount > THRESHOLDS.content.maxFirstPersonMentions,
@@ -89,6 +94,8 @@ export const contentChecks: readonly PdfCheck[] = [
 
 	check("ALL_CAPS_RUNS", (context) => {
 		if (hasNoText(context)) return skip("no-text");
+		// Chinese has no capital letters, so a "run of capitals" cannot exist in it.
+		if (context.semantics.quality.isChinese) return skip("not-applicable");
 
 		return failIf(context.semantics.allCapsLineCount > THRESHOLDS.content.allCapsLineCount, "ALL_CAPS_RUNS", {
 			count: context.semantics.allCapsLineCount,

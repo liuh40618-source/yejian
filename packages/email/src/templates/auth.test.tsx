@@ -6,6 +6,7 @@ import { confirmNewEmail, resetPasswordEmail, verifyEmail, verifyEmailChange } f
 const tag = (html: string, name: string) => html.match(new RegExp(`<${name}\\b[^>]*>`))?.[0] ?? "";
 
 const url = "https://rxresu.me/api/auth/verify-email?token=signed.token-value&callbackURL=%2Fdashboard";
+const han = /[\u4e00-\u9fff]/;
 
 describe("account emails", () => {
 	it("keep the English text, link and plain-text copy for an English account", async () => {
@@ -15,7 +16,7 @@ describe("account emails", () => {
 		expect(email.subject).toBe("Verify your email");
 		expect(tag(html, "html")).toContain('lang="en-US"');
 		expect(tag(html, "html")).toContain('dir="ltr"');
-		expect(html).toContain("Confirm this is your email address for Reactive Resume. The link works for 1 hour.");
+		expect(html).toContain("Confirm this is your email address for 页见. The link works for 1 hour.");
 		expect(html).toContain(`href="${url.replaceAll("&", "&amp;")}"`);
 		// The plain-text part is written out: the link once, the heading as written.
 		expect(email.text.split(url)).toHaveLength(2);
@@ -26,19 +27,19 @@ describe("account emails", () => {
 	it("words a new address's link as finishing an email change, not a sign-up", () => {
 		const email = confirmNewEmail({ url, locale: "en-US" });
 		expect(email.subject).toBe("Confirm your new email");
-		expect(email.text).toContain("Confirm this address to finish changing your Reactive Resume email.");
+		expect(email.text).toContain("Confirm this address to finish changing your 页见 email.");
 		expect(email.text).not.toMatch(/signing up|create this account/);
 	});
 
-	it("go out right to left in Arabic, with the link unchanged", async () => {
-		for (const email of [verifyEmail({ url, locale: "ar-SA" }), resetPasswordEmail({ url, locale: "ar-SA" })]) {
+	it("go out in Chinese for a Chinese account, with the link unchanged", async () => {
+		for (const email of [verifyEmail({ url, locale: "zh-CN" }), resetPasswordEmail({ url, locale: "zh-CN" })]) {
 			const html = await render(email.react);
 			const { text } = email;
 
-			expect(email.subject).toMatch(/[؀-ۿ]/);
+			expect(email.subject).toMatch(han);
 			for (const name of ["html", "body"]) {
-				expect(tag(html, name)).toContain('lang="ar-SA"');
-				expect(tag(html, name)).toContain('dir="rtl"');
+				expect(tag(html, name)).toContain('lang="zh-CN"');
+				expect(tag(html, name)).toContain('dir="ltr"');
 			}
 			expect(html).not.toContain('lang="en"');
 			expect(html).not.toContain("If the button does not work");
@@ -52,11 +53,11 @@ describe("account emails", () => {
 			url,
 			previousEmail: "layla@example.test",
 			newEmail: "new-address@example.test",
-			locale: "ar-SA",
+			locale: "zh-CN",
 		});
 		const text = await render(email.react, { plainText: true });
 
-		expect(email.subject).toBe("الموافقة على تغيير بريدك الإلكتروني");
+		expect(email.subject).toBe("确认你的邮箱更改");
 		expect(text).toContain("layla@example.test");
 		expect(text.match(/new-address@example\.test/g)).toHaveLength(2);
 		expect(text).not.toMatch(/\{(previousEmail|newEmail|appName)\}/);

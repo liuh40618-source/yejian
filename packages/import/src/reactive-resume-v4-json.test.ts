@@ -108,7 +108,7 @@ function makeV4Base(overrides: Record<string, unknown> = {}) {
 			...overrides,
 		},
 		metadata: {
-			template: "onyx",
+			template: "minimal-photo",
 			layout: [[["experience", "education"], ["skills"]]],
 			css: { value: "", visible: false },
 			page: { margin: 14, format: "a4" as const, options: { breakLine: false, pageNumbers: false } },

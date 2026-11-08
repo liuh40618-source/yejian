@@ -13,6 +13,11 @@ a common sense that is _not_ the one used here, that wrong sense is listed expli
 Terms are grouped by the part of the product they belong to. Source references point at where the
 string is defined, so you can read the surrounding code when this file is not enough.
 
+This build ships one interface language, `zh-CN`. The catalog is at 100%, so a missing translation
+is a regression, not a gap: `zh-CN.po` should never fall back to the English msgid in the interface.
+Where this file disagrees with upstream's glossary, this file wins — it has been rewritten for a
+Chinese-market product, not for a translation of an English one.
+
 ## Always left untranslated
 
 Product and technology names stay in English (or in the locale's established transliteration, if
@@ -25,11 +30,18 @@ Also keep LinkedIn, Discord, Figma, Claude Desktop, PDF.js, models.dev, iOS, MIT
 and WCAG 2.1 AA unchanged. **Word**, when naming an import or download format, means
 **Microsoft Word**; do not translate it as the ordinary noun "word".
 
-Names in sample documents and job postings are proper nouns too: Alex Morgan, Amruth Pillai,
-Fieldnote, Northwind Labs, Parcel & Co., Lumen, and University of Porto. Keep these names
-unchanged, including inside longer sentences. Translate surrounding job titles and descriptions,
-not the person's, company's, or institution's name. Preserve place names such as Lisbon, Porto,
-and Portugal in these examples as well.
+Names in sample documents and job postings are proper nouns too. This build's demo persona is
+Chinese, so those names are Chinese: 陈嘉宁 (the person), 云图科技 · 上海 and 拾贝网络 · 杭州 (her
+employers), 同济大学 (her school), and 青禾科技 (the company she applies to in the job-posting
+scenes, with 陈曦 as the recruiter). Keep these names unchanged, including inside longer sentences.
+Translate surrounding job titles and descriptions, not the person's, company's, or institution's
+name. Place names in the examples are 上海 and 杭州.
+
+Upstream keeps a Portuguese persona instead — Alex Morgan, Lisbon, University of Porto,
+Northwind Labs, Parcel & Co., Fieldnote, Lumen, Amruth Pillai. Those names do not appear in this
+catalog any more. If a merge reintroduces them, localise them the same way rather than leaving a
+Western demo resume behind a Chinese interface: a Chinese user reading the marketing page should
+see a resume that looks like one they could have written.
 
 Configuration identifiers such as `ENCRYPTION_SECRET`, file extensions, example email addresses,
 and literal URLs are syntax, not translatable prose. Keep them exactly as written.

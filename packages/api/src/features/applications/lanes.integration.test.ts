@@ -317,7 +317,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { applicationsRouter } = await import("./router");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -387,7 +387,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { latestStageEntryId } = await import("@reactive-resume/schema/applications/data");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -438,7 +438,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { stageBaselinesFor } = await import("@reactive-resume/schema/applications/stage-baselines");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -484,7 +484,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { stageBaselinesFor } = await import("@reactive-resume/schema/applications/stage-baselines");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -553,7 +553,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { careerRouter } = await import("../career/router");
 		const { savedStageIn, stageBaselinesFor } = await import("@reactive-resume/schema/applications/stage-baselines");
 		const context = {
-			locale: "en-US",
+			locale: "zu-ZA",
 			reqHeaders: new Headers(),
 			authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 		} as never;
@@ -663,7 +663,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { applicationsRouter } = await import("./router");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -734,7 +734,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { latestStageEntryId } = await import("@reactive-resume/schema/applications/data");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -773,7 +773,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		afterEach(() => vi.useRealTimers());
 		const clients = async () => {
 			const context = {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never;
@@ -963,7 +963,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { applicationsRouter } = await import("./router");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -999,7 +999,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { applicationsRouter } = await import("./router");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -1024,7 +1024,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 			const { applicationsRouter } = await import("./router");
 			const client = createRouterClient(applicationsRouter, {
 				context: {
-					locale: "en-US",
+					locale: "zu-ZA",
 					reqHeaders: new Headers(),
 					authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 				} as never,
@@ -1054,12 +1054,12 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { resumeService } = await import("../resume/service");
 		const client = createRouterClient(documentsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
 		});
-		const base = await resumeService.create({ userId: "alice", name: "Base", tags: [], locale: "en-US" });
+		const base = await resumeService.create({ userId: "alice", name: "Base", tags: [], locale: "zu-ZA" });
 		const job = {
 			company: "Fieldnote",
 			role: "Designer",
@@ -1107,19 +1107,19 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		// Another account can't reuse the ID.
 		const bob = createRouterClient(documentsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "bob" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
 		});
-		const bobBase = await resumeService.create({ userId: "bob", name: "Bob", tags: [], locale: "en-US" });
+		const bobBase = await resumeService.create({ userId: "bob", name: "Bob", tags: [], locale: "zu-ZA" });
 		await expect(bob.copyForJob({ resumeId: bobBase, newId: id })).rejects.toMatchObject({ code: "CONFLICT" });
 
 		// Saving and linking a job is retry-safe the same way.
 		const { applicationsRouter } = await import("./router");
 		const apps = createRouterClient(applicationsRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,
@@ -1136,13 +1136,13 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { applicationsRouter } = await import("./router");
 		const { resumeService } = await import("../resume/service");
 		const context = {
-			locale: "en-US",
+			locale: "zu-ZA",
 			reqHeaders: new Headers(),
 			authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 		} as never;
 		const documents = createRouterClient(documentsRouter, { context });
 		const apps = createRouterClient(applicationsRouter, { context });
-		const newResume = (name: string) => resumeService.create({ userId: "alice", name, tags: [], locale: "en-US" });
+		const newResume = (name: string) => resumeService.create({ userId: "alice", name, tags: [], locale: "zu-ZA" });
 		const purge = async (id: string) => {
 			await documents.trash({ type: "resume", id });
 			await documents.purge({ type: "resume", id });
@@ -1229,13 +1229,13 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { applicationsRouter } = await import("./router");
 		const { resumeService } = await import("../resume/service");
 		const context = {
-			locale: "en-US",
+			locale: "zu-ZA",
 			reqHeaders: new Headers(),
 			authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 		} as never;
 		const documents = createRouterClient(documentsRouter, { context });
 		const apps = createRouterClient(applicationsRouter, { context });
-		const base = await resumeService.create({ userId: "alice", name: "Base", tags: [], locale: "en-US" });
+		const base = await resumeService.create({ userId: "alice", name: "Base", tags: [], locale: "zu-ZA" });
 		const contoso = await apps.create({ company: "Contoso", role: "Engineer" });
 		const snapshot = async () => ({
 			resumes: await getDb().select().from(tables.resume).where(eq(tables.resume.userId, "alice")),
@@ -1495,7 +1495,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const { applicationLanesRouter } = await import("./lane-router");
 		const client = createRouterClient(applicationLanesRouter, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: { user: { id: "alice" }, method: "session", permissions: ["read", "write", "delete"] },
 			} as never,

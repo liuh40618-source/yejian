@@ -89,6 +89,8 @@ describe("getPresentLabel", () => {
 describe("upgradeResumeDates", () => {
 	const withExperience = (period: string) => {
 		const data = structuredClone(defaultResumeData);
+		// The shipped default is zh-CN; these assertions describe English month names.
+		data.metadata.page.locale = "en-US";
 		// Saved before structured dates: no date format yet.
 		delete data.metadata.page.dateFormat;
 		data.sections.experience.items = [
@@ -176,6 +178,8 @@ describe("formatResumeDates", () => {
 describe("syncResumeDates", () => {
 	const resume = (period: string) => {
 		const data = structuredClone(defaultResumeData);
+		// The shipped default is zh-CN; these assertions describe English month names.
+		data.metadata.page.locale = "en-US";
 		data.metadata.page.dateFormat = "short";
 		data.sections.experience.items = [
 			{
@@ -285,6 +289,14 @@ describe("syncResumeDates", () => {
 		expect(job(data)?.period).toBe("Summer 2016 - 2018");
 		expect(job(data)?.dates?.raw).toBe("Summer 2016 - 2018");
 		expect(data).toEqual(once);
+	});
+
+	it("formats dates in Chinese when the page locale is zh-CN", () => {
+		const data = resume("March 2022 - Present");
+		data.metadata.page.locale = "zh-CN";
+		syncResumeDates(data);
+
+		expect(job(data)?.period).toBe("2022年3月 – 至今");
 	});
 });
 

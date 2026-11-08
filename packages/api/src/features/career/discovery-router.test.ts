@@ -23,7 +23,7 @@ const user = {
 };
 const client = (permissions: ("read" | "write" | "delete")[]) =>
 	createRouterClient(careerRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method: "apiKey", permissions } },
+		context: { locale: "zu-ZA", reqHeaders: new Headers(), authentication: { user, method: "apiKey", permissions } },
 	});
 beforeEach(() => vi.clearAllMocks());
 it("requires write for provider disclosure and track, delete for dismiss", async () => {
@@ -36,5 +36,7 @@ it("requires write for provider disclosure and track, delete for dismiss", async
 	expect(service.dismiss).not.toHaveBeenCalled();
 	service.suggest.mockResolvedValue({ suggestions: [] });
 	await expect(client(["write"]).suggestTargetRoles(input)).resolves.toEqual({ suggestions: [] });
+	// The locale here comes from roleSuggestionsInputSchema's input default, not from the ORPC context
+	// (which carries the interface locale). Keep them distinct: this asserts the wire-level default.
 	expect(service.suggest).toHaveBeenCalledWith("owner", { ...input, locale: "en-US" }, undefined);
 });

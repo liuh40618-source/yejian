@@ -8,6 +8,7 @@
 		"./amount": "./src/amount.ts",
 		"./app-paths": "./src/app-paths.ts",
 		"./auth-intent": "./src/auth-intent.ts",
+		"./brand": "./src/brand.ts",
 		"./color": "./src/color.ts",
 		"./file": "./src/file.ts",
 		"./form-fill": "./src/form-fill.ts",

@@ -30,7 +30,7 @@ const PdfViewer = lazy(() => import("./pdf-viewer").then((module) => ({ default:
 const loadReadFile = () => import("@/features/resume/import/read-file");
 
 const MAX_POSTING = 20_000;
-const SAMPLE = { url: "/templates/pdf/onyx.pdf", name: "Sample resume.pdf" };
+const SAMPLE = { url: "/templates/pdf/minimal-photo.pdf", name: "Sample resume.pdf" };
 
 type State =
 	| { name: "idle"; error?: string }

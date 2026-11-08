@@ -5,6 +5,7 @@ import { createVitestProjectConfig } from "../../vitest.shared.mts";
 const config = createVitestProjectConfig({
 	name: "@reactive-resume/pdf",
 	dirname: fileURLToPath(new URL(".", import.meta.url)),
+	fontCache: true,
 });
 
 export default {

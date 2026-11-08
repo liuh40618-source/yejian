@@ -286,30 +286,33 @@ describe("contact checks", () => {
 });
 
 describe("date checks", () => {
-	it.each([false, true])("recognizes Onyx year ranges beside role words (separate runs: %s)", (separateRuns) => {
-		const datedLines = [
-			["Clinical Research Coordinator", "2022 – Present"],
-			["Clinical Research Coordinator", "2019 – 2022"],
-			["Clinical Research", "2013 – 2017"],
-			["Community Skills Network", "2023 – Present"],
-		] as const;
-		const raw = makeRawExtraction({
-			lines: datedLines.flatMap(([text, period], index) =>
-				separateRuns
-					? [
-							{ text, x: 56, y: 60 + index * 30 },
-							{ text: period, x: 440, y: 60 + index * 30 },
-						]
-					: [{ text: `${text} ${period}` }],
-			),
-		});
+	it.each([false, true])(
+		"recognizes MinimalPhoto year ranges beside role words (separate runs: %s)",
+		(separateRuns) => {
+			const datedLines = [
+				["Clinical Research Coordinator", "2022 – Present"],
+				["Clinical Research Coordinator", "2019 – 2022"],
+				["Clinical Research", "2013 – 2017"],
+				["Community Skills Network", "2023 – Present"],
+			] as const;
+			const raw = makeRawExtraction({
+				lines: datedLines.flatMap(([text, period], index) =>
+					separateRuns
+						? [
+								{ text, x: 56, y: 60 + index * 30 },
+								{ text: period, x: 440, y: 60 + index * 30 },
+							]
+						: [{ text: `${text} ${period}` }],
+				),
+			});
 
-		const result = report(raw);
-		const { dates } = buildResumeSemantics(raw, buildExtractedDocument(raw), { now: NOW });
-		expect(dates.filter((date) => date.kind === "range" && date.parsed)).toHaveLength(4);
-		expect(statusOf(result, "NO_DATES_FOUND")).toBe("pass");
-		expect(statusOf(result, "MIXED_DATE_FORMATS")).toBe("pass");
-	});
+			const result = report(raw);
+			const { dates } = buildResumeSemantics(raw, buildExtractedDocument(raw), { now: NOW });
+			expect(dates.filter((date) => date.kind === "range" && date.parsed)).toHaveLength(4);
+			expect(statusOf(result, "NO_DATES_FOUND")).toBe("pass");
+			expect(statusOf(result, "MIXED_DATE_FORMATS")).toBe("pass");
+		},
+	);
 
 	it("caps a resume with no dates at all", () => {
 		const undated = healthyResumeLines.filter((line) => typeof line !== "string" || !/\d{4}/.test(line));

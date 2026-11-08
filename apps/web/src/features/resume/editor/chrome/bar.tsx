@@ -31,7 +31,7 @@ export function EditorBarFrame({ layout, pinnable, menu, modes, history, childre
 	const setSheetTab = useEditorStore((state) => state.setSheetTab);
 
 	return (
-		<header className="grid h-(--editor-bar) grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 border-b border-line bg-surface px-3">
+		<header className="grid h-(--editor-bar) grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-3 border-b border-line-2 bg-bg px-3">
 			<div className="flex min-w-0 items-center gap-1.5">
 				<BackLink />
 				{layout === "tablet" && <DrawerControls pinnable={pinnable} />}

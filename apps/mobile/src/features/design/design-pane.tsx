@@ -7,6 +7,7 @@ import { I18nManager, Pressable, View, useWindowDimensions } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 import Animated, { FadeIn, LinearTransition, ReduceMotion, SlideInLeft, SlideInRight } from "react-native-reanimated";
 import { AdvancedGroup, AdvancedPageScreen, ColoursScreen, StylesScreen, TypographyScreen } from "./advanced";
+import { ChinaMarketGroup } from "./china-market-group";
 import {
 	applyTemplate,
 	designWrite,
@@ -29,7 +30,7 @@ import { useIsTablet } from "@/shell/use-is-tablet";
 import { Banner, IconButton, ListRow, Skeleton, Text, haptics, showToast, useReducedMotion, useTheme } from "@/ui";
 import { useKeyboardScrollSpace } from "@/ui/keyboard";
 
-type Tab = "template" | "entries" | "type" | "color" | "page";
+type Tab = "template" | "entries" | "type" | "color" | "page" | "china";
 type Entry = { kind: "advanced"; id: AdvancedId } | { kind: "picker"; spec: PickerSpec };
 
 const SCROLL_STEP = 100;
@@ -86,6 +87,7 @@ export function DesignPane({ id }: { id: string }) {
 		{ id: "type", label: t`Type` },
 		{ id: "color", label: t`Color` },
 		{ id: "page", label: t`Page` },
+		{ id: "china", label: t`China market` },
 	];
 
 	const body = () => {
@@ -131,6 +133,7 @@ export function DesignPane({ id }: { id: string }) {
 			);
 		if (tab === "entries") return <EntriesGroup {...props} />;
 		if (tab === "color") return <ColorGroup {...props} />;
+		if (tab === "china") return <ChinaMarketGroup {...props} />;
 		return (
 			<View style={{ gap: space.s6 }}>
 				<PageGroup {...props} />
@@ -229,7 +232,12 @@ export function DesignPane({ id }: { id: string }) {
 									borderBottomColor: active ? colors.accent : "transparent",
 								}}
 							>
-								<Text variant="callout" color={active ? "accentText" : "ink2"} style={{ fontFamily: fonts.ui[600] }}>
+								<Text
+									variant="callout"
+									numberOfLines={1}
+									color={active ? "accentText" : "ink2"}
+									style={{ fontFamily: fonts.ui[600] }}
+								>
 									{item.label}
 								</Text>
 							</Pressable>

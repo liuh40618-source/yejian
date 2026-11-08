@@ -5,7 +5,7 @@ import { templateLayouts, templateSchema } from "@reactive-resume/schema/templat
 import { cn } from "@reactive-resume/utils/style";
 import { templates } from "@/dialogs/resume/template/data";
 import { LandingBackground } from "@/features/homepage/background";
-import { CtaLink, Doodle, labelClass } from "@/features/homepage/ui";
+import { CtaLink, labelClass } from "@/features/homepage/ui";
 
 const linkClass = "text-accent-text underline underline-offset-4 transition-colors hover:text-accent-hover";
 
@@ -19,13 +19,6 @@ export function TemplateGallery() {
 			<LandingBackground />
 			<main id="main-content" className="relative px-5 pt-28 pb-16 sm:px-8">
 				<div className="relative mx-auto max-w-6xl">
-					<Doodle
-						name="curve"
-						wipe="1"
-						sizes="(min-width: 900px) 14vw, 1px"
-						className="end-0 top-4 w-[clamp(140px,14vw,220px)] rotate-[8deg] max-[900px]:hidden"
-					/>
-
 					<div className="relative max-w-3xl">
 						<h1 className="font-anybody text-[clamp(40px,6vw,80px)] leading-[1.02] font-light tracking-[-.03em] text-balance">
 							{t`${count} free resume templates. Find your fit.`}
@@ -36,10 +29,7 @@ export function TemplateGallery() {
 
 						<div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
 							<CtaLink size="hero" />
-							<a
-								href="https://docs.rxresu.me/guides/choosing-a-template"
-								className={cn(linkClass, "inline-flex min-h-11 items-center")}
-							>
+							<a href="#layout-advice" className={cn(linkClass, "inline-flex min-h-11 items-center")}>
 								{t`How to choose a template`}
 							</a>
 						</div>

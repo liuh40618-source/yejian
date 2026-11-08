@@ -1,5 +1,6 @@
 import z from "zod";
 import { templateSchema } from "../templates";
+import { chinaMarketSchema } from "./china-market";
 import { dateFormatSchema, resumeDatesSchema, syncResumeDates, upgradeResumeDates } from "./dates";
 import { semanticStylesheetSchema } from "./stylesheet";
 
@@ -762,7 +763,7 @@ export type StyleRuleTarget = z.infer<typeof styleRuleTargetSchema>;
 
 export const metadataSchema = z.object({
 	template: templateSchema
-		.catch("onyx")
+		.catch("minimal-photo")
 		.describe("The template to use for the resume. Determines the overall design and appearance of the resume."),
 	layout: layoutSchema.describe(
 		"The layout of the resume. Determines the structure and arrangement of the sections on the resume.",
@@ -784,13 +785,16 @@ export const metadataSchema = z.object({
 	styleRules: styleRulesSchema.describe(
 		"Structured style rules that target semantic resume sections and slots for PDF rendering.",
 	),
+	// Missing on resumes created before the China-market workflows shipped. `chinaMarketOf()` in
+	// @reactive-resume/resume/china-market supplies the defaults without rewriting stored data.
+	chinaMarket: chinaMarketSchema
+		.optional()
+		.catch(undefined)
+		.describe("China-market scene, visual preset, structured master fields and platform form mapping. Not printed."),
 	stylesheet: semanticStylesheetSchema.optional(),
 	web: z
 		.object({
-			showCredit: z
-				.boolean()
-				.catch(true)
-				.describe("Whether the web page shows the small 'Made with Reactive Resume' footer."),
+			showCredit: z.boolean().catch(true).describe("Whether the web page shows the small 'Made with 页见' footer."),
 		})
 		.optional()
 		.catch(undefined)

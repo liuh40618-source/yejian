@@ -32,7 +32,7 @@ function makeResume(mutate: (data: ResumeData) => void = () => undefined): Resum
 				roles: [],
 			} as ResumeData["sections"]["experience"]["items"][number],
 		];
-		data.metadata.template = "onyx";
+		data.metadata.template = "minimal-photo";
 		data.metadata.layout.pages = [{ fullWidth: false, main: ["experience"], sidebar: [] }];
 		mutate(data);
 	});
@@ -96,23 +96,6 @@ describe("buildIssues", () => {
 
 		const odd = makeResume((resume) => (resume.basics.website.url = "ftp:/reyes.design"));
 		expect(only(odd, "MALFORMED_URL").fix.kind).toBe("write");
-	});
-
-	it("switches a two-column page to one column without losing its sidebar sections", () => {
-		const data = makeResume((resume) => {
-			resume.metadata.template = "azurill";
-			resume.sections.skills.items = [
-				{ id: "s1", hidden: false, icon: "", iconColor: "", name: "Figma", proficiency: "", level: 0, keywords: [] },
-			];
-			resume.metadata.layout.pages = [{ fullWidth: false, main: ["experience"], sidebar: ["skills"] }];
-		});
-		const issue = only(data, "TWO_COLUMN_LAYOUT");
-		expect(issue.keepLabel).toBe(true);
-		expect(issue.target).toBeNull();
-
-		const fixed = applyFix(data, issue);
-		expect(fixed.metadata.layout.pages).toEqual([{ fullWidth: true, main: ["experience", "skills"], sidebar: [] }]);
-		expect(issuesOf(fixed)).toEqual([]);
 	});
 });
 

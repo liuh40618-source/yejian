@@ -9,13 +9,14 @@ import { contrastOnWhite } from "@reactive-resume/utils/color";
 
 type Metadata = ResumeData["metadata"];
 
-/** Five traditional resume faces. Families that aren't a pairing leave the control with no selection. */
+/** Five traditional faces plus the Chinese ATS-safe default. Paired 1:1 with the web app. */
 export const FONT_PAIRINGS = [
 	{ id: "classic", heading: "EB Garamond", body: "EB Garamond", headingWeight: "600" },
 	{ id: "traditional", heading: "Tinos", body: "Tinos", headingWeight: "700" },
 	{ id: "balanced", heading: "Source Serif 4", body: "Source Sans 3", headingWeight: "600" },
 	{ id: "professional", heading: "Carlito", body: "Carlito", headingWeight: "700" },
 	{ id: "clean", heading: "Lato", body: "Lato", headingWeight: "700" },
+	{ id: "china-ats", heading: "Noto Sans SC", body: "Noto Serif SC", headingWeight: "600" },
 ] as const;
 
 export type FontPairingId = (typeof FONT_PAIRINGS)[number]["id"];

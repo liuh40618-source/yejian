@@ -8,8 +8,8 @@ type Data = ResumeData | WritableDraft<ResumeData>;
 type Metadata = Pick<Data["metadata"], "typography" | "design" | "page">;
 
 /**
- * Five traditional resume faces, set in Regular and Bold. Families that aren't a pairing leave the control with no
- * selection; any other font is chosen in Advanced.
+ * Five traditional resume faces plus the Chinese ATS-safe default. Families that aren't a pairing
+ * leave the control with no selection; any other font is chosen in Advanced.
  */
 export const FONT_PAIRINGS = [
 	{ id: "classic", label: msg`Classic`, heading: "EB Garamond", body: "EB Garamond", headingWeight: "600" },
@@ -17,6 +17,13 @@ export const FONT_PAIRINGS = [
 	{ id: "balanced", label: msg`Balanced`, heading: "Source Serif 4", body: "Source Sans 3", headingWeight: "600" },
 	{ id: "professional", label: msg`Professional`, heading: "Carlito", body: "Carlito", headingWeight: "700" },
 	{ id: "clean", label: msg`Clean`, heading: "Lato", body: "Lato", headingWeight: "700" },
+	{
+		id: "china-ats",
+		label: msg`Chinese ATS`,
+		heading: "Noto Sans SC",
+		body: "Noto Serif SC",
+		headingWeight: "600",
+	},
 ] as const;
 
 export type FontPairingId = (typeof FONT_PAIRINGS)[number]["id"];

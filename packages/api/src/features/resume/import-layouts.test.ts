@@ -25,12 +25,18 @@ import { pdfImportCases, pdfImportSource, pdfExperienceFields } from "./fixtures
 import shipped from "./fixtures/shipped-import.json";
 const save = async (file: File) => {
 	create.mockClear();
-	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 	expect(create).toHaveBeenCalledTimes(1);
 	const saved = create.mock.calls[0]?.[0] as { data: ResumeData } | undefined;
 	if (!saved) throw new Error("Import must create a resume");
 	return saved.data;
 };
+// Custom-field ids are minted on import, so a frozen fixture can only compare the field's visible
+// content. Everything else in basics is stable and stays a deep equality check.
+const basicsWithoutCustomFieldIds = (basics: ResumeData["basics"]) => ({
+	...basics,
+	customFields: basics.customFields.map(({ id: _id, ...field }) => field),
+});
 it.each(shipped)("preserves complete shipped identity and work history / $template", async (c) => {
 	const data = await save(
 		new File(
@@ -38,9 +44,16 @@ it.each(shipped)("preserves complete shipped identity and work history / $templa
 			`${c.template}.pdf`,
 		),
 	);
-	expect(data.basics).toEqual(c.basics);
+	expect(basicsWithoutCustomFieldIds(data.basics)).toEqual(c.basics);
 	expect(pdfExperienceFields(data.sections.experience.items)).toEqual(c.experience);
-	expect(data.customSections.filter((section) => section.title !== "Community")).toEqual([]);
+	// The shipped preview has a deliberately custom "Earlier Experience" section. Importers keep it as
+	// a custom section, and templates print its title in different cases, so compare titles normalized.
+	const expectedCustomSections = new Set(["community", "earlierexperience"]);
+	expect(
+		data.customSections.filter(
+			(section) => !expectedCustomSections.has(section.title.replace(/\s/g, "").toLowerCase()),
+		),
+	).toEqual([]);
 });
 it.each(pdfImportCases)(
 	"preserves whole identity, record fields and rich wording / $template / $kind / $period / $index",
@@ -49,8 +62,8 @@ it.each(pdfImportCases)(
 		const file = await createResumePdfFile({ data: source, template: c.template, filename: "regression.pdf" });
 		const data = await save(file);
 		const expectedBasics = { ...source.basics };
-		if (c.template === "persian") expectedBasics.name = "JORDAN SAMPLE";
-		if (c.template === "smeargle") expectedBasics.headline = "P R O D U C T & P L A T F O R M L E A D";
+		if (c.template === "center-classic") expectedBasics.name = "JORDAN SAMPLE";
+		if (c.template === "editorial") expectedBasics.headline = "P R O D U C T & P L A T F O R M L E A D";
 		expect(data.basics).toEqual(expectedBasics);
 		expect(pdfExperienceFields(data.sections.experience.items)).toEqual(
 			pdfExperienceFields(source.sections.experience.items),

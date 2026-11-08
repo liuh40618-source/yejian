@@ -7,7 +7,7 @@ import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/comp
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE, useLanding } from "./scroll";
 import { Sheet } from "./sheet";
-import { Doodle, labelClass, TypedText } from "./ui";
+import { labelClass, TypedText } from "./ui";
 import { useShareOrigin } from "@/features/resume/share/use-share-origin";
 
 /**
@@ -50,8 +50,8 @@ const visibilityIcons: IconName[] = ["globe-hemisphere-west", "lock", "eye-slash
  */
 export function Share() {
 	const origin = useShareOrigin();
-	const host = origin ? new URL(origin).host : "rxresu.me";
-	const address = `${host}/alex-morgan`;
+	const host = origin ? new URL(origin).host : "yejian.example";
+	const address = `${host}/chenjianing`;
 	const active = useLanding((state) => state.activeScene === SCENE.share);
 	const ready = useLanding((state) => state.shareReady);
 	const [visibility, setVisibility] = useState(0);
@@ -105,13 +105,6 @@ export function Share() {
 						/>
 					))}
 				</div>
-
-				<Doodle
-					name="plane"
-					wipe="clamp(0, (var(--p) - .12) / .2, 1)"
-					sizes="14vw"
-					className="start-[7vw] top-[max(13vh,120px)] w-[14vw] translate-y-[calc(var(--p)*-30px)] rotate-[-8deg] opacity-[calc(var(--nt)*.85)]!"
-				/>
 
 				<svg
 					aria-hidden="true"
@@ -221,7 +214,18 @@ export function Share() {
 				</div>
 
 				<div className="absolute start-(--gutter) bottom-[clamp(20px,5vh,44px)] flex max-w-[90vw] flex-col gap-2.5 min-[900px]:max-w-[min(28em,34vw)]">
-					<span className={cn(labelClass, "text-(--night-label)")}>05 / {share}</span>
+					{/* The same running head as SceneCaption, in the night palette: the scene can't use the component
+					    itself because its colours switch with the sky rather than the theme. */}
+					<span
+						className={cn(
+							labelClass,
+							"flex items-center gap-2.5 border-t border-(--night-line) pt-2.5 tracking-[.14em] text-(--night-label)",
+						)}
+					>
+						<span className="text-(--night-accent)">05</span>
+						<span aria-hidden="true" className="h-px w-5 bg-(--night-line)" />
+						<span>{share}</span>
+					</span>
 					<p className="min-[900px]:short:hidden font-display text-base leading-[1.45] text-pretty text-(--night-ink) min-[900px]:text-[clamp(17px,1.35vw,20px)]">
 						{t`Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON.`}
 					</p>

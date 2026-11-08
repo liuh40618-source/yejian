@@ -13,7 +13,6 @@ import { deviceTimeZone, useSaveTimezone } from "./use-save-timezone";
 import { PageHeader } from "@/components/layout/page-header";
 import { Combobox } from "@/components/ui/combobox";
 import { CharacterShortcutSetting } from "@/features/keyboard-shortcuts/character-shortcuts";
-import { LocaleCombobox } from "@/features/locale/combobox";
 import { useTheme } from "@/features/theme/provider";
 import { themeMap } from "@/libs/theme";
 
@@ -24,7 +23,6 @@ const THEMES: Array<{ value: Theme; icon: IconName }> = [
 ];
 
 export function PreferencesSettings() {
-	const languageId = useId();
 	const timezoneId = useId();
 
 	return (
@@ -34,27 +32,6 @@ export function PreferencesSettings() {
 				<ThemeTiles />
 				<p className="text-xs text-ink-3">
 					<Trans>Resumes always render on white paper, whatever the theme.</Trans>
-				</p>
-			</SettingsSection>
-
-			<SettingsSection title={<Trans>Language</Trans>}>
-				<div className="grid max-w-80 gap-1.5">
-					<label htmlFor={languageId} className="sr-only">
-						<Trans>Interface language</Trans>
-					</label>
-					<LocaleCombobox id={languageId} />
-				</div>
-				<p className="text-xs text-ink-3">
-					<Trans>Interface only. Each resume sets its own language in Design.</Trans>{" "}
-					<Trans>Account emails use it too.</Trans>{" "}
-					<a
-						href="https://crowdin.com/project/reactive-resume"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="underline underline-offset-2"
-					>
-						<Trans>Help translate</Trans>
-					</a>
 				</p>
 			</SettingsSection>
 

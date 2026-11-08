@@ -44,6 +44,7 @@ export function SettingsRoot() {
 	const { theme } = useTheme();
 	const { data: providers } = useQuery(orpc.aiProviders.list.queryOptions());
 	const provider = providers?.find((entry) => entry.enabled && entry.testStatus === "success");
+	const projectLinks = getProjectLinks();
 
 	return (
 		<div className="grid gap-4">
@@ -83,21 +84,23 @@ export function SettingsRoot() {
 				</Link>
 			</nav>
 
-			{/* The desktop footer's links, as rows: each opens outside the app. */}
-			<nav
-				aria-label={t`About Reactive Resume`}
-				className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface"
-			>
-				{getProjectLinks().map((link) => (
-					<a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className={rowClass}>
-						<Icon name={link.icon} size={22} className="text-ink-2" />
-						<span className="flex-1">{link.label}</span>
-						<Icon name="arrow-square-out" size={20} className="text-ink-3" />
-					</a>
-				))}
-			</nav>
+			{/* The desktop footer's links, as rows: each opens outside the app. Empty in this build. */}
+			{projectLinks.length > 0 && (
+				<nav
+					aria-label={t`About`}
+					className="divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface"
+				>
+					{projectLinks.map((link) => (
+						<a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className={rowClass}>
+							<Icon name={link.icon} size={22} className="text-ink-2" />
+							<span className="flex-1">{link.label}</span>
+							<Icon name="arrow-square-out" size={20} className="text-ink-3" />
+						</a>
+					))}
+				</nav>
+			)}
 			<p className="text-center text-xs text-ink-3">
-				<Trans>Reactive Resume {__APP_VERSION__} · MIT</Trans>
+				<Trans>页见 {__APP_VERSION__} · MIT</Trans>
 			</p>
 			<SignOutButton />
 		</div>

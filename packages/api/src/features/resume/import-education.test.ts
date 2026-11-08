@@ -30,7 +30,7 @@ import {
 } from "./fixtures/pdf-education";
 const save = async (file: File) => {
 	create.mockClear();
-	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 	expect(create).toHaveBeenCalledTimes(1);
 	const saved = create.mock.calls[0]?.[0] as { data: ResumeData } | undefined;
 	if (!saved) throw Error("No imported data");

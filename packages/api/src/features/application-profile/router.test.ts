@@ -15,7 +15,7 @@ const user = {
 const context = (
 	permissions: Array<"read" | "write" | "delete">,
 	method: "apiKey" | "bearer" | "session" = "bearer",
-) => ({ locale: "en-US" as const, reqHeaders: new Headers(), authentication: { user, permissions, method } });
+) => ({ locale: "zu-ZA" as const, reqHeaders: new Headers(), authentication: { user, permissions, method } });
 beforeEach(() => {
 	vi.clearAllMocks();
 	service.get.mockResolvedValue(null);
@@ -29,7 +29,7 @@ it.each(["apiKey", "bearer", "session"] as const)("scopes %s reads to the authen
 it("rejects anonymous reads, read-only writes and write-only deletion", async () => {
 	await expect(
 		createProcedureClient(applicationProfileRouter.get, {
-			context: { locale: "en-US", reqHeaders: new Headers(), authentication: null },
+			context: { locale: "zu-ZA", reqHeaders: new Headers(), authentication: null },
 		})(),
 	).rejects.toMatchObject({ code: "UNAUTHORIZED" });
 	await expect(

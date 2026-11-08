@@ -4,10 +4,9 @@ import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
 import { templateSchema } from "@reactive-resume/schema/templates";
-import { supportedLocales } from "@reactive-resume/utils/locale";
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE } from "./scroll";
-import { Doodle, labelClass } from "./ui";
+import { labelClass } from "./ui";
 import { serializeJsonLd } from "@/libs/seo";
 
 type Question = {
@@ -21,13 +20,12 @@ type Question = {
 function useQuestions(): Question[] {
 	const { i18n } = useLingui();
 	const templates = i18n.number(templateSchema.options.length);
-	const languages = i18n.number(supportedLocales.length);
 
 	return [
 		{
 			id: "free",
-			question: t`Is Reactive Resume really free?`,
-			answer: t`Yes. Every feature is free: all ${templates} templates, PDF and Word downloads, the ATS checker, cover letters and the job tracker. There are no ads, no tracking and no paid tier. Donations pay for hosting and development.`,
+			question: t`Is it really free?`,
+			answer: t`Yes. Every feature is free: all ${templates} templates, PDF and Word downloads, the ATS checker, cover letters and the job tracker. No ads, no tracking, no paid tier, and nothing to donate to.`,
 		},
 		{
 			id: "ats",
@@ -43,33 +41,32 @@ function useQuestions(): Question[] {
 		{
 			id: "import",
 			question: t`Can I import a resume I already have?`,
-			answer: t`Yes. Import a PDF, a LinkedIn data export, a JSON Resume file or a Reactive Resume export, then pick up where it left off. With an AI provider set up, Word documents work too.`,
+			answer: t`Yes. Import a PDF, a JSON Resume file or an export from this app, then pick up where it left off. With an AI provider set up, Word documents and a LinkedIn export work too.`,
 		},
 		{
 			id: "export",
 			question: t`What formats can I download?`,
-			answer: t`PDF, Word (DOCX), Markdown and JSON. The JSON export imports back into any Reactive Resume, including one you host yourself, so your data is never locked in.`,
+			answer: t`PDF, Word (DOCX), Markdown and JSON. The JSON export imports back into any copy of this app, including one you host yourself, so your data is never locked in.`,
 		},
 		{
 			id: "ai",
 			question: t`Does it use AI?`,
-			answer: t`Only if you want it to. Add your own key from OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama or another provider for sharper lines, tailoring to a job posting, coaching for applications and interviews, and reading Word files. Without a key, nothing is sent to an AI service.`,
+			answer: t`Only if you want it to. Add your own key — DeepSeek works out of the box, and OpenAI, Anthropic, Google Gemini, OpenRouter and Ollama are supported too — for sharper lines, tailoring to a job posting, coaching for applications and interviews, and reading Word files. Without a key, nothing is sent to an AI service.`,
 		},
 		{
 			id: "interviews",
 			question: t`Can it help me prepare for interviews?`,
-			answer: t`Yes. Every job you track gets its own workspace: check your fit against the posting, draft answers from stories you wrote once, get a short plan before the interview, practice out loud with feedback and debrief afterwards. When offers arrive, compare them side by side. The coaching uses your own AI key; the comparison doesn’t need one.`,
+			answer: t`Yes. Every job you track gets its own workspace: check your fit against the posting, draft answers from stories you wrote once, get a short plan before the interview, practice out loud with feedback and debrief afterwards. When offers arrive, compare them side by side. The coaching uses your own AI key; the comparison doesn't need one.`,
 		},
 		{
 			id: "self-host",
 			question: t`Can I host it myself?`,
-			answer: t`Yes. Reactive Resume is open source under the MIT License and ships as a Docker image, so it runs on your own server with your own database and storage.`,
-			link: { label: t`Read the self-hosting guide`, href: "https://docs.rxresu.me/self-hosting/docker" },
+			answer: t`Yes. It is open source under the MIT License and ships as a Docker image, so it runs on your own server with your own database and storage.`,
 		},
 		{
-			id: "languages",
-			question: t`Which languages does it speak?`,
-			answer: t`The app is translated into ${languages} languages by volunteers, and a resume can be written in any language, including right-to-left scripts like Arabic and Hebrew.`,
+			id: "chinese",
+			question: t`Does it handle Chinese text properly?`,
+			answer: t`The interface is Simplified Chinese, and so are the defaults: fonts with real Chinese glyphs, date formats like 2026年3月, and section names a Chinese recruiter expects. A resume can still be written in any language.`,
 		},
 	];
 }
@@ -178,25 +175,10 @@ export function Faq() {
 					</Trans>
 				</h2>
 				<p className="max-w-[24em] font-display text-[clamp(17px,1.4vw,21px)] leading-normal text-pretty text-ink-2">
-					<Trans>
-						9 short answers to what people ask before they start. Anything else, ask on{" "}
-						<a
-							href="https://discord.gg/jSVSJyWd2k"
-							className="text-accent-text italic underline underline-offset-[3px] transition-colors hover:text-accent-hover"
-						>
-							Discord
-						</a>
-						.
-					</Trans>
+					<Trans>9 short answers to what people ask before they start.</Trans>
 				</p>
 				{/* In the sticky column, so it travels with the heading instead of crossing it. */}
-				<div aria-hidden="true" className="relative mt-4 aspect-[800/746] w-[11vw] max-[900px]:hidden">
-					<Doodle
-						name="note"
-						wipe="clamp(0, (var(--p) - .1) / .2, 1)"
-						className="start-0 top-0 w-full rotate-[-6deg]"
-					/>
-				</div>
+				<div aria-hidden="true" className="relative mt-4 aspect-[800/746] w-[11vw] max-[900px]:hidden" />
 			</div>
 
 			<div className="border-t border-line">

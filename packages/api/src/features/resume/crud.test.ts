@@ -1,8 +1,9 @@
 import { readFile } from "node:fs/promises";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { createRouterClient, ORPCError } from "@orpc/server";
+// The sample the builder actually ships to users, not the neutral upstream fixture in `./sample`.
+import { chinaSampleResumeData } from "@reactive-resume/schema/resume/china-sample";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
 
 const mocks = vi.hoisted(() => ({
 	create: vi.fn(),
@@ -98,14 +99,16 @@ describe("resume write route validation", () => {
 				expect.objectContaining({
 					name: "Outstanding Blue Whale",
 					data: expect.objectContaining({
-						basics: expect.objectContaining({ name: withSampleData ? sampleResumeData.basics.name : "Sam Taylor" }),
+						basics: expect.objectContaining({
+							name: withSampleData ? chinaSampleResumeData.basics.name : "Sam Taylor",
+						}),
 					}),
 				}),
 			);
 			// A blank resume also starts with the account's email; a sample keeps its own.
 			const created = mocks.create.mock.calls.at(-1)?.[0] as { data: { basics: { email: string } } };
 			if (!withSampleData) expect(created.data.basics.email).toBe("sam@example.test");
-			else expect(created.data.basics.email).toBe(sampleResumeData.basics.email);
+			else expect(created.data.basics.email).toBe(chinaSampleResumeData.basics.email);
 		},
 	);
 

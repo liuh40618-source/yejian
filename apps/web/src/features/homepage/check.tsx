@@ -7,7 +7,7 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { cn } from "@reactive-resume/utils/style";
 import { prefersReducedMotion, SCENE, useLanding } from "./scroll";
 import { designSystemBullet, ProfileSummary, Sheet } from "./sheet";
-import { Doodle, labelClass, SceneCaption } from "./ui";
+import { labelClass, SceneCaption } from "./ui";
 
 const field = "text-[oklch(0.62_0.08_150)]";
 
@@ -19,7 +19,7 @@ function ParsedText({ fixed }: { fixed: boolean }) {
 	const { i18n } = useLingui();
 	const section = (name: string, count?: number) => (
 		<span className={field}>
-			[section] <span className="">{name}</span>
+			[板块] <span className="">{name}</span>
 			{count !== undefined && ` · ${i18n.number(count)}`}
 		</span>
 	);
@@ -27,12 +27,12 @@ function ParsedText({ fixed }: { fixed: boolean }) {
 	return (
 		<>
 			<div>
-				<span className={field}>name</span> <span className="text-[2.6cqw]">{t`Alex Morgan`}</span>
+				<span className={field}>姓名</span> <span className="text-[2.6cqw]">{t`Alex Morgan`}</span>
 				<br />
-				<span className={field}>title</span> {t`Senior Product Designer`}
+				<span className={field}>目标职位</span> {t`Senior Product Designer`}
 				<br />
-				<span className={field}>email</span> alex@morgan.design <span className={field}>loc</span> {t`Lisbon, Portugal`}{" "}
-				<span className={field}>url</span> morgan.design
+				<span className={field}>邮箱</span> chenjianing@foxmail.com <span className={field}>城市</span>{" "}
+				{t`Lisbon, Portugal`} <span className={field}>作品集</span> chenjianing.design
 			</div>
 			<div>
 				{section(t`Profile`)}
@@ -42,14 +42,14 @@ function ParsedText({ fixed }: { fixed: boolean }) {
 			<div>
 				{section(t`Experience`, 2)}
 				<br />
-				<span className={field}>role</span> {t`Lead Product Designer`} <span className={field}>org</span>{" "}
+				<span className={field}>职位</span> {t`Lead Product Designer`} <span className={field}>公司</span>{" "}
 				{t`Northwind Labs`}
 				<br />
-				<span className={field}>dates</span> {t`2021 – Present`}
+				<span className={field}>起止</span> {t`2021 – Present`}
 				<span className="block truncate">· {designSystemBullet()}</span>
-				<span className={field}>role</span> {t`Product Designer`} <span className={field}>org</span> {t`Parcel & Co.`}
+				<span className={field}>职位</span> {t`Product Designer`} <span className={field}>公司</span> {t`Parcel & Co.`}
 				<br />
-				<span className={field}>dates</span>{" "}
+				<span className={field}>起止</span>{" "}
 				<span data-park className={fixed ? "text-[oklch(0.86_0.12_150)]" : "text-[oklch(0.85_0.13_85)]"}>
 					{fixed ? `${t`2017 – 2021`} ✓ ${t`one format`}` : `${t`06/2017 – 2021`} ⚠ ${t`mixed format`}`}
 				</span>
@@ -177,15 +177,15 @@ export function Check() {
 					<span className="sr-only">{checkSentence}</span>
 					<span
 						aria-hidden="true"
-						className="font-anybody block font-light tracking-[-.03em] [clip-path:inset(calc(var(--sv)*120%-20%)_0_-20%_0)]"
+						className="font-anybody block font-light tracking-[.01em] [clip-path:inset(calc(var(--sv)*120%-20%)_0_-20%_0)]"
 					>
 						{check}
-						<span className="text-accent">.</span>
+						<span className="text-accent">。</span>
 					</span>
 					<span
 						aria-hidden="true"
-						data-text={`${check}.`}
-						className="font-martian absolute start-0 top-0 block font-light tracking-[-.05em] text-accent-text [clip-path:inset(-20%_0_calc((1-var(--sv))*120%)_0)] before:content-[attr(data-text)]"
+						data-text={`${check}。`}
+						className="font-martian absolute start-0 top-0 block font-light tracking-[.01em] text-accent-text [clip-path:inset(-20%_0_calc((1-var(--sv))*120%)_0)] before:content-[attr(data-text)]"
 					/>
 					<span
 						aria-hidden="true"
@@ -230,12 +230,6 @@ export function Check() {
 						<ParsedTextLive />
 					</div>
 					{/* The magnifier is the lens: its glass sits over the clipped circle and the glass itself is masked out. */}
-					<Doodle
-						name="magnifier"
-						wipe="1"
-						sizes="(min-width: 900px) 14vw, 31vw"
-						className="top-[calc(var(--ly,16%)-15.9cqw)] left-[calc(var(--lx,50%)-17.4cqw)] w-[48.3cqw] max-w-none [mask-image:radial-gradient(circle_11cqw_at_36.1%_32.9%,transparent_97%,#000_100%)]! [mask-size:100%_100%]! [mask-position:0_0]! opacity-(--lo)!"
-					/>
 					<span
 						aria-hidden="true"
 						className="font-martian pointer-events-none absolute top-[calc(var(--ly,16%)-14.5cqw)] left-(--lx,50%) -translate-x-1/2 -translate-y-full rounded-sm bg-[oklch(0.2_0.03_160)] px-[9px] py-[5px] text-xs leading-none font-medium whitespace-nowrap text-[oklch(0.88_0.09_150)] opacity-(--lo)"

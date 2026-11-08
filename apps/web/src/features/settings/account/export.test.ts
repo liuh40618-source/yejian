@@ -71,9 +71,18 @@ describe("buildAccountZip", () => {
 			career: emptyCareer,
 			aiContentReports: [],
 		} as never);
-		await expect(detectImportKind(new File([new Uint8Array(archive)], "reactive-resume.zip"))).rejects.toThrow(
-			"Extract this account archive",
-		);
+		// The hint is interface copy, so it arrives in whatever language is active; what must not change is that it
+		// points at the archive's own JSON files rather than guessing at a LinkedIn export.
+		let message = "";
+		try {
+			await detectImportKind(new File([new Uint8Array(archive)], "reactive-resume.zip"));
+		} catch (cause) {
+			expect(cause).toBeInstanceOf(Error);
+			message = (cause as Error).message;
+		}
+		expect(message).not.toBe("");
+		expect(message).not.toMatch(/LinkedIn/);
+		expect(message).toContain("JSON");
 	});
 	it("exports individual documents that the importer accepts", () => {
 		const profile = {

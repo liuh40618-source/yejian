@@ -70,7 +70,7 @@ describe("account backup", () => {
 			const resolved = structuredClone(letter);
 			if (linked) {
 				resolved.style.basics.name = "Current sender";
-				resolved.style.metadata.template = "gengar";
+				resolved.style.metadata.template = "editorial";
 			}
 			mocks.getLetter.mockResolvedValue(resolved);
 			const career = {

@@ -47,6 +47,7 @@ const PAIRING_NAMES: Record<FontPairingId, MessageDescriptor> = {
 	balanced: msg`Balanced`,
 	professional: msg`Professional`,
 	clean: msg`Clean`,
+	"china-ats": msg`Chinese ATS`,
 };
 
 const ACCENT_NAMES: Record<(typeof ACCENTS)[number], MessageDescriptor> = {

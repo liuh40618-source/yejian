@@ -161,6 +161,26 @@ const AI_PROVIDER_MODEL_SUGGESTIONS: Record<AIProvider, readonly AIModelSuggesti
 			recommendation: "capable",
 		},
 	],
+	dashscope: [
+		{
+			id: "qwen3.8-flash",
+			name: "Qwen3.8 Flash",
+			recommendation: "everyday",
+		},
+		{
+			id: "qwen3.8-max",
+			name: "Qwen3.8 Max",
+			recommendation: "capable",
+		},
+		{
+			id: "qwen3.8-plus",
+			name: "Qwen3.8 Plus",
+		},
+		{
+			id: "qwen-plus",
+			name: "Qwen Plus",
+		},
+	],
 	togetherai: [
 		{
 			id: "deepseek-ai/DeepSeek-V4.1-Flash",

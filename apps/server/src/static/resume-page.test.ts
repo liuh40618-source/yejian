@@ -134,10 +134,10 @@ it("still shows a shared resume whose owner's username looks like an app page", 
 });
 
 it.each([
-	["", undefined, "de-DE", "de-DE"],
-	["", "fr-FR", "de-DE", "fr-FR"],
-	["?locale=ja-JP", "fr-FR", "de-DE", "ja-JP"],
-	["", "zu-ZA", "de-DE", "en-US"],
+	["", undefined, "zh-CN", "zh-CN"],
+	["", "zh-CN", "zh-CN", "zh-CN"],
+	["?locale=zh-CN", "zh-CN", "zh-CN", "zh-CN"],
+	["", "zu-ZA", "zh-CN", "zh-CN"],
 ])(
 	"keeps explicit language ahead of the header on unavailable pages: %s %s",
 	async (search, saved, header, expected) => {

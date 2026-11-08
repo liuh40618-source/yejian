@@ -110,11 +110,28 @@ function findLinkMismatches(raw: RawExtraction, document: ExtractedDocument): { 
 	return mismatches;
 }
 
+/** Two to four Han characters, the full range of a Chinese personal name. */
+const CJK_NAME = /^[\p{Script=Han}·]{2,4}$/u;
+
+/** The place-name suffixes a Chinese address ends on, longest first. */
+const CJK_LOCATION_SUFFIXES = ["自治区", "特别行政区", "省", "市", "区", "县", "镇", "街道", "路"];
+
+function isChineseLocation(candidate: string): boolean {
+	if (candidate.length < 2 || candidate.length > 20) return false;
+	if (!/^[\p{Script=Han}·]+$/u.test(candidate)) return false;
+	if (CJK_NAME.test(candidate)) return false;
+	return CJK_LOCATION_SUFFIXES.some((suffix) => candidate.endsWith(suffix));
+}
+
 function looksLikeName(line: TextLine): boolean {
 	const text = line.text.trim();
 	if (text.length === 0 || text.length > 60) return false;
 	if (EMAIL_TEST.test(text)) return false;
 	if (/\d/.test(text)) return false;
+
+	// A Chinese name is one unspaced run of two to four characters, so the Latin word-count rule
+	// below would reject every one of them.
+	if (CJK_NAME.test(text)) return true;
 
 	const words = text.split(/\s+/);
 	if (words.length < 2 || words.length > MAX_NAME_WORDS) return false;
@@ -147,12 +164,15 @@ export function analyzeContact(raw: RawExtraction, document: ExtractedDocument):
 		firstPageLines
 			.slice(0, FIRST_PAGE_CONTACT_LINES)
 			.flatMap((line) => line.text.split(/[·|•]/).map((part) => part.trim()))
-			.find(
-				(candidate) =>
-					/^[\p{L}\p{M} .'-]+,\s*[\p{L}\p{M} .'-]+$/u.test(candidate) &&
-					!candidate.endsWith(".") &&
-					candidate.trim().split(/\s+/).length <= 6,
-			)
+			.find((candidate) => {
+				if (candidate.endsWith(".")) return false;
+
+				// A Chinese address runs without separators: 北京 / 上海市 / 广东深圳 all name a place
+				// where the English pattern below expects a comma.
+				if (isChineseLocation(candidate)) return true;
+
+				return /^[\p{L}\p{M} .'-]+,\s*[\p{L}\p{M} .'-]+$/u.test(candidate) && candidate.trim().split(/\s+/).length <= 6;
+			})
 			?.trim() ?? null;
 
 	return {

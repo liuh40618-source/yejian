@@ -243,6 +243,8 @@ export type TextQuality = {
 	lexiconHitRatio: number;
 	/** The document reads as English, so lexicon-based signals may be trusted. */
 	isEnglish: boolean;
+	/** The document reads as Chinese, so the Chinese content rules apply instead of the English ones. */
+	isChinese: boolean;
 	/** Share of alphabetic tokens longer than 24 characters — lost word spacing. */
 	runOnTokenRatio: number;
 	/** Share of text items that carry exactly one character — lost character spacing. */

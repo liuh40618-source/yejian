@@ -7,6 +7,9 @@ export const MAX_NGRAM_LENGTH = 4;
 /** Beyond two words, a phrase from a posting is too specific for any resume to match verbatim. */
 const MAX_FREE_PHRASE_LENGTH = 2;
 
+/** A token written in Chinese: its phrase joins without the space English words need. */
+const CJK_TOKEN = /\p{Script=Han}/u;
+
 /**
  * The candidate terms in a run of text.
  *
@@ -37,7 +40,13 @@ export function buildNgrams(
 	for (let size = 1; size <= maxLength; size += 1) {
 		for (let start = 0; start + size <= tokens.length; start += 1) {
 			const window = tokens.slice(start, start + size);
-			const phrase = window.join(" ");
+			// Chinese has no spaces, so its words join the same way a one-word term stands alone.
+			const phrase = window.join(CJK_TOKEN.test(window[0] ?? "") ? "" : " ");
+
+			// A stopword outranks the skill list. A Chinese posting names its own job ("产品经理") and its
+			// own duties ("需求分析") in the words the alias table uses for the discipline, and asking a
+			// candidate to add the job they are applying for is the noise this whole list exists to cut.
+			if (window.some((token) => CJK_TOKEN.test(token) && JD_STOPWORDS.has(token))) continue;
 
 			if (isSkill(phrase)) {
 				found.push({ phrase, start, end: start + size, skill: true });

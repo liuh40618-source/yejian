@@ -63,8 +63,8 @@ describe("convertLegacyStyleRules", () => {
 		expect(primary).toContain('[role~="primary-text"]');
 		expect(primary).not.toContain('section[type="awards"] field[name="title"]');
 		expect(primary).toContain("font-weight: 400;");
-		expect(primary).toContain('resume[template="scizor"] section[type="experience"]');
-		expect(primary).toContain("Scizor Bold final color");
+		expect(primary).toContain('resume[template="heading-accent"] section[type="experience"]');
+		expect(primary).toContain("HeadingAccent Bold final color");
 		expect(primary).toContain('item[role~="nested-role"] > item-header > field[name="position"]');
 		expect(primary).not.toContain('field[role~="nested-role"]');
 		expect(award).toContain('section[type="awards"] field[name="title"]');

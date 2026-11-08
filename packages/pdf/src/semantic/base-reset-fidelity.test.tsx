@@ -27,7 +27,7 @@ const findText = (node: HostNode, text: string): HostNode | undefined => {
 const mergedStyle = (node: HostNode | undefined): Record<string, unknown> =>
 	Object.assign({}, ...(Array.isArray(node?.style) ? node.style : node?.style ? [node.style] : []));
 
-const buildFixture = (template: Template, rule = ""): ResumeData => {
+const buildFixture = (rule = ""): ResumeData => {
 	const data = structuredClone(defaultResumeData);
 	data.picture.hidden = true;
 	data.basics.name = "Ada Lovelace";
@@ -48,10 +48,7 @@ const buildFixture = (template: Template, rule = ""): ResumeData => {
 			keywords: [],
 		},
 	];
-	data.metadata.layout.pages =
-		template === "chikorita"
-			? [{ fullWidth: false, main: [], sidebar: ["skills"] }]
-			: [{ fullWidth: true, main: ["skills"], sidebar: [] }];
+	data.metadata.layout.pages = [{ fullWidth: true, main: ["skills"], sidebar: [] }];
 
 	const stylesheet = { languageVersion: 1, text: `@version 1; ${rule}` };
 	data.metadata.stylesheet = { mode: "semantic", source: stylesheet };
@@ -59,7 +56,7 @@ const buildFixture = (template: Template, rule = ""): ResumeData => {
 };
 
 const finalTextStyle = async (template: Template, text: string, rule = "") => {
-	const data = buildFixture(template, rule);
+	const data = buildFixture(rule);
 	const element = createElement(ResumeDocument, { data, template }) as unknown as Parameters<typeof pdf>[0];
 	const instance = pdf(element);
 	await expect.poll(() => instance.container.document).not.toBeNull();
@@ -69,22 +66,11 @@ const finalTextStyle = async (template: Template, text: string, rule = "") => {
 };
 
 describe("PDF semantic base and reset fidelity", () => {
-	it("cancels Bronzor's heading weight with the CSS initial value", async () => {
-		expect(await finalTextStyle("bronzor", "Expertise", "section-heading { font-weight: initial; }")).toMatchObject({
+	it("cancels GeneralSingle's heading weight with the CSS initial value", async () => {
+		expect(
+			await finalTextStyle("general-single", "Expertise", "section-heading { font-weight: initial; }"),
+		).toMatchObject({
 			fontWeight: undefined,
-		});
-	});
-
-	it("keeps Chikorita's sidebar placement color and lets an explicit body color override it", async () => {
-		expect(await finalTextStyle("chikorita", "TypeScript")).toMatchObject({ color: "#eeeeee" });
-		expect(await finalTextStyle("chikorita", "TypeScript", "field[name='name'] { color: #111111; }")).toMatchObject({
-			color: "#111111",
-		});
-	});
-
-	it("cancels Chikorita's sidebar field color with inherit and emits the inherited parent value", async () => {
-		expect(await finalTextStyle("chikorita", "TypeScript", "field[name='name'] { color: inherit; }")).toMatchObject({
-			color: "#111111",
 		});
 	});
 });

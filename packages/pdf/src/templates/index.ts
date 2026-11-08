@@ -1,45 +1,47 @@
 import type { TemplatePage } from "../document";
 import type { Template } from "@reactive-resume/schema/templates";
-import { AzurillPage } from "./azurill/AzurillPage";
-import { BronzorPage } from "./bronzor/BronzorPage";
-import { ChikoritaPage } from "./chikorita/ChikoritaPage";
-import { DitgarPage } from "./ditgar/DitgarPage";
-import { DittoPage } from "./ditto/DittoPage";
-import { GengarPage } from "./gengar/GengarPage";
-import { GlaliePage } from "./glalie/GlaliePage";
-import { KakunaPage } from "./kakuna/KakunaPage";
-import { LaprasPage } from "./lapras/LaprasPage";
-import { LeafishPage } from "./leafish/LeafishPage";
-import { MeowthPage } from "./meowth/MeowthPage";
-import { OnyxPage } from "./onyx/OnyxPage";
-import { PersianPage } from "./persian/PersianPage";
-import { PikachuPage } from "./pikachu/PikachuPage";
-import { PorygonPage } from "./porygon/PorygonPage";
-import { RhyhornPage } from "./rhyhorn/RhyhornPage";
-import { ScizorPage } from "./scizor/ScizorPage";
-import { SmearglePage } from "./smeargle/SmearglePage";
+import { AsiaStandardPage } from "./asia-standard/AsiaStandardPage";
+import { BilingualCnPage } from "./bilingual-cn/BilingualCnPage";
+import { CampusFreshPage } from "./campus-fresh/CampusFreshPage";
+import { CenterClassicPage } from "./center-classic/CenterClassicPage";
+import { CnExecutivePage } from "./cn-executive/CnExecutivePage";
+import { CompactDensePage } from "./compact-dense/CompactDensePage";
+import { ConsultingCnPage } from "./consulting-cn/ConsultingCnPage";
+import { CreativeGridPage } from "./creative-grid/CreativeGridPage";
+import { CreativeSidePage } from "./creative-side/CreativeSidePage";
+import { EditorialPage } from "./editorial/EditorialPage";
+import { FormGridPage } from "./form-grid/FormGridPage";
+import { GeneralSinglePage } from "./general-single/GeneralSinglePage";
+import { GovFormalPage } from "./gov-formal/GovFormalPage";
+import { HeadingAccentPage } from "./heading-accent/HeadingAccentPage";
+import { MinimalPhotoPage } from "./minimal-photo/MinimalPhotoPage";
+import { SeniorFormalPage } from "./senior-formal/SeniorFormalPage";
+import { StateOwnedPage } from "./state-owned/StateOwnedPage";
+import { TechTimelinePage } from "./tech-timeline/TechTimelinePage";
+import { WhitespaceCleanPage } from "./whitespace-clean/WhitespaceCleanPage";
 
 const templatePages: Partial<Record<Template, TemplatePage>> = {
-	azurill: AzurillPage,
-	bronzor: BronzorPage,
-	chikorita: ChikoritaPage,
-	ditgar: DitgarPage,
-	ditto: DittoPage,
-	gengar: GengarPage,
-	glalie: GlaliePage,
-	kakuna: KakunaPage,
-	lapras: LaprasPage,
-	leafish: LeafishPage,
-	meowth: MeowthPage,
-	onyx: OnyxPage,
-	persian: PersianPage,
-	pikachu: PikachuPage,
-	porygon: PorygonPage,
-	rhyhorn: RhyhornPage,
-	scizor: ScizorPage,
-	smeargle: SmearglePage,
+	"asia-standard": AsiaStandardPage,
+	"bilingual-cn": BilingualCnPage,
+	"campus-fresh": CampusFreshPage,
+	"center-classic": CenterClassicPage,
+	"cn-executive": CnExecutivePage,
+	"compact-dense": CompactDensePage,
+	"consulting-cn": ConsultingCnPage,
+	"creative-grid": CreativeGridPage,
+	"creative-side": CreativeSidePage,
+	editorial: EditorialPage,
+	"form-grid": FormGridPage,
+	"general-single": GeneralSinglePage,
+	"gov-formal": GovFormalPage,
+	"heading-accent": HeadingAccentPage,
+	"minimal-photo": MinimalPhotoPage,
+	"senior-formal": SeniorFormalPage,
+	"state-owned": StateOwnedPage,
+	"tech-timeline": TechTimelinePage,
+	"whitespace-clean": WhitespaceCleanPage,
 };
 
-const defaultTemplatePage = AzurillPage;
+const defaultTemplatePage = GeneralSinglePage;
 
 export const getTemplatePage = (template: Template): TemplatePage => templatePages[template] ?? defaultTemplatePage;

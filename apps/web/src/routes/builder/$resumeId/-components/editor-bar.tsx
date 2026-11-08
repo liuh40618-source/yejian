@@ -98,7 +98,7 @@ function ModeTabs() {
 	};
 
 	return (
-		<TabsList aria-label={t`Editor mode`} className="h-9" data-mode-switch="">
+		<TabsList aria-label={t`Editor mode`} variant="line" className="h-full border-b-0" data-mode-switch="">
 			{(Object.keys(MODE_ICONS) as EditorMode[]).map((mode, index) => (
 				// Keys 1–4 switch modes (outside text fields): said on hover and to assistive tech.
 				<TabsTrigger

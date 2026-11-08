@@ -1,0 +1,221 @@
+# 与上游 v6.0.10 的真实文件级差异
+
+> 生成：2026-11-08 · 基线：用户提供的 `D:/Chrome/reactive-resume-main.zip` · 方法：MD5 逐文件比对
+> 用途：二次创新的**可追溯**证据，也是 README「改了什么 / 为什么」的素材来源。
+> 本文只陈述文件事实；回归与测试证据见 `REGRESSION-UPSTREAM-GAP.md`。
+
+---
+
+## 0. 基线与方法
+
+| 项         | 值                                                                                                                                             |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| 上游来源   | GitHub 源码 ZIP 快照 `reactive-resume-main.zip`（52 MB，3769 条目，单顶层目录 `reactive-resume-main/`）                                        |
+| 上游身份   | `package.json`: `name: reactive-resume` / `version: 6.0.10` / `license: MIT` / `author: Amruth Pillai`                                         |
+| 上游版权   | `LICENSE`: `Copyright (c) 2026 Amruth Pillai`                                                                                                  |
+| 快照局限   | **ZIP 内无 `.git`**：是源码快照不是 clone。可做文件级 diff、可造 baseline commit，**不提供 commit history / tag / blame**                      |
+| 解压位置   | `D:/Deepseek/.upstream-src/reactive-resume-main`（项目外部，不污染工作区）                                                                     |
+| 比对方法   | 递归遍历两棵树，排除 `node_modules` / `dist` / `build` / `.turbo` / `.next` / `.expo` / `coverage` / `.cache` / `test-results`；同名文件比 MD5 |
+| 完整清单   | `D:/Deepseek/.upstream-src/diff-report.txt`（1224 行，ADDED / REMOVED / MODIFIED 全列表）                                                      |
+| 当前工作区 | **仍无 `.git`**                                                                                                                                |
+
+复现（Windows / Git Bash）：
+
+```sh
+/d/Python/Python1/py/python.exe - <<'PY'
+import os, hashlib
+UP, CUR = r"D:/Deepseek/.upstream-src/reactive-resume-main", r"D:/Deepseek/reactive-resume-main"
+SKIP = {"node_modules",".git","dist","build",".turbo",".next",".expo","coverage",".cache","test-results"}
+def walk(root):
+    out={}
+    for dp,dns,fns in os.walk(root):
+        dns[:]=[d for d in dns if d not in SKIP]
+        for f in fns:
+            p=os.path.join(dp,f); out[os.path.relpath(p,root).replace("\\","/")]=p
+    return out
+def md5(p):
+    h=hashlib.md5()
+    with open(p,"rb") as f:
+        for c in iter(lambda:f.read(1<<20),b""): h.update(c)
+    return h.hexdigest()
+u,c=walk(UP),walk(CUR); us,cs=set(u),set(c)
+print("ADDED",len(cs-us),"REMOVED",len(us-cs))
+print("MODIFIED",sum(md5(u[r])!=md5(c[r]) for r in cs&us))
+print("SAME",sum(md5(u[r])==md5(c[r]) for r in cs&us))
+PY
+```
+
+---
+
+## 1. 一页结论
+
+| 指标                 | 数量     | 说明                                   |
+| -------------------- | -------- | -------------------------------------- |
+| 上游文件             | 3226     |                                        |
+| 当前文件             | 3713     | 净增 487                               |
+| **SAME（字节相同）** | **2717** | 占上游 **84.2%** → 确为 fork，不是重写 |
+| ADDED                | 710      | 其中 505 是中文字体                    |
+| REMOVED              | 223      | 其中 106 是 `.po`                      |
+| MODIFIED             | 286      | 其中 248 是 `.ts` / `.tsx`             |
+
+一句话：**84% 的文件与上游完全相同，创新集中在约 61 个新增代码/文档文件 + 286 个修改文件**；
+但 `README.md` / `package.json` / `LICENSE` / `SECURITY.md` / `.env.example` **五份身份文件与上游字节级相同** ——
+工程上改了很多，作品身份上还是上游本体。
+
+---
+
+## 2. ADDED 710：拆掉水分
+
+| 类别                                                                | 数量            | 处置建议                                                                   |
+| ------------------------------------------------------------------- | --------------- | -------------------------------------------------------------------------- |
+| 中文字体 `apps/web/public/fonts/cn/*.woff2`                         | 505（13.13 MB） | **保留**，19 套中式模板与中文 ATS 排版依赖；README 需说明字体来源与授权    |
+| 过程噪声（`.workbuddy-ai` / 截图 / 临时脚本）                       | 88              | **不进公开仓库**，见 §7                                                    |
+| 运行时资产（模板预览 19 jpg + 19 pdf、品牌 9、logo/icon 4、其他 1） | 52              | **保留**                                                                   |
+| 真正的新代码 / 文档                                                 | **65**          | 作品主体；其中 1 个 0 字节临时文件 + 3 个本地预览文件应剔除 → **约 61 个** |
+
+四类相加 505 + 88 + 52 + 65 = 710，与总数自洽。
+
+### 2.1 创新文件按主题
+
+- **PDF 模板 19 套**：`packages/pdf/src/templates/<id>/{XxxPage.tsx, semantic.ts}` 共 38 个 + 2 个测试。
+  上游 18 套 → 删 9 套、改名 9 套、新增 10 套 = 19 套；`templates.ts` 中 `oneColumn` 被引用 19 次、
+  无 `columns: 2`，「全部单栏 ATS-safe」成立。
+- **中国市场领域层**：schema `china-market.ts` / `china-sample.ts`、resume `china-market.ts` +
+  `china-market.test.ts` + 2 个 `chinese.test.ts`、Web / Mobile 各 1 个面板 + Web 面板渲染测试。
+- **ATS 中文适配**：`packages/resume/src/ats-pdf/**` 共 **15 个差异文件 = 13 个改造上游既有文件**
+  （`analyze/*`、`jd/*`、`rules/*`、`types.ts`）+ **2 个新增中文测试**。不是「新加一套 ATS 引擎」。
+- **迁移与工程**：`migrations/20261103090000_localize_template_ids/`（SQL + snapshot）、
+  `packages/pdf/vitest.fonts.setup.ts`、`packages/utils/src/brand.ts`、
+  `tooling/locales/` 4 个译文工具与词表、字体 CSS 2 个、
+  根目录 `scripts/` 7 个品牌资源 / 模板预览生成脚本（**有复现价值，建议保留**）。
+- **文档**：`REGRESSION-UPSTREAM-GAP.md`、本文件。
+
+---
+
+## 3. REMOVED 223：主动裁剪的证据
+
+| 类别                                    | 数量                                 |
+| --------------------------------------- | ------------------------------------ |
+| `.po` 语言目录                          | 106（web 53 + mobile 53，语言 55→2） |
+| `apps/web/public/doodles/*.webp` 装饰图 | 36                                   |
+| 删除模板的 `.ts` / `.tsx`               | 44（18 + 26）                        |
+| 模板预览 `.jpg` / `.pdf`                | 18 + 18                              |
+| `.json`                                 | 1                                    |
+
+分布：`apps/web` 129、`apps/mobile` 53、`packages/pdf` 41。
+与 `REGRESSION-UPSTREAM-GAP.md` §3.2「语言收窄 / 9 套模板删除 / 双栏移除 / 品牌替换」一致。
+
+---
+
+## 4. MODIFIED 286：报告未覆盖的部分
+
+| 目录                    | 数    | 目录              | 数  |
+| ----------------------- | ----- | ----------------- | --- |
+| `apps/web`              | 85    | `packages/resume` | 19  |
+| `packages/pdf`          | 54    | `apps/mobile`     | 13  |
+| `packages/api`          | 47    | `apps/server`     | 12  |
+| `packages/schema`       | 9     | `packages/mcp`    | 8   |
+| `packages/email`        | 7     | `packages/ui`     | 5   |
+| `packages/utils`        | 5     | `packages/ai`     | 4   |
+| `packages/import`       | 4     | `packages/auth`   | 3   |
+| `packages/docx` / `env` | 2 + 2 | `packages/fonts`  | 1   |
+
+`REGRESSION-UPSTREAM-GAP.md` §3 只覆盖了 web / pdf / api / resume / schema 主线；
+**`packages/mcp`、`packages/email`、`packages/ui`、`apps/server`、`packages/utils`、`packages/ai` 的改动从未被记录**。
+写 README「改了什么」时不能只抄 §3，应以本文件的文件清单为准。
+
+根目录被改的只有 4 个：`CLAUDE.md`、`GLOSSARY.md`、`pnpm-workspace.yaml`、`vitest.shared.mts`。
+
+---
+
+## 5. 校验：旧报告 §3.1 有两处失真（本次实证纠正）
+
+| 报告原文                                             | 真实情况                                                                                                                                                                                                  | 判定               |
+| ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
+| 「游客登录：上游没有，已补齐」                       | 上游 `packages/env/src/server.ts:211`、`.env.example:198` **本来就有** `FLAG_ENABLE_GUEST_LOGIN`（默认 `false`）；当前 `packages/env/src/server.ts` 与上游 **MD5 相同**。本版只是用 `.env.local` 打开开关 | 不是补齐，只是配置 |
+| 「国产 AI 供应商：新增 `deepseek` + `dashscope`」    | 上游 `apps/web/src/features/settings/ai/catalog.ts:74` **已有 `deepseek`**；真实新增只有 `dashscope`（通义千问）一个条目，diff 恰好 +7 行                                                                 | 部分失真           |
+| ATS 中文适配                                         | 15 个差异文件（13 改 + 2 增）                                                                                                                                                                             | 方向对，措辞需精确 |
+| 19 套中式模板 / 中文目录 / 品牌 / chinaMarket 产品层 | 全部在真实 diff 中                                                                                                                                                                                        |                    |
+| `default.ts` 的 `en-US` 是中性夹具                   | 文件确实被改（`template: onyx→minimal-photo`、section 顺序、追加 `chinaMarket`、加注释），但 `locale: "en-US"` 那行**没动**                                                                               | 结论成立           |
+
+---
+
+## 6. 身份层：五份文件与上游字节级相同
+
+```
+IDENTICAL  README.md
+IDENTICAL  package.json
+IDENTICAL  LICENSE
+IDENTICAL  SECURITY.md
+IDENTICAL  .env.example
+```
+
+- `LICENSE` 相同**是好事**：MIT 唯一硬性要求「保留版权声明」已满足，**不要删、不要改成自己的名字**；
+  正确做法是保留原文，另加 `NOTICE.md` 与 README Attribution 声明自己的修改。
+- 其余四份相同是**交付缺口**：陌生人 clone 下来会以为拿到 Reactive Resume 本体；`package.json` 仍是上游
+  作者 / 仓库 / 版本号，`SECURITY.md` 仍讲上游 `5.0.x` 安全策略，`README.md` 仍有 38 处上游外链。
+- 这四份文件不涉及任何业务代码，是二次创新投入产出比最高的改动。
+
+---
+
+## 7. 交付边界：`git init` 前实测的忽略规则
+
+在临时 git 仓库中用真实 `git check-ignore` 验证现有 `.gitignore`：
+
+| 路径                                                                                                                                                | 状态                                                                              |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `.env` / `.env.local`                                                                                                                               | 已忽略（`.env*` + `!.env.example`），`AUTH_SECRET` / `ENCRYPTION_SECRET` 不会泄露 |
+| `.agents/*`、`*.log*`                                                                                                                               | 已忽略                                                                            |
+| `.env.example`                                                                                                                                      | 正确放行                                                                          |
+| `.workbuddy-ai/`（58）、`shots/`（6）、`shot-*.mjs`（约 10）、`e2e-walk.mjs`、`.npmrc`、`rename-templates.mjs`、`scan-latin.mjs`、`apps/web/_tmp_*` | 原本**均未被忽略**                                                                |
+
+本轮已在 `.gitignore` 末尾补上上述排除项（带注释，可逐行撤销）。
+`apps/web/{preview.html, src/preview.tsx, src/features/homepage/editor-preview.tsx}` 与
+`china-resume-prototype.html` **未忽略**：前三者是自包含的本地预览入口（无数据库即可看界面，有复现价值），
+后者被 `REGRESSION-UPSTREAM-GAP.md` §3.4 引用，忽略会造成文档断链。如需精简可另行剔除，
+它们不参与正式构建（`vite.config.ts` 与上游 SAME，未加多入口）。
+
+---
+
+## 8. 用 ZIP 建立可追溯基线（P0 第一步，脚本已实测）
+
+ZIP 无 history，但足以造出「上游 commit → 定制 commit」两阶段真实历史，且**不需要复制任何文件**：
+利用临时 index 把上游快照写成第一个 commit，再让工作区（定制版）自然成为第二个 commit 的 diff。
+
+```sh
+cd /d/Deepseek/reactive-resume-main
+git init -b main
+
+# ① 上游基线 commit：临时 index + 上游 work-tree，完全不碰当前工作区
+export GIT_INDEX_FILE="D:/Deepseek/.upstream-src/.baseline-index"
+git --work-tree="D:/Deepseek/.upstream-src/reactive-resume-main" add -A
+TREE=$(git write-tree)
+BASE=$(GIT_AUTHOR_NAME="Upstream" GIT_AUTHOR_EMAIL="upstream@local" \
+       GIT_COMMITTER_NAME="Upstream" GIT_COMMITTER_EMAIL="upstream@local" \
+       git commit-tree "$TREE" -m "chore: import upstream Reactive Resume v6.0.10 (MIT, Amruth Pillai)")
+unset GIT_INDEX_FILE
+git update-ref refs/heads/main "$BASE"
+git reset --mixed -q HEAD        # index 回到基线，工作区保持定制版不动
+
+# ② 第二个 commit = 全部真实差异（含 223 个删除）
+git add -A
+git commit -m "feat: Chinese-market resume customization"
+git diff --stat HEAD~1 HEAD      # 应显示约 710 added / 223 deleted / 286 modified
+```
+
+已在隔离目录用最小样例验证：`git log` 得到两个 commit，`git show --name-status` 正确输出 M / D / A。
+注意：① 的基线会带上上游原版 `.gitignore`（不含本轮补充的排除项），② 才会用定制版 `.gitignore`，
+所以过程噪声不会进第二个 commit。**执行前请先确认项目正式名、署名、是否开源** —— 这三项目前仍未提供。
+
+---
+
+## 9. 对二次创新的意义
+
+| 条件   | 状态                                                                                                         |
+| ------ | ------------------------------------------------------------------------------------------------------------ |
+| 可追溯 | **条件已具备、动作未做**：有了 v6.0.10 干净基线，但工作区仍无 `.git`                                         |
+| 可辨识 | **未具备**：5 份身份文件与上游相同，README 仍是上游文案                                                      |
+| 可复现 | **部分具备**：代码可跑、§0 与 `REGRESSION-UPSTREAM-GAP.md` §5 有复现命令；缺一份面向新人的 README 与快速启动 |
+
+下一动作不是加功能，而是：§8 建基线 → 改 4 份身份文件 → 新增 `NOTICE.md` →
+把本文 §2 / §5 提炼成 README 的 "What changed / Why"。

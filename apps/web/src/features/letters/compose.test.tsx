@@ -11,18 +11,11 @@ import { getLocaleMessages } from "@/libs/locale";
 
 it.each([
 	{
-		appLocale: "en-US",
-		documentLocale: "de-DE",
-		greeting: "Sehr geehrte Damen und Herren,",
-		signOff: "Mit freundlichen Grüßen",
-		date: "28. September 2026",
-	},
-	{
-		appLocale: "de-DE",
-		documentLocale: "en-US",
-		greeting: "Dear hiring team,",
-		signOff: "Kind regards,",
-		date: "September 28, 2026",
+		appLocale: "zh-CN",
+		documentLocale: "zh-CN",
+		greeting: "亲爱的招聘团队，",
+		signOff: "亲切的问候，",
+		date: "2026年9月28日",
 	},
 ])(
 	"uses document language $documentLocale with app language $appLocale",
@@ -37,7 +30,7 @@ it.each([
 			id: "letter",
 			name: "Letter",
 			recipient: "",
-			content: "<p>Meine Bewerbung.</p>",
+			content: "<p>我的求职申请。</p>",
 			style,
 			layout: "structured",
 			letterDate: "2026-09-28",

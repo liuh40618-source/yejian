@@ -27,7 +27,7 @@ function resume(plain: string, html: string, family = "Noto Serif SC", locale = 
 }
 
 async function pdfLines(data: ResumeData) {
-	const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<
+	const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
 		typeof renderToBuffer
 	>[0];
 	const loading = getDocument({ data: new Uint8Array(await act(() => renderToBuffer(element))) });

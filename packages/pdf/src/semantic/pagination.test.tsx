@@ -27,7 +27,9 @@ const findFirst = (node: HostNode, predicate: (candidate: HostNode) => boolean):
 };
 
 const renderHostTree = async (data: ResumeData): Promise<HostNode> => {
-	const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<typeof pdf>[0];
+	const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
+		typeof pdf
+	>[0];
 	const instance = pdf(element);
 	await vi.waitFor(() => expect(instance.container.document).not.toBeNull());
 	return instance.container.document as HostNode;
@@ -54,14 +56,14 @@ type ParsedPdf = {
 
 const parsePdf = (data: Uint8Array): Promise<ParsedPdf> => getDocument({ data }).promise as Promise<ParsedPdf>;
 
-const azurillAuthoredOverflowFixture = () => {
+const generalSingleAuthoredOverflowFixture = () => {
 	const data = structuredClone(defaultResumeData);
 	const overflowTokens = Array.from(
 		{ length: 180 },
-		(_value, index) => `AZURILL_OVERFLOW_${String(index + 1).padStart(3, "0")}`,
+		(_value, index) => `GENERAL_SINGLE_OVERFLOW_${String(index + 1).padStart(3, "0")}`,
 	);
 	data.picture.hidden = true;
-	data.basics.name = "AZURILL HEADER";
+	data.basics.name = "GENERAL SINGLE HEADER";
 	data.summary.title = "Long summary";
 	data.summary.content = overflowTokens.map((token) => `<p>${token} generated PDF page content.</p>`).join("");
 	data.sections.profiles.title = "Sidebar";
@@ -90,7 +92,7 @@ const azurillAuthoredOverflowFixture = () => {
 			roles: [],
 		},
 	];
-	data.metadata.template = "azurill";
+	data.metadata.template = "general-single";
 	data.metadata.typography.body.fontFamily = "Helvetica";
 	data.metadata.typography.heading.fontFamily = "Helvetica";
 	data.metadata.layout.pages = [
@@ -135,54 +137,54 @@ describe("semantic pagination bindings", () => {
 		expect(fixed && nodeText(fixed)).toContain("Ada Lovelace");
 	});
 
-	it.each([1, 100])(
-		"paints only the selected Azurill page and its overflow with %i paragraphs (#3610)",
-		async (count) => {
-			const data = structuredClone(defaultResumeData);
-			data.picture.hidden = true;
-			data.basics.name = "Ada Lovelace";
-			data.summary.content = Array.from(
-				{ length: count },
-				(_, index) => `<p>Second page paragraph ${index + 1}.</p>`,
-			).join("");
-			data.metadata.typography.body.fontFamily = "Helvetica";
-			data.metadata.typography.heading.fontFamily = "Helvetica";
-			data.metadata.design.colors.background = "#ffffff";
-			data.metadata.design.colors.primary = "#123456";
-			data.metadata.layout.pages = [
-				{ fullWidth: true, main: [], sidebar: [] },
-				{ fullWidth: true, main: ["summary"], sidebar: [] },
-			];
-			data.metadata.stylesheet = {
-				mode: "semantic",
-				source: {
-					languageVersion: 1,
-					text: 'page[page-number="2"] { background-color: var(--resume-primary-color); }',
-				},
-			};
+	it.each([1, 100])("paints only the selected page and its overflow with %i paragraphs (#3610)", async (count) => {
+		const data = structuredClone(defaultResumeData);
+		data.picture.hidden = true;
+		data.basics.name = "Ada Lovelace";
+		data.summary.content = Array.from(
+			{ length: count },
+			(_, index) => `<p>Second page paragraph ${index + 1}.</p>`,
+		).join("");
+		data.metadata.typography.body.fontFamily = "Helvetica";
+		data.metadata.typography.heading.fontFamily = "Helvetica";
+		data.metadata.design.colors.background = "#ffffff";
+		data.metadata.design.colors.primary = "#123456";
+		data.metadata.layout.pages = [
+			{ fullWidth: true, main: [], sidebar: [] },
+			{ fullWidth: true, main: ["summary"], sidebar: [] },
+		];
+		data.metadata.stylesheet = {
+			mode: "semantic",
+			source: {
+				languageVersion: 1,
+				text: 'page[page-number="2"] { background-color: var(--resume-primary-color); }',
+			},
+		};
 
-			const pages = await rasterizePdf(await renderPdf(data, "azurill"));
-			if (count === 1) expect(pages).toHaveLength(2);
-			else expect(pages.length).toBeGreaterThan(2);
-			for (const [index, page] of pages.entries()) {
-				const expected = index === 0 ? [255, 255, 255, 255] : [18, 52, 86, 255];
-				const points = [
-					[2, 2],
-					[page.width - 3, page.height - 3],
-					[page.width / 2, page.height / 2],
-				] as const;
-				for (const [x, y] of points) {
-					const offset = (Math.floor(y) * page.width + Math.floor(x)) * 4;
-					expect(Array.from(page.data.subarray(offset, offset + 4))).toEqual(expected);
-				}
+		// GeneralSingle lays a dark translucent content panel over coloured pages, so its centre
+		// pixel is not the page background. AsiaStandard leaves the painted page unobstructed,
+		// which is what #3610 actually asserts: only page 2+ carries the primary colour.
+		const pages = await rasterizePdf(await renderPdf(data, "asia-standard"));
+		if (count === 1) expect(pages).toHaveLength(2);
+		else expect(pages.length).toBeGreaterThan(2);
+		for (const [index, page] of pages.entries()) {
+			const expected = index === 0 ? [255, 255, 255, 255] : [18, 52, 86, 255];
+			const points = [
+				[2, 2],
+				[page.width - 3, page.height - 3],
+				[page.width / 2, page.height / 2],
+			] as const;
+			for (const [x, y] of points) {
+				const offset = (Math.floor(y) * page.width + Math.floor(x)) * 4;
+				expect(Array.from(page.data.subarray(offset, offset + 4))).toEqual(expected);
 			}
-		},
-	);
+		}
+	});
 
-	it("keeps Azurill overflow lossless while preserving a manual full-width authored continuation", async () => {
-		const { data, overflowTokens } = azurillAuthoredOverflowFixture();
+	it("keeps General-Single overflow lossless while preserving a manual full-width authored continuation", async () => {
+		const { data, overflowTokens } = generalSingleAuthoredOverflowFixture();
 		const authoredPagesBeforeRender = structuredClone(data.metadata.layout.pages);
-		const document = await parsePdf(await renderPdf(data, "azurill"));
+		const document = await parsePdf(await renderPdf(data, "general-single"));
 		const pages = await readPhysicalPages(document);
 		const renderedText = pages.map(({ text }) => text).join(" ");
 		const overflowPageIndexes = overflowTokens.map((token) => pages.findIndex(({ text }) => text.includes(token)));
@@ -200,7 +202,10 @@ describe("semantic pagination bindings", () => {
 		expect(renderedText).toContain("MANUAL FULL WIDTH TOKEN");
 		expect(overflowPageIndexes).not.toContain(-1);
 		expect(manualPageIndex).toBeGreaterThan(Math.max(...overflowPageIndexes));
-		expect(manualContinuationItem?.transform[4]).toBeLessThan(
+		// Azurill's sidebar geometry put the full-width authored continuation left of the first
+		// overflow line. Every China-market template keeps the same main-column left edge on both
+		// kinds of page, so the continuation may align with (but never sit right of) that line.
+		expect(manualContinuationItem?.transform[4]).toBeLessThanOrEqual(
 			firstOverflowItem?.transform[4] ?? Number.NEGATIVE_INFINITY,
 		);
 		expect(data.metadata.layout.pages).toEqual(authoredPagesBeforeRender);

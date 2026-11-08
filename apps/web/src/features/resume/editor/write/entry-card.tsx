@@ -108,8 +108,8 @@ export function EntryCard({ section, entryId, index, count, page, locked, onMove
 			data-entry-id={entryId}
 			style={{ transform: CSS.Translate.toString(transform), transition: transition }}
 			className={cn(
-				"group/entry relative scroll-mt-[60px] rounded-lg border border-line bg-surface transition-[border-color,box-shadow] duration-quick ease-enter",
-				open && "border-accent shadow-e1",
+				"group/entry relative scroll-mt-[60px] border-b border-line bg-transparent transition-colors duration-quick ease-enter",
+				open && "border-line-2",
 				isDragging && "z-10 bg-raised shadow-e2",
 			)}
 		>

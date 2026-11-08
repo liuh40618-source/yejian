@@ -28,7 +28,7 @@ it("paginates the owner's filtered list without changing legacy array responses"
 	}));
 	list.mockResolvedValue(rows);
 	const resHeaders = new Headers();
-	const context = { locale: "en-US" as const, reqHeaders: new Headers(), resHeaders };
+	const context = { locale: "zu-ZA" as const, reqHeaders: new Headers(), resHeaders };
 	const result = await call(crudRouter.list, { tags: ["engineering"], limit: 1, offset: 1 }, { context });
 	expect(result.map((row) => row.id)).toEqual(["b"]);
 	expect(resHeaders.get("X-Total-Count")).toBe("3");

@@ -25,6 +25,15 @@ const RUN_ON_MIN_LENGTH = 25;
 /** Above this share of common-word hits, the text reads as English and lexicon signals are trustworthy. */
 const ENGLISH_LEXICON_THRESHOLD = 0.15;
 
+/**
+ * Share of Han characters above which a document reads as Chinese.
+ *
+ * A Chinese resume routinely carries Latin technology names ("React", "Kubernetes"), so the bar is
+ * well below half: a document a third of whose characters are Han is written in Chinese, and its
+ * bullets are read by the Chinese content rules.
+ */
+const CHINESE_CHAR_THRESHOLD = 0.3;
+
 export type TextQualityInput = {
 	fullText: string;
 	/** From the document catalog, when the file declares one. */
@@ -77,7 +86,20 @@ export function analyzeTextQuality(input: TextQualityInput): TextQuality {
 	const runOn = alphabetic.filter((token) => token.length >= RUN_ON_MIN_LENGTH).length;
 
 	const declaresEnglish = (input.languageTag ?? "").toLowerCase().startsWith("en");
-	const looksLatin = charCount === 0 ? false : latinCount / charCount > 0.4 || LATIN.test(fullText);
+
+	// Chinese carries no spaces and no vowel structure, so none of the English measurements above
+	// apply to it. It is detected on the share of Han characters instead, and the content rules
+	// consult this flag to pick their own thresholds.
+	const hanCount = (fullText.match(/\p{Script=Han}/gu) ?? []).length;
+	const declaresChinese = /^(?:zh|cmn)/i.test(input.languageTag ?? "");
+	const looksChinese = charCount === 0 ? false : hanCount / charCount >= CHINESE_CHAR_THRESHOLD;
+	const isChinese = declaresChinese || looksChinese;
+
+	// A Chinese resume is full of Latin technology names ("React", "Kubernetes"), which is enough to
+	// satisfy `LATIN.test` and enough to push the lexicon ratio past its threshold. The two flags are
+	// therefore exclusive: a document written in Chinese is read by the Chinese rules, not both.
+	const looksLatin = charCount === 0 ? false : latinCount / charCount > 0.4 || (!isChinese && LATIN.test(fullText));
+	const isEnglish = !isChinese && (declaresEnglish || (looksLatin && lexiconHitRatio >= ENGLISH_LEXICON_THRESHOLD));
 
 	return {
 		tokenCount: tokens.length,
@@ -86,7 +108,8 @@ export function analyzeTextQuality(input: TextQualityInput): TextQuality {
 		ligatureCount,
 		vowellessRatio: alphabetic.length === 0 ? 0 : vowelless / alphabetic.length,
 		lexiconHitRatio,
-		isEnglish: declaresEnglish || (looksLatin && lexiconHitRatio >= ENGLISH_LEXICON_THRESHOLD),
+		isEnglish,
+		isChinese,
 		runOnTokenRatio: alphabetic.length === 0 ? 0 : runOn / alphabetic.length,
 		singleCharItemRatio: input.singleCharItemRatio,
 	};

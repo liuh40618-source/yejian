@@ -15,15 +15,15 @@ vi.mock("./pdfjs", () => ({
 	RenderingCancelledException: Error,
 }));
 beforeEach(() => {
-	i18n.loadAndActivate({ locale: "de-DE", messages: {} });
+	i18n.loadAndActivate({ locale: "zu-ZA", messages: {} });
 });
 
-it("defers all five pairing and eight accent labels to Lingui", () => {
+it("defers all six pairings and eight accent labels to Lingui", () => {
 	const labels = [...FONT_PAIRINGS, ...ACCENTS].map(({ label }) => label);
-	expect(labels).toHaveLength(13);
+	expect(labels).toHaveLength(14);
 	for (const [index, label] of labels.entries()) {
 		expect(label).toHaveProperty("id");
-		i18n.load("de-DE", { [label.id]: `Übersetzung ${index}` });
+		i18n.load("zu-ZA", { [label.id]: `Übersetzung ${index}` });
 		expect(i18n._(label)).toBe(`Übersetzung ${index}`);
 	}
 });
@@ -32,17 +32,16 @@ it("translates loading and rendered page names and fallback captions", () => {
 	const pageNumber = 1;
 	const pageCount = 3;
 	const totalPages = 3;
-	i18n.load("de-DE", {
-		[msg`Page ${pageNumber} of ${pageCount}`.id]: "Seite {pageNumber} von {pageCount}",
-		[msg`Page ${pageNumber} of ${totalPages}`.id]: "Seite {pageNumber} von {totalPages}",
-		[msg`Loading resume page ${pageNumber} of ${pageCount}`.id]:
-			"Lebenslaufseite wird geladen {pageNumber} von {pageCount}",
-		[msg`Resume page ${pageNumber} of ${totalPages}`.id]: "Lebenslaufseite {pageNumber} von {totalPages}",
+	i18n.load("zu-ZA", {
+		[msg`Page ${pageNumber} of ${pageCount}`.id]: "第 {pageNumber} 页 / 共 {pageCount} 页",
+		[msg`Page ${pageNumber} of ${totalPages}`.id]: "第 {pageNumber} 页 / 共 {totalPages} 页",
+		[msg`Loading resume page ${pageNumber} of ${pageCount}`.id]: "正在加载简历第 {pageNumber} 页 / 共 {pageCount} 页",
+		[msg`Resume page ${pageNumber} of ${totalPages}`.id]: "简历第 {pageNumber} 页 / 共 {totalPages} 页",
 	});
 	const markup = (node: React.ReactNode) => renderToStaticMarkup(<I18nProvider i18n={i18n}>{node}</I18nProvider>);
 	const loading = markup(<ResumePreviewLoader pageCount={3} showPageNumbers />);
-	expect(loading).toContain("Seite 1 von 3");
-	expect(loading).toContain('aria-label="Lebenslaufseite wird geladen 1 von 3"');
+	expect(loading).toContain("第 1 页 / 共 3 页");
+	expect(loading).toContain('aria-label="正在加载简历第 1 页 / 共 3 页"');
 	const rendered = markup(
 		<PdfCanvasPage
 			document={{} as never}
@@ -53,14 +52,14 @@ it("translates loading and rendered page names and fallback captions", () => {
 			showPageNumbers
 		/>,
 	);
-	expect(rendered).toContain("Seite 2 von 3");
-	expect(rendered).toContain('aria-label="Lebenslaufseite 2 von 3"');
+	expect(rendered).toContain("第 2 页 / 共 3 页");
+	expect(rendered).toContain('aria-label="简历第 2 页 / 共 3 页"');
 });
 
 it("translates ATS page badges without changing extracted evidence", () => {
 	const page = 7;
 	const evidence = { page };
-	i18n.load("de-DE", { [msg`Page ${evidence.page}`.id]: "Seite {0}" });
+	i18n.load("zu-ZA", { [msg`Page ${evidence.page}`.id]: "第 {0} 页" });
 	const finding = {
 		code: "NO_TEXT_LAYER",
 		severity: "blocker",
@@ -72,7 +71,7 @@ it("translates ATS page badges without changing extracted evidence", () => {
 			<FindingRow finding={finding} />
 		</I18nProvider>,
 	);
-	expect(output).toContain("Seite 7");
+	expect(output).toContain("第 7 页");
 	expect(output).toContain("Fictional evidence");
 	expect(finding.evidence.page).toBe(7);
 });

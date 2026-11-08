@@ -7,20 +7,20 @@ import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { createResumePdfFile } from "./server";
 
 const require = createRequire(import.meta.url);
-const standardFontDataUrl = `${join(dirname(require.resolve("pdfjs-dist/package.json")), "standard_fonts")}/`;
+const standardFontDataUrl = `${join(dirname(require.resolve("pdfjs-dist/package.json")), "standard_fonts").replace(/\\/g, "/")}/`;
 
 async function readParagraphs(content: string, locale = "en-US", sidebarWidth?: number) {
 	const data = structuredClone(defaultResumeData);
 	data.picture.hidden = true;
 	data.basics.name = "Jane Doe";
-	data.metadata.template = "onyx";
+	data.metadata.template = "minimal-photo";
 	data.metadata.page.locale = locale;
 	data.metadata.typography.body.fontFamily = "Helvetica";
 	data.metadata.typography.heading.fontFamily = "Helvetica";
 	data.metadata.layout.pages = [{ fullWidth: true, main: ["summary"], sidebar: [] }];
 	data.summary.content = content;
 	if (sidebarWidth) {
-		data.metadata.template = "chikorita";
+		data.metadata.template = "senior-formal";
 		data.metadata.layout.sidebarWidth = sidebarWidth;
 		data.metadata.layout.pages = [{ fullWidth: false, main: [], sidebar: ["summary"] }];
 	}

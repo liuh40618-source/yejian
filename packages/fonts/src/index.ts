@@ -1,4 +1,4 @@
-import type { Locale, Script } from "@reactive-resume/utils/locale";
+import type { Script } from "@reactive-resume/utils/locale";
 import { getLocaleScript, isCjkScript } from "@reactive-resume/utils/locale";
 
 // ponytail: inlined from @reactive-resume/utils/field (sole consumer)
@@ -252,7 +252,9 @@ export function resolveBoldFontWeight(family: string | string[], storedWeights: 
  */
 export function getPdfFallbackFontFamilies(
 	family: string,
-	options: { locale?: Locale; scripts?: Iterable<Script> } = {},
+	// `locale` is any BCP-47 tag, not the narrowed UI `Locale`: exported resumes can be
+	// written in a different language than the interface (see getLocaleScript).
+	options: { locale?: string; scripts?: Iterable<Script> } = {},
 ): string[] {
 	const category = getFont(family)?.category ?? null;
 

@@ -1,6 +1,12 @@
 import type { ResumeData } from "./data";
 import { sectionDefaults } from "./default";
 
+/**
+ * The upstream reference sample. This is a *fixture*, not the resume "Try a sample" shows users:
+ * the shipped Chinese-market sample lives in `./china-sample` and is what `createResumeData()`
+ * returns. Keeping this neutral fixture matters — PDF pagination, ATS extraction, import
+ * round-trips and template previews all pin their geometry to this exact English content.
+ */
 export const sampleResumeData: ResumeData = {
 	picture: {
 		hidden: false,
@@ -480,7 +486,7 @@ export const sampleResumeData: ResumeData = {
 		},
 	],
 	metadata: {
-		template: "azurill",
+		template: "asia-standard",
 		layout: {
 			sidebarWidth: 30,
 			pages: [

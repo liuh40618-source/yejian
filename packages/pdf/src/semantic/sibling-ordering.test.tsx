@@ -72,15 +72,16 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 		data.basics.location = "London";
 		data.metadata.layout.pages = [{ fullWidth: true, main: [], sidebar: [] }];
 
-		const values = await renderTextValues(data, "onyx");
+		const values = await renderTextValues(data, "minimal-photo");
 
 		expectBefore(values, "+44 123", "ada@example.com");
 		expect(values).not.toContain("London");
 	});
 
-	it("projects Chikorita contacts only within their two existing row hosts", async () => {
+	it("projects SeniorFormal contacts inside its single contact row", async () => {
+		// SeniorFormal, like every shipped template, draws one contact list; there is no second row host to
+		// project onto, so the rules below can only reorder and hide items within that one list.
 		const data = semanticFixture(`
-			template-part[name="contact-row-secondary"] { order: -1; }
 			contact-item[name="location"] { display: none; }
 			contact-item[name="phone"] { order: -1; }
 			contact-item[name="custom"] { order: -1; }
@@ -92,11 +93,10 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 		data.basics.customFields = [{ id: "custom-1", icon: "", text: "portfolio.example", link: "" }];
 		data.metadata.layout.pages = [{ fullWidth: true, main: [], sidebar: [] }];
 
-		const values = await renderTextValues(data, "chikorita");
+		const values = await renderTextValues(data, "senior-formal");
 
-		expectBefore(values, "portfolio.example", "example.com");
-		expectBefore(values, "example.com", "+44 123");
 		expectBefore(values, "+44 123", "ada@example.com");
+		expectBefore(values, "portfolio.example", "example.com");
 		expect(values).not.toContain("London");
 	});
 
@@ -124,7 +124,7 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 		];
 		data.metadata.layout.pages = [{ fullWidth: true, main: ["experience"], sidebar: [] }];
 
-		const values = await renderTextValues(data, "onyx");
+		const values = await renderTextValues(data, "minimal-photo");
 
 		expectBefore(values, "Last role", "Analytical Engines");
 		expectBefore(values, "Company site", "First role");
@@ -152,7 +152,7 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 		];
 		data.metadata.layout.pages = [{ fullWidth: true, main: ["experience"], sidebar: [] }];
 
-		const values = await renderTextValues(data, "onyx");
+		const values = await renderTextValues(data, "minimal-photo");
 
 		expectBefore(values, "1842", "Analytical Engines");
 		expect(values).not.toContain("Engineer");
@@ -181,7 +181,7 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 		];
 		data.metadata.layout.pages = [{ fullWidth: true, main: ["education"], sidebar: [] }];
 
-		const values = await renderTextValues(data, "onyx");
+		const values = await renderTextValues(data, "minimal-photo");
 
 		expectBefore(values, "London", "First");
 		expectBefore(values, "First", "Mathematics");
@@ -209,7 +209,7 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 		];
 		data.metadata.layout.pages = [{ fullWidth: true, main: ["education"], sidebar: [] }];
 
-		const values = await renderTextValues(data, "onyx");
+		const values = await renderTextValues(data, "minimal-photo");
 
 		expectBefore(values, "1835", "Mathematics");
 		expectBefore(values, "Mathematics", "BSc");
@@ -224,7 +224,7 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 		data.summary.content = "<ul><li>Hidden run</li></ul><p><strong>First run</strong><u>Last run</u></p>";
 		data.metadata.layout.pages = [{ fullWidth: true, main: ["summary"], sidebar: [] }];
 
-		const values = await renderTextValues(data, "onyx");
+		const values = await renderTextValues(data, "minimal-photo");
 
 		expectBefore(values, "Last run", "First run");
 		expect(values).not.toContain("Hidden run");
@@ -240,7 +240,7 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 			data.metadata.page.locale = locale;
 			data.summary.content = "<ul><li>List content</li></ul>";
 			data.metadata.layout.pages = [{ fullWidth: true, main: ["summary"], sidebar: [] }];
-			const runtime = resolveResumeRuntime({ data, template: "onyx" });
+			const runtime = resolveResumeRuntime({ data, template: "minimal-photo" });
 			const renderedItem = findSemanticNode(runtime.renderTree, (node) => node.kind === "list-item");
 
 			expect(runtime.diagnostics.filter(({ severity }) => severity === "error")).toEqual([]);
@@ -248,7 +248,7 @@ describe("semantic sibling ordering reaches final PDF output", () => {
 				rule.includes("display") ? ["list-item-content"] : ["list-marker", "list-item-content"],
 			);
 
-			const values = await renderTextValues(data, "onyx");
+			const values = await renderTextValues(data, "minimal-photo");
 
 			if (rule.includes("display")) {
 				expect(values).toContain(first);

@@ -18,6 +18,10 @@ describe("parsePeriod", () => {
 		["Jan 2020 until now", { start: { year: 2020, month: 1 }, ongoing: true }],
 		["Fall 2019 - Spring 2021", { start: { year: 2019, month: 9 }, end: { year: 2021, month: 3 }, ongoing: false }],
 		["15/03/2020", { start: { year: 2020, month: 3 }, ongoing: false }],
+		// Mainland year-first dates and the Chinese "still here" marker.
+		["2021.06 - 至今", { start: { year: 2021, month: 6 }, ongoing: true }],
+		["2013.09 - 2017.06", { start: { year: 2013, month: 9 }, end: { year: 2017, month: 6 }, ongoing: false }],
+		["2021年6月 - 至今", { start: { year: 2021, month: 6 }, ongoing: true }],
 	])("reads %s", (input, expected) => {
 		expect(parsePeriod(input)).toEqual(expected);
 	});

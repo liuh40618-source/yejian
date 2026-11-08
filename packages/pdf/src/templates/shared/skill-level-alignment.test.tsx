@@ -38,8 +38,8 @@ async function renderRatings({ columns, count, configure }: FixtureOptions) {
 		keywords: index === 1 ? Array.from({ length: 12 }, (_, word) => `Keyword${word}`) : ["Short"],
 	}));
 	configure?.(data);
-	expect(resolveResumeRuntime({ data, template: "onyx" }).diagnostics).toEqual([]);
-	const bytes = await act(() => renderToBuffer(<ResumeDocument data={data} template="onyx" />));
+	expect(resolveResumeRuntime({ data, template: "minimal-photo" }).diagnostics).toEqual([]);
+	const bytes = await act(() => renderToBuffer(<ResumeDocument data={data} template="minimal-photo" />));
 	const pages = await rasterizePdf(new Uint8Array(bytes));
 	const loading = getDocument({ data: new Uint8Array(bytes) });
 	const text: string[] = [];
@@ -74,7 +74,7 @@ async function renderRatings({ columns, count, configure }: FixtureOptions) {
 				previous.circles = Math.max(previous.circles, segments);
 			} else rows.push({ top: y, bottom: y, circles: segments });
 		}
-		// Onyx's thin section separator is red too; retain only the circle bands.
+		// MinimalPhoto's thin section separator is red too; retain only the circle bands.
 		return rows.filter((row) => row.bottom - row.top > 5);
 	});
 	return { rows, text: text.join(" ") };

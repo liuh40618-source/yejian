@@ -8,6 +8,7 @@ import { env } from "@reactive-resume/env/server";
 import { jsonLdScript, socialMetaTags } from "@reactive-resume/pdf/web-page-document";
 import { templateSchema } from "@reactive-resume/schema/templates";
 import { isAppSectionPath, isFeedbackPath, RESERVED_SEGMENTS } from "@reactive-resume/utils/app-paths";
+import { APP_NAME, APP_NAME_LATIN } from "@reactive-resume/utils/brand";
 import { defaultLocale, getLocaleAlternates, languageTag, localizedUrl } from "@reactive-resume/utils/locale";
 import { escapeHtml } from "@reactive-resume/utils/string";
 import { getPageLocale } from "./locale";
@@ -105,7 +106,7 @@ export function contentSecurityPolicy(html = "") {
 }
 
 export const BASE_SECURITY_HEADERS = {
-	Link: `<${CONTEXT7_ASK_URL}>; rel="search"; type="text/plain"; title="Search rxresu.me"`,
+	Link: `<${CONTEXT7_ASK_URL}>; rel="search"; type="text/plain"; title="Search ${APP_NAME_LATIN}"`,
 	"X-Frame-Options": "DENY",
 	"X-Content-Type-Options": "nosniff",
 	"Referrer-Policy": "strict-origin-when-cross-origin",
@@ -152,51 +153,46 @@ function htmlResponse(html: string, headers: Record<string, string>, template = 
 	});
 }
 
-const githubUrl = "https://github.com/reactive-resume/reactive-resume";
-// The English copy, for a build without prerendered pages; a prerendered page carries its own locale's title and
-// description, and the social cards reuse them.
-const ROOT_TITLE = "Free resume builder with PDF &amp; Word downloads | Reactive Resume";
+// The copy for a build without prerendered pages; a prerendered page carries its own locale's title and description,
+// and the social cards reuse them.
+const ROOT_TITLE = "Free resume builder with PDF &amp; Word downloads | 页见";
 const ROOT_DESCRIPTION =
 	"Free, open-source resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.";
-const ATS_CHECKER_TITLE = "Free ATS resume checker | Reactive Resume";
+const ATS_CHECKER_TITLE = "Free ATS resume checker | 页见";
 const ATS_CHECKER_DESCRIPTION =
 	"Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
-const TEMPLATES_TITLE = "Free resume templates with PDF examples | Reactive Resume";
+const TEMPLATES_TITLE = "Free resume templates with PDF examples | 页见";
 const TEMPLATES_DESCRIPTION =
 	"Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.";
 
 type StructuredData = Record<string, unknown>;
 
-/** Who makes Reactive Resume, referenced by id from every page's structured data. */
+/**
+ * Who makes the product, referenced by id from every page's structured data. Upstream also lists its repository, social
+ * accounts and support address here; this build has none of them, and a wrong `sameAs` or `contactPoint` teaches search
+ * engines to associate the site with another project, so only the identity that is true is emitted.
+ */
 function organization(origin: string): StructuredData {
 	return {
 		"@type": "Organization",
 		"@id": `${origin}/#organization`,
-		name: "Reactive Resume",
+		name: APP_NAME,
 		url: `${origin}/`,
-		contactPoint: { "@type": "ContactPoint", contactType: "support", email: "amruth@rxresu.me" },
 		logo: { "@type": "ImageObject", url: `${origin}/pwa-512x512.png`, width: 512, height: 512 },
-		sameAs: [
-			githubUrl,
-			"https://www.linkedin.com/company/reactive-resume",
-			"https://opencollective.com/reactive-resume",
-			"https://www.reddit.com/r/reactiveresume",
-			"https://discord.gg/aSyA5ZSxpb",
-			"https://crowdin.com/project/reactive-resume",
-		],
 	};
 }
 
+// The interface ships one language, so the list is written in it rather than only on the default locale.
 const FEATURE_LIST = [
-	"Resume editor with a live page preview",
-	`${templateSchema.options.length} templates`,
-	"PDF, Word (DOCX), Markdown and JSON export",
-	"Import from PDF, LinkedIn and JSON Resume, or Word with an AI provider",
-	"ATS readability checker",
-	"Public or password-protected sharing links",
-	"Cover letters and a job application tracker",
-	"Optional AI assistant with your own API key",
-	"Self-hosting with Docker",
+	"带实时预览的简历编辑器",
+	`${templateSchema.options.length} 套模板`,
+	"导出 PDF、Word（DOCX）、Markdown 和 JSON",
+	"导入 PDF、LinkedIn 数据或 JSON Resume；配置 AI 后也能导入 Word",
+	"ATS 可读性检测",
+	"公开或加密码的分享链接",
+	"求职信与投递跟踪",
+	"可选用自己的 API Key 接入 AI 助手",
+	"支持 Docker 自建部署",
 ];
 
 /** The page's own words, as its prerendered HTML has them in the visitor's language, for the structured data. */
@@ -210,7 +206,7 @@ const decodeHtml = (value: string) =>
 		.replace(/&gt;/g, ">")
 		.replace(/&amp;/g, "&");
 
-// "ATS Checker | Reactive Resume" → "ATS Checker": the page's name without the site's.
+// "ATS Checker | 页见" → "ATS Checker": the page's name without the site's.
 const pageName = (title: string) => decodeHtml(title).split(" | ")[0]?.trim() || decodeHtml(title);
 
 function homepageStructuredData(origin: string, text: PageText): StructuredData {
@@ -222,24 +218,22 @@ function homepageStructuredData(origin: string, text: PageText): StructuredData 
 			{
 				"@type": "WebSite",
 				"@id": `${origin}/#website`,
-				name: "Reactive Resume",
+				name: APP_NAME,
 				url: rootUrl,
 				publisher: { "@id": `${origin}/#organization` },
 			},
 			{
 				"@type": ["SoftwareApplication", "WebApplication"],
-				name: "Reactive Resume",
+				name: APP_NAME,
 				url: rootUrl,
 				description: decodeHtml(text.description),
 				inLanguage: languageTag(text.locale),
 				applicationCategory: "BusinessApplication",
 				operatingSystem: "Web",
 				isAccessibleForFree: true,
-				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-				license: `${githubUrl}/blob/main/LICENSE`,
+				offers: { "@type": "Offer", price: "0", priceCurrency: "CNY" },
 				publisher: { "@id": `${origin}/#organization` },
-				// The feature list is written in English; other languages leave it out rather than mix languages.
-				...(text.locale === defaultLocale ? { featureList: FEATURE_LIST } : {}),
+				featureList: FEATURE_LIST,
 			},
 		],
 	};
@@ -259,8 +253,8 @@ function atsCheckerStructuredData(origin: string, text: PageText): StructuredDat
 				applicationCategory: "BusinessApplication",
 				operatingSystem: "Web",
 				isAccessibleForFree: true,
-				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-				isPartOf: { "@type": "WebSite", "@id": `${origin}/#website`, name: "Reactive Resume", url: `${origin}/` },
+				offers: { "@type": "Offer", price: "0", priceCurrency: "CNY" },
+				isPartOf: { "@type": "WebSite", "@id": `${origin}/#website`, name: APP_NAME, url: `${origin}/` },
 				provider: { "@id": `${origin}/#organization` },
 			},
 		],
@@ -457,7 +451,8 @@ export async function handleWebApp(request: Request, readFile: ReadWebFile = (pa
 			pathname === "/"
 				? page.replace(/href="\/\?locale=([^"#&]+)#languages"/g, (_match, language: string) => {
 						const search = new URLSearchParams(requestUrl.search);
-						search.set("locale", language);
+						if (language === defaultLocale) search.delete("locale");
+						else search.set("locale", language);
 						return `href="/?${escapeHtml(search.toString())}#languages"`;
 					})
 				: page;

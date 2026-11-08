@@ -13,7 +13,7 @@ it.each(["apiKey", "bearer", "session"] as const)(
 		createApiKey.mockReset().mockResolvedValue({ key: "issued-key" });
 		const issue = createProcedureClient(authRouter.createApiKey, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: {
 					user: {
@@ -47,7 +47,7 @@ it("asks for a fresh sign-in before issuing a key from an old session", async ()
 	getSession.mockResolvedValueOnce({ session: { createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000) } });
 	const issue = createProcedureClient(authRouter.createApiKey, {
 		context: {
-			locale: "en-US",
+			locale: "zu-ZA",
 			reqHeaders: new Headers(),
 			authentication: {
 				user: {

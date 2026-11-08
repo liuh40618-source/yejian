@@ -104,7 +104,7 @@ describe("template semantic manifests", () => {
 		expect(new Set(nodes.map((node) => node.key)).size).toBe(nodes.length);
 	});
 
-	it.each(["ditgar", "gengar"] as const)("%s moves the first-page summary into its featured region", (template) => {
+	it.each(["editorial"] as const)("%s moves the first-page summary into its featured region", (template) => {
 		const tree = buildFixtureTree(template);
 		const featured = findNodes(tree, (node) => node.kind === "region" && node.attributes.region === "featured")[0];
 		const summaries = findNodes(tree, (node) => node.kind === "section" && node.id === "summary");
@@ -114,22 +114,23 @@ describe("template semantic manifests", () => {
 		expect(summaries[0]?.roles).toContain("featured-summary");
 	});
 
-	it("places Leafish summary in the header only while the renderer shows that header", () => {
-		const withHeader = buildFixtureTree("leafish", true);
-		const withoutHeader = buildFixtureTree("leafish", false);
-		const headerRegion = findNodes(
-			withHeader,
-			(node) => node.kind === "region" && node.attributes.region === "header",
-		)[0];
+	// The retired `leafish` layout baked the first-page summary into the header region and dropped it
+	// entirely once the header was hidden (specialSummary.source === "always"). That template was one of
+	// the nine removed in the China-market redesign, so no shipped template may still do this. Editorial's
+	// surviving featured-summary layout is covered by the two tests on either side of this one.
+	it("no shipped template bakes its summary into the header region", () => {
+		for (const template of templateSchema.options) {
+			const tree = buildFixtureTree(template);
+			const headerRegion = findNodes(tree, (node) => node.kind === "region" && node.attributes.region === "header")[0];
 
-		expect(
-			headerRegion && findNodes(headerRegion, (node) => node.kind === "section" && node.id === "summary"),
-		).toHaveLength(1);
-		expect(findNodes(withHeader, (node) => node.kind === "section" && node.id === "summary")).toHaveLength(1);
-		expect(findNodes(withoutHeader, (node) => node.kind === "section" && node.id === "summary")).toHaveLength(0);
+			expect(
+				headerRegion && findNodes(headerRegion, (node) => node.kind === "section" && node.id === "summary"),
+				template,
+			).toHaveLength(0);
+		}
 	});
 
-	it.each(["ditgar", "gengar"] as const)("%s leaves summary in main when featured chrome is absent", (template) => {
+	it.each(["editorial"] as const)("%s leaves summary in main when featured chrome is absent", (template) => {
 		const tree = buildFixtureTree(template, false);
 		const summary = findNodes(tree, (node) => node.kind === "section" && node.id === "summary");
 

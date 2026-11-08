@@ -1,7 +1,14 @@
 // @vitest-environment happy-dom
-import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const fetchMock = vi.fn<typeof fetch>();
+
+// The client pulls in the whole API router. Compiling that graph costs seconds on a cold start, and it would land
+// inside the first test's timeout, so it is paid once here instead. The hook gets its own, larger budget: in a full
+// run it competes with every other worker for the transform pipeline.
+beforeAll(async () => {
+	await import("./client");
+}, 120_000);
 
 beforeEach(() => {
 	fetchMock.mockReset();

@@ -50,8 +50,8 @@ const readPdf = async (data: ResumeData, template: Template) => {
 };
 
 describe("imported rich-text tables", () => {
-	it("ditgar preserves bare cell text and row/column positions", async () => {
-		const { items } = await readPdf(fixture(table()), "ditgar");
+	it("form-grid preserves bare cell text and row/column positions", async () => {
+		const { items } = await readPdf(fixture(table()), "form-grid");
 		const cell = (text: string) => {
 			const cell = items.find((item) => item.text === text);
 			if (!cell) throw new Error(`Missing table cell ${text}`);
@@ -76,12 +76,12 @@ describe("imported rich-text tables", () => {
 	});
 
 	it("preserves table cells containing recognized paragraphs", async () => {
-		const { items } = await readPdf(fixture(table(true)), "ditgar");
+		const { items } = await readPdf(fixture(table(true)), "form-grid");
 		expect(items.map((item) => item.text)).toEqual(expect.arrayContaining(["Alpha", "Beta", "Gamma", "Delta"]));
 	});
 
 	it("preserves raw text inside an unrecognized block wrapper", async () => {
-		const { items } = await readPdf(fixture("<div>Wrapper content</div>"), "ditgar");
+		const { items } = await readPdf(fixture("<div>Wrapper content</div>"), "form-grid");
 		expect(items.map((item) => item.text)).toContain("Wrapper content");
 	});
 });

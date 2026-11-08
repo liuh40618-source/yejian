@@ -1,4 +1,3 @@
-import type { Locale } from "@reactive-resume/utils/locale";
 import authCatalog from "./auth-catalog.json";
 
 /**
@@ -34,8 +33,7 @@ const ENGLISH = {
 	changeOutro:
 		"If you did not request this change, ignore this email and change your password. The address on the account will not change without your approval.",
 	linkFallback: "If the button does not work, copy and paste this link into your browser:",
-	community: "By the community, for the community.",
-	credit: "A passion project by {author}.",
+	credit: "Built on the open-source Reactive Resume project.",
 };
 
 export type AuthEmailMessages = typeof ENGLISH;
@@ -50,7 +48,10 @@ const placeholders = (text: string) => [...text.matchAll(/\{(\w+)\}/g)].map((mat
  * The emails' text in `locale`, falling back to English string by string. A translation that drops or renames a
  * placeholder falls back too: these emails name the addresses involved, and a missing one would hide who is asking.
  */
-export function authEmailMessages(locale: Locale): AuthEmailMessages {
+// `locale` is any BCP-47 tag, not the narrowed UI `Locale`: accounts created before this build
+// shipped a Chinese-only interface still carry tags like en-US. Unknown tags deliberately fall
+// back to English string by string, so they must remain typeable here.
+export function authEmailMessages(locale: string): AuthEmailMessages {
 	const catalog = Object.hasOwn(catalogs, locale) ? catalogs[locale] : undefined;
 	return Object.fromEntries(
 		Object.entries(ENGLISH).map(([key, english]) => {

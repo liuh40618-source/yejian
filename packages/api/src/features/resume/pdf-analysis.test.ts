@@ -28,7 +28,7 @@ function pdfFile() {
 }
 
 it("checks an anonymous PDF upload with the real reader and rejects non-PDF bytes", async () => {
-	const context = { locale: "en-US" as const, reqHeaders: new Headers(), trustedClient: "127.0.0.1" };
+	const context = { locale: "zu-ZA" as const, reqHeaders: new Headers(), trustedClient: "127.0.0.1" };
 	const report = await call(checkPdf, { file: pdfFile() }, { context });
 	expect(report.document).toMatchObject({ pageCount: 1, truncated: false, wordCount: 4 });
 	expect(report.file.magicBytesOk).toBe(true);

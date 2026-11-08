@@ -92,3 +92,15 @@ temp
 # Built browser capture helper
 /apps/web/public/capture-helper/
 /apps/web/public/capture-helper.zip
+
+# Local-only artifacts from the Chinese-market customization.
+# Development evidence, screenshots and machine config — not part of the published work.
+# Remove any line below if you want that artifact versioned. See UPSTREAM-DIFF.md section 7.
+/.workbuddy-ai/
+/.npmrc
+/shots/
+/shot-*.mjs
+/e2e-walk.mjs
+/rename-templates.mjs
+/scan-latin.mjs
+/apps/web/_tmp_*

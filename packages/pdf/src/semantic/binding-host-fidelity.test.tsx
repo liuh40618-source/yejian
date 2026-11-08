@@ -1,8 +1,8 @@
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
 import { describe, expect, it } from "vite-plus/test";
 import { createElement } from "react";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { templateSchema, type Template } from "@reactive-resume/schema/templates";
 import { ResumeDocument } from "../document";
 import { pdf } from "../forme/testing";
 
@@ -111,7 +111,7 @@ const renderFixture = async (template: Template, data: ResumeData): Promise<Host
 describe("semantic binding host fidelity", () => {
 	it("attaches region, contact-list, icon-row heading, no-border item-header, and item-icon styles", async () => {
 		const document = await renderFixture(
-			"onyx",
+			"minimal-photo",
 			buildFixture(
 				`
 					region[region="main"] { background-color: #101010; }
@@ -146,7 +146,7 @@ describe("semantic binding host fidelity", () => {
 		["references", "Charles Babbage"],
 	] as const)("keeps direct %s Text siblings outside the item-header contract", async (section, text) => {
 		const document = await renderFixture(
-			"onyx",
+			"minimal-photo",
 			buildFixture(
 				`
 					item-header { display: none; background-color: #414141; break-before: page; }
@@ -163,9 +163,9 @@ describe("semantic binding host fidelity", () => {
 		expect(textPath?.some((node) => mergedStyle(node).backgroundColor === "#414141")).toBe(false);
 	});
 
-	it("binds Rhyhorn's outer contact owner, nested content primitive, link alias, and last-owner alias separately", async () => {
+	it("binds WhitespaceClean's outer contact owner, nested content primitive, link alias, and last-owner alias separately", async () => {
 		const document = await renderFixture(
-			"rhyhorn",
+			"whitespace-clean",
 			buildFixture(`
 				contact-item { background-color: #616161; }
 				template-part[name="contact-item-content"] { color: #717171; }
@@ -183,18 +183,18 @@ describe("semantic binding host fidelity", () => {
 		expect(emailPath?.some((node) => node.type === "VIEW" && mergedStyle(node).borderBottomWidth === 9)).toBe(true);
 	});
 
-	it.each([
-		["azurill", 4],
-		["ditgar", 1],
-		["ditto", 3],
-		["gengar", 1],
-		["glalie", 1],
-		["leafish", 3],
-		["pikachu", 1],
-		["rhyhorn", 1],
-		["scizor", 1],
-	] as const)("%s attaches every visible primitive template part to an existing host", async (template, expected) => {
-		const document = await renderFixture(template, buildFixture("template-part { opacity: 0.37; }"));
+	it.each(
+		templateSchema.options.map(
+			(template) => [template, template === "heading-accent" || template === "whitespace-clean" ? 4 : 3] as const,
+		),
+	)("%s attaches every visible primitive template part to an existing host", async (template, expected) => {
+		const data = buildFixture("template-part { opacity: 0.37; }", "experience");
+		// Primitive entry-header parts are owned by `entryLayout: "inline"` and are hidden in the
+		// default stacked layout. The old table expected one bound part from a summary-only fixture,
+		// which was vacuous for most China-market templates: they declare no visible primitive in
+		// that mode at all. Switch to the layout that actually renders them so the binding is tested.
+		data.metadata.design.entry = { layout: "inline", lead: "organization", accent: "none" };
+		const document = await renderFixture(template, data);
 
 		expect(nodesWithStyle(document, "opacity", 0.37)).toHaveLength(expected);
 	});
@@ -202,7 +202,7 @@ describe("semantic binding host fidelity", () => {
 	it("attaches the one-line entry header's parts to existing hosts", async () => {
 		const data = buildFixture("template-part { opacity: 0.37; }", "experience");
 		data.metadata.design.entry = { layout: "inline", lead: "organization", accent: "none" };
-		const document = await renderFixture("onyx", data);
+		const document = await renderFixture("minimal-photo", data);
 
 		expect(nodesWithStyle(document, "opacity", 0.37)).toHaveLength(3);
 	});

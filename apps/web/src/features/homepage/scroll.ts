@@ -13,10 +13,8 @@ export const SCENE = {
 	prepare: 6,
 	remember: 7,
 	numbers: 8,
-	languages: 9,
-	support: 10,
-	faq: 11,
-	footer: 12,
+	faq: 9,
+	footer: 10,
 } as const;
 
 /**
@@ -287,13 +285,13 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 			warmScenes(sections, nearby, decodedScenes);
 			// Descendant geometry would force content-visibility to render an offscreen scene.
 			layout(nearby);
-			// The footer's desk paints itself in as it scrolls up, finishing exactly when the page ends.
+			// The footer's type case rises into place as it scrolls up, finishing exactly when the page ends.
 			const desk = nearby.has(SCENE.footer)
-				? sectionAt(SCENE.footer)?.querySelector<HTMLElement>(".footer-desk")
+				? sectionAt(SCENE.footer)?.querySelector<HTMLElement>(".footer-case")
 				: null;
 			if (desk) {
 				const rect = desk.getBoundingClientRect();
-				// The desk ends the page, so its bottom meets the screen's bottom exactly when scrolling ends.
+				// The case ends the page, so its bottom meets the screen's bottom exactly when scrolling ends.
 				const value = reduced ? "1" : clamp01((viewportHeight - rect.top) / Math.max(1, rect.height)).toFixed(3);
 				if (desk.style.getPropertyValue("--dp") !== value) desk.style.setProperty("--dp", value);
 			}

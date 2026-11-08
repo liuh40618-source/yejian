@@ -52,14 +52,21 @@ describe("new account timezone", () => {
 	);
 
 	it("starts a new account in the interface language it signed up in", async () => {
-		await expect(createBefore(newUser, contextWith({ cookie: "theme=dark; locale=ar-SA" }))).resolves.toEqual({
-			data: expect.objectContaining({ locale: "ar-SA" }),
+		// The China-market build ships zh-CN plus Lingui's zu-ZA pseudo-locale. zu-ZA is the
+		// only valid non-default tag, so it is the one that proves the cookie is actually
+		// propagated instead of falling back to the default. Upstream used ar-SA here.
+		await expect(createBefore(newUser, contextWith({ cookie: "theme=dark; locale=zu-ZA" }))).resolves.toEqual({
+			data: expect.objectContaining({ locale: "zu-ZA" }),
 		});
 	});
 
-	it.each(["locale=xx-XX", "locale=", ""])("leaves the language unknown for the cookie %j", async (cookie) => {
-		await expect(createBefore(newUser, contextWith({ cookie }))).resolves.toBeUndefined();
-	});
+	// ar-SA is a real BCP-47 tag upstream supported, but this build does not ship its catalog.
+	it.each(["locale=xx-XX", "locale=ar-SA", "locale=", ""])(
+		"leaves the language unknown for the cookie %j",
+		async (cookie) => {
+			await expect(createBefore(newUser, contextWith({ cookie }))).resolves.toBeUndefined();
+		},
+	);
 
 	it("gives a guest both a username and the device timezone", async () => {
 		await expect(

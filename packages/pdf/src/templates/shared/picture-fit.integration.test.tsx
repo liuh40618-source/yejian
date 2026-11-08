@@ -65,7 +65,12 @@ function markedImage(orientation: Orientation) {
 	return canvas.toDataURL("image/png");
 }
 
-async function rasterPicture(orientation: Orientation, fit: Fit, template: Template = "onyx", aspectRatio = 1) {
+async function rasterPicture(
+	orientation: Orientation,
+	fit: Fit,
+	template: Template = "minimal-photo",
+	aspectRatio = 1,
+) {
 	const data = structuredClone(defaultResumeData);
 	data.basics.name = "Picture fit";
 	data.metadata.typography.body.fontFamily = "Helvetica";

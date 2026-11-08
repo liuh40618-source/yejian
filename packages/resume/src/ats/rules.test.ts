@@ -22,6 +22,8 @@ const experienceItem = (overrides: Partial<ExperienceItem> = {}): ExperienceItem
 
 function makeResume(mutate: (data: ResumeData) => void = () => undefined): ResumeData {
 	const data = structuredClone(defaultResumeData);
+	// The shipped default is zh-CN; these fixtures deliberately exercise English ATS rules.
+	data.metadata.page.locale = "en-US";
 
 	data.basics.name = "Ada Lovelace";
 	data.basics.email = "ada@example.com";
@@ -331,19 +333,7 @@ describe("layout rules", () => {
 		expect(codesOf(data)).toContain("SECTION_MISSING_FROM_LAYOUT");
 	});
 
-	it("flags a two-column template printing a sidebar, naming its sections", () => {
-		const data = makeResume((resume) => {
-			resume.sections.skills.items = [skillItem()];
-			resume.metadata.template = "azurill";
-			resume.metadata.layout.pages = [{ fullWidth: false, main: ["experience"], sidebar: ["skills"] }];
-		});
-
-		expect(lint(data).findings).toContainEqual(
-			expect.objectContaining({ code: "TWO_COLUMN_LAYOUT", params: { sections: "skills" } }),
-		);
-	});
-
-	it("leaves one-column templates, full-width pages and empty sidebars out of the two-column rule", () => {
+	it("leaves every shipped one-column template out of the two-column rule", () => {
 		const withSidebar = (template: ResumeData["metadata"]["template"], fullWidth: boolean, withSkills = true) =>
 			makeResume((resume) => {
 				resume.sections.skills.items = withSkills ? [skillItem()] : [];
@@ -351,9 +341,9 @@ describe("layout rules", () => {
 				resume.metadata.layout.pages = [{ fullWidth, main: ["experience"], sidebar: ["skills"] }];
 			});
 
-		expect(codesOf(withSidebar("onyx", false))).not.toContain("TWO_COLUMN_LAYOUT");
-		expect(codesOf(withSidebar("azurill", true))).not.toContain("TWO_COLUMN_LAYOUT");
-		expect(codesOf(withSidebar("azurill", false, false))).not.toContain("TWO_COLUMN_LAYOUT");
+		expect(codesOf(withSidebar("minimal-photo", false))).not.toContain("TWO_COLUMN_LAYOUT");
+		expect(codesOf(withSidebar("general-single", true))).not.toContain("TWO_COLUMN_LAYOUT");
+		expect(codesOf(withSidebar("general-single", false, false))).not.toContain("TWO_COLUMN_LAYOUT");
 	});
 
 	it("leaves short-list sections in the sidebar alone", () => {
@@ -392,6 +382,14 @@ describe("title rules", () => {
 		const data = makeResume((resume) => {
 			resume.sections.experience.title = "Berufserfahrung";
 			resume.metadata.page.locale = "de-DE";
+		});
+		expect(codesOf(data)).not.toContain("NON_STANDARD_SECTION_TITLE");
+	});
+
+	it("stays quiet on Chinese headings under a zh-CN locale", () => {
+		const data = makeResume((resume) => {
+			resume.sections.experience.title = "工作经历";
+			resume.metadata.page.locale = "zh-CN";
 		});
 		expect(codesOf(data)).not.toContain("NON_STANDARD_SECTION_TITLE");
 	});

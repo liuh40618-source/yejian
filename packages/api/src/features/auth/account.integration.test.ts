@@ -545,7 +545,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			if (!owner || !other) throw new Error("Missing profile fixtures");
 			const client = createRouterClient(authRouter, {
 				context: {
-					locale: "en-US",
+					locale: "zu-ZA",
 					reqHeaders: new Headers(),
 					resHeaders: new Headers(),
 					authentication: {
@@ -569,7 +569,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			});
 			const anonymous = createRouterClient(authRouter, {
 				context: {
-					locale: "en-US",
+					locale: "zu-ZA",
 					reqHeaders: new Headers(),
 					resHeaders: new Headers(),
 				},
@@ -602,7 +602,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			if (!owner || !other) throw new Error("Missing timezone fixtures");
 			const client = createRouterClient(authRouter, {
 				context: {
-					locale: "en-US",
+					locale: "zu-ZA",
 					reqHeaders: new Headers(),
 					resHeaders: new Headers(),
 					authentication: { user: owner, method: "bearer", permissions: ["read", "write", "delete"] },
@@ -656,7 +656,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 					const resHeaders = new Headers();
 					const client = createRouterClient(authRouter, {
 						context: {
-							locale: "en-US",
+							locale: "zu-ZA",
 							reqHeaders: headers,
 							resHeaders,
 							authentication: { user, method, permissions: ["read", "write", "delete"] },

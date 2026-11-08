@@ -65,7 +65,7 @@ describe("applyResumePatches", () => {
 	});
 
 	it("rolls back if patched document fails schema validation", () => {
-		// The tolerant read-time parser would silently replace an unknown template with "onyx";
+		// The tolerant read-time parser would silently replace an unknown template with "minimal-photo";
 		// a write must reject it instead (#3413).
 		expect(() =>
 			applyResumePatches(defaultResumeData, [{ op: "replace", path: "/metadata/template", value: "unknown-template" }]),

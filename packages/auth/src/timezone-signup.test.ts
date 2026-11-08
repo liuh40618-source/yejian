@@ -60,6 +60,8 @@ describe("social sign-up timezone and language", () => {
 		await expect(createBefore(newUser, { headers: new Headers() } as never)).resolves.toBeUndefined();
 	});
 
+	// Upstream used ar-SA as its arbitrary non-default locale. This build ships zh-CN and the
+	// zu-ZA pseudo-locale only, so zu-ZA is the tag that exercises the propagation path.
 	it("keeps the interface language across the provider redirect", async () => {
 		oauthState.addOAuthServerContext.mockClear();
 		oauthState.getOAuthState.mockResolvedValue(null);
@@ -67,19 +69,19 @@ describe("social sign-up timezone and language", () => {
 		await auth.handler(
 			new Request(`${env.APP_URL}/api/auth/sign-in/social`, {
 				method: "POST",
-				headers: new Headers({ "content-type": "application/json", origin: env.APP_URL, cookie: "locale=ar-SA" }),
+				headers: new Headers({ "content-type": "application/json", origin: env.APP_URL, cookie: "locale=zu-ZA" }),
 				body: JSON.stringify({ provider: "github" }),
 			}),
 		);
 
-		expect(oauthState.addOAuthServerContext).toHaveBeenCalledWith({ locale: "ar-SA" });
+		expect(oauthState.addOAuthServerContext).toHaveBeenCalledWith({ locale: "zu-ZA" });
 	});
 
 	it("starts the account in the language saved in the OAuth state", async () => {
-		oauthState.getOAuthState.mockResolvedValue({ serverContext: { locale: "ar-SA" } });
+		oauthState.getOAuthState.mockResolvedValue({ serverContext: { locale: "zu-ZA" } });
 
 		await expect(createBefore(newUser, { headers: new Headers() } as never)).resolves.toEqual({
-			data: expect.objectContaining({ locale: "ar-SA" }),
+			data: expect.objectContaining({ locale: "zu-ZA" }),
 		});
 	});
 });

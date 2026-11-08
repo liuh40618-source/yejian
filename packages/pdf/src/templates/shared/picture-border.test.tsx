@@ -11,7 +11,11 @@ const context = source.getContext("2d");
 context.fillStyle = "#00aa00";
 context.fillRect(0, 0, 100, 100);
 
-async function picturePixels(template: "onyx" | "ditto" | "glalie", borderWidth: number, shadowWidth = 0) {
+async function picturePixels(
+	template: "minimal-photo" | "asia-standard" | "editorial",
+	borderWidth: number,
+	shadowWidth = 0,
+) {
 	const data = structuredClone(defaultResumeData);
 	data.basics.name = "Picture";
 	data.metadata.typography.body.fontFamily = "Helvetica";
@@ -69,8 +73,8 @@ async function picturePixels(template: "onyx" | "ditto" | "glalie", borderWidth:
 
 describe("picture border visibility (#3017)", () => {
 	it("draws a border and a soft centered shadow without moving the photo", async () => {
-		const plain = await picturePixels("onyx", 0);
-		const bordered = await picturePixels("onyx", 10);
+		const plain = await picturePixels("minimal-photo", 0);
+		const bordered = await picturePixels("minimal-photo", 10);
 		expect(plain.borderPixels).toBe(0);
 		expect(bordered.borderPixels).toBeGreaterThan(1000);
 		expect(bordered.imagePixels).toBeGreaterThan(1000);
@@ -78,7 +82,7 @@ describe("picture border visibility (#3017)", () => {
 		// Rasterized border/image edges can differ by one antialiased pixel.
 		for (const edge of ["left", "right", "top", "bottom"] as const)
 			expect(Math.abs(bordered.bounds[edge] - plain.bounds[edge])).toBeLessThanOrEqual(1);
-		const shadow = await picturePixels("onyx", 0, 10);
+		const shadow = await picturePixels("minimal-photo", 0, 10);
 		expect(plain.shadowPixels).toBe(0);
 		expect(shadow.shadowPixels).toBeGreaterThan(100);
 		expect(shadow.bounds).toEqual(plain.bounds);

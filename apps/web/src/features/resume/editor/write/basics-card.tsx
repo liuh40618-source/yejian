@@ -55,11 +55,11 @@ export function BasicsCard({ locked }: { locked: boolean }) {
 				type="button"
 				aria-expanded={open}
 				onClick={() => useEditorStore.setState({ basicsOpen: !open })}
-				className="flex w-full items-center gap-3 rounded-xl p-3 text-start"
+				className="flex w-full items-center gap-3 border-b border-line px-1 py-3 text-start"
 			>
 				<span
 					aria-hidden="true"
-					className="grid size-10 shrink-0 place-items-center rounded-sm bg-accent-soft text-sm font-semibold text-accent-text"
+					className="grid size-10 shrink-0 place-items-center rounded-none border border-line-2 font-display text-sm font-semibold text-ink"
 				>
 					{getInitials(basics.name || "?")}
 				</span>

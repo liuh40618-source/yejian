@@ -8,6 +8,11 @@
 @import "@fontsource-variable/geist-mono/wght.css";
 /* Phosphor's web font draws the icons inside resumes (their names are stored in resume data). */
 @import "@phosphor-icons/web/regular/style.css";
+/*
+ * Chinese faces are self-hosted and sliced by unicode-range rather than pulled from fonts.gstatic.com, which is not
+ * reachable from mainland China. They are linked from apps/web/index.html rather than imported here: a public-dir
+ * path is not something the CSS bundler can resolve, and 500KB of @font-face rules belongs in its own request.
+ */
 @import "./typeset.css";
 
 @source "../**/*.{ts,tsx}";
@@ -22,21 +27,23 @@
 :root {
 	color-scheme: light;
 
-	--bg: oklch(0.975 0.005 95); /* #F8F7F3 app desk */
-	--surface: oklch(0.995 0.002 95); /* #FEFDFC panels, cards */
+	/* Cool porcelain rather than warm paper: the desk reads as neutral so the white page stays the brightest thing. */
+	--bg: oklch(0.972 0.0025 265); /* #F5F6F7 app desk */
+	--surface: oklch(0.995 0.001 265); /* #FDFDFE panels, cards */
 	--raised: oklch(1 0 0); /* #FFFFFF menus, dialogs, inputs */
-	--sunken: oklch(0.952 0.006 95); /* #F0EFEB wells, tracks, page canvas */
-	--line: oklch(0.9 0.006 95); /* #DFDEDA dividers */
-	--line-2: oklch(0.82 0.008 95); /* #C5C4BE decorative rules */
-	--control-border: #888680;
-	--ink: oklch(0.22 0.01 95); /* #1C1B15 primary text */
-	--ink-2: oklch(0.42 0.01 95); /* #4F4D47 secondary text */
-	--ink-3: oklch(0.53 0.01 95); /* #6D6C65 meta, placeholder (minimum for text) */
-	--accent: oklch(0.5 0.1 150); /* #337344 primary action, selection, focus */
-	--accent-hover: oklch(0.44 0.1 150); /* #206133 */
-	--on-accent: oklch(0.99 0.01 150); /* #F7FEF8 */
-	--accent-soft: oklch(0.94 0.035 150); /* #DCF2DF selected background, proposals */
-	--accent-text: oklch(0.42 0.1 150); /* #195C2E */
+	--sunken: oklch(0.95 0.003 265); /* #EDEFF1 wells, tracks, page canvas */
+	--line: oklch(0.905 0.004 265); /* #E1E4E7 dividers */
+	--line-2: oklch(0.835 0.006 265); /* #C9CED3 decorative rules */
+	--control-border: #8a9099;
+	--ink: oklch(0.21 0.012 265); /* #191C21 primary text */
+	--ink-2: oklch(0.42 0.012 265); /* #4A5058 secondary text */
+	--ink-3: oklch(0.54 0.012 265); /* #6B727B meta, placeholder (minimum for text) */
+	/* Vermilion, not the generic corporate blue: a single decisive red for the one primary action per view. */
+	--accent: oklch(0.545 0.185 27); /* #C8332B primary action, selection, focus */
+	--accent-hover: oklch(0.48 0.18 27); /* #AC2821 */
+	--on-accent: oklch(0.99 0.005 27); /* #FFF8F7 */
+	--accent-soft: oklch(0.955 0.028 27); /* #FDEAE7 selected background, proposals */
+	--accent-text: oklch(0.46 0.17 27); /* #A62620 */
 	--danger: oklch(0.53 0.17 27); /* #BA3630 */
 	--danger-soft: oklch(0.95 0.03 27); /* #FFE7E4 */
 	--danger-text: oklch(0.48 0.17 27); /* #A92321 */
@@ -82,21 +89,21 @@
 .dark {
 	color-scheme: dark;
 
-	--bg: oklch(0.17 0.006 95); /* #100F0C */
-	--surface: oklch(0.2 0.006 95); /* #171613 */
-	--raised: oklch(0.235 0.007 95); /* #1F1E1A */
-	--sunken: oklch(0.145 0.006 95); /* #0B0A08 */
-	--line: oklch(0.29 0.007 95); /* #2C2B27 */
-	--line-2: oklch(0.4 0.008 95); /* #494843 */
-	--control-border: #73726c;
-	--ink: oklch(0.95 0.005 95); /* #EFEEEB */
-	--ink-2: oklch(0.79 0.008 95); /* #BCBAB5 */
-	--ink-3: oklch(0.67 0.008 95); /* #979590 */
-	--accent: oklch(0.74 0.12 150); /* #6FC082 */
-	--accent-hover: oklch(0.8 0.12 150); /* #83D494 */
-	--on-accent: oklch(0.18 0.03 150); /* #07150A */
-	--accent-soft: oklch(0.3 0.05 150); /* #1A3520 */
-	--accent-text: oklch(0.82 0.11 150); /* #8FD89E */
+	--bg: oklch(0.175 0.006 265); /* #14171B */
+	--surface: oklch(0.205 0.007 265); /* #1B1F24 */
+	--raised: oklch(0.24 0.008 265); /* #23282E */
+	--sunken: oklch(0.15 0.006 265); /* #0F1215 */
+	--line: oklch(0.295 0.008 265); /* #2E343A */
+	--line-2: oklch(0.405 0.009 265); /* #4B5259 */
+	--control-border: #757c84;
+	--ink: oklch(0.945 0.003 265); /* #EDEFF1 */
+	--ink-2: oklch(0.79 0.006 265); /* #B9BEC4 */
+	--ink-3: oklch(0.67 0.007 265); /* #939AA2 */
+	--accent: oklch(0.66 0.17 27); /* #E9554B */
+	--accent-hover: oklch(0.73 0.16 27); /* #F5736A */
+	--on-accent: oklch(0.18 0.03 27); /* #180A08 */
+	--accent-soft: oklch(0.31 0.075 27); /* #4A1B17 */
+	--accent-text: oklch(0.78 0.14 27); /* #FF8C82 */
 	--danger: oklch(0.62 0.17 27); /* #D9544B */
 	--danger-soft: oklch(0.3 0.06 27); /* #47211D */
 	--danger-text: oklch(0.8 0.11 27); /* #FDA297 */
@@ -125,11 +132,16 @@
 }
 
 @theme {
-	/* Instrument Serif has one weight (400 and italic): never set it semibold or bold. */
-	--font-display: "Instrument Serif", Georgia, serif;
-	--font-ui: "Figtree Variable", system-ui, sans-serif;
+	/*
+	 * Chinese-first type stack. The Latin faces stay for numbers and product names, but every family falls back to a
+	 * Han face before the generic, so a Chinese glyph never borrows a Latin fallback's metrics.
+	 * Display: Source Han Serif (思源宋体) gives headings the editorial weight Song type carries in print.
+	 * UI: Source Han Sans / PingFang, both self-hosted or present on the platform.
+	 */
+	--font-display: "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif;
+	--font-ui: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", system-ui, sans-serif;
 	--font-sans: var(--font-ui);
-	--font-mono: "Geist Mono Variable", ui-monospace, monospace;
+	--font-mono: "Geist Mono Variable", "Noto Sans SC", ui-monospace, monospace;
 
 	/* Corners are 2–4px everywhere: 2 chips, tags and small marks · 3 controls · 4 cards, menus, dialogs, sheets. */
 	--radius: 4px;

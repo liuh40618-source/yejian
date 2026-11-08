@@ -6,12 +6,17 @@ import { defineConfig } from "vite-plus";
 
 const workspaceRoot = fileURLToPath(new URL(".", import.meta.url));
 const setupFile = fileURLToPath(new URL("./vitest.setup.ts", import.meta.url));
+// Only projects that actually render a PDF need the disk-backed font reader. It installs a
+// `configureFontReader` hook from packages/pdf, so every test file in the project reuses one
+// cache instead of re-downloading the same gstatic files into its isolated module registry.
+const fontCacheSetup = resolve(workspaceRoot, "packages/pdf/vitest.fonts.setup.ts");
 
 type VitestProjectOptions = {
 	name: string;
 	dirname: string;
 	environment?: VitestEnvironment;
 	plugins?: ViteUserConfig["plugins"];
+	fontCache?: boolean;
 };
 
 export const createVitestProjectConfig = ({
@@ -19,6 +24,7 @@ export const createVitestProjectConfig = ({
 	dirname,
 	environment = "node",
 	plugins = [],
+	fontCache = false,
 }: VitestProjectOptions) =>
 	defineConfig({
 		root: dirname,
@@ -43,7 +49,7 @@ export const createVitestProjectConfig = ({
 					},
 				},
 			},
-			setupFiles: [setupFile],
+			setupFiles: fontCache ? [setupFile, fontCacheSetup] : [setupFile],
 			include: ["src/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
 			exclude: ["node_modules", "dist", ".output", "coverage", "reports"],
 			pool: "threads",

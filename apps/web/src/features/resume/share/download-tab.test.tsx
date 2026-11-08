@@ -21,7 +21,7 @@ vi.mock("@/features/resume/export/use-resume-export", () => ({
 	sanitizeFileName: (value: string) => value,
 }));
 
-it("offers peer feedback only after a successful export and clears it for a new format or failure", async () => {
+it("confirms the download, keeps no third-party invite, and recovers from a failed format", async () => {
 	i18n.load("en", {});
 	i18n.activate("en");
 	const file = new Blob(["fictional resume"]);
@@ -32,24 +32,30 @@ it("offers peer feedback only after a successful export and clears it for a new 
 			<DownloadTab onReview={() => undefined} />
 		</I18nProvider>,
 	);
-	const invite = () => screen.queryByRole("link", { name: "Get resume feedback on Discord" });
-	expect(invite()).toBeNull();
+
+	// Nothing to confirm before a file exists, and no route off to a community or a donation page: this build has
+	// neither, and a link to one would be a dead end for a reader in China.
+	const confirmation = () => screen.queryByText(/Log the application/);
+	const externalLinks = () => screen.queryAllByRole("link");
+	expect(confirmation()).toBeNull();
 	fireEvent.click(screen.getByRole("button", { name: "Download PDF" }));
-	expect(invite()).toBeNull();
+	expect(confirmation()).toBeNull();
+
 	finish(file);
-	const link = await screen.findByRole("link", { name: "Get resume feedback on Discord" });
-	expect(link.getAttribute("href")).toBe("https://discord.gg/9kAqrGcwn5");
+	expect(await screen.findByText(/Log the application/)).toBeTruthy();
 	expect(mocks.download).toHaveBeenCalledWith(file, "resume.pdf");
-	expect(screen.getByRole("link", { name: "Donate" })).toBeTruthy();
+	expect(externalLinks()).toHaveLength(0);
 
 	fireEvent.click(screen.getByRole("radio", { name: /Word/ }));
-	expect(invite()).toBeNull();
+	expect(confirmation()).toBeNull();
 	mocks.generate.mockRejectedValueOnce(new Error("Export unavailable"));
 	fireEvent.click(screen.getByRole("button", { name: "Download Word" }));
 	await screen.findByRole("alert");
-	expect(invite()).toBeNull();
+	expect(confirmation()).toBeNull();
 	expect(mocks.download).toHaveBeenCalledTimes(1);
+
+	// The PDF fallback finishes the job the failed format couldn't.
 	mocks.generate.mockResolvedValueOnce(file);
 	fireEvent.click(screen.getByRole("button", { name: "Download PDF instead" }));
-	expect(await screen.findByRole("link", { name: "Get resume feedback on Discord" })).toBeTruthy();
+	expect(await screen.findByText(/Log the application/)).toBeTruthy();
 });

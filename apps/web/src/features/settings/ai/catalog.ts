@@ -78,6 +78,13 @@ export const providerOptions: AIProviderOption[] = [
 		defaultModel: AI_PROVIDER_DEFAULT_MODELS.deepseek,
 	},
 	{
+		value: "dashscope",
+		label: "通义千问",
+		keywords: ["qwen", "dashscope", "bailian", "通义", "千问", "阿里云"],
+		defaultBaseURL: AI_PROVIDER_DEFAULT_BASE_URLS.dashscope,
+		defaultModel: AI_PROVIDER_DEFAULT_MODELS.dashscope,
+	},
+	{
 		value: "togetherai",
 		label: "Together.ai",
 		keywords: ["together", "togetherai", "llama"],

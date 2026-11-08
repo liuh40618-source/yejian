@@ -8,7 +8,7 @@ import { changeLocale, getLocale } from "./locale";
 beforeEach(() => {
 	Cookies.remove("locale");
 	window.history.replaceState(null, "", "/");
-	vi.stubGlobal("navigator", { languages: ["en-US"] });
+	vi.stubGlobal("navigator", { languages: ["zh-CN"] });
 	vi.spyOn(window.location, "reload").mockImplementation(() => {});
 });
 
@@ -20,21 +20,25 @@ afterEach(() => {
 
 describe("first-visit language", () => {
 	it("follows the browser without persisting an inferred choice", () => {
-		vi.stubGlobal("navigator", { languages: ["unsupported", "de-AT", "fr-FR"] });
+		vi.stubGlobal("navigator", { languages: ["unsupported", "zh-Hans-CN"] });
 		window.history.replaceState({ key: "visit" }, "", "/ats-checker?campaign=first#check");
 		const href = window.location.href;
-		expect(getLocale()).toBe("de-DE");
+		expect(getLocale()).toBe("zh-CN");
 		expect(Cookies.get("locale")).toBeUndefined();
 		expect(window.location.href).toBe(href);
 		expect(window.history.state).toEqual({ key: "visit" });
 		expect(window.location.reload).not.toHaveBeenCalled();
 	});
 
+	it("falls back to the shipped language for a browser that has none of it", () => {
+		vi.stubGlobal("navigator", { languages: ["de-DE", "fr-FR"] });
+		expect(getLocale()).toBe("zh-CN");
+	});
+
 	it.each([
-		["?locale=ja-JP", "fr-FR", "ja-JP"],
-		["?locale=en-US", undefined, "en-US"],
-		["", "fr-FR", "fr-FR"],
-		["?locale=unsupported", "fr-FR", "fr-FR"],
+		["?locale=zh-CN", undefined, "zh-CN"],
+		["?locale=unsupported", "zh-CN", "zh-CN"],
+		["", "zh-CN", "zh-CN"],
 	])("keeps explicit URL %s and cookie %s ahead of browser language", (search, saved, expected) => {
 		vi.stubGlobal("navigator", { languages: ["de-DE"] });
 		window.history.replaceState(null, "", `/${search}`);
@@ -45,48 +49,44 @@ describe("first-visit language", () => {
 });
 
 describe("changeLocale", () => {
-	it.each([
-		["en-US", "de-DE", "?filter=modern&locale=de-DE&tag=one&tag=two"],
-		["de-DE", "en-US", "?filter=modern&tag=one&tag=two"],
-	])("replaces %s with %s and persists the choice", (initial, selected, search) => {
+	it("replaces a pseudo-locale address with the plain one and persists the choice", () => {
 		const state = { key: "current-page" };
-		window.history.replaceState(state, "", `/resume-templates?filter=modern&locale=${initial}&tag=one&tag=two#gallery`);
-		expect(getLocale()).toBe(initial);
+		window.history.replaceState(state, "", "/resume-templates?filter=modern&tag=one&tag=two#gallery");
 
-		changeLocale(selected);
+		changeLocale("zh-CN");
 
 		expect(window.location.pathname).toBe("/resume-templates");
-		expect(window.location.search).toBe(search);
+		expect(window.location.search).toBe("?filter=modern&tag=one&tag=two");
 		expect(window.location.hash).toBe("#gallery");
 		expect(window.history.state).toEqual(state);
 		expect(window.location.reload).toHaveBeenCalledOnce();
-		expect(Cookies.get("locale")).toBe(selected);
-		expect(getLocale()).toBe(selected);
+		expect(Cookies.get("locale")).toBe("zh-CN");
+		expect(getLocale()).toBe("zh-CN");
 
 		window.history.pushState(null, "", "/dashboard");
-		expect(getLocale()).toBe(selected);
+		expect(getLocale()).toBe("zh-CN");
 	});
 
 	it("reloads even when the selected locale has the same URL", () => {
 		window.history.replaceState(null, "", "/resume-templates#gallery");
-		Cookies.set("locale", "de-DE");
+		Cookies.set("locale", "zh-CN");
 
-		changeLocale("en-US");
+		changeLocale("zh-CN");
 
 		expect(window.location.href).toBe("https://localhost:3000/resume-templates#gallery");
 		expect(window.location.reload).toHaveBeenCalledOnce();
-		expect(getLocale()).toBe("en-US");
+		expect(getLocale()).toBe("zh-CN");
 	});
 
-	it.each([null, "", "invalid"])("ignores invalid selection %s", (value) => {
-		window.history.replaceState(null, "", "/resume-templates?locale=de-DE#gallery");
-		Cookies.set("locale", "de-DE");
+	it.each([null, "", "invalid", "de-DE"])("ignores invalid selection %s", (value) => {
+		window.history.replaceState(null, "", "/resume-templates#gallery");
+		Cookies.set("locale", "zh-CN");
 		const href = window.location.href;
 
 		changeLocale(value);
 
 		expect(window.location.href).toBe(href);
-		expect(Cookies.get("locale")).toBe("de-DE");
+		expect(Cookies.get("locale")).toBe("zh-CN");
 		expect(window.location.reload).not.toHaveBeenCalled();
 	});
 });

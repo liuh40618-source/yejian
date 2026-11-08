@@ -19,23 +19,45 @@ import { templates } from "@/dialogs/resume/template/data";
 import { useResumeData, useResumeStore, useUpdateResumeData } from "@/features/resume/builder/draft";
 import { undoToast } from "@/features/resume/builder/undo-toast";
 
-type Filter = "all" | "one" | "two" | "ats";
+type Filter = "all" | "ats" | "graduate" | "technical";
 
 const TEMPLATE_IDS = Object.keys(templates) as Template[];
 
+/**
+ * Templates a Chinese graduate or a technical candidate is most often told to use.
+ *
+ * A mainland campus recruiter reads a one-page, one-column resume and expects education above
+ * experience; a technical posting's first pass is a machine read. Both land on the same short list,
+ * and naming it saves a candidate from picking a two-column design that their target will not parse.
+ */
+const GRADUATE_TEMPLATES: ReadonlySet<Template> = new Set([
+	"campus-fresh",
+	"asia-standard",
+	"minimal-photo",
+	"general-single",
+	"form-grid",
+	"center-classic",
+]);
+const TECHNICAL_TEMPLATES: ReadonlySet<Template> = new Set([
+	"tech-timeline",
+	"general-single",
+	"minimal-photo",
+	"asia-standard",
+	"form-grid",
+	"whitespace-clean",
+]);
+
 const matchesFilter = (id: Template, filter: Filter) => {
 	const layout = templateLayouts[id];
-	if (filter === "one") return layout.columns === 1;
-	if (filter === "two") return layout.columns === 2;
 	if (filter === "ats") return layout.atsSafe;
+	if (filter === "graduate") return GRADUATE_TEMPLATES.has(id);
+	if (filter === "technical") return TECHNICAL_TEMPLATES.has(id);
 	return true;
 };
 
 const layoutTags = (id: Template) => {
 	const layout = templateLayouts[id];
-	return [layout.columns === 1 ? t`One column` : t`Two columns`, layout.atsSafe ? t`ATS-safe` : null]
-		.filter(Boolean)
-		.join(" · ");
+	return [layout.atsSafe ? t`ATS-safe` : null, t`One column`].filter(Boolean).join(" · ");
 };
 
 /** Applies a template with the page's cross-fade and an Undo toast. Font, size and colour carry across. */
@@ -100,8 +122,8 @@ export function TemplateGroup({ layout = "grid" }: TemplateGroupProps) {
 	const shown = TEMPLATE_IDS.filter((id) => matchesFilter(id, filter));
 	const filters: { id: Filter; label: string }[] = [
 		{ id: "all", label: t`All` },
-		{ id: "one", label: t`One column` },
-		{ id: "two", label: t`Two columns` },
+		{ id: "graduate", label: t`Campus` },
+		{ id: "technical", label: t`Technical` },
 		{ id: "ats", label: t`ATS-safe` },
 	];
 

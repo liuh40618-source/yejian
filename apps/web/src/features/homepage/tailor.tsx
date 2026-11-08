@@ -5,7 +5,7 @@ import { Trans } from "@lingui/react/macro";
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE, useLanding } from "./scroll";
 import { Sheet } from "./sheet";
-import { Doodle, labelClass, SceneCaption, Stamp } from "./ui";
+import { labelClass, SceneCaption, Stamp } from "./ui";
 
 const KEYWORDS = ["a", "b", "c", "d"] as const;
 
@@ -45,25 +45,18 @@ export function Tailor() {
 			className="relative h-[260vh] min-[900px]:h-[300vh]"
 		>
 			<div className="sticky top-0 h-svh overflow-clip [--ap:clamp(0,(var(--p)-.74)/.1,1)] [--cv:clamp(0,(var(--p)-.64)/.12,1)] [--cvx:-60%] [--kwa:var(--t1)] [--kwb:var(--t2)] [--kwc:var(--t3)] [--kwd:var(--t4)] [--pw:min(56vw,36vh)] [--sw:clamp(0,var(--p)/.14,1)] [--t1:clamp(0,(var(--p)-.14)/.1,1)] [--t2:clamp(0,(var(--p)-.26)/.1,1)] [--t3:clamp(0,(var(--p)-.38)/.1,1)] [--t4:clamp(0,(var(--p)-.5)/.1,1)] min-[900px]:[--cvx:-40%] min-[900px]:[--pw:min(23vw,46vh)]">
-				<Doodle
-					name="scissors"
-					wipe="clamp(0, (var(--p) - .08) / .2, 1)"
-					sizes="12vw"
-					className="start-[41vw] top-[74vh] w-[12vw] translate-y-[calc(var(--p)*-40px)] rotate-[12deg] max-[900px]:hidden"
-				/>
-
 				<h2
 					id="tailor-title"
 					className="absolute start-(--gutter) top-[10vh] text-[14vw] leading-[.86] font-normal whitespace-nowrap text-ink min-[900px]:top-[11vh] min-[900px]:text-[clamp(64px,8vw,150px)]"
 				>
-					<span className="font-anybody block [transform:translateX(calc(var(--dir)*(1-var(--sw))*-3vw))] font-light tracking-[-.03em] [clip-path:inset(-25%_-5%_50%_-5%)]">
+					<span className="font-anybody block [transform:translateX(calc(var(--dir)*(1-var(--sw))*-3vw))] font-light tracking-[.01em] [clip-path:inset(-25%_-5%_50%_-5%)]">
 						{tailor}
-						<span className="text-accent">.</span>
+						<span className="text-accent">。</span>
 					</span>
 					<span
 						aria-hidden="true"
 						data-text={tailor}
-						className="font-anybody absolute start-0 top-0 block [transform:translateX(calc(var(--dir)*(1-var(--sw))*3vw))] font-light tracking-[-.03em] [clip-path:inset(50%_-5%_-25%_-5%)] before:content-[attr(data-text)] after:text-accent after:content-['.']"
+						className="font-anybody absolute start-0 top-0 block [transform:translateX(calc(var(--dir)*(1-var(--sw))*3vw))] font-light tracking-[.01em] [clip-path:inset(50%_-5%_-25%_-5%)] before:content-[attr(data-text)] after:text-accent after:content-['。']"
 					/>
 					<span
 						aria-hidden="true"
@@ -110,11 +103,13 @@ export function Tailor() {
 							{t`Applied`}
 						</Stamp>
 						<div className="flex items-center gap-[11px]">
+							{/* The posting's mark: 青禾科技's first character in a solid tile, the way a Chinese company
+							    logo is reduced to one character in a list. */}
 							<span
 								aria-hidden="true"
-								className="font-anybody flex size-9 shrink-0 items-center justify-center rounded-lg bg-ink text-[19px] leading-none text-bg font-stretch-[95%]"
+								className="flex size-9 shrink-0 items-center justify-center rounded-sm bg-ink font-display text-[20px] leading-none text-bg"
 							>
-								F
+								青
 							</span>
 							<div className="flex flex-col">
 								<b className="text-[15px] font-semibold">{t`Senior Product Designer`}</b>

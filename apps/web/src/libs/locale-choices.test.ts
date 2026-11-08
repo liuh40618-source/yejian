@@ -18,13 +18,13 @@ describe.each([false, true])("locale choices with development=%s", (development)
 		const reload = vi.fn();
 		const state = { key: "page" };
 		vi.stubGlobal("window", {
-			location: { href: "https://rxresu.me/?locale=zu-ZA&filter=one#section", reload },
+			location: { href: "https://example.cn/?locale=zu-ZA&filter=one#section", reload },
 			history: { state, replaceState },
 		});
 
 		changeLocale("zu-ZA");
 
-		expect(cookies.set).toHaveBeenCalledWith("locale", development ? "zu-ZA" : "en-US", {
+		expect(cookies.set).toHaveBeenCalledWith("locale", development ? "zu-ZA" : "zh-CN", {
 			expires: 365,
 			path: "/",
 			sameSite: "lax",
@@ -32,7 +32,7 @@ describe.each([false, true])("locale choices with development=%s", (development)
 		expect(replaceState).toHaveBeenCalledWith(
 			state,
 			"",
-			development ? "https://rxresu.me/?locale=zu-ZA&filter=one#section" : "https://rxresu.me/?filter=one#section",
+			development ? "https://example.cn/?locale=zu-ZA&filter=one#section" : "https://example.cn/?filter=one#section",
 		);
 		expect(reload).toHaveBeenCalledOnce();
 	});
@@ -44,7 +44,7 @@ describe.each([false, true])("locale choices with development=%s", (development)
 		const { getLocaleOptions } = await import("@/features/locale/locale-options");
 		const { i18n } = await import("@lingui/core");
 		i18n.loadAndActivate(await getLocaleMessages("en-US"));
-		const expected = development ? "zu-ZA" : "en-US";
+		const expected = development ? "zu-ZA" : "zh-CN";
 		expect(selectableLocales.includes("zu-ZA")).toBe(development);
 		expect(getLocaleOptions().some(({ value }) => value === "zu-ZA")).toBe(development);
 
@@ -57,7 +57,11 @@ describe.each([false, true])("locale choices with development=%s", (development)
 		expect(getLocale()).toBe(expected);
 		expect(cookies.set).toHaveBeenLastCalledWith("locale", expected, { expires: 365, path: "/", sameSite: "lax" });
 
-		window.location.search = "?locale=de-DE";
-		expect(getLocale()).toBe("de-DE");
+		// An address naming a language this build doesn't ship is ignored, not obeyed: the saved choice stands, and
+		// nothing is persisted for it.
+		window.location.search = "?locale=unsupported";
+		cookies.set.mockClear();
+		expect(getLocale()).toBe(expected);
+		expect(cookies.set).not.toHaveBeenCalled();
 	});
 });

@@ -1,14 +1,14 @@
 {
-	"name": "Reactive Resume",
-	"short_name": "Reactive Resume",
-	"description": "A free and open-source resume builder.",
+	"name": "页见",
+	"short_name": "页见",
+	"description": "中文简历工具，PDF 与 Word 一键导出。",
 	"id": "/?source=pwa",
 	"start_url": "/dashboard",
 	"scope": "/",
-	"lang": "en",
+	"lang": "zh-CN",
 	"display": "standalone",
-	"theme_color": "#F8F7F3",
-	"background_color": "#F8F7F3",
+	"theme_color": "#F9F8F5",
+	"background_color": "#F9F8F5",
 	"icons": [
 		{ "src": "pwa-64x64.png", "sizes": "64x64", "type": "image/png" },
 		{ "src": "pwa-192x192.png", "sizes": "192x192", "type": "image/png" },
@@ -16,9 +16,9 @@
 		{ "src": "maskable-icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
 	],
 	"shortcuts": [
-		{ "name": "Documents", "description": "Your resumes and cover letters", "url": "/dashboard" },
-		{ "name": "Applications", "description": "Track your job applications", "url": "/dashboard/applications" },
-		{ "name": "Career", "description": "Plan your job search", "url": "/dashboard/career" }
+		{ "name": "我的简历", "description": "简历与求职信", "url": "/dashboard" },
+		{ "name": "投递记录", "description": "跟踪你的求职进度", "url": "/dashboard/applications" },
+		{ "name": "求职规划", "description": "规划你的求职节奏", "url": "/dashboard/career" }
 	],
 	"screenshots": [
 		{

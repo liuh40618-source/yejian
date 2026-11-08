@@ -28,7 +28,7 @@ vi.mock("@reactive-resume/env/server", () => ({
 const { handleWebApp, isPublicResumePath } = await import("./web");
 
 const searchLink =
-	'<https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac>; rel="search"; type="text/plain"; title="Search rxresu.me"';
+	'<https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac>; rel="search"; type="text/plain"; title="Search Yejian"';
 
 describe("web app fallback classification", () => {
 	beforeEach(() => {
@@ -81,7 +81,10 @@ describe("web app fallback classification", () => {
 		expect(html).toContain(
 			'<meta property="og:description" content="Reactive Resume is a free and open-source resume builder that makes it easy to create, update, and share your resume.">',
 		);
-		expect(html).toContain('"contactType":"support","email":"amruth@rxresu.me"');
+		// The organization block names this build, and carries no contact address or social profile it doesn't have.
+		expect(html).toContain('"name":"页见"');
+		expect(html).not.toContain("contactPoint");
+		expect(html).not.toContain("sameAs");
 		expect(html).not.toContain("utm_source");
 
 		const dashboardResponse = await handleWebApp(new Request("https://example.com/dashboard"));
@@ -96,7 +99,7 @@ describe("web app fallback classification", () => {
 			);
 			const response = await handleWebApp(new Request(url, { headers: { cookie: "locale=zu-ZA" } }));
 			const html = await response.text();
-			expect(html).toContain("dist-prerender/home/en-US.html");
+			expect(html).toContain("dist-prerender/home/zh-CN.html");
 			expect(html).not.toContain("zu-ZA");
 		},
 	);
@@ -107,36 +110,32 @@ describe("web app fallback classification", () => {
 			return Promise.resolve(`<html><head></head><body><div id="app">${locale ?? "shell"}</div></body></html>`);
 		});
 
-		const german = await handleWebApp(new Request("https://example.com/?locale=de-DE"));
-		const html = await german.text();
-		expect(html).toContain('<div id="app">de-DE</div>');
-		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/?locale=de-DE">');
+		const chinese = await handleWebApp(new Request("https://example.com/?locale=zh-CN"));
+		const html = await chinese.text();
+		expect(html).toContain('<div id="app">zh-CN</div>');
+		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/">');
 		expect(html).toContain('<link rel="alternate" hreflang="x-default" href="https://rxresu.me/">');
-		expect(german.headers.get("Vary")).toBe("Cookie");
+		expect(chinese.headers.get("Vary")).toBe("Cookie");
 
-		const saved = new Request("https://example.com/", { headers: { cookie: "theme=dark; locale=ar-SA" } });
+		const saved = new Request("https://example.com/", { headers: { cookie: "theme=dark; locale=zh-CN" } });
 		const savedHtml = await (await handleWebApp(saved)).text();
-		expect(savedHtml).toContain('<div id="app">ar-SA</div>');
+		expect(savedHtml).toContain('<div id="app">zh-CN</div>');
 		expect(savedHtml).toContain('<link rel="canonical" href="https://rxresu.me/">');
 
 		// Only known locales name a file, so the parameter can't point anywhere else.
 		const unknown = await handleWebApp(new Request("https://example.com/?locale=../../index"));
-		expect(await unknown.text()).toContain('<div id="app">en-US</div>');
+		expect(await unknown.text()).toContain('<div id="app">zh-CN</div>');
 	});
 
-	it("names structured data's language as a BCP 47 tag, and as English when the page falls back to the shell", async () => {
+	it("names structured data's language as a BCP 47 tag, and as Chinese when the page falls back to the shell", async () => {
 		vi.mocked(fs.readFile).mockImplementation((path) => {
 			const locale = String(path).match(/dist-prerender\/home\/(.+)\.html$/)?.[1];
-			if (locale === "fr-FR") return Promise.reject(new Error("missing"));
+			if (locale === "zh-CN") return Promise.reject(new Error("missing"));
 			return Promise.resolve(`<html><head></head><body><div id="app">${locale ?? "shell"}</div></body></html>`);
 		});
 
-		const serbian = await (await handleWebApp(new Request("https://example.com/?locale=sr-SP"))).text();
-		expect(serbian).toContain('"inLanguage":"sr"');
-		expect(serbian).not.toContain('"inLanguage":"sr-SP"');
-
-		const missing = await (await handleWebApp(new Request("https://example.com/?locale=fr-FR"))).text();
-		expect(missing).toContain('"inLanguage":"en-US"');
+		const missing = await (await handleWebApp(new Request("https://example.com/?locale=zh-CN"))).text();
+		expect(missing).toContain('"inLanguage":"zh-CN"');
 	});
 
 	it("keeps shared HTML and its cache validators independent of browser language hints", async () => {
@@ -146,7 +145,7 @@ describe("web app fallback classification", () => {
 		const german = await handleWebApp(new Request("https://rxresu.me/", { headers: { "accept-language": "de-DE" } }));
 		const french = await handleWebApp(new Request("https://rxresu.me/", { headers: { "accept-language": "fr-FR" } }));
 		const body = await german.text();
-		expect(body).toContain("home/en-US.html");
+		expect(body).toContain("home/zh-CN.html");
 		expect(await french.text()).toBe(body);
 		expect(german.headers.get("ETag")).toBe(french.headers.get("ETag"));
 		expect(german.headers.get("Vary")).toBe("Cookie");
@@ -157,31 +156,30 @@ describe("web app fallback classification", () => {
 		"preserves request parameters in language links before JavaScript on %s",
 		async (path) => {
 			const template =
-				'<html><head></head><body><a href="/?locale=de-DE#languages" lang="de-DE">Deutsch</a><a href="/?locale=en-US#languages" lang="en-US">English</a><a href="/auth/login">Sign in</a></body></html>';
+				'<html><head></head><body><a href="/?locale=zh-CN#languages" lang="zh-CN">中文</a><a href="/?locale=zu-ZA#languages" lang="zu-ZA">Pseudo</a><a href="/auth/login">Sign in</a></body></html>';
 			vi.mocked(fs.readFile).mockResolvedValue(template);
-			const request = new Request(`https://example.com${path}?locale=ar-SA&campaign=independent&tag=a&tag=b&empty=`, {
-				headers: { cookie: "locale=ar-SA" },
+			const request = new Request(`https://example.com${path}?locale=zh-CN&campaign=independent&tag=a&tag=b&empty=`, {
+				headers: { cookie: "locale=zh-CN" },
 			});
 			const response = await handleWebApp(request);
 			const html = await response.text();
-			expect(html).toContain('href="/?locale=de-DE&amp;campaign=independent&amp;tag=a&amp;tag=b&amp;empty=#languages"');
-			expect(html).toContain('href="/?locale=en-US&amp;campaign=independent&amp;tag=a&amp;tag=b&amp;empty=#languages"');
+			expect(html).toContain('href="/?campaign=independent&amp;tag=a&amp;tag=b&amp;empty=#languages"');
 			expect(html).toContain('<a href="/auth/login">Sign in</a>');
-			expect(html).toContain('<link rel="canonical" href="https://rxresu.me/?locale=ar-SA">');
+			expect(html).toContain('<link rel="canonical" href="https://rxresu.me/">');
 			expect(response.headers.get("Vary")).toBe("Cookie");
 		},
 	);
 
 	it("keeps query values inert and out of script authorization when personalizing language links", async () => {
 		const script = "window.ready = true;";
-		const template = `<html><head></head><body><a href="/?locale=de-DE#languages">Deutsch</a><script>${script}</script></body></html>`;
+		const template = `<html><head></head><body><a href="/?locale=zu-ZA#languages">Pseudo</a><script>${script}</script></body></html>`;
 		vi.mocked(fs.readFile).mockResolvedValue(template);
 		const url = new URL("https://example.com/?locale=en-US");
 		url.searchParams.set("campaign", '"><script>window.injected=true</script>&$&');
 		const response = await handleWebApp(new Request(url));
 		const html = await response.text();
 		expect(html).toContain(
-			'href="/?locale=de-DE&amp;campaign=%22%3E%3Cscript%3Ewindow.injected%3Dtrue%3C%2Fscript%3E%26%24%26#languages"',
+			'href="/?locale=zu-ZA&amp;campaign=%22%3E%3Cscript%3Ewindow.injected%3Dtrue%3C%2Fscript%3E%26%24%26#languages"',
 		);
 		expect(html.match(/<script>/g)).toHaveLength(1);
 		expect(html).toContain(`<script>${script}</script>`);
@@ -211,16 +209,29 @@ describe("web app fallback classification", () => {
 				const match = String(path).match(/dist-prerender\/(?:ats-checker|resume-templates)\/(.+)\.html$/);
 				if (!match) return Promise.resolve(shell);
 				return Promise.resolve(
-					`<html><head><title>ATS-Prüfung &amp; mehr</title><meta name="description" content="Lesbar?"></head><body><div id="app">${match[1]}</div></body></html>`,
+					`<html><head><title>ATS 检测与更多</title><meta name="description" content="能被读懂吗？"></head><body><div id="app">${match[1]}</div></body></html>`,
 				);
+			});
+
+			const html = await (await handleWebApp(new Request(`https://example.com/${path}?locale=zh-CN`))).text();
+
+			expect(html).toContain('<div id="app">zh-CN</div>');
+			// The default locale's address is the plain one, so naming it in the query does not change the canonical.
+			expect(html).toContain(`<link rel="canonical" href="https://rxresu.me/${path}">`);
+			expect(html).toContain('<meta property="og:title" content="ATS 检测与更多">');
+			expect(html).toContain('<meta property="og:locale" content="zh_CN">');
+		});
+
+		it("falls back to the default locale for a language this build doesn't ship", async () => {
+			vi.mocked(fs.readFile).mockImplementation((path) => {
+				const match = String(path).match(/dist-prerender\/(?:ats-checker|resume-templates)\/(.+)\.html$/);
+				if (!match) return Promise.resolve(shell);
+				return Promise.resolve(`<html><head></head><body><div id="app">${match[1]}</div></body></html>`);
 			});
 
 			const html = await (await handleWebApp(new Request(`https://example.com/${path}?locale=de-DE`))).text();
 
-			expect(html).toContain('<div id="app">de-DE</div>');
-			expect(html).toContain(`<link rel="canonical" href="https://rxresu.me/${path}?locale=de-DE">`);
-			expect(html).toContain('<meta property="og:title" content="ATS-Prüfung &amp; mehr">');
-			expect(html).toContain('<meta property="og:locale" content="de_DE">');
+			expect(html).toContain('<div id="app">zh-CN</div>');
 		});
 	});
 

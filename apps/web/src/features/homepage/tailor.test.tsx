@@ -11,7 +11,6 @@ vi.mock("./scroll", () => ({
 }));
 vi.mock("./sheet", () => ({ Sheet: () => null }));
 vi.mock("./ui", () => ({
-	Doodle: () => null,
 	labelClass: "",
 	SceneCaption: ({ children }: { children: ReactNode }) => <section>{children}</section>,
 	Stamp: ({ children }: { children: ReactNode }) => <span>{children}</span>,

@@ -17,7 +17,7 @@ const renderPageMap = async (template: Template): Promise<PageMap> =>
 	(await renderResume(forme, { data, template })).pageMap;
 
 describe("authored page overflow", () => {
-	it.each(["onyx", "rhyhorn", "lapras", "porygon"] as const)(
+	it.each(["minimal-photo", "whitespace-clean", "senior-formal", "form-grid"] as const)(
 		"maps the sample's early spill pages in %s",
 		async (template) => {
 			const rendered = await act(() => renderResume(forme, { data, template }));
@@ -189,8 +189,8 @@ describe("extractPageMap", () => {
 describe("rendered page maps", () => {
 	const visibleExperienceIds = data.sections.experience.items.filter((item) => !item.hidden).map((item) => item.id);
 
-	it("azurill maps the header and every experience entry onto the page", async () => {
-		const { pages, nodes } = await renderPageMap("azurill");
+	it("general-single maps the header and every experience entry onto the page", async () => {
+		const { pages, nodes } = await renderPageMap("general-single");
 
 		expect(pages.length).toBeGreaterThan(0);
 		expect(nodes.some((node) => node.kind === "header" && node.page === 0)).toBe(true);

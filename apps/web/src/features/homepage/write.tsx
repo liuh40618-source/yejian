@@ -6,7 +6,7 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { cn } from "@reactive-resume/utils/style";
 import { goToScene, SCENE, useLanding } from "./scroll";
 import { AccessibilityBullet, designSystemBullet, ResearchBullet } from "./sheet";
-import { Doodle, SceneCaption, TypedText } from "./ui";
+import { SceneCaption, TypedText } from "./ui";
 
 /** Scene progress for the accepted suggestion (Accept) and for the open comment (Keep mine, Undo). */
 const ACCEPTED_AT = 0.93;
@@ -59,22 +59,15 @@ export function Write() {
 				// Keep mine: the original line stays, unstruck, and the comment gives way to a note saying so.
 				style={kept ? ({ "--st": 0, "--ti": 0, "--oc": 0, "--card": 0, "--chip": 1 } as CSSProperties) : undefined}
 			>
-				<Doodle
-					name="eraser"
-					wipe="clamp(0, (var(--p) - .02) / .2, 1)"
-					sizes="10vw"
-					className="start-[7vw] top-[36vh] w-[10vw] translate-y-[calc(var(--p)*-50px)] rotate-[-10deg] max-[900px]:hidden"
-				/>
-
 				<h2
 					id="write-title"
-					className="font-anybody absolute start-(--gutter) top-[10vh] max-w-[90vw] text-[10vw] leading-[.95] font-light tracking-[-.03em] text-balance text-ink min-[900px]:top-[11vh] min-[900px]:max-w-[34vw] min-[900px]:text-[clamp(48px,4.5vw,80px)]"
+					className="font-anybody absolute start-(--gutter) top-[10vh] max-w-[90vw] text-[10vw] leading-[.95] font-light tracking-[.01em] text-balance text-ink min-[900px]:top-[11vh] min-[900px]:max-w-[34vw] min-[900px]:text-[clamp(48px,4.5vw,80px)]"
 				>
 					{/* One display word like the other scenes; the keyword sentence stays in the heading for search. */}
 					<span className="sr-only">{t`Write your professional resume`}</span>
 					<span aria-hidden="true">
 						{t({ message: "Write", comment: "Homepage scene title, one word followed by a full stop" })}
-						<span className="text-accent">.</span>
+						<span className="text-accent">。</span>
 					</span>
 				</h2>
 

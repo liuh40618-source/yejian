@@ -83,7 +83,7 @@ describe("optional experience and education header fields (#3338)", () => {
 	});
 });
 
-describe.each(["persian", "onyx"] as const)("%s section heading direction", (template) => {
+describe.each(["center-classic", "minimal-photo"] as const)("%s section heading direction", (template) => {
 	it.each(["en-US", "ar-SA"])("keeps headings at the reading edge with and without icons in %s", async (locale) => {
 		for (const hideSectionIcons of [false, true]) {
 			const data = fixture();
@@ -94,7 +94,7 @@ describe.each(["persian", "onyx"] as const)("%s section heading direction", (tem
 			data.sections.education.title = "Education";
 			const items = await renderText(data);
 			for (const title of ["Experience", "Education"]) {
-				const heading = findText(items, template === "persian" ? title.toUpperCase() : title);
+				const heading = findText(items, template === "center-classic" ? title.toUpperCase() : title);
 				if (locale === "ar-SA") {
 					expect(heading.transform[4] + heading.width, `${title}, icons hidden: ${hideSectionIcons}`).toBeGreaterThan(
 						530,

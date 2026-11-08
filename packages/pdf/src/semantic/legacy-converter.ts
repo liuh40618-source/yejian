@@ -146,7 +146,7 @@ const textWeightSelector = (data: ResumeData, rule: StyleRule, base: string, sec
 	return selectors.join(",\n");
 };
 
-const scizorBoldColorSelector = (
+const headingAccentBoldColorSelector = (
 	data: ResumeData,
 	rule: StyleRule,
 	base: string,
@@ -162,8 +162,8 @@ const scizorBoldColorSelector = (
 
 	const scopedBase =
 		rule.target.scope === "global"
-			? 'resume[template="scizor"] section:not([type="awards"])'
-			: `resume[template="scizor"] ${base}`;
+			? 'resume[template="heading-accent"] section:not([type="awards"])'
+			: `resume[template="heading-accent"] ${base}`;
 	return ["company", "school", "name", "language", "network", "organization", "title"]
 		.map((name) => `${scopedBase}${slotSelectors.text}[role~="primary-text"][name=${escapeCssString(name)}]`)
 		.join(",\n");
@@ -219,13 +219,13 @@ const activeSlotChunks = (data: ResumeData, rule: StyleRule, slot: StyleSlot, se
 	}
 
 	if (slot === "text" && declarations.color !== undefined) {
-		const restorationSelector = scizorBoldColorSelector(data, rule, base, sectionTypes);
+		const restorationSelector = headingAccentBoldColorSelector(data, rule, base, sectionTypes);
 		if (restorationSelector) {
 			chunks.push(
 				serializeBlock(
 					restorationSelector,
 					{ color: rgbaStringToHex(data.metadata.design.colors.text) },
-					`${rule.label || rule.id}: Scizor Bold final color`,
+					`${rule.label || rule.id}: HeadingAccent Bold final color`,
 				),
 			);
 		}

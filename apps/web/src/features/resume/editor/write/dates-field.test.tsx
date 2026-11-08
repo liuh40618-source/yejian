@@ -16,7 +16,7 @@ describe("DatesField", () => {
 	const renderField = (dates: ResumeDates, onChange = vi.fn()) => {
 		render(
 			<I18nProvider i18n={i18n}>
-				<DatesField dates={dates} locale="en-US" format="short" onChange={onChange} />
+				<DatesField dates={dates} locale="zh-CN" format="short" onChange={onChange} />
 			</I18nProvider>,
 		);
 		return onChange;
@@ -41,13 +41,13 @@ describe("DatesField", () => {
 
 type EditorProps = { initial: ResumeDates; single?: boolean; locale?: string };
 
-function Editor({ initial, single = false, locale = "en-US" }: EditorProps) {
+function Editor({ initial, single = false, locale = "zh-CN" }: EditorProps) {
 	const [dates, setDates] = useState(initial);
 	return <DatesField dates={dates} locale={locale} format="short" single={single} onChange={setDates} />;
 }
 
 describe("custom date text", () => {
-	const mount = (initial: ResumeDates, single = false, locale = "en-US") =>
+	const mount = (initial: ResumeDates, single = false, locale = "zh-CN") =>
 		render(
 			<I18nProvider i18n={i18n}>
 				<Editor initial={initial} single={single} locale={locale} />
@@ -58,7 +58,7 @@ describe("custom date text", () => {
 		const view = mount({ start: "2022-03", end: null, present: true });
 		await userEvent.click(screen.getByRole("switch", { name: "Custom date text" }));
 		const input = screen.getByRole("textbox", { name: "Dates" });
-		expect(input).toHaveValue("Mar 2022 – Present");
+		expect(input).toHaveValue("2022年3月 – 至今");
 		fireEvent.change(input, { target: { value: "During university / bis heute" } });
 		fireEvent.blur(input);
 		expect(input).toHaveValue("During university / bis heute");
@@ -76,13 +76,14 @@ describe("custom date text", () => {
 		expect(input).toHaveValue("March 2022");
 		expect(screen.queryByText(/Saved as written/)).not.toBeInTheDocument();
 		await userEvent.click(screen.getByRole("switch", { name: "Custom date text" }));
-		expect(screen.getByRole("textbox", { name: "Date" })).toHaveValue("Mar 2022");
+		// Switching back to the preset fields renders the date the way zh-CN writes it.
+		expect(screen.getByRole("textbox", { name: "Date" })).toHaveValue("2022年3月");
 	});
 
-	it("restores untouched Japanese preset dates without reparsing the formatted wording", async () => {
-		mount({ start: "2022-03", end: null, present: true }, false, "ja-JP");
+	it("restores untouched Chinese preset dates without reparsing the formatted wording", async () => {
+		mount({ start: "2022-03", end: null, present: true }, false, "zh-CN");
 		await userEvent.click(screen.getByRole("switch", { name: "Custom date text" }));
-		expect(screen.getByRole("textbox", { name: "Dates" })).toHaveValue("2022年3月 – 現在");
+		expect(screen.getByRole("textbox", { name: "Dates" })).toHaveValue("2022年3月 – 至今");
 		expect(screen.getByRole("switch", { name: "Custom date text" })).not.toHaveAttribute("data-disabled");
 		await userEvent.click(screen.getByRole("switch", { name: "Custom date text" }));
 		expect(screen.getByRole("textbox", { name: "Start" })).toHaveValue("2022年3月");
@@ -104,7 +105,7 @@ describe("expected end date", () => {
 		const onChange = vi.fn();
 		render(
 			<I18nProvider i18n={i18n}>
-				<DatesField dates={dates} locale="en-US" format="short" expectable={expectable} onChange={onChange} />
+				<DatesField dates={dates} locale="zh-CN" format="short" expectable={expectable} onChange={onChange} />
 			</I18nProvider>,
 		);
 		return onChange;

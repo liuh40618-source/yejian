@@ -207,7 +207,7 @@ export function RegisterPage({ disableEmailAuth, isGuest = false }: Props) {
 											maxLength={64}
 											autoComplete="section-register username"
 											// Usernames are Latin letters a–z: a transliterated example would invite other scripts.
-											placeholder="john.doe"
+											placeholder="chenjianing"
 											dir="ltr"
 											name={field.name}
 											value={field.state.value}
@@ -237,7 +237,7 @@ export function RegisterPage({ disableEmailAuth, isGuest = false }: Props) {
 										<Input
 											type="email"
 											autoComplete="section-register email"
-											placeholder="john.doe@example.com"
+											placeholder="chenjianing@example.com"
 											className="lowercase"
 											name={field.name}
 											value={field.state.value}

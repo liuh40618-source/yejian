@@ -6,7 +6,7 @@ import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/comp
 import { SwitchRow } from "@reactive-resume/ui/components/switch";
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE } from "./scroll";
-import { Doodle, labelClass } from "./ui";
+import { labelClass } from "./ui";
 
 /** The story's five parts: Situation, Task, Action, Result and Reflection. */
 type Part = "s" | "t" | "a" | "r" | "f";
@@ -121,10 +121,12 @@ export function Remember() {
 					<span className={cn(labelClass, "text-accent-text")}>07 / {remember}</span>
 					<h2
 						id="remember-title"
-						className="font-anybody text-[15vw] leading-[.9] font-light tracking-[-.03em] text-ink [font-stretch:calc(86%+var(--rin)*14%)] [transition:font-stretch_.3s] min-[900px]:text-[clamp(72px,9vw,160px)]"
+						// The word tightens its tracking as the section scrolls in. Upstream narrowed a variable Latin face
+						// here (font-stretch), which does nothing to a Chinese serif, so the movement is in the spacing.
+						className="font-anybody text-[15vw] leading-[.9] font-light [letter-spacing:calc(.06em-var(--rin)*.05em)] text-ink [transition:letter-spacing_.3s] min-[900px]:text-[clamp(72px,9vw,160px)]"
 					>
 						{remember}
-						<span className="text-accent">.</span>
+						<span className="text-accent">。</span>
 					</h2>
 				</div>
 				<div className="flex max-w-[30em] flex-col gap-3 pb-[1vw]">
@@ -196,12 +198,6 @@ export function Remember() {
 					</div>
 
 					<div className="relative ms-[8%] -mt-2 rotate-[1.4deg]">
-						<Doodle
-							name="paperclip"
-							wipe="clamp(0, (var(--p) - .3) / .2, 1)"
-							sizes="64px"
-							className="end-[10%] -top-[46px] z-2 w-[64px] rotate-[78deg]"
-						/>
 						<div
 							className={cn(
 								"on-paper rounded-md bg-paper px-5 py-4 ring-2 shadow-paper transition-shadow duration-500",

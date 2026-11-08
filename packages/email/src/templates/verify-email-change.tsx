@@ -1,7 +1,6 @@
-import type { Locale } from "@reactive-resume/utils/locale";
 import { verifyEmailChange } from "./auth";
 
-type PreviewProps = { url: string; previousEmail: string; newEmail: string; locale: Locale };
+type PreviewProps = { url: string; previousEmail: string; newEmail: string; locale: string };
 const VerifyEmailChangePreview = (props: PreviewProps) => verifyEmailChange(props).react;
 
 export default Object.assign(VerifyEmailChangePreview, {

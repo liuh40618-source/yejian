@@ -33,10 +33,13 @@ it("removes traversal, separators, control characters and header punctuation", (
 });
 
 it("names the file in the resume's own language", () => {
-	const data = (locale: string) => ({ basics: { name: "Layla Haddad" }, metadata: { page: { locale } } });
-	expect(getDefaultFileName({ name: "", data: data("de-DE") })).toBe("Layla-Haddad-Lebenslauf");
-	expect(getDefaultFileName({ name: "", data: data("de-DE") }, "cover-letter")).toBe("Layla-Haddad-Anschreiben");
-	expect(getDefaultFileName({ name: "", data: data("en-US") })).toBe("Layla-Haddad-Resume");
-	// A locale without a translation keeps the English word.
-	expect(getDefaultFileName({ name: "", data: data("xx-XX") })).toBe("Layla-Haddad-Resume");
+	const data = (locale: string) => ({ basics: { name: "李明" }, metadata: { page: { locale } } });
+	expect(getDefaultFileName({ name: "", data: data("zh-CN") })).toBe("李明-简历");
+	expect(getDefaultFileName({ name: "", data: data("zh-CN") }, "cover-letter")).toBe("李明-求职信");
+	// A locale outside the shipped set still names the file, in the source word, so an old document never breaks.
+	expect(getDefaultFileName({ name: "", data: data("xx-XX") })).toBe("李明-Resume");
+	// The person's name leads the file; the document's own name only fills in when the resume has none.
+	expect(
+		getDefaultFileName({ name: "换工作版本", data: { basics: { name: "" }, metadata: { page: { locale: "zh-CN" } } } }),
+	).toBe("换工作版本");
 });

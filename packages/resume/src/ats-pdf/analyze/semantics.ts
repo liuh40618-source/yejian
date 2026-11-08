@@ -6,11 +6,23 @@ import { analyzeTextQuality } from "./text-quality";
 
 const BULLET_PREFIX = /^\s*(?:[•▪◦‣·∙●○■□▶▸*+]|[-–—]\s|[\u{E000}-\u{F8FF}])\s*/u;
 const LONG_BULLET_CHARS = 220;
+/** Chinese text carries more meaning per character: 220 of them is a paragraph, not a bullet. */
+const LONG_BULLET_CHARS_CJK = 110;
 const FIRST_PERSON = /\b(?:I|I'm|I've|my|me|myself)\b/g;
+/** The same self-reference in Chinese, which no word-boundary pattern can find. */
+const FIRST_PERSON_CJK = /我们|我|本人|自己/g;
 
 /** Share of a page's height that counts as the running-head zone at either end. */
 const RUNNING_HEAD_BAND = 0.08;
 const MIN_REPEATED_OPENING = 3;
+/** Chinese bullets open on this many characters before the phrasing counts as repeated. */
+const REPEATED_OPENING_CJK_CHARS = 4;
+
+/** "某某科技有限公司 · 高级前端工程师" / "高级前端工程师 | 上海" — the Chinese role-line separator. */
+const CJK_ROLE_SEPARATOR = /\p{Script=Han}[^\S\n]*(?:[·|｜/、]|—{1,2})[^\S\n]*\p{Script=Han}/u;
+/** "前端开发工程师 2020.03 - 2024.06": a Chinese title followed by its dates on the same line. */
+const CJK_ROLE_WITH_DATES =
+	/\p{Script=Han}{2,}.*?(?:(?:19|20)\d{2}\s*[.\-/年]\s*\d{1,2}|\d{4}\s*[-–—~至]\s*(?:\d{4}|至今|现在))/u;
 
 const ACTION_VERBS = new Set(
 	(
@@ -33,6 +45,82 @@ const isBullet = (line: TextLine) => BULLET_PREFIX.test(line.text);
 
 const bulletBody = (line: TextLine) => line.text.replace(BULLET_PREFIX, "").trim();
 
+/**
+ * Chinese bullets open on the achievement verb the way English ones do — 主导 / 搭建 / 优化 rather
+ * than "Led" / "Built" / "Optimized". Matched as a prefix, because Chinese has no word delimiter
+ * and the verb can run straight into its object (搭建了订单系统).
+ */
+const ACTION_VERB_PREFIXES_CJK = [
+	"主导",
+	"主推",
+	"牵头",
+	"负责",
+	"带领",
+	"组建",
+	"搭建",
+	"设计",
+	"开发",
+	"实现",
+	"构建",
+	"重写",
+	"重构",
+	"优化",
+	"提升",
+	"改善",
+	"降低",
+	"减少",
+	"缩短",
+	"推动",
+	"推进",
+	"落地",
+	"交付",
+	"上线",
+	"发布",
+	"迁移",
+	"整合",
+	"统一",
+	"沉淀",
+	"孵化",
+	"制定",
+	"规划",
+	"管理",
+	"协调",
+	"组织",
+	"培训",
+	"指导",
+	"支撑",
+	"维护",
+	"保障",
+	"排查",
+	"定位",
+	"解决",
+	"修复",
+	"治理",
+	"引入",
+	"改造",
+	"扩展",
+	"自动化",
+	"标准化",
+	"模块化",
+	"平台化",
+	"输出",
+	"编写",
+	"撰写",
+	"分析",
+	"调研",
+	"评估",
+	"验证",
+	"测试",
+	"监控",
+	"部署",
+	"运营",
+	"策划",
+	"拓展",
+	"签约",
+	"达成",
+	"完成",
+];
+
 function isQuantified(text: string): boolean {
 	// A bare year is not an achievement metric; a percentage, a currency figure or a real
 	// magnitude is. The lookbehinds start each number at its first digit, so a digit run is scanned once.
@@ -44,7 +132,10 @@ function isQuantified(text: string): boolean {
 }
 
 function startsWithActionVerb(text: string): boolean {
-	const first = text.trim().split(/\s+/)[0];
+	const trimmed = text.trim();
+	if (ACTION_VERB_PREFIXES_CJK.some((verb) => trimmed.startsWith(verb))) return true;
+
+	const first = trimmed.split(/\s+/)[0];
 	if (!first) return false;
 	return ACTION_VERBS.has(first.toLowerCase().replace(/[^a-z]/g, ""));
 }
@@ -64,6 +155,14 @@ function uppercaseHeavy(text: string): boolean {
 function isRoleLike(line: TextLine): boolean {
 	const text = line.text.trim();
 	if (text.length === 0 || text.length > 110 || isBullet(line)) return false;
+
+	// A Chinese role line carries no capitals to count, so it is recognised by its shape instead:
+	// "某某科技有限公司 · 高级前端工程师" or "高级前端工程师 | 上海". A date range on the same line is
+	// the commonest form of all ("前端开发工程师 2020.03-2024.06").
+	if (CJK_ROLE_SEPARATOR.test(text) || CJK_ROLE_WITH_DATES.test(text)) {
+		return /[\p{Script=Han}]{2,}/u.test(text);
+	}
+
 	if (!/\s(?:[|·–—]|at)\s|,\s/.test(text)) return false;
 
 	const capitalized = (text.match(/\b\p{Lu}[\p{L}&.'-]*/gu) ?? []).length;
@@ -113,8 +212,19 @@ function findRepeatedOpenings(bullets: readonly string[]): string[] {
 	const counts = new Map<string, number>();
 
 	for (const bullet of bullets) {
-		const opening = bullet.toLowerCase().split(/\s+/).slice(0, 3).join(" ");
-		if (opening.split(" ").length < 3) continue;
+		// Chinese has no spaces, so "the first three words" is meaningless there: the opening is the
+		// first few characters instead, long enough to be a phrase and short enough to repeat.
+		const normalized = bullet.toLowerCase();
+		const opening = /[\p{Script=Han}]/u.test(normalized)
+			? [...normalized].slice(0, REPEATED_OPENING_CJK_CHARS).join("")
+			: normalized.split(/\s+/).slice(0, 3).join(" ");
+
+		if (/[\p{Script=Han}]/u.test(normalized)) {
+			if ([...opening].length < REPEATED_OPENING_CJK_CHARS) continue;
+		} else if (opening.split(" ").length < 3) {
+			continue;
+		}
+
 		counts.set(opening, (counts.get(opening) ?? 0) + 1);
 	}
 
@@ -150,6 +260,13 @@ export function buildResumeSemantics(
 	const bulletLines = document.lines.filter(isBullet);
 	const bullets = bulletLines.map(bulletBody);
 
+	// A Chinese bullet spends its characters on meaning rather than on articles and spaces, so the
+	// same threshold in characters would never fire on a bullet a reader would call a paragraph.
+	const bulletCharLimit = quality.isChinese ? LONG_BULLET_CHARS_CJK : LONG_BULLET_CHARS;
+	const firstPersonMatches = quality.isChinese
+		? (document.fullText.match(FIRST_PERSON_CJK) ?? []).length
+		: (document.fullText.match(FIRST_PERSON) ?? []).length;
+
 	return {
 		headings,
 		sectionTypes: sectionTypesOf(headings),
@@ -161,8 +278,8 @@ export function buildResumeSemantics(
 		allCapsLineCount: document.lines.filter((line) => uppercaseHeavy(line.text)).length,
 		quantifiedBulletCount: bullets.filter(isQuantified).length,
 		actionVerbBulletCount: bullets.filter(startsWithActionVerb).length,
-		firstPersonCount: (document.fullText.match(FIRST_PERSON) ?? []).length,
-		longBulletCount: bullets.filter((bullet) => bullet.length > LONG_BULLET_CHARS).length,
+		firstPersonCount: firstPersonMatches,
+		longBulletCount: bullets.filter((bullet) => bullet.length > bulletCharLimit).length,
 		unparseableRanges: dates.unparseableRanges,
 		ambiguousNumericDates: dates.ambiguousNumericDates,
 		employmentGapYears: dates.gaps,

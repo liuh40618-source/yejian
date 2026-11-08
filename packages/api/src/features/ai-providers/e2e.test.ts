@@ -73,7 +73,7 @@ const { aiProvidersRouter } = await import("./router");
 const { encryptCredential } = await import("../ai/credentials");
 
 const client = createRouterClient(aiProvidersRouter, {
-	context: { locale: "en-US" as const, reqHeaders: new Headers() },
+	context: { locale: "zu-ZA" as const, reqHeaders: new Headers() },
 });
 
 function seedProvider(overrides: Record<string, unknown> = {}) {

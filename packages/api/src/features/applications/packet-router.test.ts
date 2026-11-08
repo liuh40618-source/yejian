@@ -13,7 +13,7 @@ const user = {
 };
 const client = (permissions: ("read" | "write" | "delete")[], method: "session" | "apiKey" | "bearer" = "session") =>
 	createRouterClient(packetRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method, permissions } },
+		context: { locale: "zu-ZA", reqHeaders: new Headers(), authentication: { user, method, permissions } },
 	});
 const selection = {
 	applicationId: "app",

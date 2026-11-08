@@ -124,7 +124,6 @@ const PARITY_PROCEDURES: Record<string, [AnyProcedure, BehaviorAnnotations]> = {
 	"auth.exportData": [router.auth.exportData, READ_IDEMPOTENT],
 	"flags.get": [router.flags.get, READ_IDEMPOTENT],
 	"statistics.getTotals": [router.statistics.getTotals, READ_IDEMPOTENT],
-	"statistics.github.getStarCount": [router.statistics.github.getStarCount, READ_EXTERNAL],
 	"storage.deleteFile": [router.storage.deleteFile, WRITE_DESTRUCTIVE_EXTERNAL],
 	"rest.documentExports.resume": [restAliases.documentExports.resume, READ_IDEMPOTENT],
 	"rest.documentExports.letter": [restAliases.documentExports.letter, READ_IDEMPOTENT],

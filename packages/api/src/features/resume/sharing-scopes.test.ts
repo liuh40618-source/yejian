@@ -39,7 +39,7 @@ it.each(["write", "read"] as RequestPermission[])(
 		};
 		const get = createProcedureClient(sharingRouter.getBySlug, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: {
 					user: {

@@ -113,7 +113,7 @@ describe("semantic issue fixtures", () => {
 		const resolve = (text: string) =>
 			resolveResumeRuntime({
 				data,
-				template: "onyx",
+				template: "minimal-photo",
 				source: source(`@version 1;${text}`),
 			}).presentation;
 
@@ -142,7 +142,9 @@ describe("semantic issue fixtures", () => {
 			level icon[role~="active"] { opacity: 0.2; }
 		`);
 		data.metadata.stylesheet = { mode: "semantic", source: stylesheet };
-		const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<typeof pdf>[0];
+		const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
+			typeof pdf
+		>[0];
 		const instance = pdf(element);
 		await vi.waitFor(() => expect(instance.container.document).not.toBeNull());
 		const document = instance.container.document as HostNode;
@@ -166,7 +168,9 @@ describe("semantic issue fixtures", () => {
 	it("hides section heading decoration without hiding section content", async () => {
 		const data = buildIssueFixture();
 		data.sections.experience.showHeading = false;
-		const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<typeof pdf>[0];
+		const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
+			typeof pdf
+		>[0];
 		const instance = pdf(element);
 		await vi.waitFor(() => expect(instance.container.document).not.toBeNull());
 		const document = instance.container.document as HostNode;
@@ -182,7 +186,9 @@ describe("semantic issue fixtures", () => {
 			section[type="skills"] field[name="name"] { font-weight: 400; }
 		`);
 		data.metadata.stylesheet = { mode: "semantic", source: stylesheet };
-		const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<typeof pdf>[0];
+		const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
+			typeof pdf
+		>[0];
 		const instance = pdf(element);
 		await vi.waitFor(() => expect(instance.container.document).not.toBeNull());
 		const document = instance.container.document as HostNode;
@@ -196,7 +202,9 @@ describe("semantic issue fixtures", () => {
 		data.sections.experience.title = "Experience";
 		data.metadata.page.hideSectionIcons = false;
 
-		const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<typeof pdf>[0];
+		const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
+			typeof pdf
+		>[0];
 		const instance = pdf(element);
 		await vi.waitFor(() => expect(instance.container.document).not.toBeNull());
 		const document = instance.container.document as HostNode;
@@ -225,7 +233,9 @@ describe("semantic issue fixtures", () => {
 			section[type="skills"] item:last-child { order: -1; }
 		`);
 		data.metadata.stylesheet = { mode: "semantic", source: stylesheet };
-		const element = createElement(ResumeDocument, { data, template: "onyx" }) as unknown as Parameters<typeof pdf>[0];
+		const element = createElement(ResumeDocument, { data, template: "minimal-photo" }) as unknown as Parameters<
+			typeof pdf
+		>[0];
 		const instance = pdf(element);
 		await vi.waitFor(() => expect(instance.container.document).not.toBeNull());
 		const runs = textRuns(instance.container.document as HostNode);

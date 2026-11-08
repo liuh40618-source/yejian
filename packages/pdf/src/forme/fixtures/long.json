@@ -536,7 +536,7 @@
 	},
 	"customSections": [],
 	"metadata": {
-		"template": "onyx",
+		"template": "minimal-photo",
 		"layout": {
 			"sidebarWidth": 35,
 			"pages": [

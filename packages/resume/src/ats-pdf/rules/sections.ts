@@ -4,19 +4,19 @@ import { check, failIf, hasNoText, skip } from "./helpers";
 import { THRESHOLDS } from "./thresholds";
 
 /**
- * Heading recognition works off an English alias list, so every check that asks "is there an
- * Experience section?" has to skip on a resume written in another language rather than assert
- * that a German resume has no work history.
+ * Heading recognition works off an alias list that covers English and Chinese, so every check that
+ * asks "is there an Experience section?" has to skip on a resume written in any other language
+ * rather than assert that a German resume has no work history.
  */
-function requiresEnglish(context: PdfCheckContext): boolean {
-	return context.semantics.quality.isEnglish;
+function requiresRecognizedHeadings(context: PdfCheckContext): boolean {
+	return context.semantics.quality.isEnglish || context.semantics.quality.isChinese;
 }
 
 const hasSection = (context: PdfCheckContext, type: CustomSectionType) => context.semantics.sectionTypes.includes(type);
 
 function guard(context: PdfCheckContext) {
 	if (hasNoText(context)) return skip("no-text");
-	if (!requiresEnglish(context)) return skip("not-english");
+	if (!requiresRecognizedHeadings(context)) return skip("not-english");
 	return null;
 }
 

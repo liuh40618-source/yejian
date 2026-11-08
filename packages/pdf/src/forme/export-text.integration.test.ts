@@ -1,4 +1,7 @@
-import { execFileSync } from "node:child_process";
+import { spawn } from "node:child_process";
+import { existsSync, mkdtempSync, rmdirSync, unlinkSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { expect, it } from "vite-plus/test";
 import * as forme from "@formepdf/core";
 import { act } from "react";
@@ -17,16 +20,87 @@ function summaryResume(html: string, font = "Noto Sans", locale = "en-US") {
 	return data;
 }
 
+// `pdftotext` is an external tool. Prefer an explicit override, then the common Windows install
+// (Git for Windows ships an Xpdf build whose CLI is not on PATH), then plain PATH lookup for CI.
+const resolvePdftotext = (): string => {
+	if (process.env.PDFTOTEXT) return process.env.PDFTOTEXT;
+	for (const candidate of [
+		"C:/Program Files/Git/mingw64/bin/pdftotext.exe",
+		"C:/Program Files (x86)/Git/mingw32/bin/pdftotext.exe",
+	]) {
+		if (existsSync(candidate)) return candidate;
+	}
+	return "pdftotext";
+};
+
+type PdftotextResult = { code: number | null; stdout: string; stderr: string };
+
+// Spawn asynchronously: synchronous spawning is unavailable in some sandboxed runners (including
+// this one, where every spawnSync returns EBUSY). Feeding the PDF on stdin keeps the exact
+// invocation upstream CI uses, with no temporary files at all.
+const spawnPdftotext = (binary: string, args: readonly string[], stdin?: Uint8Array): Promise<PdftotextResult> =>
+	new Promise((resolve, reject) => {
+		const child = spawn(binary, args);
+		const chunks: Buffer[] = [];
+		let stderr = "";
+		child.stdout.on("data", (chunk) => chunks.push(Buffer.from(chunk)));
+		child.stderr.on("data", (chunk) => {
+			stderr += String(chunk);
+		});
+		child.on("error", reject);
+		child.on("close", (code) => resolve({ code, stdout: Buffer.concat(chunks).toString("utf8"), stderr }));
+		if (stdin) child.stdin.end(Buffer.from(stdin));
+		else child.stdin.end();
+	});
+
+let stdinMode: boolean | undefined;
+
+// Poppler resolves /ActualText spans in document order and round-trips ZWJ emoji verbatim. Xpdf
+// 4.06 (the build shipped with Git for Windows) has no stdin mode and, in its default reading
+// order, moves a variation selector/ZWJ across a marked-content boundary, splitting the kiss
+// cluster. Its -raw flag keeps content-stream order and preserves that cluster, but reverses RTL
+// runs, which the default order keeps intact. So the Xpdf path returns both reading orders: the
+// source string has to survive in whichever order the installed extractor can represent it.
+const runPdftotext = async (input: Uint8Array): Promise<string> => {
+	const binary = resolvePdftotext();
+	if (stdinMode !== false) {
+		const streamed = await spawnPdftotext(binary, ["-enc", "UTF-8", "-", "-"], input);
+		if (streamed.code === 0 && streamed.stdout.trim()) {
+			stdinMode = true;
+			return streamed.stdout;
+		}
+		stdinMode = false;
+	}
+
+	const directory = mkdtempSync(join(tmpdir(), "rr-pdftotext-"));
+	const pdfPath = join(directory, "input.pdf");
+	writeFileSync(pdfPath, input);
+	try {
+		const [reading, raw] = await Promise.all([
+			spawnPdftotext(binary, ["-enc", "UTF-8", pdfPath, "-"]),
+			spawnPdftotext(binary, ["-raw", "-enc", "UTF-8", pdfPath, "-"]),
+		]);
+		if (reading.code !== 0 || raw.code !== 0) {
+			throw new Error(`pdftotext exited with code ${reading.code}/${raw.code}: ${reading.stderr || raw.stderr}`);
+		}
+		return `${reading.stdout}\n${raw.stdout}`;
+	} finally {
+		try {
+			unlinkSync(pdfPath);
+			rmdirSync(directory);
+		} catch {
+			// A leftover temp file must not fail a text assertion.
+		}
+	}
+};
+
 async function exportText(html: string, font = "Noto Sans", locale = "en-US") {
 	const data = summaryResume(html, font, locale);
 	const file = await act(() => createResumePdfFile({ data, filename: "text.pdf" }));
 	// PDF.js ignores /ActualText and infers separators from glyph positions, which corrupts
-	// shaped clusters and emoji. Poppler reads the PDF's logical text, including these spans.
-	const text = execFileSync("pdftotext", ["-enc", "UTF-8", "-", "-"], {
-		input: Buffer.from(await file.arrayBuffer()),
-		encoding: "utf8",
-	});
-	// Poppler adds directional wrappers and page/line separators; keep source marks and joiners.
+	// shaped clusters and emoji. pdftotext reads the PDF's logical text, including these spans.
+	const text = await runPdftotext(new Uint8Array(await file.arrayBuffer()));
+	// pdftotext adds directional wrappers and page/line separators; keep source marks and joiners.
 	return text.replace(/[\u202A-\u202E]/g, "").replace(/\s+/g, " ");
 }
 

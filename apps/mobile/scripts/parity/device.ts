@@ -89,6 +89,11 @@ export async function checkPreviewResources(origin: string): Promise<ResumeData>
 
 async function checkParity(origin: string): Promise<void> {
 	const fixture = await checkPreviewResources(origin);
+	// The old "azurill" template was both the fixed template for the free-form measuring pass and the
+	// template that carried the one-off rasterizer guard. It was removed with the two-column templates;
+	// any shipped template exercises both checks, so take the first enum entry instead of pinning an
+	// ID that can be renamed again.
+	const firstTemplate = templateSchema.parse(templateSchema.options[0]);
 	for (const name of [...templateSchema.options, "free-form"]) {
 		const data = structuredClone(fixture);
 		if (name === "free-form") data.metadata.page.format = "free-form";
@@ -105,7 +110,7 @@ async function checkParity(origin: string): Promise<void> {
 			},
 			{
 				data,
-				template: name === "free-form" ? "azurill" : templateSchema.parse(name),
+				template: name === "free-form" ? firstTemplate : templateSchema.parse(name),
 				readImage: readPreviewImage,
 				onPageMap: (map) => {
 					pageCount = map.pages.length;
@@ -119,7 +124,7 @@ async function checkParity(origin: string): Promise<void> {
 		let rasterized = 0;
 		try {
 			check(document.pages.length === pageCount, "Rasterizer page count differs");
-			if (name === "azurill") {
+			if (name === firstTemplate) {
 				let invalidPageRejected = false;
 				try {
 					await pdfPages.rasterize(document.id, [-1], 1);

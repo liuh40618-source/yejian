@@ -49,9 +49,11 @@ export async function checkDocs(root) {
 				}),
 		),
 	);
-	const filename = resolve(root, "apps/web/locales/en-US.po");
+	// Only the msgids (the English source strings) are read below, so any real catalog is equivalent.
+	// This build ships one real catalog (zh-CN) plus Lingui's pseudo-locale; upstream's en-US.po is gone.
+	const filename = resolve(root, "apps/web/locales/zh-CN.po");
 	const catalog = await formatter().parse(await readFile(filename, "utf8"), {
-		locale: "en-US",
+		locale: "zh-CN",
 		sourceLocale: "en-US",
 		filename,
 	});

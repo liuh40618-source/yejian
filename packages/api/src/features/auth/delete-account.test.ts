@@ -14,7 +14,7 @@ it.each(["apiKey", "bearer", "session"] as const)(
 		deleteAccount.mockReset().mockResolvedValue(undefined);
 		const remove = createProcedureClient(authRouter.deleteAccount, {
 			context: {
-				locale: "en-US",
+				locale: "zu-ZA",
 				reqHeaders: new Headers(),
 				authentication: {
 					user: {

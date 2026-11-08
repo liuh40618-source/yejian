@@ -17,6 +17,7 @@ import { PageSectionBuilder } from "../-sidebar/right/sections/page";
 import { TypographySectionBuilder } from "../-sidebar/right/sections/typography";
 import { useIsResumeLocked, useResumeData, useUpdateResumeData } from "@/features/resume/builder/draft";
 import { undoToast } from "@/features/resume/builder/undo-toast";
+import { ChinaMarketGroup } from "@/features/resume/editor/design/china-market-group";
 import { EntriesGroup } from "@/features/resume/editor/design/entries-group";
 import { ColorGroup, PageGroup, TypeGroup } from "@/features/resume/editor/design/style-groups";
 import { TemplateGroup } from "@/features/resume/editor/design/template-group";
@@ -32,6 +33,7 @@ const GROUPS = [
 	{ id: "type", label: () => t`Type` },
 	{ id: "color", label: () => t`Color` },
 	{ id: "page", label: () => t`Page` },
+	{ id: "china", label: () => t`China market` },
 	{ id: "advanced", label: () => t`Advanced` },
 ] as const;
 
@@ -77,7 +79,7 @@ export function DesignPanel() {
 
 	return (
 		<div>
-			{/* px-2 on the links keeps all six in the 380–400px panel (English); longer languages scroll. */}
+			{/* px-2 on the links keeps all seven in the panel (English); longer languages scroll. */}
 			<nav
 				aria-label={t`Design groups`}
 				className="sticky top-0 z-10 flex gap-1 overflow-x-auto border-b border-line bg-surface px-3 py-2"
@@ -117,13 +119,16 @@ export function DesignPanel() {
 					<PageGroup />
 					<PagesEditor />
 				</Group>
+				<Group id="china" title={<Trans>China market</Trans>}>
+					<ChinaMarketGroup />
+				</Group>
 				<AdvancedGroup open={advancedOpen} onOpenChange={setAdvancedOpen} />
 			</fieldset>
 		</div>
 	);
 }
 
-type SheetTab = "template" | "entries" | "type" | "color" | "page";
+type SheetTab = "template" | "entries" | "type" | "color" | "page" | "china";
 
 /**
  * Phones: Design is a sheet over the lower half of the page, so every change shows above it. The handle
@@ -155,7 +160,7 @@ export function DesignSheet() {
 			</button>
 
 			<Tabs value={tab} onValueChange={(value) => setTab(value as SheetTab)} className="min-h-0 flex-1 gap-0">
-				<TabsList variant="line" className="w-full shrink-0 justify-around px-4">
+				<TabsList variant="line" className="w-full shrink-0 justify-around overflow-x-auto px-4">
 					{GROUPS.filter((group) => group.id !== "advanced").map((group) => (
 						<TabsTrigger key={group.id} value={group.id}>
 							{group.label()}
@@ -182,6 +187,7 @@ export function DesignSheet() {
 						/>
 					)}
 					{tab === "color" && <ColorGroup />}
+					{tab === "china" && <ChinaMarketGroup />}
 					{tab === "page" && (
 						<div className="-mx-4 divide-y divide-line">
 							<div className="grid gap-3 px-4 pb-5">

@@ -105,7 +105,7 @@ describe("cookie request origins", () => {
 		reset();
 		authMock.api.getSession.mockResolvedValue(null);
 		const context = {
-			locale: "en-US" as const,
+			locale: "zh-CN" as const,
 			reqHeaders: new Headers({ cookie: "theme=dark", origin: "https://rx.cv", "sec-fetch-site": "same-origin" }),
 		};
 		const publicOperation = createProcedureClient(
@@ -183,7 +183,7 @@ describe("credential authorization", () => {
 		const operation = createProcedureClient(
 			protectedProcedure.route({ method, ...route }).handler(() => "executed"),
 			{
-				context: { locale: "en-US", reqHeaders: new Headers({ "x-api-key": "key" }) },
+				context: { locale: "zh-CN", reqHeaders: new Headers({ "x-api-key": "key" }) },
 			},
 		);
 		if (allowed) await expect(operation(undefined)).resolves.toBe("executed");
@@ -200,7 +200,7 @@ describe("credential authorization", () => {
 		const operation = createProcedureClient(
 			protectedProcedure.route({ method: "POST" }).handler(() => "executed"),
 			{
-				context: { locale: "en-US", reqHeaders: new Headers(), authentication },
+				context: { locale: "zh-CN", reqHeaders: new Headers(), authentication },
 			},
 		);
 		await expect(operation(undefined)).rejects.toMatchObject({ code: "FORBIDDEN" });
@@ -220,7 +220,7 @@ describe("account scope binding", () => {
 		handler = vi.fn(() => "executed"),
 	) =>
 		createProcedureClient(protectedProcedure.route({ method }).handler(handler), {
-			context: { locale: "en-US" as const, reqHeaders: new Headers(headers), authentication },
+			context: { locale: "zh-CN" as const, reqHeaders: new Headers(headers), authentication },
 		});
 
 	it.each(["POST", "DELETE"] as const)(
@@ -265,7 +265,7 @@ describe("per-item account binding", () => {
 	) =>
 		createProcedureClient(protectedProcedure.route({ method }).handler(handler), {
 			context: {
-				locale: "en-US" as const,
+				locale: "zh-CN" as const,
 				reqHeaders: new Headers(envelope ? { "x-account-id": envelope } : {}),
 				...(item ? { rpcItemAccountId: item } : {}),
 				authentication,

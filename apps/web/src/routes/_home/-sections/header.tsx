@@ -1,12 +1,10 @@
 import { t } from "@lingui/core/macro";
-import { ArrowRightIcon, TranslateIcon } from "@phosphor-icons/react";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import { Link } from "@tanstack/react-router";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import { useState } from "react";
 import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
 import { Button } from "@reactive-resume/ui/components/button";
-import { GithubStarsButton } from "@/components/input/github-stars-button";
-import { LocaleCombobox } from "@/features/locale/combobox";
 import { ThemeToggleButton } from "@/features/theme/toggle-button";
 
 export function Header() {
@@ -28,19 +26,9 @@ export function Header() {
 				</Link>
 
 				<div className="ms-auto flex items-center gap-x-2">
-					<LocaleCombobox
-						render={
-							<Button size="icon" variant="ghost" aria-label={t`Change language`}>
-								<TranslateIcon />
-							</Button>
-						}
-					/>
-
 					<ThemeToggleButton />
 
 					<div className="hidden items-center gap-x-4 sm:flex">
-						<GithubStarsButton />
-
 						<Button
 							size="icon"
 							nativeButton={false}

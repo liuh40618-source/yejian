@@ -98,7 +98,7 @@ describe.skipIf(!databaseUrl)("application and document letter-link reconciliati
 						const result = await handler.handle(req, {
 							prefix: "/api/rpc",
 							context: {
-								locale: "en-US",
+								locale: "zu-ZA",
 								reqHeaders: req.headers,
 								authentication: { user, method: "session", permissions: ["read", "write", "delete"] },
 							},

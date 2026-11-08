@@ -14,7 +14,7 @@ const user = {
 };
 const client = (permissions: ("read" | "write" | "delete")[]) =>
 	createRouterClient(answerRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method: "apiKey", permissions } },
+		context: { locale: "zu-ZA", reqHeaders: new Headers(), authentication: { user, method: "apiKey", permissions } },
 	});
 beforeEach(() => {
 	vi.clearAllMocks();
@@ -22,7 +22,7 @@ beforeEach(() => {
 });
 it("requires authentication and delegates reads with the credential owner", async () => {
 	const anonymous = createRouterClient(answerRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: null },
+		context: { locale: "zu-ZA", reqHeaders: new Headers(), authentication: null },
 	});
 	await expect(anonymous.list({ applicationId: "app" })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
 	await expect(client(["read"]).list({ applicationId: "app" })).resolves.toEqual([]);

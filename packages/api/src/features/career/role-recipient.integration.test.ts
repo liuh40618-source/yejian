@@ -121,7 +121,7 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 			{ career: careerRouter, providers: aiProvidersRouter },
 			{
 				context: {
-					locale: "en-US",
+					locale: "zu-ZA",
 					reqHeaders: new Headers(),
 					authentication: { user, method: "apiKey", permissions },
 				},

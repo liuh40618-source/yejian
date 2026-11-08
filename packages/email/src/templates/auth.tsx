@@ -1,4 +1,3 @@
-import type { Locale } from "@reactive-resume/utils/locale";
 import * as React from "react";
 import {
 	Body,
@@ -16,15 +15,16 @@ import {
 	Tailwind,
 	Text,
 } from "react-email";
+import { APP_NAME } from "@reactive-resume/utils/brand";
 import { isRTL } from "@reactive-resume/utils/locale";
 import { authEmailMessages, formatMessage } from "./auth-messages";
 
 // ponytail: server dev consumes this source through tsx, which emits React.createElement here.
 void React;
 
-const appName = "Reactive Resume";
+const appName = APP_NAME;
 // A PNG from this installation (mail clients block SVG, and a self-hosted server shouldn't lean on the public site).
-const appUrl = (process.env.APP_URL ?? "https://rxresu.me").replace(/\/+$/, "");
+const appUrl = (process.env.APP_URL ?? "http://localhost:3000").replace(/\/+$/, "");
 const logoUrl = `${appUrl}/apple-touch-icon-180x180.png`;
 
 // The app's Desk & Paper values, with system fallbacks: a light ground survives clients that force dark mode.
@@ -41,7 +41,7 @@ const bodyFont = "Figtree, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, 
 const headingFont = "'Instrument Serif', Georgia, 'Times New Roman', serif";
 
 interface AuthEmailLayoutProps {
-	locale: Locale;
+	locale: string;
 	preview: string;
 	heading: string;
 	intro: string;
@@ -62,7 +62,6 @@ function AuthEmailLayout({
 	outro,
 }: AuthEmailLayoutProps) {
 	const messages = authEmailMessages(locale);
-	const [creditBefore = "", creditAfter = ""] = messages.credit.split("{author}");
 	// Body repeats both on its wrapper table and defaults them to English, left to right.
 	const dir = isRTL(locale) ? "rtl" : "ltr";
 
@@ -131,20 +130,7 @@ function AuthEmailLayout({
 							<Hr className="my-8" style={{ borderColor: colors.line }} />
 
 							<Text className="m-0 text-xs" style={{ color: colors.muted }}>
-								{messages.community}
-							</Text>
-							<Text className="m-0 text-xs" style={{ color: colors.muted }}>
-								{creditBefore}
-								<Link
-									target="_blank"
-									rel="noopener noreferrer"
-									href="https://amruthpillai.com"
-									className="underline underline-offset-2"
-									style={{ color: colors.muted }}
-								>
-									Amruth Pillai
-								</Link>
-								{creditAfter}
+								{messages.credit}
 							</Text>
 						</Section>
 					</Container>
@@ -170,7 +156,7 @@ const plainText = ({ heading, intro, details, action, url, outro }: PlainText) =
 	[heading, intro, details, `${action}: ${url}`, outro, appName].filter(Boolean).join("\n\n");
 
 /** The password reset email, in the account's language. */
-export function resetPasswordEmail({ url, locale }: { url: string; locale: Locale }): AuthEmail {
+export function resetPasswordEmail({ url, locale }: { url: string; locale: string }): AuthEmail {
 	const messages = authEmailMessages(locale);
 	const values = { appName };
 	const copy = {
@@ -200,7 +186,7 @@ export function resetPasswordEmail({ url, locale }: { url: string; locale: Local
 }
 
 /** The sign-up verification email, in the account's language. */
-export function verifyEmail({ url, locale }: { url: string; locale: Locale }): AuthEmail {
+export function verifyEmail({ url, locale }: { url: string; locale: string }): AuthEmail {
 	const messages = authEmailMessages(locale);
 	const values = { appName };
 	const copy = {
@@ -230,7 +216,7 @@ export function verifyEmail({ url, locale }: { url: string; locale: Locale }): A
 }
 
 /** Sent to a new address to finish changing the account's email (not a sign-up), in the account's language. */
-export function confirmNewEmail({ url, locale }: { url: string; locale: Locale }): AuthEmail {
+export function confirmNewEmail({ url, locale }: { url: string; locale: string }): AuthEmail {
 	const messages = authEmailMessages(locale);
 	const values = { appName };
 	const copy = {
@@ -257,7 +243,7 @@ export function confirmNewEmail({ url, locale }: { url: string; locale: Locale }
 	};
 }
 
-type VerifyEmailChangeInput = { url: string; previousEmail: string; newEmail: string; locale: Locale };
+type VerifyEmailChangeInput = { url: string; previousEmail: string; newEmail: string; locale: string };
 
 /** Sent to the current address to approve moving the account to `newEmail`, in the account's language. */
 export function verifyEmailChange({ url, previousEmail, newEmail, locale }: VerifyEmailChangeInput): AuthEmail {

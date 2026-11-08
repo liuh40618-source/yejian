@@ -29,7 +29,7 @@ it("matches the complete unmodified SDK tools/list response and server-card sche
 	registerParityTools(server, apiClient, new Headers(), {
 		authentication,
 		resHeaders: new Headers(),
-		locale: "en-US",
+		locale: "zh-CN",
 		trustedClient: "127.0.0.1",
 	});
 	const client = new Client({ name: "discovery-client", version: "1.0.0" });

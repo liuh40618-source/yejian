@@ -35,6 +35,7 @@ export const Route = createFileRoute("/dashboard/settings")({
 function RouteComponent() {
 	const pathname = useRouterState({ select: (state) => state.location.pathname });
 	const isRoot = pathname.replace(/\/$/, "") === "/dashboard/settings";
+	const projectLinks = getProjectLinks();
 
 	return (
 		<div className="grid min-h-full content-start sm:h-svh sm:min-h-0 sm:grid-rows-[auto_minmax(0,1fr)] sm:overflow-hidden lg:grid-cols-[220px_minmax(0,1fr)] lg:grid-rows-1 lg:content-stretch">
@@ -56,9 +57,9 @@ function RouteComponent() {
 					))}
 				</div>
 				<p className="mt-auto px-2.5 text-xs leading-[18px] text-ink-3 max-lg:hidden">
-					<Trans>Reactive Resume {__APP_VERSION__} · MIT</Trans>
-					<br />
-					{getProjectLinks().map((link, index) => (
+					<Trans>页见 {__APP_VERSION__} · MIT</Trans>
+					{projectLinks.length > 0 && <br />}
+					{projectLinks.map((link, index) => (
 						<Fragment key={link.href}>
 							{index > 0 && " · "}
 							<a className="underline" href={link.href} target="_blank" rel="noopener noreferrer">

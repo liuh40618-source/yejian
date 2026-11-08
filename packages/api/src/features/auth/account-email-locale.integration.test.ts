@@ -7,7 +7,9 @@ vi.mock("@reactive-resume/email/transport", () => ({ sendEmail }));
 // Run only against an explicitly supplied disposable database, after applying migrations.
 const databaseURL = process.env.OAUTH_TEST_DATABASE_URL;
 
-const arabic = /[؀-ۿ]/;
+// This build ships zh-CN plus Lingui's zu-ZA pseudo-locale. Upstream used ar-SA as the arbitrary
+// non-default language here; Chinese is the only real catalog left, so assert on its script.
+const chinese = /[\u3400-\u9fff]/;
 
 describe.skipIf(!databaseURL)("account emails in the account's language, with PostgreSQL", () => {
 	it(
@@ -39,29 +41,29 @@ describe.skipIf(!databaseURL)("account emails in the account's language, with Po
 			const unique = randomBytes(6).toString("hex");
 			const email = `layla-${unique}@example.test`;
 
-			// Signing up in Arabic: the account keeps the language, and its verification email is in it.
+			// Signing up in Chinese: the account keeps the language, and its verification email is in it.
 			const signup = await post(
 				"sign-up/email",
 				{ name: "Layla Haddad", email, username: `layla-${unique}`, password: "password123" },
-				"locale=ar-SA",
+				"locale=zh-CN",
 			);
 			expect(signup.status, await signup.clone().text()).toBe(200);
 			const [account] = await db.select({ locale: user.locale }).from(user).where(eq(user.email, email));
-			expect(account?.locale).toBe("ar-SA");
-			expect(await lastEmail()).toMatchObject({ to: email, subject: expect.stringMatching(arabic) });
+			expect(account?.locale).toBe("zh-CN");
+			expect(await lastEmail()).toMatchObject({ to: email, subject: expect.stringMatching(chinese) });
 
-			// A reset asked for from a browser in English still arrives in the account's language.
+			// A reset asked for in the pseudo-locale still arrives in the account's language.
 			sendEmail.mockClear();
-			const reset = await post("request-password-reset", { email, redirectTo: "/auth/reset-password" }, "locale=en-US");
+			const reset = await post("request-password-reset", { email, redirectTo: "/auth/reset-password" }, "locale=zu-ZA");
 			expect(reset.status).toBe(200);
-			expect(await lastEmail()).toMatchObject({ to: email, subject: expect.stringMatching(arabic) });
+			expect(await lastEmail()).toMatchObject({ to: email, subject: expect.stringMatching(chinese) });
 
 			// An unknown address answers the same and sends nothing, whatever the language.
 			sendEmail.mockClear();
 			const unknown = await post(
 				"request-password-reset",
 				{ email: `nobody-${unique}@example.test`, redirectTo: "/auth/reset-password" },
-				"locale=ar-SA",
+				"locale=zh-CN",
 			);
 			expect(unknown.status).toBe(reset.status);
 			expect(await unknown.json()).toEqual(await reset.clone().json());
@@ -76,12 +78,13 @@ describe.skipIf(!databaseURL)("account emails in the account's language, with Po
 			await db.update(user).set({ emailVerified: true }).where(eq(user.email, email));
 			sendEmail.mockClear();
 			const newEmail = `layla-new-${unique}@example.test`;
-			const change = await post("change-email", { newEmail, callbackURL: "/dashboard" }, `${cookie}; locale=en-US`);
+			const change = await post("change-email", { newEmail, callbackURL: "/dashboard" }, `${cookie}; locale=zu-ZA`);
 			expect(change.status, await change.clone().text()).toBe(200);
-			expect(await lastEmail()).toMatchObject({ to: email, subject: expect.stringMatching(arabic) });
+			expect(await lastEmail()).toMatchObject({ to: email, subject: expect.stringMatching(chinese) });
 
-			// An account from before languages were stored falls back to the language of the request.
+			// An account from before languages were stored falls back to this build's default (zh-CN).
 			const legacy = `legacy-${unique}@example.test`;
+			sendEmail.mockClear();
 			expect(
 				(
 					await post("sign-up/email", {
@@ -94,10 +97,15 @@ describe.skipIf(!databaseURL)("account emails in the account's language, with Po
 			).toBe(200);
 			const [legacyAccount] = await db.select({ locale: user.locale }).from(user).where(eq(user.email, legacy));
 			expect(legacyAccount?.locale).toBeNull();
-			expect(await lastEmail()).toMatchObject({ to: legacy, subject: "Verify your email" });
+			expect(await lastEmail()).toMatchObject({ to: legacy, subject: expect.stringMatching(chinese) });
+
+			// Accounts upgraded from upstream still carry tags like en-US. They are not valid UI
+			// locales, but the email layer accepts any BCP-47 tag and falls back to English, so
+			// these accounts must not be silently switched to Chinese.
+			await db.update(user).set({ locale: "en-US" }).where(eq(user.email, legacy));
 			sendEmail.mockClear();
-			await post("request-password-reset", { email: legacy, redirectTo: "/auth/reset-password" }, "locale=ar-SA");
-			expect(await lastEmail()).toMatchObject({ to: legacy, subject: expect.stringMatching(arabic) });
+			await post("request-password-reset", { email: legacy, redirectTo: "/auth/reset-password" }, "locale=zu-ZA");
+			expect(await lastEmail()).toMatchObject({ to: legacy, subject: "Reset your password" });
 		},
 	);
 });

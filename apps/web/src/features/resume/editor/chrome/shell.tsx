@@ -139,7 +139,7 @@ function DesktopBody({ mode, panelLabel, panel, page, assistant, column, replace
 						// `relative`: absolutely positioned descendants (sr-only text, say) stay inside this scroller instead of
 						// stretching the document, which would let scrollIntoView shift the whole editor. Keyed by mode so each
 						// mode starts at its top; no scroll anchoring, which yanked the Design panel back while scrolling it.
-						className="relative min-h-0 overflow-y-auto border-e border-line bg-surface [overflow-anchor:none]"
+						className="relative min-h-0 overflow-y-auto border-e border-line-2 bg-bg [overflow-anchor:none]"
 					>
 						{panel}
 					</TabsContent>

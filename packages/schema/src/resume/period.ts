@@ -164,6 +164,14 @@ function parseEndpoint(raw: string, { months, present }: Tokens): EndpointResult
 	const iso = /^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?$/.exec(value);
 	if (iso?.[1] && iso[2]) return read(toEndpoint(Number(iso[1]), Number(iso[2])), iso[3] ? "day" : "iso");
 
+	// Mainland resumes write the year first: "2021.06", "2021/06" or "2021年6月". Western month-first
+	// numeric dates can't match this shape, so it is safe to try before the MM/YYYY forms below.
+	const yearMonth = /^(\d{4})(?:[/.-](\d{1,2})|年(\d{1,2})月?)$/u.exec(value);
+	const yearMonthValue = yearMonth?.[2] ?? yearMonth?.[3];
+	if (yearMonth?.[1] && yearMonthValue) {
+		return read(toEndpoint(Number(yearMonth[1]), Number(yearMonthValue)), "iso");
+	}
+
 	const monthYear = /^(\d{1,2})[/.](\d{4})$/.exec(value);
 	if (monthYear?.[1] && monthYear[2]) return read(toEndpoint(Number(monthYear[2]), Number(monthYear[1])), "numeric");
 

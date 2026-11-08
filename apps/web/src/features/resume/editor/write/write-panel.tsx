@@ -50,7 +50,7 @@ export function WritePanel() {
 			<BasicsCard locked={locked} />
 
 			<div>
-				<p className="mb-1.5 flex items-baseline justify-between px-1 text-xs font-semibold text-ink-3">
+				<p className="mb-1.5 flex items-baseline justify-between border-t border-line-2 px-1 pt-3 font-mono text-[11px] tracking-[.12em] text-ink-3">
 					<Trans>Sections · print order</Trans>
 					{!locked && (
 						<span className="font-normal tracking-normal normal-case pointer-coarse:hidden">

@@ -24,7 +24,7 @@ const { importResumeFile } = await import("./imports");
 import { ownershipCases, ownershipSource } from "./fixtures/pdf-ownership";
 const save = async (file: File) => {
 	create.mockClear();
-	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "en-US", reqHeaders: new Headers() } });
+	await call(importResumeFile, { file, format: "PDF" }, { context: { locale: "zu-ZA", reqHeaders: new Headers() } });
 	expect(create).toHaveBeenCalledTimes(1);
 	const saved = create.mock.calls[0]?.[0] as { data: ResumeData } | undefined;
 	if (!saved) throw Error("No imported data");
@@ -37,8 +37,9 @@ it.each(ownershipCases)(
 		const file = await createResumePdfFile({ data: source, template: c.template, filename: "ownership.pdf" });
 		const data = await save(file);
 		const basics = { ...source.basics };
-		if (c.template === "persian") basics.name = "JORDAN SAMPLE";
-		if (c.template === "smeargle") basics.headline = [...basics.headline.toUpperCase()].join(" ").replace(/ {3}/g, " ");
+		if (c.template === "center-classic") basics.name = "JORDAN SAMPLE";
+		if (c.template === "editorial")
+			basics.headline = [...basics.headline.toUpperCase()].join(" ").replace(/ {3}/g, " ");
 		const pick = (b: ResumeData["basics"]) => ({
 			...b,
 			customFields: b.customFields.map(({ text, link }) => ({ text, link })),

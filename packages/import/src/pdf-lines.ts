@@ -151,6 +151,9 @@ function separateIdentityRail(page: PageGeometry): ImportPage {
 				hasContactDetails(side.map((span) => span.text).join("")) &&
 				!side.some((span) => standaloneDate(span.text) || BULLET_PATTERN.test(span.text) || knownHeading(span.text)) &&
 				body.length > 1 &&
+				// A real reading column carries several rows. One line of contact labels beside the name is
+				// not a column: splitting there strands those labels as body prose.
+				new Set(body.map((span) => Math.round(span.y))).size >= 2 &&
 				Math.abs(top - bodyTop) < side.reduce((height, span) => Math.max(height, span.height), 0) * 2
 			);
 		});
@@ -864,7 +867,7 @@ function bodyColumns(
 			);
 			if (!(leftHeading && rightHeading) && !identitySide) continue;
 			const sides = [spans.filter((span) => span.x < x), spans.filter((span) => span.x >= x)];
-			// A heading rail (Bronzor) is one reading stream, not a sidebar. Both sides need body text.
+			// A heading rail (GeneralSingle) is one reading stream, not a sidebar. Both sides need body text.
 			if (
 				sides.every(
 					(side) =>

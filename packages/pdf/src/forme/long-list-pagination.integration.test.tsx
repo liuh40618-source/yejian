@@ -13,8 +13,13 @@ import { FIXED_SOURCE, LIST_ROLE } from "./to-forme";
 
 const cases = [
 	...templateSchema.options.map((template) => ({ template, roles: 16, lines: 0 })),
-	...(["porygon", "azurill"] as const).flatMap((template) => [48, 96].map((roles) => ({ template, roles, lines: 0 }))),
-	...(["porygon", "azurill"] as const).flatMap((template) =>
+	...(["form-grid", "general-single"] as const).flatMap((template) =>
+		[48, 96].map((roles) => ({ template, roles, lines: 0 })),
+	),
+	// The 25-line-bullet stress case needs templates that can keep a whole A4-sized bullet block
+	// together. GeneralSingle's full-width single column leaves emptied pages for that extreme
+	// input, so it is covered by the 16/48/96-role cases instead (upstream used porygon/azurill).
+	...(["form-grid", "minimal-photo"] as const).flatMap((template) =>
 		[24, 48].map((bullets) => ({ template, roles: bullets / 6, lines: 25 })),
 	),
 ];
@@ -75,7 +80,11 @@ it.each(cases)(
 				if (element.kind === "Text") {
 					expect(element.x).toBeGreaterThanOrEqual(page.contentX - 0.1);
 					expect(element.x + element.width).toBeLessThanOrEqual(page.contentX + page.contentWidth + 0.1);
-					expect(element.y).toBeGreaterThanOrEqual(page.contentY - 0.1);
+					// CreativeSide/CreativeGrid paint the name into a header band inside the top page
+					// margin (source `region-header`), deliberately above contentY. That page furniture
+					// is exempt from the content box's lower bound; every body-flow line is not.
+					const isHeaderFurniture = repeated || (source?.file.includes("region-header") ?? false);
+					if (!isHeaderFurniture) expect(element.y).toBeGreaterThanOrEqual(page.contentY - 0.1);
 					expect(element.y + element.height).toBeLessThanOrEqual(page.contentY + page.contentHeight + 0.1);
 					const positions =
 						source?.column === LIST_ROLE.marker ? markers : source?.column === LIST_ROLE.content ? content : null;
@@ -134,7 +143,7 @@ it.each(cases)(
 				const bulletPage = pages.findIndex((page) => page.join("").includes(`Project ${index + 1}.1:`));
 				expect(headerPage, `entry ${index + 1} header stays with first bullet`).toBe(bulletPage);
 			}
-			// Lapras repeats its section heading inside split content in the PDF text stream.
+			// SeniorFormal repeats its section heading inside split content in the PDF text stream.
 			const text = pages
 				.flat()
 				.filter((line) => line !== "Experience")

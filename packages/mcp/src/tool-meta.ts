@@ -275,7 +275,7 @@ export const TOOL_META = withAnnotationTitles({
 	[T.importResume]: {
 		title: "Import Resume",
 		description: [
-			"Create a new resume from a full ResumeData JSON object (e.g. an exported file from Reactive Resume).",
+			"Create a new resume from a full ResumeData JSON object (e.g. an exported file from 页见).",
 			"A random name and slug are assigned automatically, like the web importer.",
 			`For small edits to an existing resume, prefer \`${T.patchResume}\` instead of re-importing.`,
 			"Large payloads may exceed MCP client message limits; in that case, use the web UI or the HTTP API.",
@@ -321,7 +321,7 @@ export const TOOL_META = withAnnotationTitles({
 			"  /sections/experience/items/-           — Append a new experience item",
 			"  /sections/experience/items/0/company   — Update first experience's company",
 			"  /sections/skills/items/-               — Append a new skill",
-			"  /metadata/template                     — Change the template (e.g. 'azurill', 'bronzor', 'onyx')",
+			"  /metadata/template                     — Change the template (e.g. 'center-classic', 'general-single', 'minimal-photo')",
 			"  /metadata/design/colors/primary        — Change the primary color (rgba string)",
 			"  /sections/interests/hidden              — Hide/show a section",
 			"  /sections/experience/items/0/dates      — Set dates: { start, end, present } with years or",
@@ -509,9 +509,7 @@ export const TOOL_META = withAnnotationTitles({
 	},
 	[T.exportCoverLetter]: {
 		title: "Export Cover Letter",
-		description: ["Export an independent library cover letter as versioned Reactive Resume cover-letter JSON."].join(
-			"\n",
-		),
+		description: ["Export an independent library cover letter as versioned 页见 cover-letter JSON."].join("\n"),
 		outputSchema: toWireObjectSchema(coverLetterDto.export.output),
 		inputSchema: wireInput(z.strictObject({ id: coverLetterIdSchema })),
 		annotations: READ_IDEMPOTENT,
@@ -519,7 +517,7 @@ export const TOOL_META = withAnnotationTitles({
 	[T.importCoverLetter]: {
 		title: "Import Cover Letter",
 		description: [
-			"Import a versioned Reactive Resume cover-letter JSON document as a new independent library letter.",
+			"Import a versioned 页见 cover-letter JSON document as a new independent library letter.",
 			"Use `export_cover_letter` to obtain the accepted document format.",
 		].join("\n"),
 		outputSchema: toWireObjectSchema(coverLetterDto.import.output),

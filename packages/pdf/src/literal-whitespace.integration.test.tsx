@@ -7,7 +7,7 @@ import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { createResumePdfFile } from "./server";
 
 const require = createRequire(import.meta.url);
-const standardFontDataUrl = `${join(dirname(require.resolve("pdfjs-dist/package.json")), "standard_fonts")}/`;
+const standardFontDataUrl = `${join(dirname(require.resolve("pdfjs-dist/package.json")), "standard_fonts").replace(/\\/g, "/")}/`;
 const preserve = 'data-resume-whitespace="preserve"';
 
 type TextItem = {
@@ -21,14 +21,20 @@ async function renderItems(content: string, locale = "en-US", narrow = false): P
 	const data = structuredClone(defaultResumeData);
 	data.picture.hidden = true;
 	data.basics.name = "";
-	data.metadata.template = narrow ? "chikorita" : "onyx";
+	data.metadata.template = narrow ? "senior-formal" : "minimal-photo";
 	data.metadata.page.locale = locale;
 	data.metadata.typography.body.fontFamily = "Helvetica";
 	data.metadata.typography.heading.fontFamily = "Helvetica";
 	data.metadata.layout.pages = [
 		narrow ? { fullWidth: false, main: [], sidebar: ["summary"] } : { fullWidth: true, main: ["summary"], sidebar: [] },
 	];
-	if (narrow) data.metadata.layout.sidebarWidth = 25;
+	if (narrow) {
+		data.metadata.layout.sidebarWidth = 25;
+		// The narrow sidebar template repeats the section heading after the paragraph. This test
+		// measures literal whitespace in the PDF text stream, so an extra heading would be read as
+		// trailing content. Suppress just that heading; the whitespace behaviour is unchanged.
+		data.summary.showHeading = false;
+	}
 	data.summary.content = content;
 
 	let file: File | undefined;

@@ -21,7 +21,7 @@ const renderHeading = async (css: string, hideSectionIcons = false) => {
 	];
 	const element = createElement(ResumeDocument, {
 		data,
-		template: "scizor",
+		template: "heading-accent",
 	}) as unknown as Parameters<typeof renderToBuffer>[0];
 	let bytes: Uint8Array = new Uint8Array();
 	await act(async () => {

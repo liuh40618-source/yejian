@@ -5,16 +5,16 @@ import { PROMPT_META } from "./prompts";
 const RESUME_ID_ARGUMENT = [{ name: "id", description: "Resume ID.", required: true }] as const;
 
 /** Shared server identity for both the live MCP server and the static server card. */
-export function buildMcpServerInfo(version: string, baseUrl = "https://rxresu.me") {
+export function buildMcpServerInfo(version: string, baseUrl = "http://localhost:3000") {
 	// A self-hosted server names itself, not the hosted service.
 	const origin = new URL(baseUrl).origin;
 	return {
 		name: "reactive-resume",
 		version,
-		title: "Reactive Resume",
+		title: "页见",
 		websiteUrl: origin,
 		description:
-			"Reactive Resume is a free and open-source resume builder. Use this MCP server to interact with your resume using an LLM of your choice.",
+			"页见 is a resume builder made for the Chinese job market. Use this MCP server to interact with your resume using an LLM of your choice.",
 		icons: [
 			{ src: `${origin}/icon/light.svg`, mimeType: "image/svg+xml", theme: "light" as const },
 			{ src: `${origin}/icon/dark.svg`, mimeType: "image/svg+xml", theme: "dark" as const },

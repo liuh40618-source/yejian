@@ -284,7 +284,7 @@ function WebPageSettings() {
 	const data = useResumeData();
 	const updateResumeData = useUpdateResumeData();
 	const locked = useIsResumeLocked();
-	const template = data?.metadata.template ?? "onyx";
+	const template = data?.metadata.template ?? "minimal-photo";
 
 	return (
 		<section aria-labelledby="share-web-page-title" className="grid gap-3">

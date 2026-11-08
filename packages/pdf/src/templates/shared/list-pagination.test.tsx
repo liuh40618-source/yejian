@@ -22,9 +22,9 @@ async function listPages(margin: number, repeats = 5, options: { html?: string }
 			text: `@version 1; page { size: 300pt 300pt; } rich-text { margin-top: ${margin}pt; }`,
 		},
 	};
-	const runtime = resolveResumeRuntime({ data, template: "onyx" });
+	const runtime = resolveResumeRuntime({ data, template: "minimal-photo" });
 	expect(runtime.diagnostics).toEqual([]);
-	const bytes = await act(() => renderToBuffer(<ResumeDocument data={data} template="onyx" />));
+	const bytes = await act(() => renderToBuffer(<ResumeDocument data={data} template="minimal-photo" />));
 	const task = getDocument({ data: new Uint8Array(bytes), useSystemFonts: true });
 	try {
 		const doc = await task.promise;

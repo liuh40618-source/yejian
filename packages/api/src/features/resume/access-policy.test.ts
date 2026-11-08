@@ -21,6 +21,8 @@ describe("assertCanView", () => {
 describe("redactResumeForViewer", () => {
 	it("leaves hidden contact details out for visitors but not for the owner", () => {
 		const data = structuredClone(sampleResumeData);
+		// This case needs a reference that actually prints; don't rely on the fixture's default.
+		data.sections.references.hidden = false;
 		const [reference] = data.sections.references.items;
 		if (!reference) throw new Error("The sample resume needs a reference.");
 		data.sections.references.items = [{ ...reference, id: "ref", name: "Jo", phone: "+1 555 0100" }];
