@@ -1,0 +1,145 @@
+import { t } from "@lingui/core/macro";
+import { Plural, Trans } from "@lingui/react/macro";
+import { useNavigate, useSearch } from "@tanstack/react-router";
+import { Alert, AlertDescription } from "@reactive-resume/ui/components/alert";
+import { Button } from "@reactive-resume/ui/components/button";
+import { Icon } from "@reactive-resume/ui/components/icon";
+import { formatShortcut } from "@reactive-resume/ui/components/kbd";
+import { useEditorStore } from "../store";
+import { AddSectionMenu, isSuggestedSection, StartSuggestions, SUGGESTED_SECTIONS } from "./add-section";
+import { BasicsCard } from "./basics-card";
+import { getOutlineRows, summarizeContent } from "./model";
+import { Outline } from "./outline";
+import { ResumeLanguage } from "./resume-language";
+import { useDialogStore } from "@/dialogs/store";
+import { useCurrentBuilderResumeSelector, useIsResumeLocked } from "@/features/resume/builder/draft";
+import { useUnlockResume } from "@/features/resume/builder/use-unlock-resume";
+
+/**
+ * Write: the Basics card, then the outline of sections in print order with their entries, then Add
+ * section. Every field saves as you type; a locked resume shows the same panel read-only.
+ */
+export function WritePanel() {
+	const locked = useIsResumeLocked();
+	const locale = useCurrentBuilderResumeSelector((resume) => resume.data.metadata.page.locale);
+	// The selector hook reads `undefined` as "no resume yet", so optional values need a fallback.
+	const dateFormat = useCurrentBuilderResumeSelector((resume) => resume.data.metadata.page.dateFormat ?? null);
+	const page = { locale, dateFormat: dateFormat ?? undefined };
+	const added = useEditorStore((state) => state.addedSections);
+	// The section ids in the outline, joined so the selector returns a stable value.
+	const inUse = useCurrentBuilderResumeSelector((resume) =>
+		getOutlineRows(resume.data, new Set(added))
+			.map((row) => row.id)
+			.join(" "),
+	);
+	const rows = inUse ? inUse.split(" ") : [];
+	const isEmpty = rows.length === 0;
+	// While the resume is still being started (only suggested sections so far), the rest of the starter chips stay.
+	const remaining = rows.every((id) => isSuggestedSection(id))
+		? SUGGESTED_SECTIONS.filter((id) => !rows.includes(id))
+		: [];
+	const openDialog = useDialogStore((state) => state.openDialog);
+	const reorderKeys = formatShortcut("⌥↑↓");
+
+	return (
+		<div className="grid gap-4 p-4">
+			{locked && <LockedNote />}
+			<ImportedNote />
+
+			<ResumeLanguage locked={locked} />
+			<BasicsCard locked={locked} />
+
+			<div>
+				<p className="mb-1.5 flex items-baseline justify-between px-1 text-xs font-semibold text-ink-3">
+					<Trans>Sections · print order</Trans>
+					{!locked && (
+						<span className="font-normal tracking-normal normal-case pointer-coarse:hidden">
+							<bdi dir="ltr">
+								<Trans>drag · {reorderKeys}</Trans>
+							</bdi>
+						</span>
+					)}
+				</p>
+
+				{isEmpty && !locked ? (
+					<StartSuggestions suggestions={remaining} onImport={() => openDialog("document.new", undefined)} />
+				) : (
+					<>
+						<Outline locked={locked} page={page} />
+						{!locked && remaining.length > 0 && <StartSuggestions suggestions={remaining} />}
+					</>
+				)}
+
+				{!locked && <AddSectionMenu />}
+			</div>
+
+			<p className="px-1 text-xs leading-4 text-ink-3">
+				<Trans>Hidden sections keep their content but aren't printed or shared. Fields save as you type.</Trans>
+			</p>
+		</div>
+	);
+}
+
+/**
+ * After an import (D2): what came in, and how many entries still ask for a look. The counts follow the resume,
+ * so the note keeps up as flags are cleared; it stays until dismissed.
+ */
+function ImportedNote() {
+	const { imported } = useSearch({ strict: false }) as { imported?: string };
+	const navigate = useNavigate();
+	const data = useCurrentBuilderResumeSelector((resume) => resume.data);
+	const { sections, entries, toCheck } = summarizeContent(data);
+	if (!imported) return null;
+
+	const dismiss = () =>
+		void navigate({
+			to: ".",
+			resetScroll: false,
+			search: (previous: Record<string, unknown>) => ({ ...previous, imported: undefined }),
+			replace: true,
+		});
+
+	return (
+		<Alert variant="success" className="items-start">
+			<Icon name="check-circle" size={20} />
+			<AlertDescription className="flex items-start justify-between gap-3">
+				<span role="status">
+					<Trans>Imported from {imported}.</Trans> <Plural value={sections} one="# section" other="# sections" />,{" "}
+					<Plural value={entries} one="# entry" other="# entries" />.{" "}
+					{toCheck > 0 ? (
+						<Plural value={toCheck} one="# field needs a look." other="# fields need a look." />
+					) : (
+						<Trans>Review each section before using this resume.</Trans>
+					)}
+				</span>
+				<button
+					type="button"
+					aria-label={t`Dismiss`}
+					onClick={dismiss}
+					className="-m-1.5 flex size-8 shrink-0 items-center justify-center rounded-md hover:bg-hover"
+				>
+					<Icon name="x" size={18} />
+				</button>
+			</AlertDescription>
+		</Alert>
+	);
+}
+
+/** Locked resumes read as they print; Unlock is one click and reversible. Write and Design both show it. */
+export function LockedNote() {
+	const { unlock, isPending } = useUnlockResume();
+
+	return (
+		<Alert variant="info" className="items-center">
+			<Icon name="lock" size={20} />
+			<AlertDescription className="flex items-center justify-between gap-3">
+				<span>
+					<Trans>Locked. Unlock to edit.</Trans>
+				</span>
+				<Button size="sm" variant="secondary" loading={isPending} onClick={unlock} aria-label={t`Unlock editing`}>
+					<Trans>Unlock</Trans>
+				</Button>
+			</AlertDescription>
+		</Alert>
+	);
+}

@@ -1,0 +1,130 @@
+import { v7 as uuidv7 } from "uuid";
+
+/**
+ * Generates a unique ID using the UUIDv7 algorithm.
+ * @returns The generated ID.
+ */
+export function generateId() {
+	return uuidv7();
+}
+
+const pendingRequestIds = new Map<string, string>();
+
+/**
+ * The ID a create request sends, the same one each time until it succeeds: a retry after a lost response, a second
+ * press or a remounted screen then returns what the first attempt saved instead of saving it again. `key` names the
+ * request by what it saves, so changing the input starts a new one. Call `settleRequestId` once it has succeeded.
+ */
+export function pendingRequestId(key: string) {
+	let id = pendingRequestIds.get(key);
+	if (!id) {
+		id = generateId();
+		pendingRequestIds.set(key, id);
+	}
+	return id;
+}
+
+export function settleRequestId(key: string) {
+	pendingRequestIds.delete(key);
+}
+
+/**
+ * Generates initials from a name.
+ * @param name - The name to generate initials from.
+ * @returns The initials.
+ */
+// Scripts whose letters join to the next one: two initials side by side would read as a word ("لح").
+const JOINING_SCRIPT = /[\p{Script=Arabic}\p{Script=Syriac}\p{Script=Nko}\p{Script=Mongolian}\p{Script=Adlam}]/u;
+
+export function getInitials(name: string) {
+	const letters = name
+		.split(" ")
+		.filter(Boolean)
+		.map((part) => [...part][0] ?? "")
+		.slice(0, 2);
+	// A zero-width non-joiner keeps joining initials apart, as two letters.
+	return letters.join(letters.some((letter) => JOINING_SCRIPT.test(letter)) ? "\u200c" : "").toUpperCase();
+}
+
+/**
+ * Transforms a string to a valid username (lowercase, no special characters except for dots, hyphens and underscores).
+ * @param value - The value to transform.
+ * @returns The transformed username.
+ */
+export function toUsername(value: string) {
+	return value
+		.trim()
+		.toLowerCase()
+		.replace(/[^a-z0-9._-]/g, "")
+		.slice(0, 64);
+}
+
+/**
+ * Strips HTML tags from a string and returns the text content.
+ * @param html - The HTML string to strip.
+ * @returns The text content without HTML tags.
+ */
+/** Text safe to place inside HTML: markup characters and both quote marks become entities. */
+export const escapeHtml = (text: string) =>
+	text
+		.replaceAll("&", "&amp;")
+		.replaceAll("<", "&lt;")
+		.replaceAll(">", "&gt;")
+		.replaceAll('"', "&quot;")
+		.replaceAll("'", "&#39;");
+
+/** Lowercase text without accents, for loose matching: "Österreich" becomes "osterreich". */
+const fold = (text: string) =>
+	text
+		.normalize("NFD")
+		.replace(/[̀-ͯ]/g, "")
+		.toLowerCase();
+
+/** The options whose label contains the query, ignoring case and accents, or whose value is the whole query. */
+export function filterOptions<T extends { value: string; label: string }>(options: readonly T[], query: string): T[] {
+	const needle = fold(query.trim());
+	if (!needle) return [...options];
+	return options.filter((option) => fold(option.label).includes(needle) || fold(option.value) === needle);
+}
+
+export function stripHtml(html: string | undefined): string {
+	if (!html) return "";
+	return html.replace(/<[^<>]*>/g, "").trim();
+}
+
+/** FNV-1a over the text: a short, stable fingerprint. Not for security. */
+export function fnv1a(text: string): number {
+	let hash = 0x811c9dc5;
+	for (let index = 0; index < text.length; index++) hash = Math.imul(hash ^ text.charCodeAt(index), 0x01000193);
+	return hash >>> 0;
+}
+
+/** Sentences as written, split after `.`, `!` or `?` and at line breaks. */
+const sentencesOf = (text: string) =>
+	text
+		.split(/(?<=[.!?])\s+|\n+/)
+		.map((sentence) => sentence.trim())
+		.filter(Boolean);
+
+/**
+ * How a rewrite changes a text: words gained (negative when shorter), the original's sentences it changes or drops, and
+ * the sentences it brings in. Whole sentences, so the reader can check none of their own is lost.
+ */
+export function rewriteSummary(before: string, after: string) {
+	const words = (text: string) => text.split(/\s+/).filter(Boolean).length;
+	const was = sentencesOf(before);
+	const now = sentencesOf(after);
+	return {
+		words: words(after) - words(before),
+		removed: was.filter((sentence) => !now.includes(sentence)).length,
+		added: now.filter((sentence) => !was.includes(sentence)).length,
+	};
+}
+
+/**
+ * User text inside an interface sentence, isolated (FSI…PDI, the plain-text `<bdi>`): it keeps its own direction, and
+ * punctuation around it stays with the sentence, wherever the two scripts differ ("“Lebenslauf (DE)” moved to Trash").
+ */
+export function isolate(text: string): string {
+	return `⁨${text}⁩`;
+}
