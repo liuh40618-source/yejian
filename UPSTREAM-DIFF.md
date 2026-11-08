@@ -236,7 +236,7 @@ git diff --stat HEAD~1 HEAD      # 应显示约 710 added / 223 deleted / 286 mo
 
 | 项       | 结果                                                                                                                                                |
 | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 可追溯   | 本地 git：`deef281` 上游基线 → `4b637dc` 定制版 → 第三段为项目身份层；`git diff` 真实可核对                                                         |
+| 可追溯   | 本地 git：`deef281` 上游基线 → `4b637dc` 定制版 → `b3cc019` 项目身份层；`git diff` 真实可核对                                                       |
 | 可辨识   | 定名**页见**；`package.json` → `yejian` / `0.1.0` / 自有 author；README 重写为中文；新增 `NOTICE.md`；`SECURITY.md` 去掉上游 `5.0.x` 策略与上游邮箱 |
 | 合规     | `LICENSE` **原样保留** MIT 原文与 `Copyright (c) 2026 Amruth Pillai`；`NOTICE.md` 声明修改部分版权与来源、明确上游不背书                            |
 | 联动     | `apps/server/src/openapi/generator.ts` 去掉上游 LICENSE URL；`pnpm docs:gen` 重跑后 `docs/spec.json` 为 `页见` / `0.1.0` / MIT                      |
@@ -263,7 +263,37 @@ MIT 是宽松许可，**不要求公开衍生作品**。当前不发布完全合
 另外，产品侧还有两件不阻塞发布但决定「好不好用」的事：平台表单映射目前是只读预览（无导出 / 填充），
 JD 只存在组件内存、刷新即丢。
 
-### 10.3 决定公开时
+### 10.3 生成物审计：`docs/spec.json` 的 4744 行大 diff
+
+身份层提交 `b3cc019` 里 `docs/spec.json` 出现 `4744 ++++` 的大 diff，初看像是身份改写混入了意外内容。
+逐叶子比对 `4b637dc:docs/spec.json` 与当前 HEAD 后确认：
+
+| 差异类别                    | 叶子数 | 说明                                                                                                  |
+| --------------------------- | ------ | ----------------------------------------------------------------------------------------------------- |
+| `chinaMarket` schema 块新增 | 39     | `components.schemas.ResumeData` 及 28 个内联引用该 schema 的 path（部分含请求体与响应体两处）各补一段 |
+| `info.version`              | 1      | `6.0.10` → `0.1.0`                                                                                    |
+| `info.license.url`          | 1      | 删除指向上游 GitHub 的 LICENSE 链接                                                                   |
+| **其它**                    | **0**  | paths 数量 191 不变，无新增 / 删除 path，无新增 / 删除 schema，无其它字段变化                         |
+
+4744 行只是 39 段 pretty-print JSON 展开的结果（每段约 120 行），不是内容膨胀。
+
+**根因**：`4b637dc` 里的 `docs/spec.json` 是手工改过的滞后快照——title / contact / servers 已改成
+「页见」与 `localhost`，但定制提交新增的 `metadata.chinaMarket` 从未同步进 spec（旧快照中
+`chinaMarket` 出现 **0** 次，新快照 39 次）。`pnpm docs:gen` 按当前 schema 全量重出才补齐。
+所以这份 diff 是**修复滞后，不是回归**，应当保留。
+
+复核结论：
+
+- 生成可复现：连续两次 `pnpm docs:gen` 的 sha256 均为 `08a48637…7200`，重跑后工作区无新增改动。
+- 上游痕迹：`rxresu.me` / `amruth` / `github.com/reactive-resume` / `6.0.10` 命中均为 0；
+  `servers` 为生成默认值 `http://localhost:3000/api/openapi`。
+- 残留 8 处 `reactive-resume` 是功能性常量（tag、`reactive-resume-cover-letter` /
+  `reactive-resume-application-packet` 等文档类型 const 与 curl 示例），属既有 enum / response shape，
+  改动会破坏兼容，**有意保留**。
+- `pnpm docs:check` EXIT=0；254 条 warning 是 `docs/images/**` 未被引用的人工复核提示，非阻断。
+- 公开前若要让 `servers` 指向真实部署地址，用 `APP_URL` 重跑 `pnpm docs:gen`（见 §10.2 第 9 项）。
+
+### 10.4 决定公开时
 
 ```sh
 git remote add origin <your-repo-url>

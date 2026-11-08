@@ -89,12 +89,13 @@ pnpm dev
 
 ## 文档
 
-| 文件                                                       | 内容                                                          |
-| ---------------------------------------------------------- | ------------------------------------------------------------- |
-| [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md)                     | 上游 v6.0.10 真实文件级差异、基线方法、交付边界、基线提交脚本 |
-| [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md) | 全量回归证据、分叉清单、环境债、复现命令                      |
-| [`NOTICE.md`](NOTICE.md)                                   | 归属与版权声明                                                |
-| [`LICENSE`](LICENSE)                                       | 上游 MIT 许可原文（保留，不得修改）                           |
+| 文件                                                       | 内容                                                                   |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md)                     | 上游 v6.0.10 真实文件级差异、基线方法、交付边界、基线提交脚本          |
+| [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md) | 全量回归证据、分叉清单、环境债、复现命令                               |
+| [`NOTICE.md`](NOTICE.md)                                   | 归属与版权声明                                                         |
+| [`LICENSE`](LICENSE)                                       | 上游 MIT 许可原文（保留，不得修改）                                    |
+| `docs/spec.json`                                           | OpenAPI 生成物；改 `package.json` 的 version 后需 `pnpm docs:gen` 重出 |
 
 ## 归属与许可
 
