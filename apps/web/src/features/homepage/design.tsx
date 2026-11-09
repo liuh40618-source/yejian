@@ -119,7 +119,7 @@ export function Design() {
 							{cell.template && (
 								<>
 									<img
-										src={`/templates/thumb/${cell.template}.webp`}
+										src={`/templates/jpg/${cell.template}.jpg`}
 										alt=""
 										width={298}
 										height={420}

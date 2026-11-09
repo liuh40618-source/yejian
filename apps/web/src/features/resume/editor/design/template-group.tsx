@@ -190,6 +190,30 @@ export function TemplateGroup({ layout = "grid" }: TemplateGroupProps) {
 
 type TemplateCardProps = { id: Template; data: ResumeData; selected: boolean; onPreview: () => void };
 
+/**
+ * What a card shows while its own render is queued. The queue below renders one template at a time (a first visit
+ * spends about 9 s warming the engine and the Chinese fonts, then about 0.3 s a card), so a card that waited used to
+ * read as an empty paper. Rules on paper read as "a resume is being drawn" without pretending to be one.
+ */
+function TemplateSkeleton() {
+	return (
+		<span aria-hidden="true" className="absolute inset-0 grid content-start gap-[3%] overflow-hidden p-[8%]">
+			<span className="h-[5%] w-[55%] rounded-[1px] bg-line-2" />
+			<span className="h-[2%] w-[38%] rounded-[1px] bg-line-2 opacity-70" />
+			<span className="mt-[4%] h-[1.5%] w-full rounded-[1px] bg-line-2 opacity-50" />
+			<span className="h-[1.5%] w-[92%] rounded-[1px] bg-line-2 opacity-50" />
+			<span className="h-[1.5%] w-[96%] rounded-[1px] bg-line-2 opacity-35" />
+			<span className="mt-[5%] h-[2.5%] w-[30%] rounded-[1px] bg-line-2 opacity-60" />
+			<span className="h-[1.5%] w-[88%] rounded-[1px] bg-line-2 opacity-40" />
+			<span className="h-[1.5%] w-[94%] rounded-[1px] bg-line-2 opacity-40" />
+			<span className="h-[1.5%] w-[80%] rounded-[1px] bg-line-2 opacity-25" />
+			<span className="mt-[5%] h-[2.5%] w-[26%] rounded-[1px] bg-line-2 opacity-60" />
+			<span className="h-[1.5%] w-[90%] rounded-[1px] bg-line-2 opacity-40" />
+			<span className="h-[1.5%] w-[70%] rounded-[1px] bg-line-2 opacity-25" />
+		</span>
+	);
+}
+
 function TemplateCard({ id, data, selected, onPreview }: TemplateCardProps) {
 	const ref = useRef<HTMLButtonElement>(null);
 	// Only cards on or near the screen render, so a font or colour change doesn't re-render every template.
@@ -262,6 +286,9 @@ function TemplateCard({ id, data, selected, onPreview }: TemplateCardProps) {
 					selected && "ring-2 ring-accent ring-offset-2 ring-offset-surface",
 				)}
 			>
+				{/* The sample image stands in until the card's own render arrives; a skeleton of the paper covers
+				    the gap while it waits, so no card reads as an empty box (see the render queue). */}
+				{thumbnail === undefined && <TemplateSkeleton />}
 				<img src={thumbnail ?? metadata.imageUrl} alt="" className="size-full object-cover object-top" />
 				{selected && (
 					<span className="absolute end-1.5 top-1.5 grid size-5 place-items-center rounded-sm bg-accent text-on-accent">

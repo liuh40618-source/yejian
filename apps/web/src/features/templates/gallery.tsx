@@ -68,9 +68,7 @@ export function TemplateGallery() {
 										className="mx-auto block w-full max-w-74.5 rounded-sm focus-visible:outline-offset-4"
 									>
 										<img
-											src={`/templates/thumb/${id}.webp`}
-											srcSet={`/templates/thumb/${id}-small.webp 300w, /templates/thumb/${id}.webp 596w`}
-											sizes="(min-width: 640px) 298px, 45vw"
+											src={`/templates/jpg/${id}.jpg`}
 											alt={t`${name} resume template preview`}
 											width={298}
 											height={420}
