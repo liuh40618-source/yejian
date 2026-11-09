@@ -16,7 +16,9 @@ export async function shareText(fileName: string, body: string, mimeType: string
 	}
 	if (!(await Sharing.isAvailableAsync())) throw new Error("Sharing unavailable");
 	if (getAccountScope() !== scope) return;
-	const file = new File(Paths.cache, `${PREFIX}${fileName.replace(/[^\w.-]+/g, "-")}`);
+	// Keep Unicode letters/digits: 页见 exports Chinese filenames (姓名-平台-表单字段.json). The old
+	// `[^\w.-]` scrub turned those into meaningless dashes, so the shared file lost its identity.
+	const file = new File(Paths.cache, `${PREFIX}${fileName.replace(/[^\p{L}\p{N}._-]+/gu, "-")}`);
 	await file.write(body, encoding ? { encoding } : undefined);
 	if (getAccountScope() !== scope) {
 		file.delete();

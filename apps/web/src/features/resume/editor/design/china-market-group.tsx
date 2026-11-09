@@ -17,24 +17,34 @@ import {
 	applyChinaMarketPreset,
 	applyChinaMarketScene,
 	chinaMarketFileName,
+	chinaMarketFormFileName,
+	chinaMarketFormJson,
+	chinaMarketFormPacket,
+	chinaMarketFormText,
 	chinaMarketIsRisky,
+	chinaMarketJobDescription,
 	chinaMarketOf,
 	mapChinaMarketPlatform,
+	setChinaMarketJobDescription,
 	setChinaMarketPlatform,
 	setChinaMarketProfile,
 	setChinaMarketStyle,
 } from "@reactive-resume/resume/china-market";
 import {
 	CHINA_MARKET_EXCLUSIONS,
+	CHINA_MARKET_HANDOFF_COPY,
 	CHINA_MARKET_PLATFORMS,
 	CHINA_MARKET_PRESETS,
 	CHINA_MARKET_SCENES,
 } from "@reactive-resume/schema/resume/china-market";
+import { Button } from "@reactive-resume/ui/components/button";
 import { Input } from "@reactive-resume/ui/components/input";
 import { NativeSelect } from "@reactive-resume/ui/components/native-select";
 import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
 import { SwitchRow } from "@reactive-resume/ui/components/switch";
 import { Textarea } from "@reactive-resume/ui/components/textarea";
+import { toast } from "@reactive-resume/ui/components/toast";
+import { downloadWithAnchor } from "@reactive-resume/utils/file";
 import { cn } from "@reactive-resume/utils/style";
 import { useResumeData, useUpdateResumeData } from "@/features/resume/builder/draft";
 
@@ -92,7 +102,6 @@ export function ChinaMarketGroup() {
 	const { i18n } = useLingui();
 	const data = useResumeData();
 	const updateResumeData = useUpdateResumeData();
-	const [jobDescription, setJobDescription] = useState("");
 	const [profileOpen, setProfileOpen] = useState(false);
 	const [mappingOpen, setMappingOpen] = useState(false);
 
@@ -114,8 +123,35 @@ export function ChinaMarketGroup() {
 	const sceneInfo = CHINA_MARKET_SCENES[config.scene];
 	const presetInfo = CHINA_MARKET_PRESETS[config.preset];
 	const mapped = mapChinaMarketPlatform(data, config.platform);
+	// The JD is part of the master, so it survives a reload and travels with the exported packet.
+	const jobDescription = chinaMarketJobDescription(data);
 	const analysis = analyzeChinaMarketJob(data, jobDescription);
 	const risky = chinaMarketIsRisky(data);
+
+	const downloadJson = () => {
+		const packet = chinaMarketFormPacket(data, config.platform);
+		downloadWithAnchor(
+			new Blob([chinaMarketFormJson(packet)], { type: "application/json" }),
+			chinaMarketFormFileName(data, config.platform, "json"),
+		);
+	};
+
+	const downloadText = () => {
+		const packet = chinaMarketFormPacket(data, config.platform);
+		downloadWithAnchor(
+			new Blob([chinaMarketFormText(packet)], { type: "text/plain;charset=utf-8" }),
+			chinaMarketFormFileName(data, config.platform, "txt"),
+		);
+	};
+
+	const copyFields = async () => {
+		try {
+			await navigator.clipboard.writeText(chinaMarketFormText(chinaMarketFormPacket(data, config.platform)));
+			toast.add({ description: CHINA_MARKET_HANDOFF_COPY.copied });
+		} catch {
+			toast.add({ type: "error", description: CHINA_MARKET_HANDOFF_COPY.copyFailed });
+		}
+	};
 
 	return (
 		<div className="grid gap-5">
@@ -247,8 +283,13 @@ export function ChinaMarketGroup() {
 				{mappingOpen && (
 					<div className="grid gap-1">
 						{mapped.rows.map((row, index) => (
-							<div key={`${row.label}-${index}`} className="grid gap-0.5 rounded-sm bg-hover px-2 py-1.5">
-								<span className="text-[12px] font-medium text-ink">{row.label}</span>
+							// `row.field` is the platform's own form label. `row.label` is the platform name and
+							// must never be used as a field name (it would repeat "BOSS直聘" for every row).
+							<div key={`${row.field}-${index}`} className="grid gap-0.5 rounded-sm bg-hover px-2 py-1.5">
+								<span className="text-[12px] font-medium text-ink">
+									{row.field}
+									<span className="ml-1 font-normal text-ink-3">· {row.master}</span>
+								</span>
 								<span className={cn("text-[12px]", row.status === "auto" ? "text-ink-2" : "text-ink-3")}>
 									{row.status === "auto" ? row.value : row.note || row.value}
 								</span>
@@ -258,14 +299,32 @@ export function ChinaMarketGroup() {
 				)}
 			</Section>
 
+			<Section title={CHINA_MARKET_HANDOFF_COPY.title}>
+				<p className="text-[13px] leading-5 text-ink-3">{CHINA_MARKET_HANDOFF_COPY.disclaimer}</p>
+				<div className="flex flex-wrap gap-2">
+					<Button variant="secondary" size="sm" onClick={downloadJson}>
+						{CHINA_MARKET_HANDOFF_COPY.downloadJsonLabel}
+					</Button>
+					<Button variant="secondary" size="sm" onClick={downloadText}>
+						{CHINA_MARKET_HANDOFF_COPY.downloadTextLabel}
+					</Button>
+					<Button variant="secondary" size="sm" onClick={() => void copyFields()}>
+						{CHINA_MARKET_HANDOFF_COPY.copyLabel}
+					</Button>
+				</div>
+				<p className="text-[12px] leading-5 text-ink-3">{CHINA_MARKET_HANDOFF_COPY.jsonHint}</p>
+				<p className="text-[12px] leading-5 text-ink-3">{CHINA_MARKET_HANDOFF_COPY.textHint}</p>
+			</Section>
+
 			<Section title={<Trans>JD keyword alignment</Trans>}>
 				<Textarea
 					aria-label={t`Job description`}
 					placeholder={t`Paste a job description to check the master uses the same words`}
 					value={jobDescription}
-					onChange={(event) => setJobDescription(event.target.value)}
+					onChange={(event) => commit((current) => setChinaMarketJobDescription(current, event.target.value), false)}
 					rows={4}
 				/>
+				<p className="text-[12px] text-ink-3">{CHINA_MARKET_HANDOFF_COPY.jdSavedHint}</p>
 				{analysis.hasBaseline ? (
 					<div className="grid gap-1 text-[13px]">
 						<p className="text-ink-2">

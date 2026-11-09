@@ -345,9 +345,30 @@ git push -u origin main
 ### 11.5 最小补齐路径（不是从零造链路）
 
 1. 把 `mapped.rows` 转成可下载 JSON（或 `FormFillPlan.fields` 形状），先让「主投递件」有真输出。
-2. 复用 `applications.job_description` / `applicationId` 作为 JD 与投递上下文，去掉面板里的 `useState` 孤岛。
+2. 复用 JD 与投递上下文，去掉面板里的 `useState` 孤岛。
 3. 若要真填充，再为中国平台补 `packetFillPlan` 适配器 + helper build；这属公开后产品化，不阻塞 P0 / P1。
 
-**结论**：交付闭环（可追溯 / 可辨识 / 可复现）与工程闭环均已闭合。
-未闭合的是**产品闭环**，具体是「结构化主档 → 平台在线表单」的最后一跳，
-以及中国市场层与上游投递主链路之间的四个接口。
+### 11.6 本版补齐记录（2026-11-09）
+
+> 本节校正 §11.2 / §11.3 中「只读」「没有出口」「刷新即丢」的**当时**状态。下表是补齐后的现状，
+> 原始证据保留在上面几节，便于回溯判断是怎么改的。
+
+| 原断点             | 本版处理                                                                                                                                       | 现状                                                                                              |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| 1 映射结果没有出口 | `chinaMarketFormPacket()` / `FormText()` / `FormJson()`；Web 下载 JSON + 文本、一键复制；Mobile 系统分享导出同两份 + 复制                      | **已闭**：`mapped.rows` 成为真交付件，JSON 内带 `fillPlanFields`（对齐 `FormFillPlan["fields"]`） |
+| 3 JD 两套数据源    | JD 写入 `metadata.chinaMarket.jobDescription`（`optional` + `catch`，旧简历零迁移），刷新读回、随包导出；双端 `setChinaMarketJobDescription()` | **页见侧已闭**：不再刷新即丢；但**未复用** `applications.job_description`，两套数据源仍并存       |
+| 2 平台白名单       | 未改 `packetFillPlan()`                                                                                                                        | **仍缺**：中国平台 URL 仍返回 `null`                                                              |
+| 4 主键粒度错配     | 未引入 `applicationId`                                                                                                                         | **仍缺**：`chinaMarket` 仍 per-resume，在 `applications` / `career` / `db` / `api` 目录 0 引用    |
+
+顺带修掉两处导出链上的真实缺陷：映射列表此前用 `row.label`（平台名）当字段名，每行都显示
+「BOSS直聘」，现改为 `row.field`（平台自己的表单标签）并标出主档来源；Mobile `shareText()` 的
+`[^\w.-]` 清洗会把中文文件名毁成 `--BOSS---.json`，改为 Unicode 安全的 `[^\p{L}\p{N}._-]`。
+
+`chinaMarketFillPlan()` 只做**纯函数桥接**：要求调用方提供精确目标 URL（校验 protocol / credentials /
+hash，仅测试允许 loopback），UI 不自动调用它。页见不自动填写、不代提交任何平台表单——
+仓库内仍没有中国平台适配器和浏览器 helper 的 verified build。
+
+**结论（校正后）**：交付闭环与工程闭环已闭合；产品闭环的**「结构化主档 → 平台在线表单」最后一跳
+已以人工交接形式闭合**（可导出、可复制、JD 可持久化、双端一致）。仍未闭合的是两件事：
+中国市场层与上游 `applications` 投递主链路的接口合并，以及自动填充的最后一公里。
+这两项都需要 per-application 关联键与外部 verified helper，属于下一阶段产品化，不阻塞当前可用交付。

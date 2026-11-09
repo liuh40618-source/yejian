@@ -60,6 +60,12 @@ export const chinaMarketSchema = z.object({
 	platform: chinaMarketPlatformSchema.catch("boss"),
 	style: chinaMarketStyleSchema,
 	profile: chinaMarketProfileSchema,
+	/**
+	 * The JD this master is being tailored for. It is part of the master, not a transient panel state:
+	 * the keyword report and the exported form packet both read it back after a reload. Optional so
+	 * resumes saved before this shipped parse unchanged and need no migration.
+	 */
+	jobDescription: z.string().catch("").optional(),
 });
 export type ChinaMarket = z.infer<typeof chinaMarketSchema>;
 
@@ -340,6 +346,26 @@ export const CHINA_MARKET_EXCLUSIONS: readonly { title: string; reason: string }
 	},
 	{ title: "不引入分栏 / 进度条 / 图标字体", reason: "破坏单栏阅读顺序，关键词引擎易漏读。" },
 ];
+
+/**
+ * Copy for the platform-form hand-off actions. Both the web and mobile panes read these instead of
+ * each owning a translation, so the wording — and the boundary it states — can never drift between
+ * them: 页见 exports fields, it never fills or submits a platform form.
+ */
+export const CHINA_MARKET_HANDOFF_COPY = {
+	title: "平台表单交接",
+	// "导出" works on both clients: web downloads a file, mobile opens the system share sheet.
+	downloadJsonLabel: "导出字段 JSON",
+	downloadTextLabel: "导出字段文本",
+	copyLabel: "复制全部字段",
+	jsonHint: "结构化字段包：含平台表单字段名、主档映射值与 fillPlanFields，供人工核对或已验证的辅助工具读取。",
+	textHint: "按「可直接粘贴 / 需补齐 / 需人工」分段的纯文本，逐项贴进平台表单。",
+	disclaimer: "页见只导出字段，不自动填写、不提交任何平台表单。",
+	jdSavedHint: "JD 随简历主档保存，刷新后不会丢失，导出字段包时一并带上。",
+	copyFailed: "无法复制到剪贴板，请重试。",
+	copied: "字段已复制",
+	exportFailed: "无法导出字段文件，请重试。",
+} as const;
 
 /** What changed relative to the upstream Western sample. Shown as a comparison in the builder. */
 export const CHINA_MARKET_DIFF: readonly [string, string, string][] = [

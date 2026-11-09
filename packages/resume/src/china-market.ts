@@ -5,11 +5,13 @@ import type {
 	ChinaMarketPlatformRow,
 	ChinaMarketPreset,
 	ChinaMarketProfile,
+	ChinaMarketRowStatus,
 	ChinaMarketScene,
 	ChinaMarketStyle,
 } from "@reactive-resume/schema/resume/china-market";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { Template } from "@reactive-resume/schema/templates";
+import type { FormFillPlan } from "@reactive-resume/utils/form-fill";
 import {
 	CHINA_MARKET_KEYWORDS,
 	CHINA_MARKET_PLATFORMS,
@@ -32,6 +34,19 @@ import { stripHtml } from "@reactive-resume/utils/string";
 
 /** Resumes saved before this shipped have no `chinaMarket`; never rewrite stored data just to add it. */
 export const chinaMarketOf = (data: ResumeData): ChinaMarket => data.metadata.chinaMarket ?? defaultChinaMarket;
+
+/**
+ * The JD lives in the master, not in a panel's `useState`. Legacy documents simply read as empty, so
+ * no migration is needed; typing writes through `setChinaMarketJobDescription` and is undoable like
+ * every other master edit.
+ */
+export const chinaMarketJobDescription = (data: ResumeData): string => chinaMarketOf(data).jobDescription ?? "";
+
+export const setChinaMarketJobDescription = (data: ResumeData, jobDescription: string): ResumeData => {
+	const next = structuredClone(data);
+	next.metadata.chinaMarket = { ...chinaMarketOf(next), jobDescription };
+	return next;
+};
 
 /**
  * Switches map onto templates that already exist in `packages/pdf`. No new renderer, no CSS class
@@ -298,6 +313,9 @@ const resolveMasterField = (data: ResumeData, key: ChinaMarketFieldKey, now?: Da
 	}
 };
 
+/** A placeholder must never be written into a real form field. */
+export const CHINA_MARKET_UNFILLED = "（主档未填）";
+
 export type MappedChinaMarketRow = ChinaMarketPlatformRow & { value: string; label: string };
 
 /** The structured master mapped onto one platform's online form — the machine-read deliverable. */
@@ -315,7 +333,7 @@ export const mapChinaMarketPlatform = (
 			label: config.label,
 			value:
 				row.status === "auto"
-					? resolveMasterField(data, row.source ?? "name", now) || "（主档未填）"
+					? resolveMasterField(data, row.source ?? "name", now) || CHINA_MARKET_UNFILLED
 					: (row.note ?? ""),
 		};
 	});
@@ -326,6 +344,129 @@ export const mapChinaMarketPlatform = (
 		autoCount: rows.filter((row) => row.status === "auto").length,
 		manualCount: rows.filter((row) => row.status === "manual").length,
 	};
+};
+
+/** One row as it leaves the app. `field` is the platform's own form label, never the platform name. */
+export type ChinaMarketFormField = {
+	field: string;
+	master: string;
+	status: ChinaMarketRowStatus;
+	value: string;
+	note: string;
+};
+
+/**
+ * The hand-off artifact for the online form — the deliverable that was previously only rendered as a
+ * read-only preview. It carries the persisted JD so the receiver can see what the answers target, and
+ * a `fillPlanFields` array shaped exactly like the upstream browser helper's `FormFillPlan["fields"]`.
+ *
+ * It deliberately does NOT pretend to auto-fill: Chinese platforms have no verified helper build yet,
+ * and no destination URL is stored here. `chinaMarketFillPlan()` requires a caller-supplied exact URL.
+ */
+export type ChinaMarketFormPacket = {
+	format: "yejian-china-market-form-packet";
+	version: 1;
+	platform: ChinaMarketPlatform;
+	platformLabel: string;
+	generatedAt: string;
+	jobDescription: string;
+	fields: readonly ChinaMarketFormField[];
+	fillPlanFields: FormFillPlan["fields"];
+	autoCount: number;
+	manualCount: number;
+	notCollectedCount: number;
+};
+
+export const chinaMarketFormPacket = (
+	data: ResumeData,
+	platform: ChinaMarketPlatform,
+	now: Date = new Date(),
+): ChinaMarketFormPacket => {
+	const mapped = mapChinaMarketPlatform(data, platform, now);
+	const fields: ChinaMarketFormField[] = mapped.rows.map((row) => ({
+		field: row.field,
+		master: row.master,
+		status: row.status,
+		value: row.status === "auto" ? row.value : "",
+		note: row.note ?? "",
+	}));
+	// Only real, auto-resolved values may be offered to a fill helper. Placeholders and rows we
+	// deliberately do not collect must stay with a human.
+	const fillPlanFields: FormFillPlan["fields"] = fields
+		.filter((row) => row.status === "auto" && row.value && row.value !== CHINA_MARKET_UNFILLED)
+		.map((row) => ({ question: row.field, value: row.value, source: `页见结构化主档/${row.master}` }));
+
+	return {
+		format: "yejian-china-market-form-packet",
+		version: 1,
+		platform,
+		platformLabel: mapped.label,
+		generatedAt: now.toISOString(),
+		jobDescription: chinaMarketJobDescription(data),
+		fields,
+		fillPlanFields,
+		autoCount: mapped.autoCount,
+		manualCount: mapped.manualCount,
+		notCollectedCount: fields.filter((row) => row.status === "na").length,
+	};
+};
+
+/** Paste-ready plain text: one `字段：值` per line, with the human-only rows kept out of the way. */
+export const chinaMarketFormText = (packet: ChinaMarketFormPacket): string => {
+	const lines = [`${packet.platformLabel} · 平台在线表单字段`, `生成时间：${packet.generatedAt}`];
+	if (packet.jobDescription.trim()) lines.push(`目标 JD：${packet.jobDescription.trim()}`);
+	lines.push("");
+
+	const section = (
+		title: string,
+		rows: readonly ChinaMarketFormField[],
+		render: (row: ChinaMarketFormField) => string,
+	) => {
+		if (rows.length === 0) return;
+		lines.push(`【${title}】`, ...rows.map(render), "");
+	};
+	section(
+		"可从主档直接粘贴",
+		packet.fields.filter((row) => row.status === "auto" && row.value !== CHINA_MARKET_UNFILLED),
+		(row) => `${row.field}：${row.value}`,
+	);
+	section(
+		"主档未填，需补齐",
+		packet.fields.filter((row) => row.status === "auto" && row.value === CHINA_MARKET_UNFILLED),
+		(row) => `${row.field}：（未填）`,
+	);
+	section(
+		"需人工填写",
+		packet.fields.filter((row) => row.status === "manual"),
+		(row) => `${row.field}：${row.note}`,
+	);
+	section(
+		"平台不采集 / 主档刻意不收",
+		packet.fields.filter((row) => row.status === "na"),
+		(row) => `${row.field}：${row.note}`,
+	);
+	lines.push("本文件由页见生成，仅用于人工核对与粘贴；页见不会自动填写或提交任何平台表单。");
+	return `${lines.join("\n")}\n`;
+};
+
+export const chinaMarketFormJson = (packet: ChinaMarketFormPacket): string => `${JSON.stringify(packet, null, 2)}\n`;
+
+/**
+ * Bridge into the upstream delivery chain. A real `FormFillPlan` needs the exact destination page URL,
+ * which the master cannot know; the caller (a verified helper or adapter) must supply and confirm it.
+ * Loopback hosts are allowed only so the existing tests can exercise the contract.
+ */
+export const chinaMarketFillPlan = (packet: ChinaMarketFormPacket, targetUrl: string): FormFillPlan | null => {
+	let url: URL;
+	try {
+		url = new URL(targetUrl);
+	} catch {
+		return null;
+	}
+	if (url.username || url.password || url.hash) return null;
+	const loopback = ["localhost", "127.0.0.1", "10.0.2.2"].includes(url.hostname);
+	if (url.protocol !== "https:" && !(url.protocol === "http:" && loopback)) return null;
+	return { targetUrl, fields: [...packet.fillPlanFields], files: [] };
 };
 
 const safe = (value: string) => value.replace(/[\\/:*?"<>|]/g, "-").trim() || "未命名";
@@ -345,6 +486,16 @@ export const chinaMarketFileName = (data: ResumeData, scene: ChinaMarketScene, n
 		return `${name}-${role}-${safe(profile.political || "政治面貌")}-${safe(school?.school || "学校")}.pdf`;
 	}
 	return `${name}-${role}-${safe(workYears(data, now) || "工作年限")}.pdf`;
+};
+
+/** The form hand-off is a separate deliverable from the PDF, so it gets its own name and extension. */
+export const chinaMarketFormFileName = (
+	data: ResumeData,
+	platform: ChinaMarketPlatform,
+	extension: "json" | "txt",
+): string => {
+	const name = safe(data.basics.name || "简历");
+	return `${name}-${safe(CHINA_MARKET_PLATFORMS[platform].label)}-表单字段.${extension}`;
 };
 
 /** True when the current preset is the ATS-risky comparison, so the UI can warn before printing. */

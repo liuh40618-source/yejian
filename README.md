@@ -12,13 +12,13 @@
 
 ## 状态
 
-| 项       | 值                                                                 |
-| -------- | ------------------------------------------------------------------ |
-| 版本     | `0.1.0`                                                            |
-| 上游基线 | Reactive Resume `v6.0.10`（MIT，Copyright (c) 2026 Amruth Pillai） |
-| 可见性   | 私有，无 remote                                                    |
-| 界面语言 | 仅 `zh-CN`（另保留 Lingui 伪语言 `zu-ZA` 供测试）                  |
-| 定位     | 二次创新作品 / 可用内部工具：工程闭环已成型，产品闭环未闭合        |
+| 项       | 值                                                                           |
+| -------- | ---------------------------------------------------------------------------- |
+| 版本     | `0.1.0`                                                                      |
+| 上游基线 | Reactive Resume `v6.0.10`（MIT，Copyright (c) 2026 Amruth Pillai）           |
+| 可见性   | 私有，无 remote                                                              |
+| 界面语言 | 仅 `zh-CN`（另保留 Lingui 伪语言 `zu-ZA` 供测试）                            |
+| 定位     | 二次创新作品 / 可用内部工具：工程闭环已成型，主档 → 平台表单的人工交接已打通 |
 
 ## 为什么这样改
 
@@ -45,6 +45,7 @@ PDF 视觉上提供三种预设：`ats`（默认，极简单栏）、`xhs`（轻
 | 中文字体   | 新增 505 个 `Noto Sans SC` / `Noto Serif SC` 子集 woff2（13.13 MB）及 2 个 CSS                                                                                                   |
 | ATS 中文   | 改造上游 `packages/resume/src/ats-pdf/**` 13 个文件并新增 2 组中文测试：`Intl.Segmenter("zh")` 分词、中文复合词/停用词/章节别名、中文姓名地名、中文日期与「至今」等 ongoing 标记 |
 | 中国市场层 | 新增 `metadata.chinaMarket`（可选字段，旧简历无需迁移）、领域纯函数、Web + Mobile 双端面板、中文样例、中文日期解析                                                               |
+| 表单交接   | JD 纳入主档持久化；平台映射导出 JSON / 文本、复制粘贴、Web 下载 + Mobile 分享；`fillPlanFields` 对齐上游 `FormFillPlan` 形状                                                     |
 | 中文界面   | `zh-CN.po` web 4215 条 / mobile 3437 条；语言目录由 55 收窄到 2                                                                                                                  |
 | 品牌       | 「页见」logo / favicon / PWA 图标、manifest 中文化                                                                                                                               |
 | 国产模型   | 新增 `dashscope`（通义千问）供应商条目（`deepseek` **上游本就已有**，非本版新增）                                                                                                |
@@ -77,20 +78,34 @@ pnpm dev
 `turbo` 在本机 spawn 子进程会报 `os error 231`。需逐包执行
 `node node_modules/typescript/bin/tsc --noEmit -p tsconfig.json`，完整替代命令见 `REGRESSION-UPSTREAM-GAP.md` §5。
 
+## 平台表单交接（本版补齐）
+
+「一份结构化主档 → 平台在线表单」这一跳现在有真实交付件，不再只是 Design 面板里的只读预览：
+
+- `mapChinaMarketPlatform()` 的结果经 `chinaMarketFormPacket()` 产出 `yejian-china-market-form-packet`，
+  Web 可下载 JSON / 纯文本或一键复制，Mobile 经系统分享面板导出同两份文件并支持复制。
+  文本按「可直接粘贴 / 需补齐 / 需人工填写 / 平台不采集」分段；JSON 内另带
+  `fillPlanFields`（形状对齐上游 `FormFillPlan["fields"]`），供后续已验证的辅助工具读取。
+- JD 写入 `metadata.chinaMarket.jobDescription`（可选字段，旧简历无需迁移），刷新后仍读回，
+  并随字段包一起导出；Web / Mobile 走同一套领域纯函数，行为一致。
+- 映射列表按**平台自己的表单字段名**（`row.field`）展示，不再是重复的平台名。
+
+**边界**：页见只生成并交接字段，不自动填写、不代提交。`chinaMarketFillPlan()` 只是纯函数桥接，
+要求调用方提供精确目标 URL；仓库内既没有中国平台适配器，也没有浏览器 helper 的 verified build。
+
 ## 已知限制
 
-- **平台表单映射目前是只读预览**：`mapChinaMarketPlatform()` 算出的 `mapped.rows` 只渲染成列表，
-  没有导出 JSON / 复制 / 填充动作。上游其实已有「雇主表单投递包」链路（`applications.packet` →
-  `FormFillPlan` → 浏览器 helper），但页见的中国市场层**与它零连接**，且 `packetFillPlan()` 只认
-  Greenhouse / Lever / Ashby 三个海外 ATS，中国平台会返回 `null`。断点不是「缺一条链路」，是两条平行链路没接上。
-- **JD 有两套数据源且互不复用**：中国市场面板的 JD 在 Web / Mobile 都是 `useState("")`、刷新即丢；
-  上游 `applications.job_description` 已落库并带 `requirements` / `matchScore`，两者没有引用关系。
-- `metadata.chinaMarket` 挂在单份简历下（per-resume），而 applications 是 per-application，缺关联键，
-  一份主档无法对应多份投递；`chinaMarket` 在 `applications` / `career` / `db` / `api` 目录 0 引用。
-- 即便接上，仓库内也没有可执行填充端：`FORM_FILL_SCRIPT` 只是字符串常量，浏览器 helper 需单独
-  verified build（`application-packet.tsx` 已注明），且上游设计为不代提交、不标记已发送。
+- **页见的中国市场层与上游投递主链路仍未接通**：`applications.packet` → `FormFillPlan` → 浏览器 helper
+  是继承上游 v6.0.10 的独立链路；`chinaMarket` 在 `applications` / `career` / `db` / `api` 目录仍 0 引用。
+  本版补齐的是页见自己的「主档 → 交付件」出口，不是两条链路的合并。
+- **JD 仍是两套数据源**：`metadata.chinaMarket.jobDescription`（页见主档，per-resume）与上游
+  `applications.job_description`（落库、带 `requirements` / `matchScore`，per-application）互不复用。
+  `chinaMarket` 挂在单份简历下，applications 是 per-application，缺关联键，一份主档无法对应多份投递。
+- `packetFillPlan()` 的 host 白名单只认 Greenhouse / Lever / Ashby 三个海外 ATS，中国平台 URL 返回 `null`；
+  `FORM_FILL_SCRIPT` 只是字符串常量，自动填充的最后一公里需外部 verified build（上游也注明不代提交、
+  不标记已发送）。
 
-四个断点的文件级定位与最小补齐路径见 [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md) §11。
+四个断点的原始定位、本版补齐范围与剩余项见 [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md) §11。
 
 - 隐私政策、用户协议、ICP 备案尚未提供；Mobile 设置与登录页的法务链接仍指向上游文档站。
 - 无手机号 / 短信登录；AI 功能全部 BYO-key，PDF / DOCX 导入在无 key 时会断。

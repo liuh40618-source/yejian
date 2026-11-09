@@ -6,9 +6,16 @@ import {
 	applyChinaMarketPreset,
 	applyChinaMarketScene,
 	chinaMarketFileName,
+	chinaMarketFillPlan,
+	chinaMarketFormFileName,
+	chinaMarketFormJson,
+	chinaMarketFormPacket,
+	chinaMarketFormText,
 	chinaMarketIsRisky,
+	chinaMarketJobDescription,
 	chinaMarketOf,
 	mapChinaMarketPlatform,
+	setChinaMarketJobDescription,
 	setChinaMarketProfile,
 	setChinaMarketStyle,
 } from "./china-market";
@@ -234,5 +241,119 @@ describe("export naming", () => {
 		expect(chinaMarketFileName(market, "market", now)).toBe("陈嘉宁-高级产品设计师-5 年.pdf");
 		expect(chinaMarketFileName(market, "campus", now)).toBe("陈嘉宁-同济大学-工业设计-高级产品设计师.pdf");
 		expect(chinaMarketFileName(market, "soe", now)).toBe("陈嘉宁-高级产品设计师-中共党员-同济大学.pdf");
+	});
+
+	it("names the form hand-off separately from the PDF", () => {
+		expect(chinaMarketFormFileName(master(), "boss", "json")).toBe("陈嘉宁-BOSS直聘-表单字段.json");
+		expect(chinaMarketFormFileName(master(), "zhilian", "txt")).toBe("陈嘉宁-智联招聘-表单字段.txt");
+	});
+});
+
+describe("JD persistence in the master", () => {
+	it("reads an empty JD on legacy documents without rewriting stored data", () => {
+		const legacy = structuredClone(defaultResumeData);
+		delete legacy.metadata.chinaMarket;
+		expect(chinaMarketJobDescription(legacy)).toBe("");
+		expect(legacy.metadata.chinaMarket).toBeUndefined();
+	});
+
+	it("writes the JD into the master without mutating the input or losing other config", () => {
+		const source = applyChinaMarketScene(master(), "campus");
+		const snapshot = JSON.stringify(source);
+		const next = setChinaMarketJobDescription(source, "要求 Figma、设计系统与用户研究");
+
+		expect(chinaMarketJobDescription(next)).toBe("要求 Figma、设计系统与用户研究");
+		expect(next.metadata.chinaMarket?.scene).toBe("campus");
+		expect(JSON.stringify(source)).toBe(snapshot);
+		// A reload reads the same JD back, so the alignment report is reproducible.
+		expect(analyzeChinaMarketJob(next, chinaMarketJobDescription(next)).required).toEqual([
+			"设计系统",
+			"用户研究",
+			"Figma",
+		]);
+	});
+});
+
+describe("platform form hand-off", () => {
+	const now = new Date("2026-01-01T00:00:00Z");
+
+	it("exports field labels from the platform form, never the platform name", () => {
+		const data = setChinaMarketJobDescription(applyChinaMarketScene(master(), "soe"), "要求 Figma、用户研究");
+		const packet = chinaMarketFormPacket(data, "boss", now);
+
+		expect(packet.format).toBe("yejian-china-market-form-packet");
+		expect(packet.platformLabel).toBe("BOSS直聘");
+		expect(packet.jobDescription).toBe("要求 Figma、用户研究");
+		expect(packet.generatedAt).toBe("2026-01-01T00:00:00.000Z");
+		expect(packet.fields.find((row) => row.field === "姓名")?.value).toBe("陈嘉宁");
+		// The old preview repeated the platform name for every row; exports must use `field`.
+		expect(packet.fields.every((row) => row.field !== "BOSS直聘")).toBe(true);
+		expect(packet.fillPlanFields.every((field) => field.question !== "BOSS直聘")).toBe(true);
+		expect(packet.manualCount).toBeGreaterThan(0);
+		expect(packet.notCollectedCount).toBeGreaterThan(0);
+	});
+
+	it("only offers real auto values to a fill helper", () => {
+		const data = master();
+		data.basics.email = "";
+		const packet = chinaMarketFormPacket(data, "boss", now);
+
+		expect(packet.fillPlanFields.every((field) => field.value !== "（主档未填）")).toBe(true);
+		expect(packet.fillPlanFields.find((field) => field.question === "姓名")?.value).toBe("陈嘉宁");
+		expect(packet.fillPlanFields.find((field) => field.question === "个人优势（300 字内）")).toBeUndefined();
+		expect(packet.fillPlanFields.find((field) => field.question === "—")).toBeUndefined();
+		expect(packet.fillPlanFields.every((field) => field.source.startsWith("页见结构化主档/"))).toBe(true);
+	});
+
+	it("renders paste-ready text with human-only rows kept separate", () => {
+		const text = chinaMarketFormText(chinaMarketFormPacket(master(), "boss", now));
+		expect(text).toContain("姓名：陈嘉宁");
+		expect(text).toContain("【需人工填写】");
+		expect(text).toContain("【平台不采集 / 主档刻意不收】");
+		expect(text).toContain("页见不会自动填写或提交任何平台表单");
+	});
+
+	it("carries the persisted JD into every deliverable", () => {
+		const data = setChinaMarketJobDescription(master(), "要求 Figma、设计系统");
+		const packet = chinaMarketFormPacket(data, "boss", now);
+
+		expect(packet.jobDescription).toBe("要求 Figma、设计系统");
+		expect(chinaMarketFormText(packet)).toContain("目标 JD：要求 Figma、设计系统");
+		expect(chinaMarketFormJson(packet)).toContain("要求 Figma、设计系统");
+		expect(chinaMarketFormText(chinaMarketFormPacket(master(), "boss", now))).not.toContain("目标 JD：");
+	});
+
+	it("names exported files with Chinese characters intact", () => {
+		// The mobile share sheet used to scrub `[^\w.-]`, turning this into "--BOSS---.json".
+		const name = chinaMarketFormFileName(master(), "boss", "json");
+		expect(name).toBe("陈嘉宁-BOSS直聘-表单字段.json");
+		expect(name.replace(/[^\p{L}\p{N}._-]+/gu, "-")).toBe(name);
+		expect(chinaMarketFormFileName(master(), "zhilian", "txt")).toBe("陈嘉宁-智联招聘-表单字段.txt");
+	});
+
+	it("serialises to a stable JSON document", () => {
+		const packet = chinaMarketFormPacket(master(), "zhilian", now);
+		const parsed = JSON.parse(chinaMarketFormJson(packet)) as typeof packet;
+		expect(parsed.format).toBe(packet.format);
+		expect(parsed.fields).toHaveLength(packet.fields.length);
+		expect(parsed.fillPlanFields).toHaveLength(packet.fillPlanFields.length);
+	});
+
+	it("bridges into the upstream FormFillPlan only for a caller-supplied exact URL", () => {
+		const packet = chinaMarketFormPacket(master(), "boss", now);
+		const plan = chinaMarketFillPlan(packet, "https://www.zhipin.com/job_detail/abc.html");
+
+		expect(plan?.targetUrl).toBe("https://www.zhipin.com/job_detail/abc.html");
+		expect(plan?.fields).toEqual(packet.fillPlanFields);
+		expect(plan?.files).toEqual([]);
+		// No fake destination is ever invented by the master itself.
+		expect(chinaMarketFillPlan(packet, "")).toBeNull();
+		expect(chinaMarketFillPlan(packet, "not a url")).toBeNull();
+		expect(chinaMarketFillPlan(packet, "http://example.com/form")).toBeNull();
+		expect(chinaMarketFillPlan(packet, "https://user:pw@zhipin.com/form")).toBeNull();
+		expect(chinaMarketFillPlan(packet, "https://zhipin.com/form#section")).toBeNull();
+		expect(chinaMarketFillPlan(packet, "http://127.0.0.1:3000/form")?.fields).toHaveLength(
+			packet.fillPlanFields.length,
+		);
 	});
 });

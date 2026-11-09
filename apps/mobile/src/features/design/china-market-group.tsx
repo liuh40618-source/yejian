@@ -8,6 +8,7 @@ import type {
 } from "@reactive-resume/schema/resume/china-market";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import { useLingui } from "@lingui/react/macro";
+import * as Clipboard from "expo-clipboard";
 import { useState } from "react";
 import { Pressable, View } from "react-native";
 import {
@@ -15,21 +16,29 @@ import {
 	applyChinaMarketPreset,
 	applyChinaMarketScene,
 	chinaMarketFileName,
+	chinaMarketFormFileName,
+	chinaMarketFormJson,
+	chinaMarketFormPacket,
+	chinaMarketFormText,
 	chinaMarketIsRisky,
+	chinaMarketJobDescription,
 	chinaMarketOf,
 	mapChinaMarketPlatform,
+	setChinaMarketJobDescription,
 	setChinaMarketPlatform,
 	setChinaMarketProfile,
 	setChinaMarketStyle,
 } from "@reactive-resume/resume/china-market";
 import {
 	CHINA_MARKET_EXCLUSIONS,
+	CHINA_MARKET_HANDOFF_COPY,
 	CHINA_MARKET_PLATFORMS,
 	CHINA_MARKET_PRESETS,
 	CHINA_MARKET_SCENES,
 } from "@reactive-resume/schema/resume/china-market";
 import { Field, SwitchRow } from "./controls";
-import { Banner, Segmented, Text, TextArea, TextField, useTheme } from "@/ui";
+import { shareText } from "@/features/workspace/share";
+import { Banner, Button, Segmented, Text, TextArea, TextField, showToast, useTheme } from "@/ui";
 
 const SCENES = ["market", "campus", "soe"] as const;
 const PRESETS = ["ats", "xhs", "table"] as const;
@@ -44,7 +53,6 @@ type ChinaMarketGroupProps = { data: ResumeData; write: DesignWrite; disabled: b
 export function ChinaMarketGroup({ data, write, disabled }: ChinaMarketGroupProps) {
 	const { t } = useLingui();
 	const { colors, radius, space } = useTheme();
-	const [jobDescription, setJobDescription] = useState("");
 	const [profileOpen, setProfileOpen] = useState(false);
 	const [mappingOpen, setMappingOpen] = useState(false);
 
@@ -64,8 +72,40 @@ export function ChinaMarketGroup({ data, write, disabled }: ChinaMarketGroupProp
 
 	const config = chinaMarketOf(data);
 	const mapped = mapChinaMarketPlatform(data, config.platform);
+	// The JD is part of the master, so it survives a reload and travels with the exported packet.
+	const jobDescription = chinaMarketJobDescription(data);
 	const analysis = analyzeChinaMarketJob(data, jobDescription);
 	const risky = chinaMarketIsRisky(data);
+
+	// `shareText` rejects when the system share sheet is unavailable; surface that instead of an
+	// unhandled rejection (the workspace packet panel does the same through its `run` wrapper).
+	const exportPacket = (extension: "json" | "txt") => {
+		const packet = chinaMarketFormPacket(data, config.platform);
+		const share =
+			extension === "json"
+				? shareText(
+						chinaMarketFormFileName(data, config.platform, "json"),
+						chinaMarketFormJson(packet),
+						"application/json",
+						"public.json",
+					)
+				: shareText(
+						chinaMarketFormFileName(data, config.platform, "txt"),
+						chinaMarketFormText(packet),
+						"text/plain",
+						"public.plain-text",
+					);
+		void share.catch(() => showToast({ message: CHINA_MARKET_HANDOFF_COPY.exportFailed }));
+	};
+
+	const copyFields = async () => {
+		try {
+			await Clipboard.setStringAsync(chinaMarketFormText(chinaMarketFormPacket(data, config.platform)));
+			showToast({ message: CHINA_MARKET_HANDOFF_COPY.copied });
+		} catch {
+			showToast({ message: CHINA_MARKET_HANDOFF_COPY.copyFailed });
+		}
+	};
 
 	const styleRows: { key: keyof ChinaMarketStyle; label: string; description: string }[] = [
 		{
@@ -216,8 +256,10 @@ export function ChinaMarketGroup({ data, write, disabled }: ChinaMarketGroupProp
 			{mappingOpen ? (
 				<View style={{ gap: space.s1 }}>
 					{mapped.rows.map((row, index) => (
+						// `row.field` is the platform's own form label. `row.label` is the platform name and
+						// must never be used as a field name (it would repeat "BOSS直聘" for every row).
 						<View
-							key={`${row.label}-${index}`}
+							key={`${row.field}-${index}`}
 							style={{
 								gap: space.s0,
 								paddingVertical: space.s2,
@@ -227,7 +269,7 @@ export function ChinaMarketGroup({ data, write, disabled }: ChinaMarketGroupProp
 							}}
 						>
 							<Text variant="caption" weight={600}>
-								{row.label}
+								{row.field} · {row.master}
 							</Text>
 							<Text variant="caption" color="ink2">
 								{row.status === "auto" ? row.value : row.note || row.value}
@@ -239,15 +281,52 @@ export function ChinaMarketGroup({ data, write, disabled }: ChinaMarketGroupProp
 
 			<View style={{ gap: space.s2 }}>
 				<Text variant="callout" weight={600}>
+					{CHINA_MARKET_HANDOFF_COPY.title}
+				</Text>
+				<Text variant="caption" color="ink3">
+					{CHINA_MARKET_HANDOFF_COPY.disclaimer}
+				</Text>
+				<Button
+					label={CHINA_MARKET_HANDOFF_COPY.downloadJsonLabel}
+					variant="secondary"
+					disabled={disabled}
+					onPress={() => exportPacket("json")}
+				/>
+				<Button
+					label={CHINA_MARKET_HANDOFF_COPY.downloadTextLabel}
+					variant="secondary"
+					disabled={disabled}
+					onPress={() => exportPacket("txt")}
+				/>
+				<Button
+					label={CHINA_MARKET_HANDOFF_COPY.copyLabel}
+					variant="secondary"
+					disabled={disabled}
+					onPress={() => void copyFields()}
+				/>
+				<Text variant="caption" color="ink3">
+					{CHINA_MARKET_HANDOFF_COPY.jsonHint}
+				</Text>
+				<Text variant="caption" color="ink3">
+					{CHINA_MARKET_HANDOFF_COPY.textHint}
+				</Text>
+			</View>
+
+			<View style={{ gap: space.s2 }}>
+				<Text variant="callout" weight={600}>
 					{t`JD keyword alignment`}
 				</Text>
 				<TextArea
 					label={t`Job description`}
 					placeholder={t`Paste a job description to check the master uses the same words`}
 					value={jobDescription}
-					onChangeText={setJobDescription}
+					editable={!disabled}
+					onChangeText={(text) => commit((current) => setChinaMarketJobDescription(current, text), false)}
 					minLines={4}
 				/>
+				<Text variant="caption" color="ink3">
+					{CHINA_MARKET_HANDOFF_COPY.jdSavedHint}
+				</Text>
 				{analysis.hasBaseline ? (
 					<View style={{ gap: space.s1 }}>
 						<Text variant="caption" color="ink2">

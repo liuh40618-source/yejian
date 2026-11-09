@@ -6154,6 +6154,9 @@
 																"intentSalary",
 																"arrival"
 															]
+														},
+														"jobDescription": {
+															"type": "string"
 														}
 													},
 													"required": [
@@ -10852,6 +10855,9 @@
 																"intentSalary",
 																"arrival"
 															]
+														},
+														"jobDescription": {
+															"type": "string"
 														}
 													},
 													"required": [
@@ -42730,6 +42736,9 @@
 																					"intentSalary",
 																					"arrival"
 																				]
+																			},
+																			"jobDescription": {
+																				"type": "string"
 																			}
 																		},
 																		"required": [
@@ -43491,6 +43500,9 @@
 																					"intentSalary",
 																					"arrival"
 																				]
+																			},
+																			"jobDescription": {
+																				"type": "string"
 																			}
 																		},
 																		"required": [
@@ -60236,6 +60248,9 @@
 																					"intentSalary",
 																					"arrival"
 																				]
+																			},
+																			"jobDescription": {
+																				"type": "string"
 																			}
 																		},
 																		"required": [
@@ -61258,6 +61273,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -62169,6 +62187,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -63618,6 +63639,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -65159,6 +65183,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -66096,6 +66123,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -67025,6 +67055,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -67936,6 +67969,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -68790,6 +68826,9 @@
 																			"intentSalary",
 																			"arrival"
 																		]
+																	},
+																	"jobDescription": {
+																		"type": "string"
 																	}
 																},
 																"required": [
@@ -69585,6 +69624,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -70842,6 +70884,9 @@
 																				"intentSalary",
 																				"arrival"
 																			]
+																		},
+																		"jobDescription": {
+																			"type": "string"
 																		}
 																	},
 																	"required": [
@@ -71954,6 +71999,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -78951,6 +78999,9 @@
 																				"intentSalary",
 																				"arrival"
 																			]
+																		},
+																		"jobDescription": {
+																			"type": "string"
 																		}
 																	},
 																	"required": [
@@ -85461,6 +85512,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -91531,6 +91585,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -96253,6 +96310,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -101287,6 +101347,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -106228,6 +106291,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -111216,6 +111282,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -115936,6 +116005,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -120659,6 +120731,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -125432,6 +125507,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -130856,6 +130934,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -135719,6 +135800,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -143284,6 +143368,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -148596,6 +148683,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -149753,6 +149843,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -150657,6 +150750,9 @@
 																			"intentSalary",
 																			"arrival"
 																		]
+																	},
+																	"jobDescription": {
+																		"type": "string"
 																	}
 																},
 																"required": [
@@ -151452,6 +151548,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -152388,6 +152487,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -153492,6 +153594,9 @@
 																		"intentSalary",
 																		"arrival"
 																	]
+																},
+																"jobDescription": {
+																	"type": "string"
 																}
 															},
 															"required": [
@@ -158576,6 +158681,9 @@
 																				"intentSalary",
 																				"arrival"
 																			]
+																		},
+																		"jobDescription": {
+																			"type": "string"
 																		}
 																	},
 																	"required": [
@@ -167255,6 +167363,9 @@
 																"intentSalary",
 																"arrival"
 															]
+														},
+														"jobDescription": {
+															"type": "string"
 														}
 													},
 													"required": [
@@ -171952,6 +172063,9 @@
 																"intentSalary",
 																"arrival"
 															]
+														},
+														"jobDescription": {
+															"type": "string"
 														}
 													},
 													"required": [
@@ -177955,6 +178069,10 @@
 											"intentSalary",
 											"arrival"
 										]
+									},
+									"jobDescription": {
+										"default": "",
+										"type": "string"
 									}
 								},
 								"required": [
