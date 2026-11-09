@@ -61,18 +61,18 @@ PDF 视觉上提供三种预设：`ats`（默认，极简单栏）、`xhs`（轻
 
 ## 快速开始
 
-要求 Node 24.x、pnpm 12.16.1、PostgreSQL。
+要求 Node 24.x、pnpm 12.16.1、PostgreSQL。**第一次上手请直接看 [`QUICKSTART.md`](QUICKSTART.md)**：两条路径（零数据库预览 / 完整启动）、Windows 替代命令、走查清单都在里面。
 
 ```sh
 pnpm install
 cp .env.example .env.local
 # 在 .env.local 中配置 DATABASE_URL、AUTH_SECRET、ENCRYPTION_SECRET
-# 建议同时设置 FLAG_ENABLE_GUEST_LOGIN=true，否则首次打开会撞注册墙
+# 模板已默认开启游客登录；公网部署前务必改回 false（见 QUICKSTART.md）
 pnpm db:migrate
 pnpm dev
 ```
 
-无数据库也能看界面的本地预览入口：`apps/web/preview.html`（`/preview.html?page=editor`）。
+无数据库也能看界面的本地预览入口：`apps/web/preview.html`（`/preview.html?page=editor`）。该入口只挂载外壳与占位字段，**不含中国市场面板的完整交互**，完整走查需按 `QUICKSTART.md` 启动全栈。
 
 **Windows 本机限制**：`pnpm typecheck` 走 `tsrs --noEmit`，但没有 `@tsrs/win32-x64` 二进制；
 `turbo` 在本机 spawn 子进程会报 `os error 231`。需逐包执行
