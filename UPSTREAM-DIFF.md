@@ -302,3 +302,52 @@ git push -u origin main
 
 推送前把 §10.2 清完，并把 README 顶部的「私有」状态、`SECURITY.md` 的状态段、
 `NOTICE.md` 末尾的 "Current status" 一起改成公开口径。
+
+## 11. 产品闭环断点：两条投递链路零连接（2026-11-09 复核）
+
+> 本节校正此前两处说得过于绝对的判断：早期「全仓没有平台投递链路」「JD 不持久化」的说法，
+> 只在**页见新增的中国市场层**范围内成立；产品整体（继承自上游 v6.0.10）已有一套雇主表单投递链路。
+
+### 11.1 上游已有的链路（不是缺失，是未对接）
+
+| 能力         | 位置                                                                                                                     |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| JD 落库      | `packages/db/src/schema/applications.ts:90` `job_description`，另有 `requirements` / `match_score`                       |
+| 投递包审校   | `apps/web/src/features/career/workspace/application-packet.tsx`：review → approve → 下载 JSON + 审批过的 PDF             |
+| 表单填充计划 | `packages/utils/src/form-fill.ts` `FormFillPlan` / `FORM_FILL_SCRIPT`；`packages/schema/src/applications/autofill.ts:99` |
+| 平台适配器   | `autofill.ts:101-110` 仅 `greenhouse` / `lever` / `ashby`，**中国平台 URL 直接 `return null`**                           |
+
+### 11.2 页见的链路（只读、平行）
+
+`resume.metadata.chinaMarket` → `packages/resume/src/china-market.ts:304` `mapChinaMarketPlatform()`
+→ `mapped.rows` → Web `china-market-group.tsx:249-256` / Mobile `:218` 渲染成 `<div>`。
+全仓 `chinaMarket` 引用集中在 `packages/resume`、`packages/schema`、`packages/api/.../initial-data.ts`
+与两个面板；在 `applications` / `career` / `db` / `api` 目录 **0 引用**。
+入口只有 builder 的 Design tab，产品主链路（applications / 投递）看不到它。
+
+### 11.3 四个具体断点
+
+| #   | 断点                 | 证据                                                                          |
+| --- | -------------------- | ----------------------------------------------------------------------------- |
+| 1   | 映射结果没有出口     | `mapped.rows` 无 Blob / clipboard / download，也未转成 `FormFillPlan.fields`  |
+| 2   | 平台白名单不认中国站 | `packetFillPlan()` 的 host 判定只覆盖三家海外 ATS                             |
+| 3   | JD 两套数据源        | 面板 `useState("")` 刷新即丢，上游 `job_description` 已落库，二者无引用关系   |
+| 4   | 主键粒度错配         | `chinaMarket` 是 per-resume（`metadata` 下），applications 是 per-application |
+
+### 11.4 最后一公里同样不在仓库内
+
+`application-packet.tsx:220` 明写「Import this file into the browser helper」、
+「Native browser integration requires its own verified build」；`FORM_FILL_SCRIPT` 只是字符串常量。
+仓库内 `tooling/capture/manifest.json` 是**抓取**扩展，不是填充扩展。
+即便把页见映射接进 `FormFillPlan`，真正执行 DOM 写入仍需外部 verified build；
+上游也明确这是实验性能力：不代提交、不标记已发送、只填已核验的原生控件。
+
+### 11.5 最小补齐路径（不是从零造链路）
+
+1. 把 `mapped.rows` 转成可下载 JSON（或 `FormFillPlan.fields` 形状），先让「主投递件」有真输出。
+2. 复用 `applications.job_description` / `applicationId` 作为 JD 与投递上下文，去掉面板里的 `useState` 孤岛。
+3. 若要真填充，再为中国平台补 `packetFillPlan` 适配器 + helper build；这属公开后产品化，不阻塞 P0 / P1。
+
+**结论**：交付闭环（可追溯 / 可辨识 / 可复现）与工程闭环均已闭合。
+未闭合的是**产品闭环**，具体是「结构化主档 → 平台在线表单」的最后一跳，
+以及中国市场层与上游投递主链路之间的四个接口。

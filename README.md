@@ -79,10 +79,19 @@ pnpm dev
 
 ## 已知限制
 
-- **平台表单映射目前是只读预览**：面板列出字段与可自动填充的值，但还没有导出 JSON / 复制 / 浏览器填充动作。
-  这是「三输出」里唯一还没真正落地的一环。
-- **JD 只在组件内存**：Web / Mobile 都是 `useState("")`，刷新即丢，对齐报告无法积累。
-- `metadata.chinaMarket` 挂在单份简历下（per-resume），与「一人一份主档」的框架仍有错配。
+- **平台表单映射目前是只读预览**：`mapChinaMarketPlatform()` 算出的 `mapped.rows` 只渲染成列表，
+  没有导出 JSON / 复制 / 填充动作。上游其实已有「雇主表单投递包」链路（`applications.packet` →
+  `FormFillPlan` → 浏览器 helper），但页见的中国市场层**与它零连接**，且 `packetFillPlan()` 只认
+  Greenhouse / Lever / Ashby 三个海外 ATS，中国平台会返回 `null`。断点不是「缺一条链路」，是两条平行链路没接上。
+- **JD 有两套数据源且互不复用**：中国市场面板的 JD 在 Web / Mobile 都是 `useState("")`、刷新即丢；
+  上游 `applications.job_description` 已落库并带 `requirements` / `matchScore`，两者没有引用关系。
+- `metadata.chinaMarket` 挂在单份简历下（per-resume），而 applications 是 per-application，缺关联键，
+  一份主档无法对应多份投递；`chinaMarket` 在 `applications` / `career` / `db` / `api` 目录 0 引用。
+- 即便接上，仓库内也没有可执行填充端：`FORM_FILL_SCRIPT` 只是字符串常量，浏览器 helper 需单独
+  verified build（`application-packet.tsx` 已注明），且上游设计为不代提交、不标记已发送。
+
+四个断点的文件级定位与最小补齐路径见 [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md) §11。
+
 - 隐私政策、用户协议、ICP 备案尚未提供；Mobile 设置与登录页的法务链接仍指向上游文档站。
 - 无手机号 / 短信登录；AI 功能全部 BYO-key，PDF / DOCX 导入在无 key 时会断。
 - 505 个中文字体尚未附带 SIL OFL 许可证文本（私有阶段不触发再分发义务，**公开前必须补**）。
