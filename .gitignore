@@ -97,6 +97,8 @@ temp
 # Development evidence, screenshots and machine config — not part of the published work.
 # Remove any line below if you want that artifact versioned. See UPSTREAM-DIFF.md section 7.
 /.workbuddy-ai/
+/.workbuddy/
+/.wbapp_*.genie
 /.npmrc
 /shots/
 /shot-*.mjs

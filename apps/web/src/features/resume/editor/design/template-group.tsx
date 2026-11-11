@@ -286,10 +286,11 @@ function TemplateCard({ id, data, selected, onPreview }: TemplateCardProps) {
 					selected && "ring-2 ring-accent ring-offset-2 ring-offset-surface",
 				)}
 			>
-				{/* The sample image stands in until the card's own render arrives; a skeleton of the paper covers
-				    the gap while it waits, so no card reads as an empty box (see the render queue). */}
+				{/* The skeleton sits behind the paper: the image is positioned, so DOM order paints it above the
+				    skeleton. A valid sample image hides the skeleton; a broken image is transparent, so the
+				    skeleton shows through instead of leaving an empty box while the render queue drains. */}
 				{thumbnail === undefined && <TemplateSkeleton />}
-				<img src={thumbnail ?? metadata.imageUrl} alt="" className="size-full object-cover object-top" />
+				<img src={thumbnail ?? metadata.imageUrl} alt="" className="relative size-full object-cover object-top" />
 				{selected && (
 					<span className="absolute end-1.5 top-1.5 grid size-5 place-items-center rounded-sm bg-accent text-on-accent">
 						<Icon name="check" size={14} />

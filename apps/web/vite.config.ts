@@ -145,8 +145,10 @@ const serverPaths = [
 	"/openapi.json",
 	"/cards",
 	// A resume's web page, `/<username>` (the primary resume) or `/<username>/<slug>`, is rendered by the server: any
-	// one- or two-segment address outside the app's own sections, without a file extension.
-	`^/(?!(?:${ownSegments})(?:/|$))[^/.]+(?:/[^/.]+)?/?(?:\\?.*)?$`,
+	// one- or two-segment address outside the app's own sections, without a file extension. The reserved-segment
+	// lookahead must also stop at `?`: Vite matches proxies against the URL including its query, so without this a
+	// route like `/dashboard?view=list` looks like a username and gets forwarded to Hono, which has no web dist in dev.
+	`^/(?!(?:${ownSegments})(?:/|\\?|$))[^/.]+(?:/[^/.]+)?/?(?:\\?.*)?$`,
 ] as const;
 
 const serverProxy = serverPaths.reduce(
