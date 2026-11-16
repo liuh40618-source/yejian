@@ -265,14 +265,29 @@ export const extractChinaMarketKeywords = (jobDescription: string): string[] => 
 const genericRewrite = (keyword: string) =>
 	`在经历或技能里如实写出「${keyword}」，并补一条可核对的量化结果；没有相关经历就不要硬凑。`;
 
+/** One number with a unit — a percentage, a headcount, a duration. */
+const QUANTIFIED_EXPRESSION = /\d+(?:\.\d+)?\s*(?:%|％|pp|个|人|场|条|次|万|K|年|月|天|倍)/;
+
+/**
+ * A resume restates the same achievement in its summary and again in the role it belongs to, and one
+ * bullet can carry three numbers. Counting raw matches showed 50 for a one-page sample whose reader
+ * sees a dozen bullets; the sentences that carry a number are what "quantified statements" means.
+ */
+const countQuantifiedStatements = (text: string) =>
+	new Set(
+		text
+			.split(/[。！？；;\n]+/)
+			.map((sentence) => sentence.trim())
+			.filter((sentence) => sentence.length > 0 && QUANTIFIED_EXPRESSION.test(sentence)),
+	).size;
+
 export const analyzeChinaMarketJob = (data: ResumeData, jobDescription: string): ChinaMarketJobAnalysis => {
 	const jd = jobDescription ?? "";
 	const text = chinaMarketPlainText(data);
 	const required = extractChinaMarketKeywords(jd);
 	const hits = required.filter((keyword) => includesTerm(text, keyword));
 	const misses = required.filter((keyword) => !includesTerm(text, keyword));
-	const quantifiedStatements = (text.match(/\d+(?:\.\d+)?\s*(?:%|％|pp|个|人|场|条|次|万|K|年|月|天|倍)/g) ?? [])
-		.length;
+	const quantifiedStatements = countQuantifiedStatements(text);
 
 	return {
 		required,
@@ -607,6 +622,14 @@ export const chinaMarketFillPlan = (packet: ChinaMarketFormPacket, targetUrl: st
 
 const safe = (value: string) => value.replace(/[\\/:*?"<>|]/g, "-").trim() || "未命名";
 
+/** Drops the segments a resume doesn't have yet instead of naming what they would have held. */
+const joinNameParts = (...parts: Array<string | null | undefined>) =>
+	parts
+		.map((part) => (part ?? "").trim())
+		.filter((part) => part.length > 0)
+		.map(safe)
+		.join("-");
+
 /**
  * China-market export names carry the role, not just the person. Kept extension-free so the same
  * base feeds PDF, DOCX, the download sheet's editable name field and server-side exports alike.
@@ -617,17 +640,14 @@ export const chinaMarketFileBaseName = (data: ResumeData, scene: ChinaMarketScen
 	const school = firstEducation(data);
 	const name = safe(basics.name || "简历");
 	const role = safe(basics.headline || "应聘岗位");
-
-	if (scene === "campus") {
-		return `${name}-${safe(school?.school || "学校")}-${safe(school?.area || "专业")}-${role}`;
-	}
-	if (scene === "soe") {
-		return `${name}-${role}-${safe(profile.political || "政治面貌")}-${safe(school?.school || "学校")}`;
-	}
-	// `workYears` returns a human-facing placeholder for an unfilled master. A file name must never
-	// contain "（主档未填）"; say what the segment will hold instead.
+	// A resume with no dated experience has no 工作年限 to state. Writing the words "工作年限" instead
+	// put a template placeholder in front of a recruiter — "陈嘉宁-高级产品设计师-工作年限.pdf".
 	const years = workYears(data, now);
-	return `${name}-${role}-${safe(years === CHINA_MARKET_UNFILLED ? "工作年限" : years)}`;
+	const experience = years === CHINA_MARKET_UNFILLED ? null : years;
+
+	if (scene === "campus") return joinNameParts(name, school?.school, school?.area, role);
+	if (scene === "soe") return joinNameParts(name, role, profile.political, school?.school);
+	return joinNameParts(name, role, experience);
 };
 
 export const chinaMarketFileName = (data: ResumeData, scene: ChinaMarketScene, now?: Date): string =>

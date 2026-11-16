@@ -267,6 +267,25 @@ describe("JD alignment", () => {
 		expect(extractChinaMarketKeywords("负责B端后台与前端开发")).toContain("B 端");
 	});
 
+	it("counts quantified statements, not every number it can find", () => {
+		const withDescription = (description: string) => {
+			const data = master();
+			data.summary.content = "";
+			const item = data.sections.experience.items[0];
+			if (!item) throw new Error("the fixture needs one experience item");
+			item.description = description;
+			return analyzeChinaMarketJob(data, "要求：设计系统").quantifiedStatements;
+		};
+
+		// The same four numbers, once inside one bullet and once spread over four: a statement count
+		// must tell those apart, while a raw number count cannot.
+		const packed = withDescription("<ul><li>复用率 32% → 78%，覆盖 6 个团队、3 条产品线。</li></ul>");
+		const spread = withDescription(
+			"<ul><li>复用率 32%。</li><li>覆盖 6 个团队。</li><li>3 条产品线。</li><li>评审耗时缩短 40%。</li></ul>",
+		);
+		expect(spread - packed).toBe(3);
+	});
+
 	it("never hands the author a fabricated achievement", () => {
 		const data = applyChinaMarketScene(master(), "market");
 		const analysis = analyzeChinaMarketJob(data, "要求：设计系统、Figma、用户研究、A/B 测试");
@@ -327,7 +346,16 @@ describe("export naming", () => {
 	it("never leaks the unfilled placeholder into a file name", () => {
 		const data = master();
 		data.sections.experience.items = [];
-		expect(chinaMarketFileName(data, "market")).toBe("陈嘉宁-高级产品设计师-工作年限.pdf");
+		// Dropping the segment beats naming what it would have held: a recruiter must never open
+		// "陈嘉宁-高级产品设计师-工作年限.pdf".
+		expect(chinaMarketFileName(data, "market")).toBe("陈嘉宁-高级产品设计师.pdf");
+	});
+
+	it("drops a scene segment the resume doesn't have yet", () => {
+		const data = master();
+		data.sections.education.items = [];
+		expect(chinaMarketFileName(data, "campus")).toBe("陈嘉宁-高级产品设计师.pdf");
+		expect(chinaMarketFileName(data, "soe")).toBe("陈嘉宁-高级产品设计师-中共党员.pdf");
 	});
 
 	it("is the name every export path uses, not a panel-only suggestion", () => {
