@@ -3,7 +3,8 @@
 面向中国招聘市场的简历工具。基于 Reactive Resume `v6.0.10` 的二次创新（fork）。
 
 > **公开发布准备中**：本地 git 历史完整，基线提交可追溯到上游 `v6.0.10`，但尚未配置 remote。
-> 上传前请走一遍下文「公开发布前检查」，尤其是把 `.env.example` 的游客登录改回 `false`。
+> 上传前请走一遍 [`LAUNCH-CHECKLIST.md`](LAUNCH-CHECKLIST.md)：配置、法务、运维逐条列明。
+> 游客登录已有启动守卫——生产环境配公网地址仍开着，服务会直接拒绝启动。
 
 页见不是「把英文简历工具翻成中文」。它把中国招聘市场的**双轨现实**当作产品前提：平台上的结构化在线简历由算法抓取、HR 无条件先看；附件 PDF 通常是建立沟通之后才看的补充材料。因此核心模型是
 
@@ -118,6 +119,8 @@ pnpm dev
 | -------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md)                                     | 上游 v6.0.10 真实文件级差异、基线方法、交付边界、基线提交脚本          |
 | [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md)                 | 全量回归证据、分叉清单、环境债、复现命令                               |
+| [`LAUNCH-CHECKLIST.md`](LAUNCH-CHECKLIST.md)                               | 上线前检查：配置、法务（隐私政策必备条款）、运维、上线顺序             |
+| [`REPORT.md`](REPORT.md)                                                   | 2026-11 三轮迭代报告：改了什么、证据、边界、遗留项                     |
 | [`NOTICE.md`](NOTICE.md)                                                   | 归属与版权声明                                                         |
 | [`LICENSE`](LICENSE)                                                       | 上游 MIT 许可原文（保留，不得修改）                                    |
 | `docs/spec.json`                                                           | OpenAPI 生成物；改 `package.json` 的 version 后需 `pnpm docs:gen` 重出 |
@@ -137,12 +140,12 @@ pnpm dev
 
 仓库已具备上传条件，但下面几项需要你自己决定或补齐：
 
-| 项           | 状态       | 说明                                                                                      |
-| ------------ | ---------- | ----------------------------------------------------------------------------------------- |
-| 字体许可证   | 已补齐     | 505 个 woff2 附带两份 OFL 原文，见 `apps/web/public/fonts/cn/`                            |
-| 游客登录     | **需改回** | `.env.example` 现为 `FLAG_ENABLE_GUEST_LOGIN="true"`；公开部署前改 `false` 并关注册       |
-| 法务页面     | 未提供     | 隐私政策、用户协议、ICP 备案；Mobile 法务链接仍指向上游文档站                             |
-| CI           | 已收窄     | 只跑 lint / format / typecheck / 单测；上游的浏览器、Cloudflare、Vercel、部署冒烟已移除   |
-| Docker 发布  | 改为手动   | 原 workflow 会在 push 时推上游镜像；现仅 `workflow_dispatch`，配好自己的 registry 再用    |
-| remote       | 未配置     | `git remote -v` 为空，需要你创建仓库后 `git remote add origin ...`                        |
-| 上游运营配置 | 已移除     | `autofix`、`issue-maintenance` 两个 workflow 与 `FUNDING.yml` 属上游仓库运营，fork 无意义 |
+| 项           | 状态     | 说明                                                                                                       |
+| ------------ | -------- | ---------------------------------------------------------------------------------------------------------- |
+| 字体许可证   | 已补齐   | 505 个 woff2 附带两份 OFL 原文，见 `apps/web/public/fonts/cn/`                                             |
+| 游客登录     | 已加守卫 | 生产环境 + 非回环 `APP_URL` + 开启 → 启动失败；要公网匿名试用须显式设 `FLAG_ALLOW_PUBLIC_GUEST_LOGIN=true` |
+| 法务页面     | 未提供   | 隐私政策、用户协议、ICP 备案，逐条要求见 `LAUNCH-CHECKLIST.md` §3；Mobile 法务链接仍指向上游               |
+| CI           | 已收窄   | 只跑 lint / format / typecheck / 单测；上游的浏览器、Cloudflare、Vercel、部署冒烟已移除                    |
+| Docker 发布  | 改为手动 | 原 workflow 会在 push 时推上游镜像；现仅 `workflow_dispatch`，配好自己的 registry 再用                     |
+| remote       | 未配置   | `git remote -v` 为空，需要你创建仓库后 `git remote add origin ...`                                         |
+| 上游运营配置 | 已移除   | `autofix`、`issue-maintenance` 两个 workflow 与 `FUNDING.yml` 属上游仓库运营，fork 无意义                  |

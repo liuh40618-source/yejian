@@ -209,6 +209,9 @@ export const env = createEnv({
 		FLAG_DISABLE_SIGNUPS: z.stringbool().default(false),
 		FLAG_DISABLE_EMAIL_AUTH: z.stringbool().default(false),
 		FLAG_ENABLE_GUEST_LOGIN: z.stringbool().default(false),
+		// Guest login writes anonymous rows. Allowing it on a public address is a deliberate choice, so a
+		// production deployment has to say so instead of inheriting the local-development default.
+		FLAG_ALLOW_PUBLIC_GUEST_LOGIN: z.stringbool().default(false),
 		FLAG_DISABLE_IMAGE_PROCESSING: z.stringbool().default(false),
 		FLAG_DISABLE_API_RATE_LIMIT: z.stringbool().default(false),
 		FLAG_ALLOW_UNSAFE_AI_BASE_URL: z.stringbool().default(false),
@@ -246,6 +249,28 @@ if (process.env.NODE_ENV === "production") {
 	] as const) {
 		if (value?.startsWith("change-me-to-a-secure-"))
 			throw new Error(`${name} still has the example value from .env.example. Set a random one: openssl rand -hex 32`);
+	}
+}
+
+// Addresses only the machine itself can reach; `new URL()` keeps the brackets on an IPv6 literal.
+const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "::1", "[::1]", "0.0.0.0"]);
+
+// Guest login writes anonymous rows, and anonymous sessions are discarded when they end. On a public
+// address that is an open door, so a production start has to opt in explicitly rather than inherit
+// the local-development default. Development against a LAN address only warns, so the default setup
+// keeps working.
+if (env.FLAG_ENABLE_GUEST_LOGIN && !env.FLAG_ALLOW_PUBLIC_GUEST_LOGIN) {
+	const hostname = new URL(env.APP_URL).hostname;
+
+	if (!LOOPBACK_HOSTS.has(hostname)) {
+		const message =
+			`FLAG_ENABLE_GUEST_LOGIN is on while APP_URL points at ${hostname}. Anyone who can reach that ` +
+			"address can create anonymous resumes and applications. Turn the flag off, or set " +
+			"FLAG_ALLOW_PUBLIC_GUEST_LOGIN=true if this is an intentional, access-controlled trial.";
+
+		if (process.env.NODE_ENV === "production") throw new Error(message);
+
+		console.warn(message);
 	}
 }
 

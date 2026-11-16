@@ -184,3 +184,59 @@ describe("redis url userinfo", () => {
 		);
 	});
 });
+
+describe("public guest login", () => {
+	/** Production needs a long enough AUTH_SECRET before the guest-login check is reached. */
+	const asProduction = () => {
+		vi.stubEnv("NODE_ENV", "production");
+		vi.stubEnv("AUTH_SECRET", "test-auth-secret-at-least-32-characters");
+	};
+
+	it("refuses a production start when guest login is on for a public address", async () => {
+		asProduction();
+		vi.stubEnv("APP_URL", "https://resume.example.com");
+		vi.stubEnv("FLAG_ENABLE_GUEST_LOGIN", "true");
+		vi.stubEnv("FLAG_ALLOW_PUBLIC_GUEST_LOGIN", "false");
+
+		await expect(import("./server")).rejects.toThrow("FLAG_ENABLE_GUEST_LOGIN is on");
+	});
+
+	it("allows it once the operator opts in explicitly", async () => {
+		asProduction();
+		vi.stubEnv("APP_URL", "https://resume.example.com");
+		vi.stubEnv("FLAG_ENABLE_GUEST_LOGIN", "true");
+		vi.stubEnv("FLAG_ALLOW_PUBLIC_GUEST_LOGIN", "true");
+
+		expect((await import("./server")).env.FLAG_ALLOW_PUBLIC_GUEST_LOGIN).toBe(true);
+	});
+
+	it.each(["http://localhost:3000", "http://127.0.0.1:3000", "http://[::1]:3000"])(
+		"allows guest login on loopback (%s)",
+		async (appUrl) => {
+			asProduction();
+			vi.stubEnv("APP_URL", appUrl);
+			vi.stubEnv("FLAG_ENABLE_GUEST_LOGIN", "true");
+
+			expect((await import("./server")).env.FLAG_ENABLE_GUEST_LOGIN).toBe(true);
+		},
+	);
+
+	it("warns instead of throwing outside production", async () => {
+		vi.stubEnv("NODE_ENV", "test");
+		vi.stubEnv("APP_URL", "http://192.168.1.10:3000");
+		vi.stubEnv("FLAG_ENABLE_GUEST_LOGIN", "true");
+
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		await import("./server");
+
+		expect(warn).toHaveBeenCalledWith(expect.stringContaining("FLAG_ENABLE_GUEST_LOGIN is on"));
+	});
+
+	it("stays quiet when guest login is off", async () => {
+		asProduction();
+		vi.stubEnv("APP_URL", "https://resume.example.com");
+		vi.stubEnv("FLAG_ENABLE_GUEST_LOGIN", "false");
+
+		expect((await import("./server")).env.FLAG_ENABLE_GUEST_LOGIN).toBe(false);
+	});
+});
