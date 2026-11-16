@@ -355,30 +355,6 @@ export const SemanticContactListView = ({ style, ...props }: ComponentProps<type
 	);
 };
 
-export const SemanticContactRowView = ({
-	partKey,
-	style,
-	...props
-}: ComponentProps<typeof View> & { partKey: string }) => {
-	const headerNodeKey = useSemanticNodeKey();
-	const contactListNodeKey = headerNodeKey ? semanticNodeKeys.contactList(headerNodeKey) : undefined;
-	const nodeKey = semanticTemplatePartNodeKey(contactListNodeKey, partKey);
-	const resolved = useResolvedNode(nodeKey);
-	const renderedChildKeys = useRenderedChildKeys(nodeKey);
-	const visible = useSemanticNodeVisible(nodeKey);
-	if (!visible) return null;
-	const children =
-		contactListNodeKey && renderedChildKeys
-			? projectContactChildren(props.children, contactListNodeKey, renderedChildKeys)
-			: props.children;
-
-	return (
-		<View {...props} {...resolvedPdfFlowProps(resolved)} style={composeStyles(asStyleInput(style), resolved.style)}>
-			{children}
-		</View>
-	);
-};
-
 export function semanticTemplatePartNodeKey(ownerNodeKey: string | undefined, ...partKeys: string[]) {
 	return ownerNodeKey ? partKeys.reduce((key, part) => `${key}/template-part-${part}`, ownerNodeKey) : undefined;
 }

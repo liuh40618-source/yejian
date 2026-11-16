@@ -4,7 +4,14 @@
 	"ignoreBinaries": ["pdftotext"],
 	"workspaces": {
 		".": {
-			"entry": ["tests/e2e/fixtures/application-order.cjs", "tests/e2e/autofill-prototype.mjs"]
+			"entry": [
+				"tests/e2e/fixtures/application-order.cjs",
+				"tests/e2e/autofill-prototype.mjs",
+				// Run by hand to regenerate the gallery previews; not imported by any package.
+				"scripts/generate-template-previews.ts"
+			],
+			// Installed by `lefthook install`, then invoked by git rather than by a package script.
+			"ignoreDependencies": ["lefthook"]
 		},
 		"apps/mobile": {
 			"ignoreExportsUsedInFile": true,
@@ -13,7 +20,6 @@
 			},
 			"entry": [
 				"fingerprint.config.js",
-				"lingui.config.ts",
 				"scripts/**/*.{mjs,mts,tsx}",
 				"src/features/licences/generate.cjs",
 				"src/draft/index.ts",
@@ -28,11 +34,14 @@
 		},
 		"apps/web": {
 			"entry": [
-				"lingui.config.ts",
 				"vitest.config.ts",
 				"src/features/homepage/prerender.tsx",
-				"src/features/auth/email-text.ts"
+				"src/features/auth/email-text.ts",
+				// `preview.html` loads this shell directly; nothing imports it as a module.
+				"src/preview.tsx"
 			],
+			// Linked from `index.html` and `preview.html`, so no module imports them.
+			"ignore": ["public/fonts/cn/*.css"],
 			"vite": {
 				"config": []
 			},

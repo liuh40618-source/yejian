@@ -28,23 +28,7 @@ export const headerNameLineHeight = 1.3;
 const HEADING_TRACKING_RATIO = 0.085;
 
 /** Fallback cap for a caller that does not say how large the text is set. */
-export const HEADING_TRACKING_MAX = 1;
+const HEADING_TRACKING_MAX = 1;
 
 export const headingTracking = (value: number, fontSize?: number): number =>
 	Math.min(value, fontSize === undefined ? HEADING_TRACKING_MAX : fontSize * HEADING_TRACKING_RATIO);
-
-type ResolvePlacementColorOptions = {
-	placement: TemplatePlacement;
-	defaultForeground: string;
-	sidebarForeground?: string | undefined;
-};
-
-export const resolvePlacementColor = ({
-	placement,
-	defaultForeground,
-	sidebarForeground,
-}: ResolvePlacementColorOptions) => {
-	if (placement === "sidebar" && sidebarForeground) return sidebarForeground;
-
-	return defaultForeground;
-};

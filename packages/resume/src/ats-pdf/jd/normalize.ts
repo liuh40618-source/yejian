@@ -32,8 +32,6 @@ const FULL_WIDTH_PUNCTUATION: Readonly<Record<string, string>> = {
 	"　": " ",
 };
 
-const FULL_WIDTH_PATTERN = new RegExp(`[${Object.keys(FULL_WIDTH_PUNCTUATION).join("")}]`, "g");
-
 /**
  * Chinese compounds the dictionary segmenter keeps splitting.
  *
@@ -265,9 +263,4 @@ export function normalizeForMatching(value: string): string {
 		.replace(/[\u2010-\u2015\u2212]/g, "-")
 		.replace(/[\u00a0\u2007\u202f]/g, " ")
 		.toLowerCase();
-}
-
-/** Matches full-width punctuation before folding, for callers that need the punctuation shape. */
-export function hasFullWidthPunctuation(value: string): boolean {
-	return FULL_WIDTH_PATTERN.test(value);
 }
