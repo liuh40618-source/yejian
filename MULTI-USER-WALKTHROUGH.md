@@ -44,9 +44,7 @@
 
 ---
 
-## 2. 发现的问题：新求职信的语言默认值与本仓发布语言不一致
-
-**这是本轮唯一没修的缺陷，因为它需要产品决策。**
+## 2. 已修的问题：新求职信的语言默认值与本仓发布语言不一致
 
 ### 现象（P7）
 
@@ -71,18 +69,37 @@
 
 一句话：**内容、文件名、语言控件三处用了三个不同的默认值。**
 
-### 为什么没直接改
+### 两处一度误判，已纠正
 
-`packages/api/src/features/resume/initial-data.ts` 里有一条刻意的注释：
+| 当时的判断                        | 实测                                                                                                                                                 |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 改语言会连带把纸张从 Letter 变 A4 | 不会。`defaultResumeData.metadata.page.format` 本身就是 `a4`；`LETTER_LOCALES`（`initial-data.ts`）只在创建**简历**时生效。                          |
+| 关联简历后语言应该跟着简历走      | 不该。`service.ts` 的 `resolveLinks()` 注释写明 _Language belongs to the letter, not its design_，刻意只换模板/配色/字体，把 `locale` 留给信件自己。 |
 
-> Chinese-only interface still carry en-US/de-DE, and those keep their Letter paper convention.
+### 修法
 
-也就是说 en-US 默认值是被有意保留的（它同时决定 Letter 纸张）。全仓 `en-US` 出现 226 处，直接翻默认值会连带改变新文档的纸张规格与日期格式，属于产品决策而不是修 bug。
+不动全局默认、不动纸张、不迁移存量信件，只在创建入口补一层兜底，与简历创建的既有范式（`resume/crud.ts` 的 `locale: context.locale`）对齐：
 
-### 建议的两条路（选一条）
+```ts
+// packages/api/src/features/cover-letters/service.ts
+if (!input.resumeId && input.locale) style.metadata.page.locale = input.locale;
+```
 
-1. **只改求职信**：`coverLetterService.create` 里把 style 的 `page.locale` 落成 `defaultLocale`。影响面最小，但新求职信纸张会从 Letter 变 A4（对中国用户是好事）。
-2. **改全局默认**：`defaultResumeData.metadata.page.locale` 从 `"en-US"` 改为 `defaultLocale`，并清掉 `initial-data.ts` 里关于 Letter 纸张的兼容逻辑。更彻底，但要同步 226 处引用与相关测试。
+`router.ts` 把 `context.locale`（读 `locale` cookie，缺省 `zh-CN`）传进 `create`。优先级：**岗位声明的语言 > 简历自带语言 > 账户语言 > 内置默认**。
+
+### 验证
+
+同一台机器、同一条访客路径（登录页「以访客身份继续」→「新建求职信」）：
+
+| 项目        | 修前                          | 修后                    |
+| ----------- | ----------------------------- | ----------------------- |
+| 库内 locale | `en-US`                       | `zh-CN`                 |
+| 语言下拉    | 选择…                         | 简体中文                |
+| 信头日期    | 英文格式                      | `2026年11月16日`        |
+| 下载文件名  | `无标题的信-Cover-Letter.pdf` | `无标题的信-求职信.pdf` |
+| 纸张        | `a4`                          | `a4`（未变）            |
+
+存量信件保持 `en-US` 不重写；关联了简历的新信件仍取简历语言（集成测试 `starts a letter with no resume behind it in the account's language` 三条断言分别覆盖这三种来源）。
 
 ---
 

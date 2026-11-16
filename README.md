@@ -115,18 +115,18 @@ pnpm dev
 
 ## 文档
 
-| 文件                                                                       | 内容                                                                   |
-| -------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md)                                     | 上游 v6.0.10 真实文件级差异、基线方法、交付边界、基线提交脚本          |
-| [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md)                 | 全量回归证据、分叉清单、环境债、复现命令                               |
-| [`LAUNCH-CHECKLIST.md`](LAUNCH-CHECKLIST.md)                               | 上线前检查：配置、法务（隐私政策必备条款）、运维、上线顺序             |
-| [`REPORT.md`](REPORT.md)                                                   | 2026-11 三轮迭代报告：改了什么、证据、边界、遗留项                     |
-| [`REAL-USER-WALKTHROUGH.md`](REAL-USER-WALKTHROUGH.md)                     | 真实用户走查记录：逐步耗时、发现的缺陷、修法与验证、未改项与原因       |
-| [`MULTI-USER-WALKTHROUGH.md`](MULTI-USER-WALKTHROUGH.md)                   | 六个角色分头走查：场景化命名、匿名可用性、账号隔离、求职信语言不一致   |
-| [`NOTICE.md`](NOTICE.md)                                                   | 归属与版权声明                                                         |
-| [`LICENSE`](LICENSE)                                                       | 上游 MIT 许可原文（保留，不得修改）                                    |
-| `docs/spec.json`                                                           | OpenAPI 生成物；改 `package.json` 的 version 后需 `pnpm docs:gen` 重出 |
-| [`apps/web/public/fonts/cn/README.md`](apps/web/public/fonts/cn/README.md) | 505 个中文字体的来源、分片方式与 SIL OFL 许可证位置                    |
+| 文件                                                                       | 内容                                                                     |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md)                                     | 上游 v6.0.10 真实文件级差异、基线方法、交付边界、基线提交脚本            |
+| [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md)                 | 全量回归证据、分叉清单、环境债、复现命令                                 |
+| [`LAUNCH-CHECKLIST.md`](LAUNCH-CHECKLIST.md)                               | 上线前检查：配置、法务（隐私政策必备条款）、运维、上线顺序               |
+| [`REPORT.md`](REPORT.md)                                                   | 2026-11 三轮迭代报告：改了什么、证据、边界、遗留项                       |
+| [`REAL-USER-WALKTHROUGH.md`](REAL-USER-WALKTHROUGH.md)                     | 真实用户走查记录：逐步耗时、发现的缺陷、修法与验证、未改项与原因         |
+| [`MULTI-USER-WALKTHROUGH.md`](MULTI-USER-WALKTHROUGH.md)                   | 六个角色分头走查：场景化命名、匿名可用性、账号隔离、求职信语言默认值修复 |
+| [`NOTICE.md`](NOTICE.md)                                                   | 归属与版权声明                                                           |
+| [`LICENSE`](LICENSE)                                                       | 上游 MIT 许可原文（保留，不得修改）                                      |
+| `docs/spec.json`                                                           | OpenAPI 生成物；改 `package.json` 的 version 后需 `pnpm docs:gen` 重出   |
+| [`apps/web/public/fonts/cn/README.md`](apps/web/public/fonts/cn/README.md) | 505 个中文字体的来源、分片方式与 SIL OFL 许可证位置                      |
 
 ## 归属与许可
 
