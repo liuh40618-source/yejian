@@ -902,6 +902,36 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 		expect(resume.rows[0].locale).not.toBe("fr-FR");
 	});
 
+	it("starts a letter with no resume behind it in the account's language", async () => {
+		// Without a resume the letter copies the built-in sample, which is written in English: a Chinese account
+		// got an English letter head and a download named "Cover-Letter".
+		const created = await service.create({ userId: "alice", name: "中文求职信", locale: "zh-CN" });
+		expect(created.style.metadata.page.locale).toBe("zh-CN");
+
+		// A resume still decides when there is one, and so does a posting that declared its language.
+		const resumeLocale = (
+			await getPool().query("SELECT data->'metadata'->'page'->>'locale' AS locale FROM resume WHERE id='alice-resume'")
+		).rows[0].locale;
+		const linked = await service.create({
+			userId: "alice",
+			name: "从简历",
+			resumeId: "alice-resume",
+			locale: "zh-CN",
+		});
+		expect(linked.style.metadata.page.locale).toBe(resumeLocale);
+
+		await getPool().query(
+			`UPDATE application SET posting_source='{"method":"builtin","format":"text","truncated":false,"completeness":"unknown","language":"de-DE"}' WHERE id='alice-app'`,
+		);
+		const posting = await service.create({
+			userId: "alice",
+			name: "Für die Stelle",
+			applicationId: "alice-app",
+			locale: "zh-CN",
+		});
+		expect(posting.style.metadata.page.locale).toBe("de-DE");
+	});
+
 	it("reads linked details and design live, keeps them as they read when unlinked, and outlives the resume", async () => {
 		const created = await service.create({
 			userId: "alice",

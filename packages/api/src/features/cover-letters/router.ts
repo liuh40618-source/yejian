@@ -49,7 +49,9 @@ export const coverLettersRouter = {
 		.input(coverLetterDto.create.input)
 		.use(resumeMutationRateLimit)
 		.output(coverLetterDto.create.output)
-		.handler(({ context, input }) => coverLetterService.create({ ...input, userId: context.user.id })),
+		.handler(({ context, input }) =>
+			coverLetterService.create({ ...input, locale: context.locale, userId: context.user.id }),
+		),
 	update: protectedProcedure
 		.route({
 			method: "PUT",

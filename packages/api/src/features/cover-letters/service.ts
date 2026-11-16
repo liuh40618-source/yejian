@@ -49,6 +49,8 @@ type CreateInput = {
 	recipientName?: string | undefined;
 	recipientCompany?: string | undefined;
 	letterDate?: string | null | undefined;
+	/** The account's language, the starting point when neither a resume nor a posting decides it. */
+	locale?: string | undefined;
 };
 
 /** A stored row as a letter. Links end with the resume they point at, so a letter without one isn't linked. */
@@ -536,6 +538,10 @@ export const coverLetterService = {
 		const application = await getOwnedApplication(input.userId, input.applicationId);
 		const style = await getResumeStyle(input.userId, input.resumeId);
 		if (input.template) style.metadata.template = input.template;
+		// A letter with no resume behind it starts from the built-in sample, whose language is English: a Chinese
+		// account would get a Chinese letter body dated and signed in English, and a download named
+		// "Cover-Letter". A new resume starts in the account's language for the same reason.
+		if (!input.resumeId && input.locale) style.metadata.page.locale = input.locale;
 		// The letter is for an employer whose posting declared a language: start in it, so the body, greeting,
 		// sign-off and date all match. The user can change it in Design; existing letters are never rewritten.
 		const postingLanguage = application?.postingSource?.language;
