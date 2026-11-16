@@ -54,11 +54,17 @@ const packageNameOf = (id: string) =>
 const shouldBundle = (id: string) =>
 	id.startsWith("@reactive-resume/") || bundledInteropPackages.has(packageNameOf(id));
 
+// Rolldown hands `deps` the resolved id, so a relative import arrives as an absolute path. On Linux that starts with
+// "/" and the test below catches it; on Windows it starts with "D:\", which matched nothing and externalized the whole
+// workspace into a 4 KB shell whose imports point at source files. Both forms have to count as ours.
+const isAbsolutePath = (id: string) => /^[A-Za-z]:[\\/]/.test(id) || id.startsWith("\\\\");
+
 const shouldExternalizeThirdParty = (id: string) => {
 	if (shouldBundle(id)) return false;
 	// Subpath imports (`#…`) are resolved by the workspace package that declares them, so they're bundled with it.
 	if (id.startsWith("@/") || id.startsWith("#") || id.startsWith(".") || id.startsWith("/") || id.startsWith("\0"))
 		return false;
+	if (isAbsolutePath(id)) return false;
 
 	return true;
 };
