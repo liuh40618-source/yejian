@@ -3,10 +3,10 @@ import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import { ORPCError } from "@orpc/server";
 import z from "zod";
 import { env } from "@reactive-resume/env/server";
+import { chinaMarketDefaultFileName } from "@reactive-resume/resume/china-market";
 import { composeCoverLetter, createCoverLetterResumeData } from "@reactive-resume/resume/cover-letter";
 import { getResumeExportData } from "@reactive-resume/resume/export-sections";
 import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { getDefaultFileName } from "@reactive-resume/utils/file";
 import { contentDisposition } from "@reactive-resume/utils/http";
 import { protectedProcedure } from "../../context";
 import { pdfExportRateLimit } from "../../middleware/rate-limit";
@@ -52,7 +52,7 @@ export async function fileResponse(
 	includeCoverLetterHeader = false,
 	target: "resume" | "cover-letter" = "resume",
 ) {
-	const filename = `${getDefaultFileName({ name, slug: "", data }, target)}.${format}`;
+	const filename = `${chinaMarketDefaultFileName({ name, slug: "", data }, target)}.${format}`;
 	let body: File;
 	try {
 		if (format === "json") body = new File([JSON.stringify(json, null, 2)], filename, { type: "application/json" });

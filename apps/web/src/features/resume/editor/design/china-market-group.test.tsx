@@ -106,6 +106,17 @@ it("reads the JD from the master and writes edits back into the master", async (
 	expect(draft.metadata.chinaMarket?.jobDescription).toBe("需要 Figma 与数据分析");
 });
 
+it("explains a JD with no recognizable keywords instead of hiding the report", async () => {
+	const { chinaSampleResumeData } = await import("@reactive-resume/schema/resume/china-sample");
+	const { setChinaMarketJobDescription } = await import("@reactive-resume/resume/china-market");
+	// No dictionary term and no Latin skill token: the old code dropped the whole report block.
+	sample.current = setChinaMarketJobDescription(chinaSampleResumeData, "负责部门日常事务协调与沟通");
+
+	const html = renderStatic();
+	expect(html).toContain(CHINA_MARKET_HANDOFF_COPY.noKeywordsHint);
+	expect(html).not.toContain("0 / 0");
+});
+
 it("labels mapping rows with the platform's field name, not the platform name", () => {
 	mount();
 	fireEvent.click(screen.getByRole("button", { name: /Show .* mapped/ }));

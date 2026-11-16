@@ -16,7 +16,7 @@ vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: mocks.toa
 vi.mock("@reactive-resume/utils/file", () => ({ downloadWithAnchor: mocks.download }));
 vi.mock("@/features/resume/export/use-resume-export", () => ({
 	createExportFile: mocks.generate,
-	getDefaultFileName: () => "resume",
+	defaultResumeFileName: () => "resume",
 	preloadDocumentExport: () => undefined,
 	sanitizeFileName: (value: string) => value,
 }));

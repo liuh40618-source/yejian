@@ -1,10 +1,13 @@
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import { describe, expect, it } from "vite-plus/test";
+import { CHINA_MARKET_HANDOFF_COPY } from "@reactive-resume/schema/resume/china-market";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import {
 	analyzeChinaMarketJob,
 	applyChinaMarketPreset,
 	applyChinaMarketScene,
+	chinaMarketDefaultFileName,
+	chinaMarketFileBaseName,
 	chinaMarketFileName,
 	chinaMarketFillPlan,
 	chinaMarketFormFileName,
@@ -14,6 +17,7 @@ import {
 	chinaMarketIsRisky,
 	chinaMarketJobDescription,
 	chinaMarketOf,
+	extractChinaMarketKeywords,
 	mapChinaMarketPlatform,
 	setChinaMarketJobDescription,
 	setChinaMarketProfile,
@@ -214,23 +218,95 @@ describe("platform form mapping", () => {
 });
 
 describe("JD alignment", () => {
-	it("counts only keywords the JD asks for and never claims a hit with no baseline", () => {
+	it("counts only keywords the JD asks for, and still renders a pasted JD with zero keywords", () => {
 		const data = applyChinaMarketScene(master(), "market");
 		const full = analyzeChinaMarketJob(data, "要求：设计系统、Figma、用户研究、A/B 测试、可用性测试");
-		expect(full.required).toHaveLength(5);
+		expect(full.required).toEqual(["设计系统", "用户研究", "A/B 测试", "Figma", "可用性测试"]);
 		expect(full.hits).toContain("设计系统");
 		expect(full.hits).toContain("Figma");
 		expect(full.hits).toContain("用户研究");
 		expect(full.misses).toContain("A/B 测试");
-		expect(full.suggestions.find((item) => item.keyword === "A/B 测试")?.rewrite).toContain("激活率");
 		expect(full.quantifiedStatements).toBeGreaterThan(0);
 		expect(full.hasBaseline).toBe(true);
+		expect(full.unrecognized).toBe(false);
 
-		const empty = analyzeChinaMarketJob(data, "岗位描述没有命中词表的关键词");
+		const empty = analyzeChinaMarketJob(data, "");
 		expect(empty.required).toEqual([]);
 		expect(empty.hits).toEqual([]);
-		expect(empty.notRequired).toHaveLength(10);
 		expect(empty.hasBaseline).toBe(false);
+		expect(empty.unrecognized).toBe(false);
+
+		// A non-empty JD used to hide the whole report when no design word matched. It must say so.
+		const unrecognized = analyzeChinaMarketJob(data, "负责部门日常事务协调与沟通");
+		expect(unrecognized.required).toEqual([]);
+		expect(unrecognized.hasBaseline).toBe(true);
+		expect(unrecognized.unrecognized).toBe(true);
+	});
+
+	it("reads engineering and state-owned JDs instead of reducing them to design words", () => {
+		const data = applyChinaMarketScene(master(), "soe");
+		const engineering = analyzeChinaMarketJob(data, "熟悉 React、TypeScript、微服务、高并发与性能优化，本科及以上");
+		expect(engineering.required).toContain("微服务");
+		expect(engineering.required).toContain("高并发");
+		expect(engineering.required).toContain("React");
+		expect(engineering.required).toContain("TypeScript");
+		expect(engineering.required).not.toContain("可用性测试");
+		expect(engineering.misses).toContain("React");
+
+		// The 12 scene-only master fields now reach the keyword engine.
+		const soe = analyzeChinaMarketJob(data, "中共党员优先，熟悉公文写作与党建，CET-6，须通过行政职业能力测验");
+		expect(soe.hits).toContain("中共党员");
+		expect(soe.hits).toContain("CET-6");
+		expect(soe.misses).toContain("公文写作");
+		expect(soe.unrecognized).toBe(false);
+	});
+
+	it("does not split a dictionary term into a second Latin keyword", () => {
+		expect(extractChinaMarketKeywords("要求 A/B 测试、CET-6 与 Figma")).toEqual(["A/B 测试", "Figma", "CET-6"]);
+		// Chinese JDs write "B 端" and "B端" interchangeably; whitespace must not decide a hit.
+		expect(extractChinaMarketKeywords("负责B端后台与前端开发")).toContain("B 端");
+	});
+
+	it("never hands the author a fabricated achievement", () => {
+		const data = applyChinaMarketScene(master(), "market");
+		const analysis = analyzeChinaMarketJob(data, "要求：设计系统、Figma、用户研究、A/B 测试");
+		const rewrites = analysis.suggestions.map((item) => item.rewrite).join(" ");
+		expect(rewrites).not.toContain("32%");
+		expect(rewrites).not.toContain("78%");
+		expect(rewrites).not.toContain("激活率");
+		expect(analysis.suggestions.find((item) => item.keyword === "A/B 测试")?.rewrite).toContain("{N}");
+		expect(analysis.suggestions.find((item) => item.keyword === "A/B 测试")?.rewrite).toContain("{X}");
+	});
+});
+
+describe("platform form values", () => {
+	it("keeps pure email fields pure and combined contact rows combined", () => {
+		const boss = mapChinaMarketPlatform(master(), "boss");
+		expect(boss.rows.find((row) => row.field === "邮箱")?.value).toBe("chen@example.com");
+
+		const zhilian = mapChinaMarketPlatform(master(), "zhilian");
+		const contact = zhilian.rows.find((row) => row.master === "手机 / 邮箱")?.value ?? "";
+		expect(contact).toContain("138 0000 0000");
+		expect(contact).toContain("chen@example.com");
+	});
+
+	it("exports prose the author can paste, not notes about how to write", () => {
+		const boss = mapChinaMarketPlatform(master(), "boss");
+		const experience = boss.rows.find((row) => row.master === "工作经历")?.value ?? "";
+		expect(experience).toContain("云图科技");
+		expect(experience).toContain("搭建设计系统");
+		expect(experience).toContain("78%");
+		expect(experience).not.toContain("<p>");
+
+		const projects = boss.rows.find((row) => row.master === "项目经历")?.value ?? "";
+		expect(projects).toContain("组织可用性测试");
+	});
+
+	it("never puts a job title into an upload-attachment field", () => {
+		const soe = mapChinaMarketPlatform(master(), "soe");
+		const row = soe.rows.find((item) => item.master === "附件简历");
+		expect(row?.status).toBe("manual");
+		expect(row?.value).not.toBe("高级产品设计师");
 	});
 });
 
@@ -246,6 +322,30 @@ describe("export naming", () => {
 	it("names the form hand-off separately from the PDF", () => {
 		expect(chinaMarketFormFileName(master(), "boss", "json")).toBe("陈嘉宁-BOSS直聘-表单字段.json");
 		expect(chinaMarketFormFileName(master(), "zhilian", "txt")).toBe("陈嘉宁-智联招聘-表单字段.txt");
+	});
+
+	it("never leaks the unfilled placeholder into a file name", () => {
+		const data = master();
+		data.sections.experience.items = [];
+		expect(chinaMarketFileName(data, "market")).toBe("陈嘉宁-高级产品设计师-工作年限.pdf");
+	});
+
+	it("is the name every export path uses, not a panel-only suggestion", () => {
+		const now = new Date("2026-01-01T00:00:00Z");
+		const data = applyChinaMarketScene(master(), "market");
+		const source = { name: "我的简历", slug: "my-resume", data };
+		expect(chinaMarketDefaultFileName(source, "resume", now)).toBe(chinaMarketFileBaseName(data, "market", now));
+		expect(chinaMarketDefaultFileName(source, "resume", now)).toBe("陈嘉宁-高级产品设计师-5 年");
+		expect(chinaMarketDefaultFileName(source, "cover-letter", now)).toBe("陈嘉宁-Cover-Letter");
+
+		// Blank resumes, legacy documents and cover letters keep upstream's localized name: renaming
+		// a document the author never tailored would be surprising.
+		const blank = master();
+		blank.basics.headline = "";
+		expect(chinaMarketDefaultFileName({ ...source, data: blank }, "resume", now)).toBe("陈嘉宁-Resume");
+		const legacy = master();
+		delete legacy.metadata.chinaMarket;
+		expect(chinaMarketDefaultFileName({ ...source, data: legacy }, "resume", now)).toBe("陈嘉宁-Resume");
 	});
 });
 
@@ -321,6 +421,25 @@ describe("platform form hand-off", () => {
 		expect(chinaMarketFormText(packet)).toContain("目标 JD：要求 Figma、设计系统");
 		expect(chinaMarketFormJson(packet)).toContain("要求 Figma、设计系统");
 		expect(chinaMarketFormText(chinaMarketFormPacket(master(), "boss", now))).not.toContain("目标 JD：");
+	});
+
+	it("carries the JD alignment conclusion in a version 2 packet", () => {
+		const data = setChinaMarketJobDescription(master(), "要求 Figma、微服务");
+		const packet = chinaMarketFormPacket(data, "boss", now);
+
+		expect(packet.version).toBe(2);
+		expect(packet.jobReport.hits).toContain("Figma");
+		expect(packet.jobReport.misses).toContain("微服务");
+		expect(chinaMarketFormText(packet)).toContain("【JD 关键词对齐】");
+		expect(chinaMarketFormJson(packet)).toContain('"jobReport"');
+	});
+
+	it("explains a JD with no recognizable keywords instead of dropping the report", () => {
+		const data = setChinaMarketJobDescription(master(), "负责部门日常事务协调与沟通");
+		const packet = chinaMarketFormPacket(data, "boss", now);
+
+		expect(packet.jobReport.unrecognized).toBe(true);
+		expect(chinaMarketFormText(packet)).toContain(CHINA_MARKET_HANDOFF_COPY.noKeywordsHint);
 	});
 
 	it("names exported files with Chinese characters intact", () => {

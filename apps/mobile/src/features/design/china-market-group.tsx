@@ -328,23 +328,30 @@ export function ChinaMarketGroup({ data, write, disabled }: ChinaMarketGroupProp
 					{CHINA_MARKET_HANDOFF_COPY.jdSavedHint}
 				</Text>
 				{analysis.hasBaseline ? (
-					<View style={{ gap: space.s1 }}>
+					analysis.unrecognized ? (
+						// A pasted JD with zero keywords must not silently hide the report, nor show "0 / 0".
 						<Text variant="caption" color="ink2">
-							{t`Matched`} {analysis.hits.length} / {analysis.required.length} · {t`Quantified statements`}{" "}
-							{analysis.quantifiedStatements}
+							{CHINA_MARKET_HANDOFF_COPY.noKeywordsHint}
 						</Text>
-						<Text variant="caption" color="ink2">
-							{t`Covered`}: {analysis.hits.join("、") || "—"}
-						</Text>
-						<Text variant="caption" color="ink2">
-							{t`Missing`}: {analysis.misses.join("、") || "—"}
-						</Text>
-						{analysis.suggestions.map(({ keyword, rewrite }) => (
-							<Text key={keyword} variant="caption" color="ink3">
-								{keyword}: {rewrite}
+					) : (
+						<View style={{ gap: space.s1 }}>
+							<Text variant="caption" color="ink2">
+								{t`Matched`} {analysis.hits.length} / {analysis.required.length} · {t`Quantified statements`}{" "}
+								{analysis.quantifiedStatements}
 							</Text>
-						))}
-					</View>
+							<Text variant="caption" color="ink2">
+								{t`Covered`}: {analysis.hits.join("、") || "—"}
+							</Text>
+							<Text variant="caption" color="ink2">
+								{t`Missing`}: {analysis.misses.join("、") || "—"}
+							</Text>
+							{analysis.suggestions.map(({ keyword, rewrite }) => (
+								<Text key={keyword} variant="caption" color="ink3">
+									{keyword}: {rewrite}
+								</Text>
+							))}
+						</View>
+					)
 				) : (
 					<Text variant="caption" color="ink3">
 						{t`Paste a JD and only the keywords it actually asks for count; a fixed word list never pads the denominator.`}

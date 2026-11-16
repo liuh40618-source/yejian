@@ -7,6 +7,7 @@ import { openBrowserAsync } from "expo-web-browser";
 import { useRef, useState } from "react";
 import { View } from "react-native";
 import { lintResumeForAts } from "@reactive-resume/resume/ats";
+import { chinaMarketDefaultFileName } from "@reactive-resume/resume/china-market";
 import { composeCoverLetter, createCoverLetterResumeData } from "@reactive-resume/resume/cover-letter";
 import { getDefaultFileName } from "@reactive-resume/utils/file";
 import { flushResume } from "./document";
@@ -31,8 +32,8 @@ export function DownloadTab({ resume, offline }: DownloadProps) {
 	);
 	const [withLetter, setWithLetter] = useState(false);
 	const [format, setFormat] = useState<ExportFormat>("pdf");
-	// Named like web's download, in the resume's own language: "Layla-Haddad-Lebenslauf".
-	const [name, setName] = useState(safeFileName(getDefaultFileName(resume)));
+	// China-market default: "姓名-岗位-工作年限" once a role is set, upstream's localized name otherwise.
+	const [name, setName] = useState(safeFileName(chinaMarketDefaultFileName(resume)));
 	const [busy, setBusy] = useState(false);
 	const [exportReady, setExportReady] = useState(false);
 	const active = useRef(false);

@@ -175,6 +175,7 @@ export type ChinaMarketFieldKey =
 	| "name"
 	| "phone"
 	| "email"
+	| "contact"
 	| "wechat"
 	| "city"
 	| "headline"
@@ -244,7 +245,7 @@ export const CHINA_MARKET_PLATFORMS = {
 			{ master: "性别", field: "性别", status: "auto", source: "gender" },
 			{ master: "籍贯", field: "户籍所在地", status: "auto", source: "nativePlace" },
 			{ master: "政治面貌", field: "政治面貌", status: "auto", source: "political" },
-			{ master: "手机 / 邮箱", field: "联系电话 · 电子邮箱", status: "auto", source: "email" },
+			{ master: "手机 / 邮箱", field: "联系电话 · 电子邮箱", status: "auto", source: "contact" },
 			{ master: "现居城市", field: "现居住地", status: "auto", source: "city" },
 			{ master: "教育背景", field: "最高学历 · 毕业院校 · 专业", status: "auto", source: "education" },
 			{ master: "英语", field: "语言能力 / 外语等级", status: "auto", source: "english" },
@@ -263,7 +264,7 @@ export const CHINA_MARKET_PLATFORMS = {
 		note: "字段与智联接近，多到岗时间、期望薪资与兴趣爱好。兴趣爱好属欧美简历遗留，主档不收，也不建议硬凑。",
 		rows: [
 			{ master: "姓名", field: "姓名", status: "auto", source: "name" },
-			{ master: "手机 / 邮箱", field: "联系电话 · 电子邮箱", status: "auto", source: "email" },
+			{ master: "手机 / 邮箱", field: "联系电话 · 电子邮箱", status: "auto", source: "contact" },
 			{ master: "现居城市", field: "现居住地", status: "auto", source: "city" },
 			{ master: "求职意向", field: "期望职位 · 工作地点", status: "auto", source: "intent" },
 			{ master: "期望薪资", field: "期望月薪", status: "auto", source: "salary" },
@@ -286,7 +287,7 @@ export const CHINA_MARKET_PLATFORMS = {
 			{ master: "性别", field: "性别", status: "auto", source: "gender" },
 			{ master: "籍贯", field: "籍贯 / 生源地", status: "auto", source: "nativePlace" },
 			{ master: "政治面貌", field: "政治面貌", status: "auto", source: "political" },
-			{ master: "手机 / 邮箱", field: "联系电话 · 电子邮箱", status: "auto", source: "email" },
+			{ master: "手机 / 邮箱", field: "联系电话 · 电子邮箱", status: "auto", source: "contact" },
 			{ master: "教育背景", field: "毕业院校 · 所学专业", status: "auto", source: "major" },
 			{ master: "成绩", field: "GPA / 专业排名", status: "auto", source: "gpa" },
 			{ master: "英语", field: "CET 等级及分数", status: "auto", source: "english" },
@@ -294,7 +295,12 @@ export const CHINA_MARKET_PLATFORMS = {
 			{ master: "学生干部", field: "学生工作 / 社会职务", status: "auto", source: "cadre" },
 			{ master: "实习经历", field: "实习实践经历", status: "auto", source: "experience" },
 			{ master: "荣誉", field: "奖惩情况", status: "auto", source: "awards" },
-			{ master: "附件简历", field: "上传附件", status: "auto", source: "headline" },
+			{
+				master: "附件简历",
+				field: "上传附件",
+				status: "manual",
+				note: "上传已导出的 PDF；命名建议见上方，勿用岗位标题代替文件",
+			},
 			{ master: "民族", field: "民族", status: "manual", note: "网申必填，主档不采集" },
 			{ master: "出生年月", field: "出生年月", status: "manual", note: "网申必填，主档不采集" },
 			{ master: "身份证号", field: "证件类型 / 证件号码", status: "manual", note: "敏感字段，不进主档，现场手填" },
@@ -307,8 +313,15 @@ export const CHINA_MARKET_PLATFORMS = {
 	{ label: string; note: string; rows: readonly ChinaMarketPlatformRow[] }
 >;
 
-/** Chinese ATS scores JD keyword consistency and quantified outcomes, not prose adjectives. */
+/**
+ * A cross-industry dictionary of JD terms we can name explicitly. It is a floor, not a ceiling:
+ * `extractChinaMarketKeywords()` also reads Latin-script skill tokens (React, Spring Boot, CET-6)
+ * straight out of the pasted JD, so an engineering or state-owned posting is not silently reduced
+ * to the handful of product-design words this list started with. Keep the first ten in their
+ * original order — saved reports and tests rely on that ordering.
+ */
 export const CHINA_MARKET_KEYWORDS = [
+	// Product / design — the original list.
 	"设计系统",
 	"用户研究",
 	"A/B 测试",
@@ -319,19 +332,65 @@ export const CHINA_MARKET_KEYWORDS = [
 	"本科",
 	"跨部门协作",
 	"可用性测试",
+	// Education / identity.
+	"硕士",
+	"博士",
+	"应届生",
+	"中共党员",
+	"CET-4",
+	"CET-6",
+	"学生干部",
+	"核心课程",
+	// Engineering.
+	"前端",
+	"后端",
+	"全栈",
+	"架构设计",
+	"性能优化",
+	"微服务",
+	"分布式",
+	"数据结构",
+	"高并发",
+	"自动化测试",
+	"持续集成",
+	"代码评审",
+	"技术选型",
+	"可视化",
+	"小程序",
+	// Product / operations.
+	"产品经理",
+	"需求分析",
+	"用户增长",
+	"竞品分析",
+	"项目管理",
+	"业务流程",
+	"数据驱动",
+	// State-owned / civil service.
+	"公文写作",
+	"党建",
+	"干部履历",
+	"组织谈话",
+	"政治理论",
+	"行政职业能力",
+	"事业单位",
 ] as const;
 
+/**
+ * Rewrite hints are TEMPLATES, never ready-made achievements. The old values quoted concrete
+ * numbers from the sample persona, which invited users to invent credentials. Every `{…}` slot
+ * has to be filled from the author's own work; terms without an entry get a generic hint instead.
+ */
 export const CHINA_MARKET_REWRITES: Readonly<Record<string, string>> = {
-	设计系统: "搭建被 6 个产品团队共用的设计系统，组件复用率 32% → 78%，UI 评审耗时缩短 40%。",
-	用户研究: "主导 12 场用户研究与深访，输出结论驱动新用户引导改版，激活率 31% → 44%。",
-	"A/B 测试": "分 3 组 A/B 验证引导路径，激活率 +13pp，方案沿用至今。",
-	数据分析: "基于 SQL 与行为数据定位漏斗流失点，重构后任务完成时长下降 26%。",
-	团队管理: "带 4 人设计小组交付 3 条 B 端产品线，需求按期交付率 96%。",
-	Figma: "以 Figma 建立组件库与规范，沉淀 148 个组件、22 条设计规范。",
-	"B 端": "负责 3 条 B 端产品线的商家后台与权限体系设计，覆盖 6 个产品团队。",
-	本科: "同济大学 工业设计 本科（2013.09 – 2017.06），GPA 3.7 / 4.0。",
-	跨部门协作: "与产品、研发、客服 3 个部门协作推进重构，客服相关工单减少 18%。",
-	可用性测试: "组织可用性测试并输出 WCAG 2.1 AA 无障碍规范，覆盖 Web 与移动端。",
+	设计系统: "写清负责的组件范围与复用情况，补一条可核对的数据，例如「组件复用率从 {A}% 提升到 {B}%」。",
+	用户研究: "写明访谈/测试场次与由此产生的改动，例如「主导 {N} 场用户研究，推动 {某功能} 改版」。",
+	"A/B 测试": "写明分组方式、核心指标与结论，例如「分 {N} 组验证 {某路径}，{指标} 变化 {X}」。",
+	数据分析: "写明数据来源、定位的问题与改动效果，例如「基于 {数据} 定位 {问题}，改动后 {指标} 变化 {X}」。",
+	团队管理: "写明团队规模、负责范围与交付结果，例如「带 {N} 人团队交付 {项目}，按期交付率 {X}%」。",
+	Figma: "写明建立的规范或组件库规模，例如「用 Figma 沉淀 {N} 个组件与 {M} 条规范」。",
+	"B 端": "写明负责的业务系统与用户角色，例如「负责 {系统} 的 {模块}，服务 {角色/团队}」。",
+	本科: "按学信网登记信息如实填写院校、专业全称、起止时间与学历，不要缩写专业名称。",
+	跨部门协作: "写明协作方、你承担的部分与结果，例如「与 {部门} 协作推进 {事项}，{指标} 变化 {X}」。",
+	可用性测试: "写明测试场次、发现的问题与修复范围，例如「组织 {N} 场可用性测试，修复 {问题}」。",
 };
 
 /** Deliberate non-goals. Kept in code so the UI can show them instead of growing the schema. */
@@ -362,22 +421,9 @@ export const CHINA_MARKET_HANDOFF_COPY = {
 	textHint: "按「可直接粘贴 / 需补齐 / 需人工」分段的纯文本，逐项贴进平台表单。",
 	disclaimer: "页见只导出字段，不自动填写、不提交任何平台表单。",
 	jdSavedHint: "JD 随简历主档保存，刷新后不会丢失，导出字段包时一并带上。",
+	noKeywordsHint:
+		"未从这段 JD 里识别到可对齐的关键词。粘贴更完整的岗位职责，或直接在主档里使用 JD 的原词；页见不会替你编造经历。",
 	copyFailed: "无法复制到剪贴板，请重试。",
 	copied: "字段已复制",
 	exportFailed: "无法导出字段文件，请重试。",
 } as const;
-
-/** What changed relative to the upstream Western sample. Shown as a comparison in the builder. */
-export const CHINA_MARKET_DIFF: readonly [string, string, string][] = [
-	["样例人物", "David Kowalski · Seattle, WA", "陈嘉宁 · 上海"],
-	["联系方式", "+1 (555) · LinkedIn · itch.io", "手机号 · 微信 · 邮箱 · 现居城市"],
-	["教育字段", "University of Washington · 3.6 GPA", "同济大学 · GPA 3.7 · CET-6 · 核心课程"],
-	[
-		"默认章节",
-		"summary → profiles → experience → … → references",
-		"求职意向 → 经历 → 项目 → 教育 → 技能（按场景重排）",
-	],
-	["文档语言", "en-US · IBM Plex Serif · short 日期", "zh-CN · 思源宋体 · 中文日期"],
-	["导出命名", "David-Kowalski-简历.pdf", "姓名-应聘岗位-工作年限.pdf"],
-	["ATS 检查", "识别中文简历文本", "按 JD 对齐关键词 + 量化成果提示"],
-];

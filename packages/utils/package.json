@@ -11,6 +11,7 @@
 		"./brand": "./src/brand.ts",
 		"./color": "./src/color.ts",
 		"./file": "./src/file.ts",
+		"./file-name": "./src/file-name.ts",
 		"./form-fill": "./src/form-fill.ts",
 		"./http": "./src/http.ts",
 		"./link": "./src/link.ts",

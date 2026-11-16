@@ -326,23 +326,30 @@ export function ChinaMarketGroup() {
 				/>
 				<p className="text-[12px] text-ink-3">{CHINA_MARKET_HANDOFF_COPY.jdSavedHint}</p>
 				{analysis.hasBaseline ? (
-					<div className="grid gap-1 text-[13px]">
-						<p className="text-ink-2">
-							<Trans>Matched</Trans> {analysis.hits.length} / {analysis.required.length} ·{" "}
-							<Trans>Quantified statements</Trans> {analysis.quantifiedStatements}
+					analysis.unrecognized ? (
+						// A pasted JD with zero keywords must not silently hide the report, nor show "0 / 0".
+						<p className="rounded-sm bg-hover px-2 py-1.5 text-[13px] text-ink-2">
+							{CHINA_MARKET_HANDOFF_COPY.noKeywordsHint}
 						</p>
-						<p className="text-ink-2">
-							<Trans>Covered</Trans>: {analysis.hits.join("、") || "—"}
-						</p>
-						<p className="text-ink-2">
-							<Trans>Missing</Trans>: {analysis.misses.join("、") || "—"}
-						</p>
-						{analysis.suggestions.map(({ keyword, rewrite }) => (
-							<p key={keyword} className="text-[12px] text-ink-3">
-								{keyword}: {rewrite}
+					) : (
+						<div className="grid gap-1 text-[13px]">
+							<p className="text-ink-2">
+								<Trans>Matched</Trans> {analysis.hits.length} / {analysis.required.length} ·{" "}
+								<Trans>Quantified statements</Trans> {analysis.quantifiedStatements}
 							</p>
-						))}
-					</div>
+							<p className="text-ink-2">
+								<Trans>Covered</Trans>: {analysis.hits.join("、") || "—"}
+							</p>
+							<p className="text-ink-2">
+								<Trans>Missing</Trans>: {analysis.misses.join("、") || "—"}
+							</p>
+							{analysis.suggestions.map(({ keyword, rewrite }) => (
+								<p key={keyword} className="text-[12px] text-ink-3">
+									{keyword}: {rewrite}
+								</p>
+							))}
+						</div>
+					)
 				) : (
 					<p className="text-[13px] text-ink-3">
 						<Trans>

@@ -11,8 +11,10 @@ import type {
 } from "@reactive-resume/schema/resume/china-market";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { Template } from "@reactive-resume/schema/templates";
+import type { FileNameTarget } from "@reactive-resume/utils/file-name";
 import type { FormFillPlan } from "@reactive-resume/utils/form-fill";
 import {
+	CHINA_MARKET_HANDOFF_COPY,
 	CHINA_MARKET_KEYWORDS,
 	CHINA_MARKET_PLATFORMS,
 	CHINA_MARKET_REWRITES,
@@ -20,6 +22,7 @@ import {
 	defaultChinaMarket,
 	resolveChinaMarketStyle,
 } from "@reactive-resume/schema/resume/china-market";
+import { getDefaultFileName, sanitizeFileName } from "@reactive-resume/utils/file-name";
 import { stripHtml } from "@reactive-resume/utils/string";
 
 /**
@@ -168,36 +171,106 @@ const collectText = (value: unknown, depth = 0): string[] => {
 	return [];
 };
 
+/**
+ * Everything a keyword engine could see, including the 12 scene-only master fields. Those used to
+ * be invisible here, so a JD asking for CET-6 or 政治面貌 could never score a hit even when the
+ * author had filled them in. The JD itself is deliberately excluded — it would match itself.
+ */
 export const chinaMarketPlainText = (data: ResumeData): string =>
 	collectText({
 		basics: data.basics,
 		summary: data.summary,
 		sections: data.sections,
 		customSections: data.customSections,
+		profile: chinaMarketOf(data).profile,
 	})
 		.join(" ")
 		.replace(/\s+/g, " ");
 
 export type ChinaMarketJobAnalysis = {
-	/** Only keywords the JD actually asks for count towards the denominator. */
+	/** Keywords the JD actually asks for: dictionary terms plus Latin-script skill tokens. */
 	required: readonly string[];
 	hits: readonly string[];
 	misses: readonly string[];
-	notRequired: readonly string[];
 	/** How many number/percentage expressions the resume contains — a proxy for quantified outcomes. */
 	quantifiedStatements: number;
 	suggestions: readonly { keyword: string; rewrite: string }[];
+	/** A JD was pasted, so the report renders even when zero keywords were recognised. */
 	hasBaseline: boolean;
+	/** A non-empty JD produced no keyword at all; the UI says so instead of hiding the block. */
+	unrecognized: boolean;
 };
+
+/** Latin-script skill tokens in a Chinese JD: React, Spring Boot, CET-6, ATS, TypeScript… */
+const LATIN_TERM = /[A-Za-z][A-Za-z0-9+#./-]{1,}/g;
+const GENERIC_LATIN = new Set([
+	"jd",
+	"hr",
+	"cv",
+	"etc",
+	"and",
+	"the",
+	"with",
+	"for",
+	"or",
+	"of",
+	"in",
+	"to",
+	"on",
+	"at",
+	"by",
+	"as",
+	"is",
+	"are",
+	"be",
+	"we",
+	"you",
+	"your",
+	"it",
+	"its",
+	"will",
+	"can",
+	"from",
+	"that",
+	"this",
+	"not",
+	"no",
+	"an",
+	"eg",
+	"ie",
+	"plus",
+]);
+const MAX_JD_KEYWORDS = 24;
+
+/** Chinese JDs write "B 端" and "B端" interchangeably; whitespace must not decide a hit. */
+const normalizeTerm = (text: string) => text.toLowerCase().replace(/\s+/g, "");
+const includesTerm = (text: string, term: string) => normalizeTerm(text).includes(normalizeTerm(term));
+
+/**
+ * The denominator comes from the JD, not from the dictionary. A fixed ten-word design list used to
+ * make a Java posting report "命中 1 / 1" (only 本科 matched) or hide the report entirely for a
+ * state-owned posting. Dictionary hits keep their stable order; Latin tokens follow the JD's order.
+ */
+export const extractChinaMarketKeywords = (jobDescription: string): string[] => {
+	const jd = jobDescription ?? "";
+	const dictionary = CHINA_MARKET_KEYWORDS.filter((keyword) => includesTerm(jd, keyword));
+	const covered = new Set(dictionary.map((keyword) => keyword.toLowerCase()));
+	const latin = [...new Set((jd.match(LATIN_TERM) ?? []).map((token) => token.replace(/[./+-]+$/, "")))]
+		.filter((token) => token.length >= 2 && !GENERIC_LATIN.has(token.toLowerCase()))
+		// "A/B 测试" already matched the dictionary; its "A/B" fragment is not a second keyword.
+		.filter((token) => !covered.has(token.toLowerCase()) && !dictionary.some((word) => includesTerm(word, token)));
+	return [...dictionary, ...latin].slice(0, MAX_JD_KEYWORDS);
+};
+
+const genericRewrite = (keyword: string) =>
+	`在经历或技能里如实写出「${keyword}」，并补一条可核对的量化结果；没有相关经历就不要硬凑。`;
 
 export const analyzeChinaMarketJob = (data: ResumeData, jobDescription: string): ChinaMarketJobAnalysis => {
 	const jd = jobDescription ?? "";
 	const text = chinaMarketPlainText(data);
-	// The denominator is the JD's required keywords, never the fixed word list.
-	const required = CHINA_MARKET_KEYWORDS.filter((keyword) => jd.includes(keyword));
-	const hits = required.filter((keyword) => text.includes(keyword));
-	const misses = required.filter((keyword) => !text.includes(keyword));
-	const notRequired = CHINA_MARKET_KEYWORDS.filter((keyword) => !jd.includes(keyword));
+	const required = extractChinaMarketKeywords(jd);
+	const hits = required.filter((keyword) => includesTerm(text, keyword));
+	const misses = required.filter((keyword) => !includesTerm(text, keyword));
 	const quantifiedStatements = (text.match(/\d+(?:\.\d+)?\s*(?:%|％|pp|个|人|场|条|次|万|K|年|月|天|倍)/g) ?? [])
 		.length;
 
@@ -205,10 +278,13 @@ export const analyzeChinaMarketJob = (data: ResumeData, jobDescription: string):
 		required,
 		hits,
 		misses,
-		notRequired,
 		quantifiedStatements,
-		suggestions: misses.map((keyword) => ({ keyword, rewrite: CHINA_MARKET_REWRITES[keyword] ?? "" })),
-		hasBaseline: required.length > 0,
+		suggestions: misses.map((keyword) => ({
+			keyword,
+			rewrite: CHINA_MARKET_REWRITES[keyword] ?? genericRewrite(keyword),
+		})),
+		hasBaseline: jd.trim().length > 0,
+		unrecognized: jd.trim().length > 0 && required.length === 0,
 	};
 };
 
@@ -218,13 +294,20 @@ const visibleItems = <T extends { hidden: boolean }>(items: readonly T[]): reado
 const joinNonEmpty = (values: readonly (string | undefined)[], separator = " · ") =>
 	values.filter((value): value is string => Boolean(value && value.trim())).join(separator);
 
-const firstEducation = (data: ResumeData) => visibleItems(data.sections.education.items)[0];
+/** Rich-text descriptions are HTML; a form field needs the words, not the markup. */
+const plain = (html: string | undefined) =>
+	stripHtml(html ?? "")
+		.replace(/\s+/g, " ")
+		.trim();
+
+// Stored documents can predate a section; a file name must never 500 on a legacy record.
+const firstEducation = (data: ResumeData) => visibleItems(data.sections?.education?.items ?? [])[0];
 
 const earliestExperienceYear = (data: ResumeData): number | undefined => {
-	const years = visibleItems(data.sections.experience.items)
+	const years = visibleItems(data.sections?.experience?.items ?? [])
 		.flatMap((item) => [...item.period.matchAll(/(?:19|20)\d{2}/g)].map((match) => Number(match[0])))
 		.concat(
-			visibleItems(data.customSections)
+			visibleItems(data.customSections ?? [])
 				.filter((section) => section.type === "experience")
 				.flatMap((section) =>
 					section.items.flatMap((item) =>
@@ -239,7 +322,7 @@ const earliestExperienceYear = (data: ResumeData): number | undefined => {
 
 const workYears = (data: ResumeData, now = new Date()): string => {
 	const year = earliestExperienceYear(data);
-	return year ? `${Math.max(0, now.getFullYear() - year)} 年` : "（主档未填）";
+	return year ? `${Math.max(0, now.getFullYear() - year)} 年` : CHINA_MARKET_UNFILLED;
 };
 
 const resolveMasterField = (data: ResumeData, key: ChinaMarketFieldKey, now?: Date): string => {
@@ -253,6 +336,9 @@ const resolveMasterField = (data: ResumeData, key: ChinaMarketFieldKey, now?: Da
 		case "phone":
 			return basics.phone;
 		case "email":
+			return basics.email;
+		/** Combined "phone / email" rows only; a pure email field must never receive a phone number. */
+		case "contact":
 			return joinNonEmpty([basics.phone, basics.email]);
 		case "wechat":
 			return profile.wechat;
@@ -286,10 +372,30 @@ const resolveMasterField = (data: ResumeData, key: ChinaMarketFieldKey, now?: Da
 			return profile.courses;
 		case "education":
 			return joinNonEmpty([school?.degree, school?.school, school?.area, school?.period]);
+		/**
+		 * The form hand-off must carry the actual prose to paste, not a count like "3 段，倒序 + 量化成果".
+		 * A platform field asking for work content cannot be filled with a note about how to write it.
+		 */
 		case "experience":
-			return `${visibleItems(sections.experience.items).length} 段，倒序 + 量化成果`;
+			return visibleItems(sections.experience.items)
+				.map((item) =>
+					joinNonEmpty(
+						[
+							joinNonEmpty([item.company, item.position], " / "),
+							item.period,
+							plain(item.description),
+							...item.roles.map((role) => joinNonEmpty([role.position, role.period, plain(role.description)], "，")),
+						],
+						"，",
+					),
+				)
+				.filter(Boolean)
+				.join("；");
 		case "projects":
-			return `${visibleItems(sections.projects.items).length} 个`;
+			return visibleItems(sections.projects.items)
+				.map((item) => joinNonEmpty([item.name, item.period, plain(item.description)], "，"))
+				.filter(Boolean)
+				.join("；");
 		case "skills":
 			return visibleItems(sections.skills.items)
 				.flatMap((item) => [item.name, ...item.keywords])
@@ -355,21 +461,31 @@ export type ChinaMarketFormField = {
 	note: string;
 };
 
+/** The alignment conclusion travels with the packet: a receiver must see what the answers target. */
+export type ChinaMarketJobReport = {
+	required: readonly string[];
+	hits: readonly string[];
+	misses: readonly string[];
+	quantifiedStatements: number;
+	unrecognized: boolean;
+};
+
 /**
- * The hand-off artifact for the online form — the deliverable that was previously only rendered as a
- * read-only preview. It carries the persisted JD so the receiver can see what the answers target, and
- * a `fillPlanFields` array shaped exactly like the upstream browser helper's `FormFillPlan["fields"]`.
+ * The hand-off artifact for the online form — previously only a read-only preview. It carries the
+ * persisted JD, its alignment conclusion and a `fillPlanFields` array shaped exactly like the
+ * upstream browser helper's `FormFillPlan["fields"]`.
  *
  * It deliberately does NOT pretend to auto-fill: Chinese platforms have no verified helper build yet,
  * and no destination URL is stored here. `chinaMarketFillPlan()` requires a caller-supplied exact URL.
  */
 export type ChinaMarketFormPacket = {
 	format: "yejian-china-market-form-packet";
-	version: 1;
+	version: 2;
 	platform: ChinaMarketPlatform;
 	platformLabel: string;
 	generatedAt: string;
 	jobDescription: string;
+	jobReport: ChinaMarketJobReport;
 	fields: readonly ChinaMarketFormField[];
 	fillPlanFields: FormFillPlan["fields"];
 	autoCount: number;
@@ -383,6 +499,8 @@ export const chinaMarketFormPacket = (
 	now: Date = new Date(),
 ): ChinaMarketFormPacket => {
 	const mapped = mapChinaMarketPlatform(data, platform, now);
+	const jd = chinaMarketJobDescription(data);
+	const analysis = analyzeChinaMarketJob(data, jd);
 	const fields: ChinaMarketFormField[] = mapped.rows.map((row) => ({
 		field: row.field,
 		master: row.master,
@@ -398,11 +516,18 @@ export const chinaMarketFormPacket = (
 
 	return {
 		format: "yejian-china-market-form-packet",
-		version: 1,
+		version: 2,
 		platform,
 		platformLabel: mapped.label,
 		generatedAt: now.toISOString(),
-		jobDescription: chinaMarketJobDescription(data),
+		jobDescription: jd,
+		jobReport: {
+			required: analysis.required,
+			hits: analysis.hits,
+			misses: analysis.misses,
+			quantifiedStatements: analysis.quantifiedStatements,
+			unrecognized: analysis.unrecognized,
+		},
 		fields,
 		fillPlanFields,
 		autoCount: mapped.autoCount,
@@ -416,6 +541,17 @@ export const chinaMarketFormText = (packet: ChinaMarketFormPacket): string => {
 	const lines = [`${packet.platformLabel} · 平台在线表单字段`, `生成时间：${packet.generatedAt}`];
 	if (packet.jobDescription.trim()) lines.push(`目标 JD：${packet.jobDescription.trim()}`);
 	lines.push("");
+	if (packet.jobReport?.required.length) {
+		const { hits, required, misses, quantifiedStatements } = packet.jobReport;
+		lines.push(
+			`【JD 关键词对齐】命中 ${hits.length} / ${required.length} · 量化表述 ${quantifiedStatements}`,
+			`已命中：${hits.join("、") || "—"}`,
+			`缺失：${misses.join("、") || "—"}`,
+			"",
+		);
+	} else if (packet.jobReport?.unrecognized) {
+		lines.push(`【JD 关键词对齐】${CHINA_MARKET_HANDOFF_COPY.noKeywordsHint}`, "");
+	}
 
 	const section = (
 		title: string,
@@ -471,8 +607,11 @@ export const chinaMarketFillPlan = (packet: ChinaMarketFormPacket, targetUrl: st
 
 const safe = (value: string) => value.replace(/[\\/:*?"<>|]/g, "-").trim() || "未命名";
 
-/** China-market export names carry the role, not just the person: 姓名-应聘岗位-工作年限.pdf. */
-export const chinaMarketFileName = (data: ResumeData, scene: ChinaMarketScene, now?: Date): string => {
+/**
+ * China-market export names carry the role, not just the person. Kept extension-free so the same
+ * base feeds PDF, DOCX, the download sheet's editable name field and server-side exports alike.
+ */
+export const chinaMarketFileBaseName = (data: ResumeData, scene: ChinaMarketScene, now?: Date): string => {
 	const { basics } = data;
 	const profile = chinaMarketOf(data).profile;
 	const school = firstEducation(data);
@@ -480,12 +619,42 @@ export const chinaMarketFileName = (data: ResumeData, scene: ChinaMarketScene, n
 	const role = safe(basics.headline || "应聘岗位");
 
 	if (scene === "campus") {
-		return `${name}-${safe(school?.school || "学校")}-${safe(school?.area || "专业")}-${role}.pdf`;
+		return `${name}-${safe(school?.school || "学校")}-${safe(school?.area || "专业")}-${role}`;
 	}
 	if (scene === "soe") {
-		return `${name}-${role}-${safe(profile.political || "政治面貌")}-${safe(school?.school || "学校")}.pdf`;
+		return `${name}-${role}-${safe(profile.political || "政治面貌")}-${safe(school?.school || "学校")}`;
 	}
-	return `${name}-${role}-${safe(workYears(data, now) || "工作年限")}.pdf`;
+	// `workYears` returns a human-facing placeholder for an unfilled master. A file name must never
+	// contain "（主档未填）"; say what the segment will hold instead.
+	const years = workYears(data, now);
+	return `${name}-${role}-${safe(years === CHINA_MARKET_UNFILLED ? "工作年限" : years)}`;
+};
+
+export const chinaMarketFileName = (data: ResumeData, scene: ChinaMarketScene, now?: Date): string =>
+	`${chinaMarketFileBaseName(data, scene, now)}.pdf`;
+
+/**
+ * The fork's actual default export name, used by every export path (builder, download sheet and API).
+ * Upstream's "Name-Resume" stays for cover letters, legacy documents and blank resumes with no
+ * target role: renaming a document the author never tailored would be surprising. Once a name and a
+ * 岗位 are set, a Chinese recruiter's inbox needs "姓名-岗位-工作年限" instead of a generic suffix.
+ */
+export const chinaMarketDefaultFileName = (
+	source: { name: string; slug?: string | null; data: ResumeData },
+	target: FileNameTarget = "resume",
+	now?: Date,
+): string => {
+	const upstream = getDefaultFileName(source, target);
+	const { data } = source;
+	if (
+		target === "cover-letter" ||
+		!data.metadata?.chinaMarket ||
+		!data.basics?.name?.trim() ||
+		!data.basics.headline?.trim()
+	) {
+		return upstream;
+	}
+	return sanitizeFileName(chinaMarketFileBaseName(data, chinaMarketOf(data).scene, now));
 };
 
 /** The form hand-off is a separate deliverable from the PDF, so it gets its own name and extension. */

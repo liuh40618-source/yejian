@@ -2,6 +2,7 @@ import type { ResumeExportTarget } from "@reactive-resume/resume/export-sections
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import { t } from "@lingui/core/macro";
 import { useState } from "react";
+import { chinaMarketDefaultFileName } from "@reactive-resume/resume/china-market";
 import { getResumeExportData } from "@reactive-resume/resume/export-sections";
 import { buildMarkdown } from "@reactive-resume/resume/markdown";
 import { toast } from "@reactive-resume/ui/components/toast";
@@ -33,6 +34,9 @@ type ExportOptions = {
 export type ExportFormat = "pdf" | "docx" | "odt" | "md" | "json";
 
 export { getDefaultFileName, sanitizeFileName };
+
+/** Resume attachments carry the China-market role/scene name; cover letters keep upstream naming. */
+export const defaultResumeFileName = (resume: ExportableResume) => chinaMarketDefaultFileName(resume);
 
 // The file still downloads, with "?" for each character no font can draw.
 const warnLostCharacters = (characters: string[]) =>
@@ -100,7 +104,7 @@ export function useResumeExport(resume: ExportableResume) {
 		setIsExporting(true);
 		try {
 			const blob = await createExportFile(resume, "pdf");
-			downloadWithAnchor(blob, `${getDefaultFileName(resume)}.pdf`);
+			downloadWithAnchor(blob, `${defaultResumeFileName(resume)}.pdf`);
 		} catch (error) {
 			toast.add({
 				type: "error",

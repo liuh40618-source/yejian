@@ -21,7 +21,7 @@ import { useCurrentResume } from "@/features/resume/builder/draft";
 import { useOpenIssueCount } from "@/features/resume/editor/check/use-check";
 import {
 	createExportFile,
-	getDefaultFileName,
+	defaultResumeFileName,
 	preloadDocumentExport,
 	sanitizeFileName,
 } from "@/features/resume/export/use-resume-export";
@@ -259,11 +259,11 @@ export function DownloadTab({ onReview }: DownloadTabProps) {
 
 	const formats = getExportFormats();
 	const selected = formats.find((option) => option.id === format) ?? (formats[0] as DownloadFormat);
-	const name = fileName ?? getDefaultFileName(resume);
+	const name = fileName ?? defaultResumeFileName(resume);
 
 	const download = async (as: ExportFormat) => {
 		const extension = formats.find((option) => option.id === as)?.extension ?? ".pdf";
-		const file = `${sanitizeFileName(name) || getDefaultFileName(resume)}${extension}`;
+		const file = `${sanitizeFileName(name) || defaultResumeFileName(resume)}${extension}`;
 		const letterId = withLetter ? linkedLetter?.id : undefined;
 		setState("busy");
 		try {
