@@ -121,6 +121,7 @@ pnpm dev
 | [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md)                 | 全量回归证据、分叉清单、环境债、复现命令                               |
 | [`LAUNCH-CHECKLIST.md`](LAUNCH-CHECKLIST.md)                               | 上线前检查：配置、法务（隐私政策必备条款）、运维、上线顺序             |
 | [`REPORT.md`](REPORT.md)                                                   | 2026-11 三轮迭代报告：改了什么、证据、边界、遗留项                     |
+| [`REAL-USER-WALKTHROUGH.md`](REAL-USER-WALKTHROUGH.md)                     | 真实用户走查记录：逐步耗时、发现的缺陷、修法与验证、未改项与原因       |
 | [`NOTICE.md`](NOTICE.md)                                                   | 归属与版权声明                                                         |
 | [`LICENSE`](LICENSE)                                                       | 上游 MIT 许可原文（保留，不得修改）                                    |
 | `docs/spec.json`                                                           | OpenAPI 生成物；改 `package.json` 的 version 后需 `pnpm docs:gen` 重出 |
