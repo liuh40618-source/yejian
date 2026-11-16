@@ -147,13 +147,23 @@ return unspaced + spaced;
 | 撤销/重做、拖拽排序        | 未做断言（按钮存在）                            |
 | 面试对话框、Offer 对比计算 | 需要先有面试记录/Offer 数据                     |
 
+### 仓库自带的 70 个 e2e 用例跑不起来
+
+`tests/e2e/specs` 下有 70 个用例，其中 64 个按英文标签断言（`getByRole("button", { name: "Continue as guest" })`）。本仓把界面锁在中文，所以这批用例一律卡在第一步「找不到按钮」，而不是行为错。
+
+原因在 `apps/web/src/libs/locale.ts:36`：`resolveLocale` 只接受 `selectableLocales` 里的语言，而生产构建的 `selectableLocales = supportedLocales`，即只有 `zh-CN` 和 `zu-ZA` 两本 catalog（`apps/web/locales/`）。试过给浏览器上下文塞 `locale: "en-US"` 和 `locale=en-US` cookie，登录页仍然渲染「登录你的账号」「以访客身份继续」——因为 `en-US` 没有译文文件，第 98 行会退回 `defaultLocale` 的中文消息。
+
+要让这批用例能用，只有两条路：把断言换成中文标签，或补一本英文 catalog。在那之前，「浏览器 e2e 进 CI」这项不是环境问题，是缺语言资产。
+
+有 2 个用例不依赖标签，跑通了：`guest.spec.ts` 里两条纯 HTTP 的访客迁移用例（访客发布后登录已有账户、访客放弃 primary 后登录）均 **passed**。
+
 ---
 
 ## 5. 复现方式
 
 ```sh
-# 三个服务
-/d/pgrun/bin/pg_ctl -D /d/pgrun/data -o "-p 5433" -l /tmp/pg.log start
+# 三个服务。数据目录是 .pgdev2（.pgdev3 里有一份同端口的旧 postmaster.pid，是死进程留下的）
+cd /d/Deepseek/.pgdev2/pgdata && /d/pgrun/bin/postgres.exe -D /d/Deepseek/.pgdev2/pgdata -p 5433 -c listen_addresses=127.0.0.1
 pnpm exec dotenvx run -f .env.local -- pnpm exec tsx --tsconfig tsconfig.json apps/server/src/index.ts
 pnpm dev:web
 
@@ -161,4 +171,6 @@ pnpm dev:web
 cd apps/web && npx vp test run src/features/letters/length.test.ts
 ```
 
-浏览器脚本用完即删，关键选择器经验：设置页姓名是 **名/姓** 两栏（不是「姓名」）；投递对话框的阶段是 **radio**，切换后按钮文案会变；求职信正文要先点「我自己写的」才有 `contenteditable`；投递视图是 `role="tab"` 且仅在**有岗位时**出现。
+`pg_ctl start` 在本机的 Git Bash 里会随命令结束被回收（SIGTERM 连 postmaster 一起带走），所以数据库要用前台 `postgres.exe` 起，放到后台任务里挂着。
+
+浏览器脚本用完即删，关键选择器经验：设置页姓名是 **名/姓** 两栏（不是「姓名」）；投递对话框的阶段是 **radio**，切换后按钮文案会变；求职信正文现在**打开即可写**（`contenteditable` 常驻，不再需要先点「我自己写的」）；投递视图是 `role="tab"` 且仅在**有岗位时**出现。
