@@ -1,6 +1,9 @@
 name: Docker publish and deploy
-run-name: Docker ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && 'nightly' || github.event_name == 'workflow_dispatch' && !inputs.release && 'canary' || 'promotion' }} · ${{ github.ref_name }}
+run-name: Docker ${{ inputs.release && 'promotion' || 'canary' }} · ${{ github.ref_name }}
 
+# Fork: upstream runs this on every push to main and every v* tag against its own registry and
+# production host. Those credentials do not exist here, so the workflow is manual-only until you
+# configure a registry, secrets, and a deployment target of your own.
 on:
   workflow_dispatch:
     inputs:
@@ -8,11 +11,6 @@ on:
         description: Promote existing SHA image to latest and its package.json version tags, and redeploy production
         type: boolean
         default: false
-  push:
-    branches:
-      - main
-    tags:
-      - "v*"
 
 permissions: {}
 

@@ -2,7 +2,8 @@
 
 面向中国招聘市场的简历工具。基于 Reactive Resume `v6.0.10` 的二次创新（fork）。
 
-> **当前为私有仓库**：本地 git 已建立，未配置 remote、未推送。待项目完善后再决定公开发布。
+> **公开发布准备中**：本地 git 历史完整，基线提交可追溯到上游 `v6.0.10`，但尚未配置 remote。
+> 上传前请走一遍下文「公开发布前检查」，尤其是把 `.env.example` 的游客登录改回 `false`。
 
 页见不是「把英文简历工具翻成中文」。它把中国招聘市场的**双轨现实**当作产品前提：平台上的结构化在线简历由算法抓取、HR 无条件先看；附件 PDF 通常是建立沟通之后才看的补充材料。因此核心模型是
 
@@ -16,7 +17,7 @@
 | -------- | ---------------------------------------------------------------------------- |
 | 版本     | `0.1.0`                                                                      |
 | 上游基线 | Reactive Resume `v6.0.10`（MIT，Copyright (c) 2026 Amruth Pillai）           |
-| 可见性   | 私有，无 remote                                                              |
+| 可见性   | 本地仓库，无 remote（上传前检查见「公开发布前检查」）                        |
 | 界面语言 | 仅 `zh-CN`（另保留 Lingui 伪语言 `zu-ZA` 供测试）                            |
 | 定位     | 二次创新作品 / 可用内部工具：工程闭环已成型，主档 → 平台表单的人工交接已打通 |
 
@@ -109,17 +110,18 @@ pnpm dev
 
 - 隐私政策、用户协议、ICP 备案尚未提供；Mobile 设置与登录页的法务链接仍指向上游文档站。
 - 无手机号 / 短信登录；AI 功能全部 BYO-key，PDF / DOCX 导入在无 key 时会断。
-- 505 个中文字体尚未附带 SIL OFL 许可证文本（私有阶段不触发再分发义务，**公开前必须补**）。
+- 浏览器端 e2e（Playwright）不在本 fork 的 CI 里跑，本地执行见 `playwright.config.ts`。
 
 ## 文档
 
-| 文件                                                       | 内容                                                                   |
-| ---------------------------------------------------------- | ---------------------------------------------------------------------- |
-| [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md)                     | 上游 v6.0.10 真实文件级差异、基线方法、交付边界、基线提交脚本          |
-| [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md) | 全量回归证据、分叉清单、环境债、复现命令                               |
-| [`NOTICE.md`](NOTICE.md)                                   | 归属与版权声明                                                         |
-| [`LICENSE`](LICENSE)                                       | 上游 MIT 许可原文（保留，不得修改）                                    |
-| `docs/spec.json`                                           | OpenAPI 生成物；改 `package.json` 的 version 后需 `pnpm docs:gen` 重出 |
+| 文件                                                                       | 内容                                                                   |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| [`UPSTREAM-DIFF.md`](UPSTREAM-DIFF.md)                                     | 上游 v6.0.10 真实文件级差异、基线方法、交付边界、基线提交脚本          |
+| [`REGRESSION-UPSTREAM-GAP.md`](REGRESSION-UPSTREAM-GAP.md)                 | 全量回归证据、分叉清单、环境债、复现命令                               |
+| [`NOTICE.md`](NOTICE.md)                                                   | 归属与版权声明                                                         |
+| [`LICENSE`](LICENSE)                                                       | 上游 MIT 许可原文（保留，不得修改）                                    |
+| `docs/spec.json`                                                           | OpenAPI 生成物；改 `package.json` 的 version 后需 `pnpm docs:gen` 重出 |
+| [`apps/web/public/fonts/cn/README.md`](apps/web/public/fonts/cn/README.md) | 505 个中文字体的来源、分片方式与 SIL OFL 许可证位置                    |
 
 ## 归属与许可
 
@@ -127,4 +129,20 @@ pnpm dev
 本版新增与修改部分的版权归 `liuh40618-source`。详见 [`NOTICE.md`](NOTICE.md)。
 
 上游项目及其作者与本 fork 无关联，未为其背书或提供支持。文中指向上游仓库的链接仅用于溯源。
-本项目当前私有，不对外分发。
+
+中文字体以 SIL OFL 1.1 分发，许可证原文随 woff2 一并提供在
+`apps/web/public/fonts/cn/`，与本文档的 MIT 许可互不影响。
+
+## 公开发布前检查
+
+仓库已具备上传条件，但下面几项需要你自己决定或补齐：
+
+| 项           | 状态       | 说明                                                                                      |
+| ------------ | ---------- | ----------------------------------------------------------------------------------------- |
+| 字体许可证   | 已补齐     | 505 个 woff2 附带两份 OFL 原文，见 `apps/web/public/fonts/cn/`                            |
+| 游客登录     | **需改回** | `.env.example` 现为 `FLAG_ENABLE_GUEST_LOGIN="true"`；公开部署前改 `false` 并关注册       |
+| 法务页面     | 未提供     | 隐私政策、用户协议、ICP 备案；Mobile 法务链接仍指向上游文档站                             |
+| CI           | 已收窄     | 只跑 lint / format / typecheck / 单测；上游的浏览器、Cloudflare、Vercel、部署冒烟已移除   |
+| Docker 发布  | 改为手动   | 原 workflow 会在 push 时推上游镜像；现仅 `workflow_dispatch`，配好自己的 registry 再用    |
+| remote       | 未配置     | `git remote -v` 为空，需要你创建仓库后 `git remote add origin ...`                        |
+| 上游运营配置 | 已移除     | `autofix`、`issue-maintenance` 两个 workflow 与 `FUNDING.yml` 属上游仓库运营，fork 无意义 |

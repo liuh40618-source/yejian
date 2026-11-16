@@ -51,14 +51,18 @@ do not sponsor** this fork. Links to the upstream repository are for attribution
 
 ## Fonts
 
-Bundled webfonts are third-party assets with their own licenses. Upstream font
-license texts are kept alongside the fonts (for example `ibm-plex-mono-OFL.txt`).
-The SIL Open Font License texts for the bundled `Noto Sans SC` / `Noto Serif SC`
-subsets must be added before this project is published or otherwise distributed.
+Bundled webfonts are third-party assets with their own licenses. Font license texts
+are kept alongside the fonts: upstream ships e.g. `ibm-plex-mono-OFL.txt`, and the
+bundled `Noto Sans SC` / `Noto Serif SC` slices ship `OFL-noto-sans-sc.txt` and
+`OFL-noto-serif-sc.txt` in `apps/web/public/fonts/cn/`.
+
+The glyphs are unmodified. Only the per-unicode-range slicing produced by the
+Fontsource packages is used, so no Modified Version exists and the Reserved Font
+Name clause does not apply. Provenance is documented in that directory's `README.md`.
 
 ## Current status
 
-**Private.** This repository has no remote configured and has not been published.
-Legal obligations that apply only on distribution (notably font license texts and
-localized legal pages) are tracked in `UPSTREAM-DIFF.md` and will be resolved before
-any public release.
+Prepared for public release but not yet pushed: no remote is configured. Font license
+texts are in place. Localized legal pages (privacy policy, terms of service, ICP
+filing) are still missing and are tracked in `UPSTREAM-DIFF.md`; they must be written
+before a hosted instance accepts real users.
