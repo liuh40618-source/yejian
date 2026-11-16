@@ -5225,6 +5225,10 @@ msgstr "创建账号以连接应用。"
 msgid "Create an account to connect apps. Guest accounts are temporary."
 msgstr "创建账号以连接应用。游客账号是临时的。"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create an account to keep your resumes, cover letters and applications. A guest session ends with the browser."
+msgstr "创建账户即可保留你的简历、求职信和申请。游客会话会随浏览器结束而失效。"
+
 #: src/features/settings/ai/connected-apps.tsx
 msgid "Create and change documents, applications and your profile."
 msgstr "创建和修改文档、申请以及你的求职资料。"
@@ -5784,6 +5788,7 @@ msgstr "已断开「{name}」。"
 msgid "Disconnecting your {providerName} account…"
 msgstr "正在取消关联你的 {providerName} 账号…"
 
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/career/shared.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/features/settings/ai/next-steps.tsx
@@ -13907,12 +13912,6 @@ msgid "Sends the {0} posting to {1} to draft the body."
 msgstr "会把 {0} 的招聘信息发送给 {1} 以起草正文。"
 
 #. placeholder {0}: providerState.usableProviders[0]?.label
-#. placeholder {1}: providerState.usableProviders[0]?.model
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sends the linked resume, posting and letter details to {0} · {1}. Your provider may charge."
-msgstr "会把关联的简历、招聘信息和求职信详情发送给 {0} · {1}。你的服务商可能收费。"
-
-#. placeholder {0}: providerState.usableProviders[0]?.label
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Sends the posting text to {0} to read it."
 msgstr "会把招聘正文发送给 {0} 以进行读取。"
@@ -14845,34 +14844,6 @@ msgstr "从新的一页开始"
 #: src/features/ats-checker/messages.ts
 msgid "Start the resume with your name on its own line."
 msgstr "简历开头单独用一行写上你的姓名。"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting and your resume."
-msgstr "直接输入，或接入 AI 服务商，根据 {company} 的招聘信息和你的简历起草。"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting."
-msgstr "直接输入，或接入 AI 服务商，根据 {company} 的招聘信息起草。"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from your resume."
-msgstr "直接输入，或接入 AI 服务商，根据你的简历起草。"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from what we know: the {company} posting and your resume."
-msgstr "开始打字，或者根据我们所知道的内容起草：{company} 职位发布和你的简历。"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from what we know: the {company} posting."
-msgstr "开始打字，或者根据我们所知道的内容起草：{company} 职位发布。"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from what we know: your resume."
-msgstr "开始打字，或者根据我们所知道的内容起草：你的简历。"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing. To draft one, link a resume or an application first."
-msgstr "开始打字。要起草一份，请先链接简历或工作申请。"
 
 #: src/features/resume/editor/write/add-section.tsx
 msgid "Start with the sections most resumes have."
@@ -16461,6 +16432,10 @@ msgstr "到"
 msgid "To {recipient}"
 msgstr "致 {recipient}"
 
+#: src/routes/builder/letter/-components/write-panel.tsx
+msgid "To draft this body, link a resume or an application first."
+msgstr "要起草正文，请先关联一份简历或一个岗位。"
+
 #: src/libs/dnd.ts
 msgid "To pick it up, press Space or Enter. Use the arrow keys to move it, Space or Enter to drop it, or Escape to cancel."
 msgstr "按空格键或 Enter 键拿起。使用方向键移动，按空格键或 Enter 键放下，或按 Escape 键取消。"
@@ -17892,10 +17867,6 @@ msgstr "趁记忆犹新，写下来"
 msgid "Write it down while it’s fresh"
 msgstr "趁记忆犹新，写下来"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Write it myself"
-msgstr "我自己写的"
-
 #: src/features/career/workspace/practise.tsx
 msgid "Write numbers as digits"
 msgstr "用阿拉伯数字书写数字"
@@ -18531,10 +18502,6 @@ msgstr "网页设置已变更，未发送任何内容；请重试。"
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Your wording"
 msgstr "你的措辞"
-
-#: src/features/auth/components/guest-banner.tsx
-msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
-msgstr "退出登录或会话结束后，你的内容将会丢失。创建账户或登录即可保留你的简历、求职信和申请。"
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { Link, useRouteContext } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@reactive-resume/ui/components/alert";
 import { Button } from "@reactive-resume/ui/components/button";
 import { Icon } from "@reactive-resume/ui/components/icon";
@@ -11,6 +11,18 @@ import { toast } from "@reactive-resume/ui/components/toast";
 // survives provider redirects and two-step verification, which leave this page.
 const TRANSFER_KEY = "guest-transfer";
 const TRANSFER_MAX_AGE_MS = 60 * 60 * 1000;
+
+// A guest who has read the notice once shouldn't meet it again on every page: it asks for a decision, and repeating
+// it turns advice into an alarm. A new session says it again.
+const DISMISSED_KEY = "guest-notice-dismissed";
+
+const readDismissed = () => {
+	try {
+		return window.sessionStorage.getItem(DISMISSED_KEY) === "1";
+	} catch {
+		return false;
+	}
+};
 
 const readTransfer = () => {
 	try {
@@ -28,10 +40,14 @@ const writeTransfer = (startedAt: number | null) => {
 	}
 };
 
-/** Guests lose their work when the session ends, so the app says so and offers a way to keep it. */
+/**
+ * A guest's work ends with the session, so the app says so once and offers a way to keep it. It reads as advice,
+ * not a warning: the sentence leads with what an account keeps, and the notice can be dismissed.
+ */
 export function GuestBanner() {
 	const { session } = useRouteContext({ strict: false });
 	const isAnonymous = session?.user.isAnonymous;
+	const [dismissed, setDismissed] = useState(readDismissed);
 
 	useEffect(() => {
 		if (isAnonymous === undefined) return;
@@ -43,24 +59,33 @@ export function GuestBanner() {
 			toast.add({ type: "success", description: t`Your guest documents and applications are in this account.` });
 	}, [isAnonymous]);
 
-	if (!isAnonymous) return null;
+	if (!isAnonymous || dismissed) return null;
+
+	const dismiss = () => {
+		setDismissed(true);
+		try {
+			window.sessionStorage.setItem(DISMISSED_KEY, "1");
+		} catch {
+			// Without storage the notice returns on the next page: better than never saying it.
+		}
+	};
 
 	return (
 		<div className="px-4 pt-4">
-			<Alert variant="warn">
-				<Icon name="warning-circle" />
+			<Alert variant="info">
+				<Icon name="info" />
 				<AlertTitle>
 					<Trans>You're using a guest account</Trans>
 				</AlertTitle>
 				<AlertDescription>
 					<p>
 						<Trans>
-							Your work is lost when you sign out or the session ends. Create an account or sign in to keep your
-							resumes, cover letters and applications.
+							Create an account to keep your resumes, cover letters and applications. A guest session ends with the
+							browser.
 						</Trans>
 					</p>
 					<div className="mt-2 flex flex-wrap gap-2">
-						<Button variant="secondary" size="sm" nativeButton={false} render={<Link to="/auth/register" />}>
+						<Button size="sm" nativeButton={false} render={<Link to="/auth/register" />}>
 							<Trans>Create account</Trans>
 						</Button>
 						<Button variant="ghost" size="sm" nativeButton={false} render={<Link to="/auth/login" />}>
@@ -68,6 +93,15 @@ export function GuestBanner() {
 						</Button>
 					</div>
 				</AlertDescription>
+				<button
+					type="button"
+					data-slot="alert-action"
+					aria-label={t`Dismiss`}
+					onClick={dismiss}
+					className="absolute end-1.5 top-1.5 grid size-6 place-items-center rounded text-current/70 transition-colors hover:bg-current/10 hover:text-current"
+				>
+					<Icon name="x" size={14} />
+				</button>
 			</Alert>
 		</div>
 	);

@@ -5220,6 +5220,10 @@ msgstr "[Çŕéáţé áñ áççóúñţ ţó çóññéçţ áñ áþþļíç�
 msgid "Create an account to connect apps. Guest accounts are temporary."
 msgstr "[Çŕéáţé áñ áççóúñţ ţó çóññéçţ áþþš. Ĝúéšţ áççóúñţš áŕé ţéɱþóŕáŕý.······················]"
 
+#: src/features/auth/components/guest-banner.tsx
+msgid "Create an account to keep your resumes, cover letters and applications. A guest session ends with the browser."
+msgstr ""
+
 #: src/features/settings/ai/connected-apps.tsx
 msgid "Create and change documents, applications and your profile."
 msgstr "[Çŕéáţé áñð çĥáñĝé ðóçúɱéñţš, áþþļíçáţíóñš áñð ýóúŕ þŕóƒíļé.·····················]"
@@ -5779,6 +5783,7 @@ msgstr "[Ðíšçóññéçţéð “{name}”.········]"
 msgid "Disconnecting your {providerName} account…"
 msgstr "[Ðíšçóññéçţíñĝ ýóúŕ {providerName} áççóúñţ…···············]"
 
+#: src/features/auth/components/guest-banner.tsx
 #: src/features/career/shared.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/features/settings/ai/next-steps.tsx
@@ -13899,13 +13904,7 @@ msgstr "[Šéñðš óñļý ýóúŕ šéļéçţéð ŕéšúɱé áñð úþ 
 #. placeholder {1}: providerState.usableProviders[0]?.label ?? t`your AI provider`
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Sends the {0} posting to {1} to draft the body."
-msgstr "[Šéñðš ţĥé {0} þóšţíñĝ ţó {1} ţó ðŕáƒţ ţĥé ƀóðý.················]"
-
-#. placeholder {0}: providerState.usableProviders[0]?.label
-#. placeholder {1}: providerState.usableProviders[0]?.model
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sends the linked resume, posting and letter details to {0} · {1}. Your provider may charge."
-msgstr "[Šéñðš ţĥé ļíñķéð ŕéšúɱé, þóšţíñĝ áñð ļéţţéŕ ðéţáíļš ţó {0} · {1}. Ýóúŕ þŕóṽíðéŕ ɱáý çĥáŕĝé.································]"
+msgstr ""
 
 #. placeholder {0}: providerState.usableProviders[0]?.label
 #: src/features/applications/components/add-application-dialog.tsx
@@ -13928,12 +13927,12 @@ msgstr "[Šéñðš ţĥíš ļéţţéŕ ţó {provider} ŵíţĥ ýóúŕ ķé
 #. placeholder {1}: providerState.usableProviders[0]?.label ?? t`your AI provider`
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Sends this letter's resume and the {0} posting to {1} to draft the body."
-msgstr "[Šéñðš ţĥíš ļéţţéŕ'š ŕéšúɱé áñð ţĥé {0} þóšţíñĝ ţó {1} ţó ðŕáƒţ ţĥé ƀóðý.·························]"
+msgstr ""
 
 #. placeholder {0}: providerState.usableProviders[0]?.label ?? t`your AI provider`
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Sends this letter's resume to {0} to draft the body."
-msgstr "[Šéñðš ţĥíš ļéţţéŕ'š ŕéšúɱé ţó {0} ţó ðŕáƒţ ţĥé ƀóðý.··················]"
+msgstr ""
 
 #. placeholder {0}: provider.label
 #. placeholder {1}: provider.model
@@ -14840,34 +14839,6 @@ msgstr "[Šţáŕţ óñ á ñéŵ þáĝé·······]"
 #: src/features/ats-checker/messages.ts
 msgid "Start the resume with your name on its own line."
 msgstr "[Šţáŕţ ţĥé ŕéšúɱé ŵíţĥ ýóúŕ ñáɱé óñ íţš óŵñ ļíñé.·················]"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting and your resume."
-msgstr "[Šţáŕţ ţýþíñĝ, óŕ çóññéçţ áñ ÁÍ þŕóṽíðéŕ ţó ðŕáƒţ ƒŕóɱ ţĥé {company} þóšţíñĝ áñð ýóúŕ ŕéšúɱé.································]"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting."
-msgstr "[Šţáŕţ ţýþíñĝ, óŕ çóññéçţ áñ ÁÍ þŕóṽíðéŕ ţó ðŕáƒţ ƒŕóɱ ţĥé {company} þóšţíñĝ.···························]"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from your resume."
-msgstr "[Šţáŕţ ţýþíñĝ, óŕ çóññéçţ áñ ÁÍ þŕóṽíðéŕ ţó ðŕáƒţ ƒŕóɱ ýóúŕ ŕéšúɱé.·······················]"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from what we know: the {company} posting and your resume."
-msgstr "[Šţáŕţ ţýþíñĝ, óŕ ðŕáƒţ ƒŕóɱ ŵĥáţ ŵé ķñóŵ: ţĥé {company} þóšţíñĝ áñð ýóúŕ ŕéšúɱé.····························]"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from what we know: the {company} posting."
-msgstr "[Šţáŕţ ţýþíñĝ, óŕ ðŕáƒţ ƒŕóɱ ŵĥáţ ŵé ķñóŵ: ţĥé {company} þóšţíñĝ.······················]"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from what we know: your resume."
-msgstr "[Šţáŕţ ţýþíñĝ, óŕ ðŕáƒţ ƒŕóɱ ŵĥáţ ŵé ķñóŵ: ýóúŕ ŕéšúɱé.···················]"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing. To draft one, link a resume or an application first."
-msgstr "[Šţáŕţ ţýþíñĝ. Ţó ðŕáƒţ óñé, ļíñķ á ŕéšúɱé óŕ áñ áþþļíçáţíóñ ƒíŕšţ.·······················]"
 
 #: src/features/resume/editor/write/add-section.tsx
 msgid "Start with the sections most resumes have."
@@ -16456,6 +16427,10 @@ msgstr "[Ţó·]"
 msgid "To {recipient}"
 msgstr "[Ţó {recipient}·····]"
 
+#: src/routes/builder/letter/-components/write-panel.tsx
+msgid "To draft this body, link a resume or an application first."
+msgstr ""
+
 #: src/libs/dnd.ts
 msgid "To pick it up, press Space or Enter. Use the arrow keys to move it, Space or Enter to drop it, or Escape to cancel."
 msgstr "[Ţó þíçķ íţ úþ, þŕéšš Šþáçé óŕ Éñţéŕ. Úšé ţĥé áŕŕóŵ ķéýš ţó ɱóṽé íţ, Šþáçé óŕ Éñţéŕ ţó ðŕóþ íţ, óŕ Éšçáþé ţó çáñçéļ.········································]"
@@ -17887,10 +17862,6 @@ msgstr "[Ŵŕíţé íţ ðóŵñ ŵĥíļé íţ'š ƒŕéšĥ········�
 msgid "Write it down while it’s fresh"
 msgstr "[Ŵŕíţé íţ ðóŵñ ŵĥíļé íţ’š ƒŕéšĥ··········]"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Write it myself"
-msgstr "[Ŵŕíţé íţ ɱýšéļƒ·····]"
-
 #: src/features/career/workspace/practise.tsx
 msgid "Write numbers as digits"
 msgstr "[Ŵŕíţé ñúɱƀéŕš áš ðíĝíţš········]"
@@ -18526,10 +18497,6 @@ msgstr "[Ýóúŕ ŵéƀ šéţţíñĝš çĥáñĝéð. Ñóţĥíñĝ ŵáš 
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Your wording"
 msgstr "[Ýóúŕ ŵóŕðíñĝ····]"
-
-#: src/features/auth/components/guest-banner.tsx
-msgid "Your work is lost when you sign out or the session ends. Create an account or sign in to keep your resumes, cover letters and applications."
-msgstr "[Ýóúŕ ŵóŕķ íš ļóšţ ŵĥéñ ýóú šíĝñ óúţ óŕ ţĥé šéššíóñ éñðš. Çŕéáţé áñ áççóúñţ óŕ šíĝñ íñ ţó ķééþ ýóúŕ ŕéšúɱéš, çóṽéŕ ļéţţéŕš áñð áþþļíçáţíóñš.·················································]"
 
 #: src/features/homepage/sections.tsx
 msgid "Yours"

@@ -51,7 +51,7 @@ const applyChinaAtsDefaults = (data: ResumeData): void => {
 type CreateResumeDataOptions = {
 	withSampleData?: boolean;
 	/** The person the resume is for, printed as its name: the account holder's name, not the document's. */
-	name?: string;
+	name?: string | undefined;
 	/** The account's email, for the contact line of a blank resume. */
 	email?: string | undefined;
 	// A stored account locale, not the UI catalog: accounts created before this build shipped a

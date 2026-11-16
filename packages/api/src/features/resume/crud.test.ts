@@ -112,7 +112,7 @@ describe("resume write route validation", () => {
 		},
 	);
 
-	it("leaves a guest's placeholder address off a new resume", async () => {
+	it("leaves a guest's placeholder name and address off a new resume", async () => {
 		const client = createRouterClient(crudRouter, {
 			context: {
 				locale: "en-US",
@@ -123,11 +123,13 @@ describe("resume write route validation", () => {
 
 		await client.create({ name: "Untitled", tags: [], withSampleData: false });
 
-		const created = mocks.create.mock.calls.at(-1)?.[0] as { data: { basics: { email: string } } };
+		// "Guest" is the anonymous plugin's placeholder: printing it puts it on the page an employer reads.
+		const created = mocks.create.mock.calls.at(-1)?.[0] as { data: { basics: { name: string; email: string } } };
+		expect(created.data.basics.name).toBe("");
 		expect(created.data.basics.email).toBe("");
 	});
 
-	it("keeps a signed-up account's address even on the guest domain", async () => {
+	it("keeps a signed-up account's name and address even on the guest domain", async () => {
 		const client = createRouterClient(crudRouter, {
 			context: {
 				locale: "en-US",
@@ -138,7 +140,8 @@ describe("resume write route validation", () => {
 
 		await client.create({ name: "Untitled", tags: [], withSampleData: false });
 
-		const created = mocks.create.mock.calls.at(-1)?.[0] as { data: { basics: { email: string } } };
+		const created = mocks.create.mock.calls.at(-1)?.[0] as { data: { basics: { name: string; email: string } } };
+		expect(created.data.basics.name).toBe("Sam");
 		expect(created.data.basics.email).toBe("sam@reactive-resume.local");
 	});
 

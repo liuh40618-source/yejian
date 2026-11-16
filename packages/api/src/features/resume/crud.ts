@@ -81,8 +81,11 @@ export const crudRouter = {
 		.errors({
 			...slugErrors,
 		})
-		.handler(({ context, input }) =>
-			resumeService.create({
+		.handler(({ context, input }) => {
+			// A guest's name and address are placeholders (see the auth anonymous plugin), not ones to print on a resume
+			// that goes to an employer. The plugin adds `isAnonymous` to the user row; the shared User type doesn't name it.
+			const guest = (context.user as { isAnonymous?: boolean | null }).isAnonymous === true;
+			return resumeService.create({
 				name: input.name,
 				...(input.slug ? { slug: input.slug } : {}),
 				...(input.autoName ? { autoName: true } : {}),
@@ -91,15 +94,13 @@ export const crudRouter = {
 				userId: context.user.id,
 				data: createResumeData({
 					withSampleData: input.withSampleData,
-					name: context.user.name,
-					// A guest's address is a placeholder (see the auth anonymous plugin), not one to print. The plugin adds
-					// `isAnonymous` to the user row; the shared User type doesn't name it.
-					email: (context.user as { isAnonymous?: boolean | null }).isAnonymous ? undefined : context.user.email,
+					name: guest ? undefined : context.user.name,
+					email: guest ? undefined : context.user.email,
 					locale: context.locale,
 					template: input.template,
 				}),
-			}),
-		),
+			});
+		}),
 
 	import: protectedProcedure
 		.route({

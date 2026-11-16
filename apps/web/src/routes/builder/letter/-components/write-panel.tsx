@@ -493,8 +493,8 @@ function SenderPhoto({ picture, disabled }: SenderPhotoProps) {
 }
 
 /**
- * The body, edited here while the page updates. Empty, it offers a draft from the posting and the resume. A draft
- * shows on a green wash until it's kept: it never replaces typed text by itself.
+ * The body, edited here while the page updates. It opens ready to type: drafting is offered under the paper, not
+ * instead of it. A draft shows on a green wash until it's kept: it never replaces typed text by itself.
  */
 function BodySection({ letter, application, disabled }: LetterSectionProps) {
 	const account = getAccountGeneration();
@@ -502,10 +502,9 @@ function BodySection({ letter, application, disabled }: LetterSectionProps) {
 	const words = useLetterWords(letter.style.metadata.page.locale);
 	const edit = useLetterEditorStore((state) => state.edit);
 	const draft = useLetterEditorStore((state) => state.draft);
-	const [writing, setWriting] = useState(false);
 	const structured = letter.layout === "structured";
 	const name = greetingName(letter.recipientName);
-	const showEditor = writing || countWords(letter.content) > 0;
+	const empty = countWords(letter.content) === 0;
 	const languageId = useId();
 
 	return (
@@ -545,31 +544,23 @@ function BodySection({ letter, application, disabled }: LetterSectionProps) {
 							return;
 						edit({ content: coverLetterTextToHtml(text) });
 						discardLetterDraft();
-						setWriting(true);
 						toast.add({ description: t`Draft kept. Edit anything you like.` });
 						focusBody();
 					}}
 				/>
-			) : showEditor ? (
-				<RichTextEditor
-					id={BODY_ID}
-					label={t`Letter body`}
-					value={letter.content}
-					disabled={disabled}
-					heightClassName="min-h-[240px]"
-					improve={{ letter: true, applicationId: application?.id }}
-					onChange={(content) => edit({ content })}
-				/>
 			) : (
-				<EmptyBody
-					letter={letter}
-					application={application}
-					disabled={disabled}
-					onWrite={() => {
-						setWriting(true);
-						focusBody();
-					}}
-				/>
+				<div className="grid gap-2">
+					<RichTextEditor
+						id={BODY_ID}
+						label={t`Letter body`}
+						value={letter.content}
+						disabled={disabled}
+						heightClassName="min-h-[240px]"
+						improve={{ letter: true, applicationId: application?.id }}
+						onChange={(content) => edit({ content })}
+					/>
+					{empty && <DraftEntry letter={letter} application={application} disabled={disabled} />}
+				</div>
 			)}
 
 			{structured && (
@@ -622,81 +613,56 @@ function LetterFramingField({ letter, field, defaultValue, disabled }: LetterFra
 	);
 }
 
-type EmptyBodyProps = {
-	letter: CoverLetter;
-	application: ApplicationSummary | null;
-	disabled: boolean;
-	onWrite: () => void;
-};
+type DraftEntryProps = Pick<LetterSectionProps, "letter" | "application" | "disabled">;
 
-function EmptyBody({ letter, application, disabled, onWrite }: EmptyBodyProps) {
+/**
+ * Under an empty body, the offer to draft. The paper is already there to type on; drafting from the posting or the
+ * resume is one button beside it, not a choice that has to be made before writing can start.
+ */
+function DraftEntry({ letter, application, disabled }: DraftEntryProps) {
 	const providerState = useHasUsableAiProvider();
 	const { hasUsableProvider } = providerState;
 	const hasResume = Boolean(letter.sourceResumeId);
-	const company = application?.company;
 	const canDraft = hasResume || Boolean(application);
 
-	return (
-		<div className="grid justify-items-start gap-3 rounded-xl border border-dashed border-line-2 p-4">
-			<p className="text-sm text-ink-2">
-				{/* Without a provider, drafting isn't on offer yet: say what would make it so. */}
-				{canDraft && !providerState.isUnavailable && !hasUsableProvider ? (
-					company && hasResume ? (
-						<Trans>Start typing, or connect an AI provider to draft from the {company} posting and your resume.</Trans>
-					) : company ? (
-						<Trans>Start typing, or connect an AI provider to draft from the {company} posting.</Trans>
-					) : (
-						<Trans>Start typing, or connect an AI provider to draft from your resume.</Trans>
-					)
-				) : company && hasResume ? (
-					<Trans>Start typing, or draft from what we know: the {company} posting and your resume.</Trans>
-				) : company ? (
-					<Trans>Start typing, or draft from what we know: the {company} posting.</Trans>
-				) : hasResume ? (
-					<Trans>Start typing, or draft from what we know: your resume.</Trans>
-				) : (
-					<Trans>Start typing. To draft one, link a resume or an application first.</Trans>
-				)}
+	// A deployment without AI has nothing to offer here.
+	if (providerState.isUnavailable) return null;
+
+	if (!canDraft)
+		return (
+			<p className="text-xs text-ink-3">
+				<Trans>To draft this body, link a resume or an application first.</Trans>
 			</p>
-			<div className="flex flex-wrap gap-1.5">
-				{canDraft && hasUsableProvider && (
-					<Button
-						size="sm"
-						disabled={disabled}
-						className="bg-accent-soft text-accent-text hover:bg-accent-soft hover:brightness-95"
-						onClick={() => void startLetterDraft("draft")}
-					>
-						<Icon name="sparkle" size={16} />
-						{application ? <Trans>Draft from the posting</Trans> : <Trans>Draft from your resume</Trans>}
-					</Button>
-				)}
-				<Button size="sm" variant="ghost" disabled={disabled} onClick={onWrite}>
-					<Trans>Write it myself</Trans>
-				</Button>
-			</div>
-			{canDraft && hasUsableProvider && (
-				<p className="text-xs text-ink-3">
-					{application && hasResume
-						? t`Sends this letter's resume and the ${application.company} posting to ${providerState.usableProviders[0]?.label ?? t`your AI provider`} to draft the body.`
-						: application
-							? t`Sends the ${application.company} posting to ${providerState.usableProviders[0]?.label ?? t`your AI provider`} to draft the body.`
-							: t`Sends this letter's resume to ${providerState.usableProviders[0]?.label ?? t`your AI provider`} to draft the body.`}
-				</p>
-			)}
-			{canDraft && <AiProviderLoadState state={providerState} />}
-			{canDraft && hasUsableProvider && (
-				<p className="text-xs text-ink-3">
-					<Trans>
-						Sends the linked resume, posting and letter details to {providerState.usableProviders[0]?.label} ·{" "}
-						{providerState.usableProviders[0]?.model}. Your provider may charge.
-					</Trans>
-				</p>
-			)}
-			{canDraft && !providerState.isUnavailable && !hasUsableProvider && (
+		);
+
+	if (!hasUsableProvider)
+		return (
+			<div className="grid gap-1">
 				<p className="text-xs text-ink-3">
 					<Trans>Drafting needs an AI provider.</Trans> <SetUpAi />
 				</p>
-			)}
+				<AiProviderLoadState state={providerState} />
+			</div>
+		);
+
+	return (
+		<div className="flex flex-wrap items-center gap-2">
+			<Button
+				size="sm"
+				disabled={disabled}
+				className="bg-accent-soft text-accent-text hover:bg-accent-soft hover:brightness-95"
+				onClick={() => void startLetterDraft("draft")}
+			>
+				<Icon name="sparkle" size={16} />
+				{application ? <Trans>Draft from the posting</Trans> : <Trans>Draft from your resume</Trans>}
+			</Button>
+			<span className="text-xs text-ink-3">
+				{application && hasResume
+					? t`Sends this letter's resume and the ${application.company} posting to ${providerState.usableProviders[0]?.label ?? t`your AI provider`} to draft the body.`
+					: application
+						? t`Sends the ${application.company} posting to ${providerState.usableProviders[0]?.label ?? t`your AI provider`} to draft the body.`
+						: t`Sends this letter's resume to ${providerState.usableProviders[0]?.label ?? t`your AI provider`} to draft the body.`}
+			</span>
 		</div>
 	);
 }
