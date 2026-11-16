@@ -9456,7 +9456,7 @@ msgstr "云图科技的新团队大多卡在配置阶段，一直没真正用起
 
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Most recruiters read 180–320 words. The shaded band shows the range."
-msgstr "大多数招聘人员会阅读 180-320 个单词。阴影带显示范围。"
+msgstr "大多数招聘人员会阅读 180-320 字。阴影带显示范围。"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Most systems file candidates by email address."
